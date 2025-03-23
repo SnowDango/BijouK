@@ -46,4 +46,5 @@ dependencies {
     implementation(libs.bundles.koin)
     implementation(libs.bundles.ktor)
     implementation(libs.socket.io)
+    testImplementation(libs.bundles.test)
 }

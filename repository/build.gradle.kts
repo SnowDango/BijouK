@@ -39,4 +39,5 @@ dependencies {
     implementation(project(":domain"))
     implementation(libs.bundles.room)
     implementation(libs.bundles.koin)
+    testImplementation(libs.bundles.test)
 }

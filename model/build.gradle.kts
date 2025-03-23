@@ -40,4 +40,5 @@ dependencies {
     implementation(project(":repository"))
     implementation(libs.bundles.koin)
     implementation(libs.bundles.coroutine)
+    testImplementation(libs.bundles.test)
 }
