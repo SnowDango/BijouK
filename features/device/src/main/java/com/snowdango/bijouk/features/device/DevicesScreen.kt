@@ -32,15 +32,19 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.snowdango.bijouk.features.device.component.AddDeviceDialog
 import com.snowdango.bijouk.features.device.component.DeviceCard
 import com.snowdango.bijouk.model.devices.DeviceData
 import com.snowdango.bijouk.ui.BijouKTheme
+import kotlinx.collections.immutable.ImmutableList
+import kotlinx.collections.immutable.persistentListOf
+import kotlinx.collections.immutable.toImmutableList
 import org.koin.compose.viewmodel.koinViewModel
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DeviceScreen(
+    modifier: Modifier = Modifier,
     viewModel: DevicesViewModel = koinViewModel<DevicesViewModel>(),
     onClickDevice: (device: DeviceData) -> Unit,
 ) {
@@ -51,13 +55,13 @@ fun DeviceScreen(
 
     val context = LocalContext.current
     LaunchedEffect(toastString) {
-        if(!toastString.value.isBlank()){
+        if (!toastString.value.isBlank()) {
             Toast.makeText(context, toastString.value, Toast.LENGTH_SHORT).show()
         }
     }
 
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         topBar = {
             TopBar()
         }
@@ -68,7 +72,7 @@ fun DeviceScreen(
             onRefresh = { viewModel.refresh() },
         ) {
             Content(
-                devices = deviceViewData.value.devices,
+                devices = deviceViewData.value.devices.toImmutableList(),
                 onClickAdd = {
                     isDialogOpen = true
                 },
@@ -76,7 +80,7 @@ fun DeviceScreen(
             )
         }
 
-        if(isDialogOpen) {
+        if (isDialogOpen) {
             AddDeviceDialog(
                 isTestActive = testActive.value,
                 onDismissRequest = {
@@ -87,7 +91,12 @@ fun DeviceScreen(
                     viewModel.clearTestActive()
                 },
                 onClickTest = { host, port, token, isUseSsl ->
-                    viewModel.testActive(host = host, port = port, token = token, isUseSsl = isUseSsl)
+                    viewModel.testActive(
+                        host = host,
+                        port = port,
+                        token = token,
+                        isUseSsl = isUseSsl
+                    )
                 },
                 onClickAdd = { name, host, port, token, isUseSsl ->
                     viewModel.saveDevice(
@@ -105,8 +114,11 @@ fun DeviceScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TopBar(){
+fun TopBar(
+    modifier: Modifier = Modifier,
+) {
     TopAppBar(
+        modifier = modifier,
         title = {
             Text(
                 text = "Devices",
@@ -122,11 +134,12 @@ fun TopBar(){
 
 @Composable
 fun Content(
-    devices: List<DevicesViewModel.ActiveDeviceViewData>,
+    devices: ImmutableList<DevicesViewModel.ActiveDeviceViewData>,
     onClickAdd: () -> Unit,
+    modifier: Modifier = Modifier,
     onClickDevice: (DeviceData) -> Unit
 ) {
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = modifier.fillMaxSize()) {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             contentPadding = PaddingValues(top = 32.dp, bottom = 76.dp)
@@ -140,7 +153,7 @@ fun Content(
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.BottomEnd,
-        ){
+        ) {
             FloatingActionButton(
                 modifier = Modifier
                     .padding(bottom = 32.dp, end = 32.dp)
@@ -161,7 +174,7 @@ fun Content(
 
 @Preview
 @Composable
-fun Preview_TopBar() {
+private fun Preview_TopBar() {
     BijouKTheme {
         TopBar()
     }
@@ -170,10 +183,10 @@ fun Preview_TopBar() {
 
 @Preview
 @Composable
-fun Preview_Content() {
+private fun Preview_Content() {
     BijouKTheme {
         Content(
-            devices = listOf(
+            devices = persistentListOf(
                 DevicesViewModel.ActiveDeviceViewData(
                     device = DeviceData(
                         id = 1L,

@@ -66,13 +66,13 @@ fun AddDeviceDialog(
                 }
                 TextButton(
                     onClick = {
-                        if (name.isBlank()){
+                        if (name.isBlank()) {
                             isValidateError = "Nameが指定されていません"
-                        }else if (host.isBlank()){
+                        } else if (host.isBlank()) {
                             isValidateError = "Hostが指定されていません"
-                        }else if (token.isBlank()){
+                        } else if (token.isBlank()) {
                             isValidateError = "Tokenが指定されていません"
-                        }else {
+                        } else {
                             isValidateError = ""
                             onClickAdd.invoke(name, host, port.toIntOrNull(), token, isUseSsl)
                         }
@@ -115,7 +115,7 @@ fun AddDeviceDialog(
                 OutlinedTextField(
                     value = port,
                     onValueChange = {
-                        if (it.isDigitsOnly()){
+                        if (it.isDigitsOnly()) {
                             port = it
                             onChange.invoke()
                         }
@@ -208,7 +208,7 @@ fun AddDeviceDialog(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Error,
-                            tint =  Color.Red,
+                            tint = Color.Red,
                             contentDescription = null,
                             modifier = Modifier
                                 .size(16.dp),
@@ -226,9 +226,10 @@ fun AddDeviceDialog(
     )
 }
 
+
 @Preview
 @Composable
-fun Preview_AddDeviceDialog() {
+private fun Preview_AddDeviceDialog() {
     BijouKTheme {
         AddDeviceDialog(
             isTestActive = false,

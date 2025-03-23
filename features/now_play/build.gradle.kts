@@ -10,7 +10,6 @@ android {
 
     defaultConfig {
         minSdk = 30
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -37,11 +36,15 @@ android {
     buildFeatures {
         compose = true
     }
+    lint {
+        baseline = file("lint-baseline.xml")
+    }
 }
 
 dependencies {
     implementation(project(":ui"))
     implementation(project(":model"))
+    implementation(libs.kotlinx.collections.immutable)
     implementation(libs.bundles.android.base)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.android.compose)
@@ -49,6 +52,7 @@ dependencies {
     implementation(libs.bundles.coil)
     implementation(libs.bundles.coroutine)
     implementation(libs.bundles.koin)
+    lintChecks(libs.compose.lint)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

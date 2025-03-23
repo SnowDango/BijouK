@@ -32,10 +32,11 @@ import com.snowdango.bijouk.ui.BijouKTheme
 fun DeviceCard(
     data: DeviceData,
     isActive: Boolean,
-    onClickDevice: () -> Unit,
+    modifier: Modifier = Modifier,
+    onClickDevice: () -> Unit
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 16.dp, vertical = 4.dp)
             .fillMaxWidth()
             .wrapContentHeight()
@@ -89,7 +90,7 @@ fun DeviceCard(
 
 @Preview
 @Composable
-fun Preview_DeviceCard() {
+private fun Preview_DeviceCard() {
     BijouKTheme {
         DeviceCard(
             data = DeviceData(

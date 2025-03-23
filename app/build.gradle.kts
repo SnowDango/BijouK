@@ -15,7 +15,6 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "0.0.1"
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -40,6 +39,9 @@ android {
     }
     buildFeatures {
         compose = true
+    }
+    lint {
+        baseline = file("lint-baseline.xml")
     }
 }
 
