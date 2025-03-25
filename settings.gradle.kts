@@ -22,9 +22,8 @@ dependencyResolutionManagement {
 rootProject.name = "BijouK"
 include(":app")
 include(":features:device")
+include(":features:now_play")
 include(":repository")
 include(":domain")
 include(":model")
 include(":ui")
-include(":now_play")
-include(":features:now_play")
