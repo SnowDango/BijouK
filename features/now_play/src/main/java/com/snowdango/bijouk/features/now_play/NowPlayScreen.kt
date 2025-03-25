@@ -32,10 +32,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.snowdango.bijouk.features.now_play.component.NowPlayTopBar
 import com.snowdango.bijouk.features.now_play.view.BottomSheetContent
+import com.snowdango.bijouk.features.now_play.view.QueueContent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -153,7 +155,9 @@ fun NowPlayScreen(
                         if (sheetHeight == 1000.dp) sheetHeight = sheetMaxHeight
                     },
             ) {
-                SearchContent()
+                SearchContent(
+                    sheetSize = sheetMinHeight
+                )
             }
         }
         if (!connectionState.value) {
@@ -174,13 +178,14 @@ fun NowPlayScreen(
 @Composable
 fun SearchContent(
     modifier: Modifier = Modifier,
+    sheetSize: Dp,
 ) {
     val tabList = listOf<String>("Queue", "Song")
     val scope = rememberCoroutineScope()
     val state = rememberPagerState(initialPage = 2) { tabList.size }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
     ) {
         TabRow(
@@ -203,13 +208,15 @@ fun SearchContent(
         }
         HorizontalPager(
             state = state,
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .weight(1f),
         ) {
             when (it) {
                 0 -> {
-                    Text(text = "Queue")
+                    QueueContent(
+                        sheetSize = sheetSize,
+                    )
                 }
 
                 1 -> {
