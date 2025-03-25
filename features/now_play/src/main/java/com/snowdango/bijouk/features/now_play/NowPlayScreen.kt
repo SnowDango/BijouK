@@ -176,10 +176,7 @@ fun NowPlayScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchContent(
-    modifier: Modifier = Modifier,
-    sheetSize: Dp,
-) {
+fun SearchContent(sheetSize: Dp, modifier: Modifier = Modifier) {
     val tabList = listOf<String>("Queue", "Song")
     val scope = rememberCoroutineScope()
     val state = rememberPagerState(initialPage = 2) { tabList.size }

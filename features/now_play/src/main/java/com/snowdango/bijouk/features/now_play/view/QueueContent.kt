@@ -10,15 +10,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 
 @Composable
-fun QueueContent(
-    modifier: Modifier = Modifier,
-    sheetSize: Dp,
-) {
+fun QueueContent(sheetSize: Dp, modifier: Modifier = Modifier) {
     LazyColumn(
         modifier = modifier
             .fillMaxSize(),
     ) {
-        
+
 
         item {
             Spacer(

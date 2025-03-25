@@ -47,7 +47,6 @@ import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheetContent(
-    modifier: Modifier = Modifier,
     sheetState: SheetState,
     nowPlayData: NowPlayData?,
     playBackTimeData: PlayBackTimeData?,
@@ -57,7 +56,8 @@ fun BottomSheetContent(
     imageSize: Dp,
     onClickPlayPause: () -> Unit,
     onClickNext: () -> Unit,
-    onClickPrevious: () -> Unit,
+    modifier: Modifier = Modifier,
+    onClickPrevious: () -> Unit
 ) {
     Box(
         modifier = modifier
