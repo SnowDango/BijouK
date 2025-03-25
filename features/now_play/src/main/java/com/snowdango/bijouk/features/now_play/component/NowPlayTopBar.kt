@@ -31,7 +31,8 @@ import androidx.compose.ui.focus.onFocusChanged
 fun NowPlayTopBar(
     name: String,
     onSearch: (query: String) -> Unit,
-    onClearQuery: () -> Unit,
+    modifier: Modifier = Modifier,
+    onClearQuery: () -> Unit
 ) {
     var isSearch by remember { mutableStateOf(false) }
     var inputString by remember { mutableStateOf("") }
@@ -41,7 +42,7 @@ fun NowPlayTopBar(
         modifier = Modifier.animateContentSize()
     ) { target ->
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surfaceContainerHigh),
             contentAlignment = Alignment.Center,

@@ -20,11 +20,11 @@ import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 
 @Composable
 fun PlayPauseControllerComponent(
-    modifier: Modifier = Modifier,
     playBackTimeData: PlayBackTimeData?,
     onClickPlayPause: () -> Unit,
     onClickNext: () -> Unit,
-    onClickPrevious: () -> Unit,
+    modifier: Modifier = Modifier,
+    onClickPrevious: () -> Unit
 ) {
     Row(
         modifier = modifier

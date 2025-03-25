@@ -26,8 +26,8 @@ import com.snowdango.bijouk.ui.BijouKTheme
 
 @Composable
 fun PlayBackStateButtonsComponent(
-    modifier: Modifier = Modifier,
-    nowPlayingStatusData: NowPlayingStatusData
+    nowPlayingStatusData: NowPlayingStatusData,
+    modifier: Modifier = Modifier
 ) {
     BijouKTheme {
         Row(

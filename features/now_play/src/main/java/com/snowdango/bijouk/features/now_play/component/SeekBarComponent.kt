@@ -26,10 +26,7 @@ import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SeekBarComponent(
-    modifier: Modifier = Modifier,
-    playBackTimeData: PlayBackTimeData?,
-) {
+fun SeekBarComponent(playBackTimeData: PlayBackTimeData?, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(horizontal = 40.dp)

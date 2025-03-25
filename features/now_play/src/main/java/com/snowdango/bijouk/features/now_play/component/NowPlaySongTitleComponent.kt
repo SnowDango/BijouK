@@ -14,11 +14,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun NowPlaySongTitleComponent(
-    modifier: Modifier = Modifier,
-    title: String,
-    artist: String,
-) {
+fun NowPlaySongTitleComponent(title: String, artist: String, modifier: Modifier = Modifier) {
     Column(
         modifier = modifier
             .padding(horizontal = 40.dp)

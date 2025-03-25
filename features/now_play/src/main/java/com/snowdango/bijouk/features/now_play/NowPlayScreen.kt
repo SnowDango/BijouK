@@ -32,6 +32,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -177,7 +178,7 @@ fun NowPlayScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchContent(sheetSize: Dp, modifier: Modifier = Modifier) {
-    val tabList = listOf<String>("Queue", "Song")
+    val tabList = stringArrayResource(R.array.search_tab)
     val scope = rememberCoroutineScope()
     val state = rememberPagerState(initialPage = 2) { tabList.size }
 
