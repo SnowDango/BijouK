@@ -127,9 +127,9 @@ fun BottomSheetContent(
                         }
                         Icon(
                             imageVector = if (playBackTimeData?.isPlaying == true) {
-                                Icons.Default.PlayArrow
-                            } else {
                                 Icons.Default.Pause
+                            } else {
+                                Icons.Default.PlayArrow
                             },
                             contentDescription = null,
                             modifier = Modifier
