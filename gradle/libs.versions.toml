@@ -23,6 +23,7 @@ materialVersion = "1.12.0"
 coil = "3.1.0"
 socket = "2.1.2"
 compose-lint = "1.4.2"
+ktlint = "12.1.2"
 immutable = "0.3.8"
 
 [libraries]
@@ -97,6 +98,9 @@ kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "ko
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+# ktlint
+ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 
 [bundles]
 test = ["junit"]
