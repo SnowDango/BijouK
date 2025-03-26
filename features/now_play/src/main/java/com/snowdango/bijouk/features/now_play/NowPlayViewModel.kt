@@ -7,6 +7,7 @@ import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
+import com.snowdango.bijouk.model.cider.data.QueueDataList
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,7 +16,6 @@ import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
-import kotlin.getValue
 
 class NowPlayViewModel(
     private val id: Long,
@@ -51,6 +51,12 @@ class NowPlayViewModel(
         SharingStarted.WhileSubscribed(5_000),
         _nowPlayingStatusFlow.value,
     )
+    private val _queueViewDataFlow: MutableStateFlow<QueueViewData?> = MutableStateFlow(null)
+    val queueViewDataFlow = _queueViewDataFlow.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        _queueViewDataFlow.value,
+    )
 
     private val playBackEventListener = object : CiderModel.PlayBackStatusEventListener {
         override fun onTimeChangeEvent(playBackTimeData: PlayBackTimeData) {
@@ -59,7 +65,10 @@ class NowPlayViewModel(
             }
         }
 
-        override fun onStateChangeEvent(nowPlayData: NowPlayData?, playBackTimeData: PlayBackTimeData?) {
+        override fun onStateChangeEvent(
+            nowPlayData: NowPlayData?,
+            playBackTimeData: PlayBackTimeData?
+        ) {
             viewModelScope.launch {
                 nowPlayData?.let { _nowPlayFlow.emit(it) }
                 playBackTimeData?.let { _playbackTimeFlow.emit(it) }
@@ -69,6 +78,7 @@ class NowPlayViewModel(
         override fun onNowPlayingItemChangeEvent(nowPlayData: NowPlayData) {
             viewModelScope.launch {
                 _nowPlayFlow.emit(nowPlayData)
+                queueRefresh()
             }
         }
 
@@ -96,6 +106,7 @@ class NowPlayViewModel(
 
     init {
         nowPlayLoad()
+        queueLoad()
         ciderModel.connect(socketConnectionEventListener, playBackEventListener)
     }
 
@@ -111,6 +122,30 @@ class NowPlayViewModel(
             Log.e("NowPlayViewModel", th.toString())
             _nowPlayFlow.emit(null)
             _playbackTimeFlow.emit(null)
+        }
+    }
+
+    fun queueRefresh() = viewModelScope.launch {
+        val currentData = _queueViewDataFlow.value
+        _queueViewDataFlow.emit(
+            currentData?.copy(isRefresh = true)
+        )
+        queueLoad()
+    }
+
+    private fun queueLoad() = viewModelScope.launch {
+        try {
+            val data = ciderModel.getQueue()
+            _queueViewDataFlow.emit(
+                QueueViewData(queueDataList = data, isRefresh = false)
+            )
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+            _queueViewDataFlow.emit(
+                QueueViewData(queueDataList = QueueDataList(listOf()), isRefresh = false)
+            )
         }
     }
 
@@ -148,4 +183,9 @@ class NowPlayViewModel(
         super.onCleared()
         ciderModel.disconnect()
     }
+
+    data class QueueViewData(
+        val queueDataList: QueueDataList,
+        val isRefresh: Boolean,
+    )
 }

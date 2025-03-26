@@ -3,6 +3,7 @@ package com.snowdango.bijouk.model.cider
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
+import com.snowdango.bijouk.model.cider.data.QueueDataList
 import com.snowdango.bijouk.model.cider.mapper.convert
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import org.koin.core.component.KoinComponent
@@ -14,7 +15,12 @@ class CiderModel(
     token: String,
 ) : KoinComponent {
 
-    private val repository: CiderRepository by inject<CiderRepository> { parametersOf(baseUrl, token) }
+    private val repository: CiderRepository by inject<CiderRepository> {
+        parametersOf(
+            baseUrl,
+            token
+        )
+    }
 
     suspend fun isActive(): Boolean {
         return try {
@@ -40,6 +46,13 @@ class CiderModel(
 
     suspend fun prev() {
         repository.postPrev()
+    }
+
+    suspend fun getQueue(): QueueDataList {
+        val queues = repository.getQueue().map { it.convert() }
+        return QueueDataList(
+            list = queues
+        )
     }
 
     fun connect(

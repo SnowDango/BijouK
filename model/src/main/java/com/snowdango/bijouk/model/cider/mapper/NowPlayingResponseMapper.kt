@@ -19,6 +19,7 @@ fun NowPlayingResponse.convert(): Triple<NowPlayData, PlayBackTimeData, NowPlayi
 
 fun NowPlayingResponseData.convertNowPlayData(): NowPlayData {
     return NowPlayData(
+        id = playParams?.id.toString(),
         name = name,
         artistName = artistName,
         albumName = albumName,

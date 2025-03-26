@@ -45,5 +45,6 @@ data class Attributes(
     val releaseDate: String? = null,
     val remainingTime: Double,
     val trackNumber: Int,
-    val url: String? = null
+    val url: String? = null,
+    val reportingId: String? = null,
 )

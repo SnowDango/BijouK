@@ -5,6 +5,7 @@ import com.snowdango.bijouk.model.cider.data.NowPlayData
 
 fun NowPlayingItemDidChangeEvent.convert(): NowPlayData {
     return NowPlayData(
+        id = data.playParams.id,
         name = data.name,
         artistName = data.artistName,
         albumName = data.albumName,

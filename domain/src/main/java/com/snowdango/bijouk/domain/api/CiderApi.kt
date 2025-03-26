@@ -5,6 +5,7 @@ import com.snowdango.bijouk.domain.api.request.SearchRequestBody
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
+import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
@@ -65,6 +66,13 @@ class CiderApi(
             url("/api/v1/playback/now-playing")
         }
         return response.body<NowPlayingResponse>()
+    }
+
+    suspend fun getQueue(): List<QueueResponseData> {
+        val response = client.get {
+            url("/api/v1/playback/queue")
+        }
+        return response.body<List<QueueResponseData>>()
     }
 
     suspend fun playPause(): BasicResponse {

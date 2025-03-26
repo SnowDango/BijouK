@@ -17,6 +17,7 @@ fun PlayBackStateDidChangeEvent.convert(): Pair<NowPlayData?, PlayBackTimeData?>
 
 fun Attributes.convertNowPlayData(): NowPlayData {
     return NowPlayData(
+        id = playParams.id,
         name = name,
         artistName = artistName,
         albumName = albumName,

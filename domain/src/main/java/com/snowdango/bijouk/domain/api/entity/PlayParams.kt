@@ -12,4 +12,5 @@ data class PlayParams(
     val reporting: Boolean? = null,
     val catalogId: String? = null,
     val versionHash: String? = null,
+    val reportingId: String? = null,
 )

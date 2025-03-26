@@ -81,6 +81,7 @@ fun NowPlayScreen(
     val nowPlayData = viewModel.nowPlayFlow.collectAsStateWithLifecycle()
     val playBackTimeData = viewModel.playBackTimeData.collectAsStateWithLifecycle()
     val nowPlayingStatusData = viewModel.nowPlayingStatusFlow.collectAsStateWithLifecycle()
+    val queueData = viewModel.queueViewDataFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {
         withContext(Dispatchers.Default) {
@@ -140,10 +141,10 @@ fun NowPlayScreen(
         ) {
             val safeDrawable = with(destiny) {
                 (
-                    WindowInsets.safeDrawing.getTop(destiny) + WindowInsets.safeDrawing.getBottom(
-                        destiny
-                    )
-                    ).toDp()
+                        WindowInsets.safeDrawing.getTop(destiny) + WindowInsets.safeDrawing.getBottom(
+                            destiny
+                        )
+                        ).toDp()
             }
             Box(
                 modifier = Modifier
@@ -154,7 +155,11 @@ fun NowPlayScreen(
                     },
             ) {
                 SearchContent(
-                    sheetSize = sheetMinHeight
+                    queueViewData = queueData.value,
+                    sheetSize = sheetMinHeight,
+                    onRefreshQueue = {
+                        viewModel.queueRefresh()
+                    }
                 )
             }
         }
@@ -173,7 +178,12 @@ fun NowPlayScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchContent(sheetSize: Dp, modifier: Modifier = Modifier) {
+fun SearchContent(
+    queueViewData: NowPlayViewModel.QueueViewData?,
+    sheetSize: Dp,
+    modifier: Modifier = Modifier,
+    onRefreshQueue: () -> Unit,
+) {
     val tabList = stringArrayResource(R.array.search_tab)
     val scope = rememberCoroutineScope()
     val state = rememberPagerState(initialPage = 2) { tabList.size }
@@ -209,7 +219,11 @@ fun SearchContent(sheetSize: Dp, modifier: Modifier = Modifier) {
             when (it) {
                 0 -> {
                     QueueContent(
+                        queueViewData = queueViewData,
                         sheetSize = sheetSize,
+                        onRefreshQueue = {
+                            onRefreshQueue.invoke()
+                        }
                     )
                 }
 

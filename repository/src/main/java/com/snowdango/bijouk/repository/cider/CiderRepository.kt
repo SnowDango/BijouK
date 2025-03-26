@@ -8,6 +8,7 @@ import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
+import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
 
 class CiderRepository(
     private val ciderApi: CiderApi,
@@ -20,6 +21,10 @@ class CiderRepository(
 
     suspend fun getNowPlay(): NowPlayingResponse {
         return ciderApi.nowPlaying()
+    }
+
+    suspend fun getQueue(): List<QueueResponseData> {
+        return ciderApi.getQueue()
     }
 
     suspend fun postPlayPause(): BasicResponse {
