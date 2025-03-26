@@ -159,6 +159,12 @@ fun NowPlayScreen(
                     sheetSize = sheetMinHeight,
                     onRefreshQueue = {
                         viewModel.queueRefresh()
+                    },
+                    onClickNext = {
+                        viewModel.moveQueueNext(it)
+                    },
+                    onClickSkip = {
+                        // TODO skip
                     }
                 )
             }
@@ -176,13 +182,16 @@ fun NowPlayScreen(
     }
 }
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchContent(
     queueViewData: NowPlayViewModel.QueueViewData?,
     sheetSize: Dp,
-    modifier: Modifier = Modifier,
     onRefreshQueue: () -> Unit,
+    onClickNext: (index: Int) -> Unit,
+    modifier: Modifier = Modifier,
+    onClickSkip: () -> Unit
 ) {
     val tabList = stringArrayResource(R.array.search_tab)
     val scope = rememberCoroutineScope()
@@ -223,7 +232,11 @@ fun SearchContent(
                         sheetSize = sheetSize,
                         onRefreshQueue = {
                             onRefreshQueue.invoke()
-                        }
+                        },
+                        onClickNext = {
+                            onClickNext.invoke(it)
+                        },
+                        onClickSkip = {},
                     )
                 }
 

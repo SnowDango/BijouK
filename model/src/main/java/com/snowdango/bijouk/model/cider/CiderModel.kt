@@ -48,10 +48,15 @@ class CiderModel(
         repository.postPrev()
     }
 
+    suspend fun moveQueue(index: Int, moveIndex: Int) {
+        repository.postMoveQueue(index, moveIndex)
+    }
+
     suspend fun getQueue(): QueueDataList {
-        val queues = repository.getQueue().map { it.convert() }
+        val queues = repository.getQueue()
+        val currentIndex = queues.indexOfLast { it.attributes.currentPlaybackTime != null }
         return QueueDataList(
-            list = queues
+            list = queues.mapIndexed { index, data -> data.convert(index, currentIndex) },
         )
     }
 

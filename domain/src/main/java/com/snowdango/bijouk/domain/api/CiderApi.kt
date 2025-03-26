@@ -1,6 +1,7 @@
 package com.snowdango.bijouk.domain.api
 
 import com.snowdango.bijouk.domain.api.request.InLibrarySearchRequestBody
+import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
 import com.snowdango.bijouk.domain.api.request.SearchRequestBody
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
@@ -98,6 +99,15 @@ class CiderApi(
             url("/api/v1/playback/previous")
             contentType(ContentType.Application.Json)
             setBody("{}")
+        }
+        return response.body<BasicResponse>()
+    }
+
+    suspend fun moveQueue(index: Int, moveIndex: Int): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/queue/move-to-position")
+            contentType(ContentType.Application.Json)
+            setBody(MoveQueueRequestBody(startIndex = index, destinationIndex = moveIndex))
         }
         return response.body<BasicResponse>()
     }

@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
@@ -13,14 +12,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import com.snowdango.bijouk.features.now_play.NowPlayViewModel
 import com.snowdango.bijouk.features.now_play.component.QueueSongCard
+import com.snowdango.bijouk.model.cider.data.QueueData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QueueContent(
     queueViewData: NowPlayViewModel.QueueViewData?,
     sheetSize: Dp,
-    modifier: Modifier = Modifier,
     onRefreshQueue: () -> Unit,
+    onClickNext: (index: Int) -> Unit,
+    modifier: Modifier = Modifier,
+    onClickSkip: () -> Unit
 ) {
     PullToRefreshBox(
         modifier = Modifier.fillMaxSize(),
@@ -32,12 +34,18 @@ fun QueueContent(
                 .fillMaxSize(),
         ) {
             queueViewData?.let { viewData ->
-                items(viewData.queueDataList.list.filter { it.playbackType == 0 }) {
-                    QueueSongCard(
-                        title = it.name,
-                        artist = it.artist,
-                        artwork = it.artwork,
-                    )
+                viewData.queueDataList.list.forEachIndexed { index, queueData ->
+                    if (queueData.state == QueueData.State.Waiting) {
+                        item {
+                            QueueSongCard(
+                                queueData = queueData,
+                                onClickNext = {
+                                    onClickNext.invoke(index)
+                                },
+                                onClickSkip = {},
+                            )
+                        }
+                    }
                 }
             }
 

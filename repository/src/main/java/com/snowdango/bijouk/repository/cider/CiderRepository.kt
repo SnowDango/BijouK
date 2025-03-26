@@ -39,6 +39,10 @@ class CiderRepository(
         return ciderApi.previous()
     }
 
+    suspend fun postMoveQueue(index: Int, moveIndex: Int): BasicResponse {
+        return ciderApi.moveQueue(index, moveIndex)
+    }
+
     fun connect(
         onConnect: () -> Unit,
         onDisConnect: () -> Unit,

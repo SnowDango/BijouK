@@ -1,5 +1,6 @@
 package com.snowdango.bijouk.model.cider.data
 
+
 data class QueueDataList(
     val list: List<QueueData>,
 )
@@ -10,5 +11,11 @@ data class QueueData(
     val name: String,
     val artist: String,
     val album: String,
-    val playbackType: Int,
-)
+    val state: State,
+) {
+    enum class State {
+        Before,
+        Current,
+        Waiting,
+    }
+}

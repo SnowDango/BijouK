@@ -7,6 +7,7 @@ import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
+import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -176,6 +177,30 @@ class NowPlayViewModel(
             throw ce
         } catch (th: Throwable) {
             Log.e("NowPlayViewModel", th.toString())
+        }
+    }
+
+    fun moveQueueNext(index: Int) = viewModelScope.launch {
+        _queueViewDataFlow.value?.let { queueViewData->
+            try {
+                val nextIndex = queueViewData.queueDataList.list
+                    .indexOfFirst { it.state == QueueData.State.Current } + 1
+                ciderModel.moveQueue(index, nextIndex)
+                val currentViewData = queueViewData.copy(
+                    queueDataList = queueViewData.queueDataList.copy(
+                        list = queueViewData.queueDataList.list.toMutableList().also {
+                            val data = it[index]
+                            it.removeAt(index)
+                            it.add(nextIndex, data)
+                        }
+                    )
+                )
+                _queueViewDataFlow.emit(currentViewData)
+            } catch (ce: CancellationException) {
+                throw ce
+            } catch (th: Throwable) {
+                Log.e("NowPlayViewModel", th.toString())
+            }
         }
     }
 
