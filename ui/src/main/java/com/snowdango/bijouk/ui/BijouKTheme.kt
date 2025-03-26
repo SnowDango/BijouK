@@ -8,7 +8,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.core.graphics.toColorInt
 import com.materialkolor.rememberDynamicColorScheme
 
-
 @Composable
 fun BijouKTheme(
     seedColor: Color = Color("#4B43DF".toColorInt()),

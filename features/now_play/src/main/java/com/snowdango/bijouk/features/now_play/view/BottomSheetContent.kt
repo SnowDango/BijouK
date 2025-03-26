@@ -43,7 +43,6 @@ import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomSheetContent(

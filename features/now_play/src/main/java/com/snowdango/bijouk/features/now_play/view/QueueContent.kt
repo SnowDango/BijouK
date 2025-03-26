@@ -15,8 +15,6 @@ fun QueueContent(sheetSize: Dp, modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize(),
     ) {
-
-
         item {
             Spacer(
                 modifier = Modifier

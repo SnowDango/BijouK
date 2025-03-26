@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SeekBarComponent(playBackTimeData: PlayBackTimeData?, modifier: Modifier = Modifier) {

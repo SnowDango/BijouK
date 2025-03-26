@@ -8,7 +8,6 @@ import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import java.text.SimpleDateFormat
 import java.util.Date
 
-
 fun PlayBackStateDidChangeEvent.convert(): Pair<NowPlayData?, PlayBackTimeData?> {
     return Pair(
         data.attributes?.convertNowPlayData(),

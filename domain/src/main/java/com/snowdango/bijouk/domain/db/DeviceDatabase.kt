@@ -8,7 +8,7 @@ import com.snowdango.bijouk.domain.db.dao.DevicesDao
 import com.snowdango.bijouk.domain.db.entity.DevicesEntity
 
 @Database(entities = [DevicesEntity::class], version = 1, exportSchema = false)
-abstract class DevicesDatabase: RoomDatabase() {
+abstract class DevicesDatabase : RoomDatabase() {
 
     abstract fun devicesDao(): DevicesDao
 
@@ -24,5 +24,4 @@ abstract class DevicesDatabase: RoomDatabase() {
             }
         }
     }
-
 }

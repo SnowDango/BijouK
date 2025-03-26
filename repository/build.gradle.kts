@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.detekt)
 }
 
 android {
@@ -40,6 +39,5 @@ dependencies {
     implementation(project(":domain"))
     implementation(libs.bundles.room)
     implementation(libs.bundles.koin)
-    detektPlugins(libs.bundles.detekt)
     testImplementation(libs.bundles.test)
 }

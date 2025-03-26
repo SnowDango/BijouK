@@ -37,7 +37,6 @@ fun AddDeviceDialog(
     onClickTest: (host: String, port: Int?, token: String, isUseSsl: Boolean) -> Unit,
     onClickAdd: (name: String, host: String, port: Int?, token: String, isUseSsl: Boolean) -> Unit,
 ) {
-
     var isValidateError: String? by remember { mutableStateOf(null) }
 
     var name by remember { mutableStateOf("") }
@@ -225,7 +224,6 @@ fun AddDeviceDialog(
         },
     )
 }
-
 
 @Preview
 @Composable

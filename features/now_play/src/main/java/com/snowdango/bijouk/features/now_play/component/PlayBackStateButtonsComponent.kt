@@ -23,7 +23,6 @@ import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.ui.BijouKTheme
 
-
 @Composable
 fun PlayBackStateButtonsComponent(
     nowPlayingStatusData: NowPlayingStatusData,

@@ -8,5 +8,4 @@ object DevicesModule {
     val devicesModule = module {
         viewModelOf(::DevicesViewModel)
     }
-
 }

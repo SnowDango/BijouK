@@ -21,16 +21,16 @@ import org.koin.core.component.get
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-class DevicesViewModel: ViewModel(), KoinComponent {
+class DevicesViewModel : ViewModel(), KoinComponent {
 
     private val devicesModel: DevicesModel by inject()
-    private var ciderMultiModel: CiderMultiModel = get<CiderMultiModel>{ parametersOf(listOf<DeviceData>()) }
+    private var ciderMultiModel: CiderMultiModel = get<CiderMultiModel> { parametersOf(listOf<DeviceData>()) }
 
     private val _devicesFlow: MutableStateFlow<List<DeviceData>> = MutableStateFlow(value = listOf())
     private val _activesFlow: MutableStateFlow<List<Long>> = MutableStateFlow(value = listOf())
     private val _isRefreshing: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
-    val devicesFlow: StateFlow<DeviceViewData> = _devicesFlow.combine(_activesFlow){ devices, actives ->
-            devices.map{ ActiveDeviceViewData(device = it, isActive = actives.contains(it.id)) }
+    val devicesFlow: StateFlow<DeviceViewData> = _devicesFlow.combine(_activesFlow) { devices, actives ->
+        devices.map { ActiveDeviceViewData(device = it, isActive = actives.contains(it.id)) }
     }.combine(_isRefreshing) { devices, isRefresh ->
         DeviceViewData(devices = devices, isRefreshing = isRefresh)
     }.stateIn(
@@ -59,9 +59,9 @@ class DevicesViewModel: ViewModel(), KoinComponent {
             try {
                 val devices = devicesModel.loadDevice()
                 _devicesFlow.emit(devices)
-                ciderMultiModel = get<CiderMultiModel>{ parametersOf(_devicesFlow.value) }
+                ciderMultiModel = get<CiderMultiModel> { parametersOf(_devicesFlow.value) }
                 getActives()
-            }catch (ce: CancellationException){
+            } catch (ce: CancellationException) {
                 throw ce
             } catch (th: Throwable) {
                 Log.e("DevicesViewModel", th.toString())
@@ -81,9 +81,9 @@ class DevicesViewModel: ViewModel(), KoinComponent {
         try {
             val actives = ciderMultiModel.isActives()
             _activesFlow.emit(actives)
-        }catch (ce: CancellationException) {
+        } catch (ce: CancellationException) {
             throw ce
-        }catch (th: Throwable) {
+        } catch (th: Throwable) {
             Log.e("DevicesVieModel", th.toString())
             _toastStringFlow.emit("Deviceのactive状態を取得できませんでした")
         }
@@ -97,15 +97,15 @@ class DevicesViewModel: ViewModel(), KoinComponent {
         } + if (port == null) {
             host
         } else {
-            "${host}:${port}"
+            "$host:$port"
         }
-        val ciderModel = get<CiderModel>{ parametersOf(baseUrl, token) }
+        val ciderModel = get<CiderModel> { parametersOf(baseUrl, token) }
         try {
             val active = ciderModel.isActive()
             _testActiveFlow.emit(active)
-        }catch (ce: CancellationException){
+        } catch (ce: CancellationException) {
             throw ce
-        }catch (th: Throwable){
+        } catch (th: Throwable) {
             Log.e("DevicesVieModel", th.toString())
             _testActiveFlow.emit(false)
         }
@@ -131,9 +131,9 @@ class DevicesViewModel: ViewModel(), KoinComponent {
                 token = token,
             )
             load()
-        }catch (ce: CancellationException){
+        } catch (ce: CancellationException) {
             throw ce
-        }catch (th: Throwable) {
+        } catch (th: Throwable) {
             Log.e("DevicesViewModel", th.toString())
             _toastStringFlow.emit("Deviceの保存に失敗しました")
         }
@@ -147,5 +147,4 @@ class DevicesViewModel: ViewModel(), KoinComponent {
         val device: DeviceData,
         val isActive: Boolean,
     )
-
 }

@@ -1,7 +1,6 @@
 package com.snowdango.bijouk.model.cider.mapper
 
 import android.annotation.SuppressLint
-import com.snowdango.bijouk.domain.api.entity.PlayBackData
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.data.Info
 import com.snowdango.bijouk.model.cider.data.NowPlayData
@@ -9,7 +8,6 @@ import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import java.text.SimpleDateFormat
 import java.util.Date
-
 
 fun NowPlayingResponse.convert(): Triple<NowPlayData, PlayBackTimeData, NowPlayingStatusData> {
     return Triple(

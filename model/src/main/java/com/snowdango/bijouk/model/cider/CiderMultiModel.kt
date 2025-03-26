@@ -1,6 +1,5 @@
 package com.snowdango.bijouk.model.cider
 
-
 import com.snowdango.bijouk.model.devices.DeviceData
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import org.koin.core.component.KoinComponent
@@ -9,7 +8,7 @@ import org.koin.core.parameter.parametersOf
 
 class CiderMultiModel(
     devices: List<DeviceData>,
-): KoinComponent {
+) : KoinComponent {
 
     private val repositories: Map<DeviceData, CiderRepository> = devices.associate {
         it to get<CiderRepository> { parametersOf(it.baseUrl, it.token) }
@@ -20,12 +19,10 @@ class CiderMultiModel(
             val isActive = try {
                 it.value.getActive()
                 true
-            }catch (th: Throwable) {
+            } catch (th: Throwable) {
                 false
             }
             it.key.id to isActive
         }.filter { it.second }.map { it.first }
     }
-
-
 }

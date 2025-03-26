@@ -1,6 +1,5 @@
 package com.snowdango.bijouk.features.now_play
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,7 +44,6 @@ import kotlinx.coroutines.withContext
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NowPlayScreen(
@@ -63,7 +61,6 @@ fun NowPlayScreen(
         )
     }
 ) {
-
     var sheetMaxHeight by remember { mutableStateOf(1000.dp) }
     val sheetMinHeight = 140.dp
     val destiny = LocalDensity.current
@@ -135,18 +132,18 @@ fun NowPlayScreen(
                 NowPlayTopBar(
                     name = name,
                     onSearch = {
-
                     },
                     onClearQuery = {
-
                     }
                 )
             },
         ) {
             val safeDrawable = with(destiny) {
-                (WindowInsets.safeDrawing.getTop(destiny) + WindowInsets.safeDrawing.getBottom(
-                    destiny
-                )).toDp()
+                (
+                    WindowInsets.safeDrawing.getTop(destiny) + WindowInsets.safeDrawing.getBottom(
+                        destiny
+                    )
+                    ).toDp()
             }
             Box(
                 modifier = Modifier
@@ -173,7 +170,6 @@ fun NowPlayScreen(
         }
     }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -224,4 +220,3 @@ fun SearchContent(sheetSize: Dp, modifier: Modifier = Modifier) {
         }
     }
 }
-

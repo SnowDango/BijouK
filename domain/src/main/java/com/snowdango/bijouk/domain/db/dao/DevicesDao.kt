@@ -6,7 +6,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.snowdango.bijouk.domain.db.entity.DevicesEntity
 
-
 @Dao
 interface DevicesDao {
 
@@ -18,5 +17,4 @@ interface DevicesDao {
 
     @Query("DELETE FROM ${DevicesEntity.devices} WHERE id = :id")
     fun deleteById(id: Long)
-
 }

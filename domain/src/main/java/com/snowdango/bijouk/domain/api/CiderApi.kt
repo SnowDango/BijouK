@@ -34,14 +34,16 @@ class CiderApi(
                 header("apptoken", token)
             }
             install(ContentNegotiation) {
-                json(Json {
-                    isLenient = true
-                    ignoreUnknownKeys = true
-                })
+                json(
+                    Json {
+                        isLenient = true
+                        ignoreUnknownKeys = true
+                    }
+                )
             }
             install(Logging) {
                 logger = Logger.ANDROID
-                level  = LogLevel.BODY
+                level = LogLevel.BODY
             }
             expectSuccess = false
         }
@@ -87,5 +89,4 @@ class CiderApi(
         }
         return response.body<BasicResponse>()
     }
-
 }

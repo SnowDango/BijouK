@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
-    alias(libs.plugins.detekt)
 }
 
 android {
@@ -45,10 +44,6 @@ android {
     lint {
         baseline = file("lint-baseline.xml")
     }
-    detekt {
-        config.setFrom("${rootProject.projectDir}/config/detekt/detekt.yml")
-        buildUponDefaultConfig = true
-    }
 }
 
 dependencies {
@@ -65,7 +60,6 @@ dependencies {
     implementation(libs.material.kolor)
     implementation(libs.bundles.koin)
     implementation(libs.kotlinx.serialization)
-    detektPlugins(libs.bundles.detekt)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

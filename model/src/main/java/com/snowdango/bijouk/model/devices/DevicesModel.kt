@@ -7,7 +7,7 @@ import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-class DevicesModel: KoinComponent {
+class DevicesModel : KoinComponent {
 
     private val devicesRepository: DevicesRepository by inject()
 

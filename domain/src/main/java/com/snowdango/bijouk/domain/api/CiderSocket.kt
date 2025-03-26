@@ -6,9 +6,7 @@ import com.snowdango.bijouk.domain.api.event.NowPlayingStatusDidChange
 import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
 import io.socket.client.IO
-import io.socket.client.Manager
 import io.socket.client.Socket
-import io.socket.emitter.Emitter
 import kotlinx.serialization.json.Json
 import org.json.JSONObject
 
@@ -16,11 +14,9 @@ class CiderSocket(
     private val baseUrl: String,
 ) {
 
-
     private val client: Socket by lazy {
         IO.socket(baseUrl, IO.Options.builder().setTimeout(5000).build())
     }
-
 
     fun startSocket(
         onConnect: () -> Unit,
@@ -30,9 +26,9 @@ class CiderSocket(
         onNowPlayingItemChangeEvent: (NowPlayingItemDidChangeEvent) -> Unit,
         onNowPlayingStatusChangeEvent: (NowPlayingStatusDidChange) -> Unit
     ) {
-        client.connect().on("API:Playback"){ param ->
+        client.connect().on("API:Playback") { param ->
             val type = (param[0] as JSONObject).get("type")
-            when(type) {
+            when (type) {
                 EventType.PlayBackTimeDidChange.type -> { // time change
                     val data = Json.decodeFromString<PlayBackTimeDidChangeEvent>(param[0].toString())
                     Log.d("SocketEvent", data.toString())
@@ -56,11 +52,11 @@ class CiderSocket(
                 else -> Log.w("CiderSocket", "UnknownTypeError: $type")
             }
         }
-        client.on("connect"){
+        client.on("connect") {
             Log.d("CiderSocket", "connection")
             onConnect.invoke()
         }
-        client.on("disconnect"){
+        client.on("disconnect") {
             Log.d("CiderSocket", "disconnection")
             onDisConnect.invoke()
         }
@@ -76,5 +72,4 @@ class CiderSocket(
         NowPlayingStatusDidChange("playbackStatus.nowPlayingStatusDidChange"),
         NowPlayingItemDidChange("playbackStatus.nowPlayingItemDidChange")
     }
-
 }

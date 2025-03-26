@@ -3,7 +3,6 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.detekt)
 }
 
 android {
@@ -53,7 +52,6 @@ dependencies {
     implementation(libs.material.icon)
     implementation(libs.bundles.coroutine)
     implementation(libs.bundles.koin)
-    detektPlugins(libs.bundles.detekt)
     lintChecks(libs.compose.lint)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))

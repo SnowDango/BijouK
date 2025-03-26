@@ -16,7 +16,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +23,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.snowdango.bijouk.model.devices.DeviceData
 import com.snowdango.bijouk.ui.BijouKTheme
 
@@ -40,7 +38,7 @@ fun DeviceCard(
             .padding(horizontal = 16.dp, vertical = 4.dp)
             .fillMaxWidth()
             .wrapContentHeight()
-            .clickable{ onClickDevice.invoke() },
+            .clickable { onClickDevice.invoke() },
     ) {
         Row(
             modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
@@ -80,11 +78,10 @@ fun DeviceCard(
                     .clip(CircleShape)
                     .size(8.dp)
                     .background(
-                        if(isActive) Color.Green else Color.Red
+                        if (isActive) Color.Green else Color.Red
                     )
             )
         }
-
     }
 }
 

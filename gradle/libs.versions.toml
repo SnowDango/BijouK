@@ -25,10 +25,13 @@ socket = "2.1.2"
 compose-lint = "1.4.2"
 ktlint = "12.1.2"
 detekt = "1.23.8"
-detekt-compose = "0.4.22"
+dokka = "2.0.0"
 immutable = "0.3.8"
 
 [libraries]
+kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+detekt-plugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
+
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
@@ -92,7 +95,6 @@ compose-lint = { group = "com.slack.lint.compose", name = "compose-lint-checks",
 
 # detekt-compose
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
-detekt-compose = { group = "io.nlopez.compose.rules", name = "detekt", version.ref = "detekt-compose" }
 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
@@ -110,6 +112,8 @@ ktlint = { id = "org.jlleitschuh.gradle.ktlint", version.ref = "ktlint" }
 
 # detekt
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+# dokka
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 
 [bundles]
 test = ["junit"]
@@ -122,7 +126,7 @@ koin = ["koin-android", "koin-compose"]
 coroutine = ["kotlinx-coroutine"]
 ktor = ["ktor-core", "ktor-android", "ktor-content", "ktor-logging", "ktor-serialization", "kotlinx-serialization", "ktor-socket"]
 coil = ["coil-compose", "coil-ktor"]
-detekt = ["detekt-formatting", "detekt-compose"]
+detekt = ["detekt-formatting"]
 
 
 

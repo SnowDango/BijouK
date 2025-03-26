@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-
 @Entity(tableName = DevicesEntity.devices)
 data class DevicesEntity(
     @PrimaryKey(autoGenerate = true)
@@ -20,7 +19,7 @@ data class DevicesEntity(
     val name: String,
     @ColumnInfo(name = DevicesEntity.token)
     val token: String,
-){
+) {
     companion object {
         const val devices = "devices"
         const val id = "id"

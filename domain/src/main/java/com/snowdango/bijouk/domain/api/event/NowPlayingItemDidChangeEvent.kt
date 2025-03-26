@@ -6,14 +6,12 @@ import com.snowdango.bijouk.domain.api.entity.PlayParams
 import com.snowdango.bijouk.domain.api.entity.Preview
 import kotlinx.serialization.Serializable
 
-
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class NowPlayingItemDidChangeEvent(
     val `data`: NowPlayingItemDidChangeEventData,
     val type: String
 )
-
 
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable

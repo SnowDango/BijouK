@@ -180,7 +180,6 @@ private fun Preview_TopBar() {
     }
 }
 
-
 @Preview
 @Composable
 private fun Preview_Content() {

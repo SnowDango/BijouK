@@ -6,7 +6,6 @@ import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import java.text.SimpleDateFormat
 import java.util.Date
 
-
 @SuppressLint("SimpleDateFormat")
 fun PlayBackTimeDidChangeEvent.convert(): PlayBackTimeData {
     val format = SimpleDateFormat("mm:ss")
