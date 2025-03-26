@@ -18,7 +18,6 @@ import com.snowdango.bijouk.features.now_play.NowPlayScreen
 import com.snowdango.bijouk.ui.BijouKTheme
 import kotlinx.serialization.Serializable
 
-
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +56,6 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-
 
     sealed class Route {
         @Serializable

@@ -10,11 +10,11 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext
 import org.koin.core.context.startKoin
 
-class BijouKApplication: Application() {
+class BijouKApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        GlobalContext.getOrNull() ?:startKoin {
+        GlobalContext.getOrNull() ?: startKoin {
             androidContext(this@BijouKApplication)
             modules(
                 RepositoryModule.repositoryModule,
@@ -25,5 +25,4 @@ class BijouKApplication: Application() {
             )
         }
     }
-
 }

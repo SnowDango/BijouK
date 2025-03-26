@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.detekt)
 }
 
 android {
@@ -46,5 +47,6 @@ dependencies {
     implementation(libs.bundles.koin)
     implementation(libs.bundles.ktor)
     implementation(libs.socket.io)
+    detektPlugins(libs.bundles.detekt)
     testImplementation(libs.bundles.test)
 }

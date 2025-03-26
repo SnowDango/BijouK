@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.detekt)
 }
 
 android {
@@ -48,6 +49,7 @@ dependencies {
     implementation(libs.material.kolor)
     implementation(libs.bundles.koin)
     lintChecks(libs.compose.lint)
+    detektPlugins(libs.bundles.detekt)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)
