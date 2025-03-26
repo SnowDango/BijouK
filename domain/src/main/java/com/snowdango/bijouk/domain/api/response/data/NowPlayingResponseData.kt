@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
-data class Info(
+data class NowPlayingResponseData(
     val albumName: String,
     val artistName: String,
     val artwork: Artwork,

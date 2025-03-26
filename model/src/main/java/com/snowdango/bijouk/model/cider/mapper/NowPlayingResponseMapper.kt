@@ -2,7 +2,7 @@ package com.snowdango.bijouk.model.cider.mapper
 
 import android.annotation.SuppressLint
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
-import com.snowdango.bijouk.domain.api.response.data.Info
+import com.snowdango.bijouk.domain.api.response.data.NowPlayingResponseData
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
@@ -17,7 +17,7 @@ fun NowPlayingResponse.convert(): Triple<NowPlayData, PlayBackTimeData, NowPlayi
     )
 }
 
-fun Info.convertNowPlayData(): NowPlayData {
+fun NowPlayingResponseData.convertNowPlayData(): NowPlayData {
     return NowPlayData(
         name = name,
         artistName = artistName,
@@ -30,7 +30,7 @@ fun Info.convertNowPlayData(): NowPlayData {
 }
 
 @SuppressLint("SimpleDateFormat")
-fun Info.convertPlayBackTimeData(): PlayBackTimeData {
+fun NowPlayingResponseData.convertPlayBackTimeData(): PlayBackTimeData {
     val format = SimpleDateFormat("mm:ss")
     return PlayBackTimeData(
         duration = durationInMillis / 1000f,
@@ -42,7 +42,7 @@ fun Info.convertPlayBackTimeData(): PlayBackTimeData {
     )
 }
 
-fun Info.convertNowPlayingStatusData(): NowPlayingStatusData {
+fun NowPlayingResponseData.convertNowPlayingStatusData(): NowPlayingStatusData {
     return NowPlayingStatusData(
         isFav = inFavorites,
         isInLib = inLibrary,

@@ -1,7 +1,10 @@
 package com.snowdango.bijouk.domain.api
 
+import com.snowdango.bijouk.domain.api.request.InLibrarySearchRequestBody
+import com.snowdango.bijouk.domain.api.request.SearchRequestBody
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
+import com.snowdango.bijouk.domain.api.response.SearchResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.android.Android
@@ -18,6 +21,7 @@ import io.ktor.client.request.setBody
 import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
+import io.ktor.http.contentType
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -66,7 +70,7 @@ class CiderApi(
     suspend fun playPause(): BasicResponse {
         val response = client.post {
             url("/api/v1/playback/playpause")
-            header("content-type", "application/json")
+            contentType(ContentType.Application.Json)
             setBody("{}")
         }
         return response.body<BasicResponse>()
@@ -75,7 +79,7 @@ class CiderApi(
     suspend fun next(): BasicResponse {
         val response = client.post {
             url("/api/v1/playback/next")
-            header("content-type", "application/json")
+            contentType(ContentType.Application.Json)
             setBody("{}")
         }
         return response.body<BasicResponse>()
@@ -84,9 +88,28 @@ class CiderApi(
     suspend fun previous(): BasicResponse {
         val response = client.post {
             url("/api/v1/playback/previous")
-            header("content-type", "application/json")
+            contentType(ContentType.Application.Json)
             setBody("{}")
         }
         return response.body<BasicResponse>()
     }
+
+    suspend fun searchAll(query: String): SearchResponse {
+        val response = client.get {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(SearchRequestBody.create(search = query))
+        }
+        return response.body<SearchResponse>()
+    }
+
+    suspend fun inLibrarySearchAll(query: String): SearchResponse {
+        val response = client.get {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(InLibrarySearchRequestBody.create(search = query))
+        }
+        return response.body<SearchResponse>()
+    }
+
 }
