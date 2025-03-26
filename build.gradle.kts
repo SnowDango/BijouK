@@ -1,6 +1,3 @@
-import io.gitlab.arturbosch.detekt.Detekt
-import io.gitlab.arturbosch.detekt.report.ReportMergeTask
-
 buildscript {
     repositories {
         mavenCentral()
@@ -26,10 +23,6 @@ plugins {
     alias(libs.plugins.detekt)
 }
 
-tasks.register<ReportMergeTask>("reportMerge") {
-    output = rootProject.file("../misc-reports/detekt.xml")
-}
-
 subprojects {
     apply(
         plugin = "io.gitlab.arturbosch.detekt"
@@ -46,13 +39,5 @@ subprojects {
 
     dependencies {
         detektPlugins(rootProject.libs.detekt.formatting)
-    }
-
-    tasks.withType(Detekt::class.java).configureEach {
-        finalizedBy("reportMerge")
-    }
-
-    task<ReportMergeTask>("reportMerge") {
-        input.from(tasks.withType(Detekt::class.java).map { it.xmlReportFile })
     }
 }
