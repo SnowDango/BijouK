@@ -1,6 +1,5 @@
 package com.snowdango.bijouk.model.cider.data
 
-
 data class QueueDataList(
     val list: List<QueueData>,
 )

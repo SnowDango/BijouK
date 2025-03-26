@@ -17,9 +17,9 @@ data class SearchRequestBody(
         ): SearchRequestBody {
             return SearchRequestBody(
                 path = "/v1/me/library/search?" +
-                        "term=${URLEncoder.encode(search, "utf-8")}" +
-                        "&types=${searchTypes.joinToString(",") { it.type }}" +
-                        "&limit=$limit"
+                    "term=${URLEncoder.encode(search, "utf-8")}" +
+                    "&types=${searchTypes.joinToString(",") { it.type }}" +
+                    "&limit=$limit"
             )
         }
     }

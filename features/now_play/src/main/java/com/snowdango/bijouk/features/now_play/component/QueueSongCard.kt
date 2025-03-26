@@ -32,7 +32,6 @@ import coil3.request.ImageRequest
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.ui.BijouKTheme
 
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun QueueSongCard(

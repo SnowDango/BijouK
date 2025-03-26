@@ -129,5 +129,4 @@ class CiderApi(
         }
         return response.body<SearchResponse>()
     }
-
 }

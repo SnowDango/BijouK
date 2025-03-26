@@ -19,7 +19,6 @@ data class PlaylistData(
     val type: String
 )
 
-
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class PlaylistAttributes(

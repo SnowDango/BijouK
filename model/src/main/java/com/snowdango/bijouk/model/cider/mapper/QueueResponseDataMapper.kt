@@ -4,7 +4,6 @@ import com.snowdango.bijouk.domain.api.response.data.QueueAttributes
 import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
 import com.snowdango.bijouk.model.cider.data.QueueData
 
-
 fun QueueResponseData.convert(index: Int, currentIndex: Int): QueueData {
     return attributes.convert(id, index, currentIndex)
 }
@@ -19,11 +18,11 @@ fun QueueAttributes.convert(songId: String, index: Int, currentIndex: Int): Queu
             art.url.replace("{w}", art.width?.toString() ?: "1000")
                 .replace("{h}", art.height?.toString() ?: "1000")
         } ?: "",
-        state = if (index < currentIndex){
+        state = if (index < currentIndex) {
             QueueData.State.Before
-        }else if (index == currentIndex) {
+        } else if (index == currentIndex) {
             QueueData.State.Current
-        }else {
+        } else {
             QueueData.State.Waiting
         }
     )

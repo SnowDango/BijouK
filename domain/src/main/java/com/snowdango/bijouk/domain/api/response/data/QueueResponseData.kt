@@ -7,7 +7,6 @@ import com.snowdango.bijouk.domain.api.entity.Preview
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class QueueResponseData(
@@ -42,13 +41,11 @@ data class QueueAsset(
     val metadata: QueueMetadata,
 )
 
-
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class QueueChunks(
     val chunkSize: Int,
 )
-
 
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
@@ -77,7 +74,6 @@ data class QueueAttributes(
     val trackNumber: Int,
     val url: String? = null,
 )
-
 
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable

@@ -181,7 +181,7 @@ class NowPlayViewModel(
     }
 
     fun moveQueueNext(index: Int) = viewModelScope.launch {
-        _queueViewDataFlow.value?.let { queueViewData->
+        _queueViewDataFlow.value?.let { queueViewData ->
             try {
                 val nextIndex = queueViewData.queueDataList.list
                     .indexOfFirst { it.state == QueueData.State.Current } + 1

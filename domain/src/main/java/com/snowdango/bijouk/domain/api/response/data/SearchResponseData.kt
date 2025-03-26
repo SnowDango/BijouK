@@ -14,7 +14,6 @@ data class SearchResponseData(
     val results: SearchResponseResults,
 )
 
-
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class SearchResponseMeta(
@@ -22,13 +21,11 @@ data class SearchResponseMeta(
     val results: SearchResponseMetaResults,
 )
 
-
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class SearchResponseMetaMetrics(
     val dataSetId: String
 )
-
 
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
@@ -36,7 +33,6 @@ data class SearchResponseMetaResults(
     val order: List<String>,
     val rawOrder: List<String>
 )
-
 
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
