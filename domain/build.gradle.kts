@@ -38,6 +38,10 @@ android {
     ksp {
         arg("room.generateKotlin", "true")
     }
+
+    lint {
+        textReport = true
+    }
 }
 
 dependencies {

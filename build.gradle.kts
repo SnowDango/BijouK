@@ -1,3 +1,5 @@
+import com.android.build.gradle.BaseExtension
+
 buildscript {
     repositories {
         mavenCentral()
@@ -24,9 +26,18 @@ plugins {
 }
 
 subprojects {
-    apply(
-        plugin = "io.gitlab.arturbosch.detekt"
-    )
+    apply(plugin = "io.gitlab.arturbosch.detekt")
+
+    plugins.withId("com.android.library") {
+        extensions.configure<BaseExtension> {
+            lintOptions {
+                textReport = true
+                textOutput("stdout")
+                isAbortOnError = true
+                isCheckDependencies = true
+            }
+        }
+    }
 
     detekt {
         autoCorrect = true
