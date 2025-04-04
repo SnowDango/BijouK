@@ -44,4 +44,5 @@ dependencies {
     implementation(libs.bundles.koin)
     implementation(libs.bundles.coroutine)
     testImplementation(libs.bundles.test)
+    testImplementation(kotlin("test"))
 }

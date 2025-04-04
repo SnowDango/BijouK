@@ -1,6 +1,6 @@
 package com.snowdango.bijouk.features.device
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**

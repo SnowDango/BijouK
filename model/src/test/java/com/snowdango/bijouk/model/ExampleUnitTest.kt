@@ -1,6 +1,6 @@
 package com.snowdango.bijouk.model
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**

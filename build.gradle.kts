@@ -1,4 +1,5 @@
 import com.android.build.gradle.BaseExtension
+import com.android.build.gradle.internal.lint.AndroidLintTask
 
 buildscript {
     repositories {
@@ -46,6 +47,10 @@ subprojects {
         buildUponDefaultConfig = true
         ignoreFailures = true
         basePath = file("$rootDir/../").absolutePath
+    }
+
+    tasks.withType<AndroidLintTask> {
+        finalizedBy("detekt")
     }
 
     dependencies {

@@ -17,7 +17,7 @@ fun QueueAttributes.convert(songId: String, index: Int, currentIndex: Int): Queu
         artwork = artwork?.let { art ->
             art.url.replace("{w}", art.width?.toString() ?: "1000")
                 .replace("{h}", art.height?.toString() ?: "1000")
-        } ?: "",
+        }.orEmpty(),
         state = if (index < currentIndex) {
             QueueData.State.Before
         } else if (index == currentIndex) {

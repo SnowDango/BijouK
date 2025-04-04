@@ -3,12 +3,13 @@ agp = "8.9.1"
 kotlin = "2.1.10"
 ksp = "2.1.10-1.0.31"
 coreKtx = "1.15.0"
+testRunner = " 1.6.2"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.10.1"
-composeBom = "2025.03.00"
+composeBom = "2025.03.01"
 material = "1.7.8"
 navigation = "2.8.9"
 splash = "1.0.1"
@@ -34,6 +35,7 @@ detekt-plugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-p
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-runner = { group = "androidx.test", name = "runner", version.ref = "testRunner" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-lifecycle-runtime-ktx = { group = "androidx.lifecycle", name = "lifecycle-runtime-ktx", version.ref = "lifecycleRuntimeKtx" }
@@ -117,7 +119,7 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 
 [bundles]
 test = ["junit"]
-android-test = ["androidx-junit", "androidx-espresso-core", "androidx-ui-test-junit4"]
+android-test = ["androidx-junit", "androidx-espresso-core", "androidx-ui-test-junit4", "androidx-runner"]
 android-debug = ["androidx-ui-tooling", "androidx-ui-test-manifest"]
 android-base = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx"]
 android-compose = ["androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "androidx-navigation", "androidx-material2"]

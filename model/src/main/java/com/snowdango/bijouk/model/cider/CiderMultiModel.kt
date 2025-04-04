@@ -19,7 +19,7 @@ class CiderMultiModel(
             val isActive = try {
                 it.value.getActive()
                 true
-            } catch (th: Throwable) {
+            } catch (_: Throwable) {
                 false
             }
             it.key.id to isActive

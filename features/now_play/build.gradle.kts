@@ -57,4 +57,5 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)
     debugImplementation(libs.bundles.android.debug)
+    testImplementation(kotlin("test"))
 }

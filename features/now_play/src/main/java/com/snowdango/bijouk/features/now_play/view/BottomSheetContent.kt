@@ -110,14 +110,14 @@ fun BottomSheetContent(
                                 .weight(1f)
                         ) {
                             Text(
-                                text = nowPlayData?.name ?: "",
+                                text = nowPlayData?.name.orEmpty(),
                                 maxLines = 1,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .basicMarquee()
                             )
                             Text(
-                                text = nowPlayData?.artistName ?: "",
+                                text = nowPlayData?.artistName.orEmpty(),
                                 maxLines = 1,
                                 overflow = TextOverflow.Ellipsis,
                                 modifier = Modifier
@@ -152,8 +152,8 @@ fun BottomSheetContent(
                     sheetState.currentValue == SheetValue.Expanded
                 ) {
                     NowPlaySongTitleComponent(
-                        title = nowPlayData?.name ?: "",
-                        artist = nowPlayData?.artistName ?: "",
+                        title = nowPlayData?.name.orEmpty(),
+                        artist = nowPlayData?.artistName.orEmpty(),
                         modifier = Modifier
                             .padding(top = 100.dp)
                     )
