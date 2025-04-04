@@ -48,7 +48,7 @@ android {
 
 dependencies {
     implementation(project(":features:device"))
-    implementation(project(":features:now_play"))
+    implementation(project(":features:nowPlay"))
     implementation(project(":repository"))
     implementation(project(":domain"))
     implementation(project(":model"))

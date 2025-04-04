@@ -23,7 +23,7 @@ rootProject.name = "BijouK"
 
 include(":app")
 include(":features:device")
-include(":features:now_play")
+include(":features:nowPlay")
 include(":repository")
 include(":domain")
 include(":model")
