@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.now_play.component
+package com.snowdango.bijouk.features.nowPlay.component
 
 import android.util.Log
 import androidx.compose.animation.Crossfade

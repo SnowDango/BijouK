@@ -3,7 +3,7 @@ package com.snowdango.bijouk
 import android.app.Application
 import com.snowdango.bijouk.domain.DomainModule
 import com.snowdango.bijouk.features.device.DevicesModule
-import com.snowdango.bijouk.features.now_play.NowPlayModule
+import com.snowdango.bijouk.features.nowPlay.NowPlayModule
 import com.snowdango.bijouk.model.ModelModule
 import com.snowdango.bijouk.repository.RepositoryModule
 import org.koin.android.ext.koin.androidContext
@@ -17,10 +17,10 @@ class BijouKApplication : Application() {
         GlobalContext.getOrNull() ?: startKoin {
             androidContext(this@BijouKApplication)
             modules(
-                RepositoryModule.repositoryModule,
+                RepositoryModule.module,
                 ModelModule.module,
                 DomainModule.module,
-                DevicesModule.devicesModule,
+                DevicesModule.module,
                 NowPlayModule.module,
             )
         }

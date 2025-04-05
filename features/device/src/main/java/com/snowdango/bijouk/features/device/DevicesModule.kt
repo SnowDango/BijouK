@@ -5,7 +5,7 @@ import org.koin.dsl.module
 
 object DevicesModule {
 
-    val devicesModule = module {
+    val module = module {
         viewModelOf(::DevicesViewModel)
     }
 }

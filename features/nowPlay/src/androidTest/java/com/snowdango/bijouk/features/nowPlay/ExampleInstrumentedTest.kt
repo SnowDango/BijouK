@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.now_play
+package com.snowdango.bijouk.features.nowPlay
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry

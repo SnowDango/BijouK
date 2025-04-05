@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.now_play
+package com.snowdango.bijouk.features.nowPlay
 
 import android.util.Log
 import androidx.lifecycle.ViewModel

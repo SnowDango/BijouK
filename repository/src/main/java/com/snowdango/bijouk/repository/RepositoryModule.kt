@@ -8,7 +8,7 @@ import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
 object RepositoryModule {
-    val repositoryModule = module {
+    val module = module {
         factory { DevicesRepository(get()) }
         factory { param ->
             val baseUrl = param.get<String>()

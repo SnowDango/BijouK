@@ -14,7 +14,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.snowdango.bijouk.features.device.DeviceScreen
-import com.snowdango.bijouk.features.now_play.NowPlayScreen
+import com.snowdango.bijouk.features.nowPlay.NowPlayScreen
 import com.snowdango.bijouk.ui.BijouKTheme
 import kotlinx.serialization.Serializable
 

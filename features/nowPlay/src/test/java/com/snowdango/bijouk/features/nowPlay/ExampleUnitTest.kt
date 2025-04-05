@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.now_play
+package com.snowdango.bijouk.features.nowPlay
 
 import org.junit.Assert.assertEquals
 import org.junit.Test

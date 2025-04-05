@@ -23,7 +23,6 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.snowdango.bijouk.ui.BijouKTheme
 
-
 @Composable
 fun SongCard(
     artwork: String,

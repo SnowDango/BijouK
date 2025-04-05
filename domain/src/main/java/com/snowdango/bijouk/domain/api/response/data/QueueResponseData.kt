@@ -10,8 +10,10 @@ import kotlinx.serialization.Serializable
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class QueueResponseData(
-    val _songId: String? = null,
-    val _state: QueueState,
+    @SerialName("_songId")
+    val songId: String? = null,
+    @SerialName("_state")
+    val state: QueueState,
     val assetURL: String? = null,
     val assets: List<QueueAsset>,
     val attributes: QueueAttributes,
@@ -30,7 +32,8 @@ data class QueueState(
 @SuppressLint("UnsafeOptInUsageError")
 @Serializable
 data class QueueAsset(
-    val URL: String,
+    @SerialName("URL")
+    val url: String,
     val artworkURL: String? = null,
     val chunks: QueueChunks? = null,
     val downloadKey: String? = null,

@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.now_play.view
+package com.snowdango.bijouk.features.nowPlay.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -35,10 +35,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
-import com.snowdango.bijouk.features.now_play.component.NowPlaySongTitleComponent
-import com.snowdango.bijouk.features.now_play.component.PlayBackStateButtonsComponent
-import com.snowdango.bijouk.features.now_play.component.PlayPauseControllerComponent
-import com.snowdango.bijouk.features.now_play.component.SeekBarComponent
+import com.snowdango.bijouk.features.nowPlay.component.NowPlaySongTitleComponent
+import com.snowdango.bijouk.features.nowPlay.component.PlayBackStateButtonsComponent
+import com.snowdango.bijouk.features.nowPlay.component.PlayPauseControllerComponent
+import com.snowdango.bijouk.features.nowPlay.component.SeekBarComponent
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData

@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.now_play
+package com.snowdango.bijouk.features.nowPlay
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -35,9 +35,10 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.snowdango.bijouk.features.now_play.component.NowPlayTopBar
-import com.snowdango.bijouk.features.now_play.view.BottomSheetContent
-import com.snowdango.bijouk.features.now_play.view.QueueContent
+import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
+import com.snowdango.bijouk.features.nowPlay.view.BottomSheetContent
+import com.snowdango.bijouk.features.nowPlay.view.QueueContent
+import com.snowdango.bijouk.features.now_play.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -229,13 +230,15 @@ fun SearchContent(
                     QueueContent(
                         queueViewData = queueViewData,
                         sheetSize = sheetSize,
-                        onRefreshQueue = {
-                            onRefreshQueue.invoke()
-                        },
                         onClickNext = {
                             onClickNext.invoke(it)
                         },
-                        onClickSkip = {},
+                        onRefreshQueue = {
+                            onRefreshQueue.invoke()
+                        },
+                        onClickSkip = {
+                            onClickSkip.invoke()
+                        }
                     )
                 }
 

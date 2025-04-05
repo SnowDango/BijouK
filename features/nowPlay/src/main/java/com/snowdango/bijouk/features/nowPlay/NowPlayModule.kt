@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.now_play
+package com.snowdango.bijouk.features.nowPlay
 
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module

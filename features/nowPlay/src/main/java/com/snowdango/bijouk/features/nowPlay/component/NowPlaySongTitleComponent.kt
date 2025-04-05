@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.now_play.component
+package com.snowdango.bijouk.features.nowPlay.component
 
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Column

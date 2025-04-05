@@ -26,7 +26,7 @@ class CiderModel(
         return try {
             val response = repository.getActive()
             response.status == "ok"
-        } catch (th: Throwable) {
+        } catch (_: Throwable) {
             false
         }
     }
