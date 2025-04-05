@@ -25,7 +25,7 @@ fun QueueContent(
     onClickSkip: () -> Unit
 ) {
     PullToRefreshBox(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         isRefreshing = queueViewData?.isRefresh == true,
         onRefresh = { onRefreshQueue.invoke() }
     ) {
@@ -34,7 +34,7 @@ fun QueueContent(
                 .fillMaxSize()
         ) {
             LazyColumn(
-                modifier = modifier
+                modifier = Modifier
                     .fillMaxSize(),
                 contentPadding = PaddingValues(
                     top = 16.dp,

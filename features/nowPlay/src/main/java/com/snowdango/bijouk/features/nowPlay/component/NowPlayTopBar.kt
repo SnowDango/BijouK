@@ -40,10 +40,10 @@ fun NowPlayTopBar(
 
     Crossfade(
         targetState = isSearch,
-        modifier = Modifier.animateContentSize()
+        modifier = modifier.animateContentSize()
     ) { target ->
         Box(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .background(MaterialTheme.colorScheme.surfaceContainerHigh),
             contentAlignment = Alignment.Center,

@@ -29,12 +29,12 @@ fun AlbumCard(
     modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight(),
     ) {
         Column(
-            modifier = modifier
+            modifier = Modifier
                 .padding(12.dp)
                 .fillMaxWidth(),
             horizontalAlignment = CenterHorizontally,
