@@ -58,14 +58,6 @@ fun QueueContent(
                         }
                     }
                 }
-
-                /*item {
-                    Spacer(
-                        modifier = Modifier
-                            .height(sheetSize)
-                            .fillMaxWidth()
-                    )
-                }*/
             }
         }
     }

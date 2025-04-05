@@ -10,5 +10,5 @@ data class ContentVersion(
     @SerialName("MZ_INDEXER")
     val mzIndexer: Long,
     @SerialName("RTCI")
-    val rtci: Int
+    val rtci: Long,
 )

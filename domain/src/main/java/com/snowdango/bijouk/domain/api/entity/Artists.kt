@@ -24,7 +24,7 @@ data class ArtistsData(
 @Serializable
 data class ArtistAttributes(
     val artwork: Artwork,
-    val classicalUrl: String,
+    val classicalUrl: String? = null,
     val genreNames: List<String>,
     val name: String,
     val url: String

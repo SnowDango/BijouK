@@ -38,7 +38,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
 import com.snowdango.bijouk.features.nowPlay.view.BottomSheetContent
 import com.snowdango.bijouk.features.nowPlay.view.QueueContent
+import com.snowdango.bijouk.features.nowPlay.view.SongsContent
 import com.snowdango.bijouk.features.now_play.R
+import com.snowdango.bijouk.model.cider.data.SearchData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -83,6 +85,7 @@ fun NowPlayScreen(
     val playBackTimeData = viewModel.playBackTimeData.collectAsStateWithLifecycle()
     val nowPlayingStatusData = viewModel.nowPlayingStatusFlow.collectAsStateWithLifecycle()
     val queueData = viewModel.queueViewDataFlow.collectAsStateWithLifecycle()
+    val searchData = viewModel.searchDataFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {
         withContext(Dispatchers.Default) {
@@ -134,17 +137,18 @@ fun NowPlayScreen(
                 NowPlayTopBar(
                     name = name,
                     onSearch = {
+                        viewModel.search(it)
                     },
                     onClearQuery = {
+                        viewModel.searchClear()
                     }
                 )
             },
         ) {
             val safeDrawable = with(destiny) {
                 (
-                    WindowInsets.safeDrawing.getTop(destiny) + WindowInsets.safeDrawing.getBottom(
-                        destiny
-                    )
+                    WindowInsets.safeDrawing.getTop(destiny) +
+                        WindowInsets.safeDrawing.getBottom(destiny)
                     ).toDp()
             }
             Box(
@@ -157,6 +161,7 @@ fun NowPlayScreen(
             ) {
                 SearchContent(
                     queueViewData = queueData.value,
+                    searchData = searchData.value,
                     sheetSize = sheetMinHeight,
                     onRefreshQueue = {
                         viewModel.queueRefresh()
@@ -187,6 +192,7 @@ fun NowPlayScreen(
 @Composable
 fun SearchContent(
     queueViewData: NowPlayViewModel.QueueViewData?,
+    searchData: SearchData?,
     sheetSize: Dp,
     onRefreshQueue: () -> Unit,
     onClickNext: (index: Int) -> Unit,
@@ -226,7 +232,7 @@ fun SearchContent(
                 .weight(1f),
         ) {
             when (it) {
-                0 -> {
+                0 -> { // Queue
                     QueueContent(
                         queueViewData = queueViewData,
                         sheetSize = sheetSize,
@@ -242,8 +248,20 @@ fun SearchContent(
                     )
                 }
 
-                1 -> {
-                    Text(text = "Song")
+                1 -> { // Songs
+                    SongsContent(
+                        songs = searchData?.songs,
+                        sheetSize = sheetSize,
+                    )
+                }
+
+                2 -> { // Playlists
+                }
+
+                3 -> { // Album
+                }
+
+                4 -> { // Artist
                 }
             }
         }

@@ -16,7 +16,7 @@ data class SearchRequestBody(
             limit: Int = 20,
         ): SearchRequestBody {
             return SearchRequestBody(
-                path = "/v1/me/library/search?" +
+                path = "/v1/catalog/jp/search?" +
                     "term=${URLEncoder.encode(search, "utf-8")}" +
                     "&types=${searchTypes.joinToString(",") { it.type }}" +
                     "&limit=$limit"

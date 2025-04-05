@@ -1,6 +1,5 @@
 package com.snowdango.bijouk.features.nowPlay.component
 
-import android.util.Log
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
@@ -24,7 +23,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,6 +33,8 @@ fun NowPlayTopBar(
     modifier: Modifier = Modifier,
     onClearQuery: () -> Unit
 ) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
     var isSearch by remember { mutableStateOf(false) }
     var inputString by remember { mutableStateOf("") }
 
@@ -53,6 +54,7 @@ fun NowPlayTopBar(
                         query = inputString,
                         onQueryChange = { inputString = it },
                         onSearch = {
+                            keyboardController?.hide()
                             if (it.isBlank()) {
                                 isSearch = false
                                 onClearQuery.invoke()
@@ -64,14 +66,12 @@ fun NowPlayTopBar(
                         onExpandedChange = { },
                         placeholder = { Text("Search") },
                         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
-                        modifier = Modifier.onFocusChanged {
-                            Log.d("Focus", it.toString())
-                        }
                     )
                 },
                 expanded = false,
                 onExpandedChange = { },
-            ) {}
+                content = {},
+            )
         }
         if (!target) {
             TopAppBar(

@@ -52,7 +52,6 @@ dependencies {
     implementation(libs.material.icon)
     implementation(libs.bundles.coroutine)
     implementation(libs.bundles.koin)
-    lintChecks(libs.compose.lint)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

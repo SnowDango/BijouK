@@ -8,6 +8,7 @@ import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
+import com.snowdango.bijouk.domain.api.response.SearchResponse
 import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
 
 class CiderRepository(
@@ -41,6 +42,10 @@ class CiderRepository(
 
     suspend fun postMoveQueue(index: Int, moveIndex: Int): BasicResponse {
         return ciderApi.moveQueue(index, moveIndex)
+    }
+
+    suspend fun searchAll(query: String): SearchResponse {
+        return ciderApi.searchAll(query)
     }
 
     fun connect(

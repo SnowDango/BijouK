@@ -26,6 +26,7 @@ socket = "2.1.2"
 compose-lint = "1.4.2"
 ktlint = "12.1.2"
 detekt = "1.23.8"
+detekt-compose = "0.4.22"
 dokka = "2.0.0"
 immutable = "0.3.8"
 
@@ -92,11 +93,9 @@ material-kolor = { group = "com.materialkolor", name = "material-kolor", version
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 coil-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.ref = "coil" }
 
-# compose-lint
-compose-lint = { group = "com.slack.lint.compose", name = "compose-lint-checks", version.ref = "compose-lint" }
-
 # detekt-compose
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
+detekt-compose = { group = "io.nlopez.compose.rules", name = "detekt", version.ref = "detekt-compose" }
 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
@@ -128,7 +127,7 @@ koin = ["koin-android", "koin-compose"]
 coroutine = ["kotlinx-coroutine"]
 ktor = ["ktor-core", "ktor-android", "ktor-content", "ktor-logging", "ktor-serialization", "kotlinx-serialization", "ktor-socket"]
 coil = ["coil-compose", "coil-ktor"]
-detekt = ["detekt-formatting"]
+detekt = ["detekt-formatting", "detekt-compose"]
 
 
 

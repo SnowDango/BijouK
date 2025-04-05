@@ -113,7 +113,7 @@ class CiderApi(
     }
 
     suspend fun searchAll(query: String): SearchResponse {
-        val response = client.get {
+        val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(SearchRequestBody.create(search = query))

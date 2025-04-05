@@ -38,5 +38,6 @@ data class NowPlayingItemDidChangeEventData(
     val trackNumber: Int,
     val currentPlaybackTime: Double? = null,
     val remainingTime: Double? = null,
-    val url: String? = null
+    val url: String? = null,
+    val contentRating: String? = null,
 )

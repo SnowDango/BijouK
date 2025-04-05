@@ -6,8 +6,9 @@ import com.snowdango.bijouk.domain.api.response.data.NowPlayingResponseData
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
-import java.text.SimpleDateFormat
-import java.util.Date
+import com.snowdango.bijouk.model.cider.mapper.converter.convert
+import com.snowdango.bijouk.model.cider.mapper.converter.convertPlaybackTime
+import com.snowdango.bijouk.model.cider.mapper.converter.convertRemainingTime
 
 fun NowPlayingResponse.convert(): Triple<NowPlayData, PlayBackTimeData, NowPlayingStatusData> {
     return Triple(
@@ -23,22 +24,19 @@ fun NowPlayingResponseData.convertNowPlayData(): NowPlayData {
         name = name,
         artistName = artistName,
         albumName = albumName,
-        artwork = artwork.url
-            .replace("{w}", artwork.width?.toString() ?: "1000")
-            .replace("{h}", artwork.height?.toString() ?: "1000"),
+        artwork = artwork.convert(),
         hasLyrics = hasLyrics,
     )
 }
 
 @SuppressLint("SimpleDateFormat")
 fun NowPlayingResponseData.convertPlayBackTimeData(): PlayBackTimeData {
-    val format = SimpleDateFormat("mm:ss")
     return PlayBackTimeData(
         duration = durationInMillis / 1000f,
         currentTime = currentPlaybackTime.toFloat(),
         remainingTime = remainingTime.toFloat(),
-        currentTimeString = format.format(Date((currentPlaybackTime * 1000).toLong())),
-        remainingTimeString = format.format(Date((remainingTime * 1000).toLong())),
+        currentTimeString = currentPlaybackTime.convertPlaybackTime(),
+        remainingTimeString = remainingTime.convertRemainingTime(),
         isPlaying = false,
     )
 }

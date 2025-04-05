@@ -9,6 +9,7 @@ import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
+import com.snowdango.bijouk.model.cider.data.SearchData
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -57,6 +58,12 @@ class NowPlayViewModel(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         _queueViewDataFlow.value,
+    )
+    private val _searchDataFlow: MutableStateFlow<SearchData?> = MutableStateFlow(null)
+    val searchDataFlow = _searchDataFlow.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        _searchDataFlow.value,
     )
 
     private val playBackEventListener = object : CiderModel.PlayBackStatusEventListener {
@@ -202,6 +209,21 @@ class NowPlayViewModel(
                 Log.e("NowPlayViewModel", th.toString())
             }
         }
+    }
+
+    fun search(query: String) = viewModelScope.launch {
+        try {
+            val searchData = ciderModel.searchAll(query)
+            _searchDataFlow.emit(searchData)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+        }
+    }
+
+    fun searchClear() = viewModelScope.launch {
+        _searchDataFlow.emit(null)
     }
 
     override fun onCleared() {

@@ -48,7 +48,6 @@ dependencies {
     implementation(libs.material.kolor)
     implementation(libs.bundles.koin)
     implementation(libs.coil.compose)
-    lintChecks(libs.compose.lint)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

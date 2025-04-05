@@ -4,6 +4,9 @@
     <string-array name="search_tab">
         <item>Queue</item>
         <item>Songs</item>
+        <item>Playlist</item>
+        <item>Album</item>
+        <item>Artist</item>
     </string-array>
 
 </resources>

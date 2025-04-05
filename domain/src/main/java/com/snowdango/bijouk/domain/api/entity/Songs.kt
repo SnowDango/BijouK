@@ -27,10 +27,10 @@ data class SongAttributes(
     val albumName: String,
     val artistName: String,
     val artwork: Artwork,
-    val attribution: String,
+    val attribution: String? = null,
     val audioLocale: String,
     val audioTraits: List<String>,
-    val composerName: String,
+    val composerName: String? = null,
     val discNumber: Int,
     val durationInMillis: Int,
     val genreNames: List<String>,
@@ -52,5 +52,5 @@ data class SongAttributes(
 @Serializable
 data class SongMeta(
     val contentVersion: ContentVersion,
-    val formerIds: List<String>
+    val formerIds: List<String>? = null,
 )

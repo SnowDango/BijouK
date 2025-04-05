@@ -4,6 +4,7 @@ import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
+import com.snowdango.bijouk.model.cider.data.SearchData
 import com.snowdango.bijouk.model.cider.mapper.convert
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import org.koin.core.component.KoinComponent
@@ -58,6 +59,11 @@ class CiderModel(
         return QueueDataList(
             list = queues.mapIndexed { index, data -> data.convert(index, currentIndex) },
         )
+    }
+
+    suspend fun searchAll(query: String): SearchData {
+        val result = repository.searchAll(query)
+        return result.convert()
     }
 
     fun connect(

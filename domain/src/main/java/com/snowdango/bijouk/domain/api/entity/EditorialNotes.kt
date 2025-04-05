@@ -7,6 +7,6 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class EditorialNotes(
     val name: String? = null,
-    val short: String,
-    val standard: String,
+    val short: String? = null,
+    val standard: String? = null,
 )
