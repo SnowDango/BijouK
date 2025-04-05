@@ -51,7 +51,7 @@ data class QueueChunks(
 @Serializable
 data class QueueAttributes(
     val albumName: String,
-    val artistName: String,
+    val artistName: String? = null,
     val artwork: Artwork? = null,
     val audioLocale: String? = null,
     val audioTraits: List<String>? = null,

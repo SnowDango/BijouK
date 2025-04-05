@@ -12,7 +12,7 @@ fun QueueAttributes.convert(songId: String, index: Int, currentIndex: Int): Queu
     return QueueData(
         songId = songId,
         name = name,
-        artist = artistName,
+        artist = artistName.orEmpty(),
         album = albumName,
         artwork = artwork?.let { art ->
             art.url.replace("{w}", art.width?.toString() ?: "1000")

@@ -3,6 +3,7 @@ package com.snowdango.bijouk.features.now_play.component
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -31,6 +32,8 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.component.SongCard
+import java.nio.file.WatchEvent
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -41,58 +44,23 @@ fun QueueSongCard(
     onClickSkip: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
-    Card(
+    Box(
         modifier = modifier
             .padding(horizontal = 16.dp, vertical = 4.dp)
             .fillMaxWidth()
-            .combinedClickable(
-                onLongClick = {
-                    expanded = true
-                },
-                onClick = {}
-            )
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 32.dp, vertical = 16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(queueData.artwork)
-                    .build(),
-                contentDescription = null,
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-            )
-
-            Column(
-                modifier = Modifier
-                    .padding(start = 8.dp)
-                    .fillMaxWidth()
-                    .weight(1f),
-                verticalArrangement = Arrangement.Center,
-            ) {
-                Text(
-                    text = queueData.name,
-                    modifier = Modifier
-                        .padding(bottom = 4.dp),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-                Text(
-                    text = queueData.artist,
-                    modifier = Modifier
-                        .alpha(0.5f),
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    style = MaterialTheme.typography.bodyMedium,
-                )
-            }
-        }
+    ){
+        SongCard(
+            artwork = queueData.artwork,
+            title = queueData.name,
+            artist = queueData.artist,
+            modifier = Modifier.fillMaxWidth()
+                .combinedClickable(
+                    onLongClick = {
+                        expanded = true
+                    },
+                    onClick = {},
+             ),
+        )
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false }
