@@ -174,7 +174,7 @@ fun Content(
 
 @Preview
 @Composable
-private fun Preview_TopBar() {
+private fun PreviewTopBar() {
     BijouKTheme {
         TopBar()
     }
@@ -182,7 +182,7 @@ private fun Preview_TopBar() {
 
 @Preview
 @Composable
-private fun Preview_Content() {
+private fun PreviewContent() {
     BijouKTheme {
         Content(
             devices = persistentListOf(

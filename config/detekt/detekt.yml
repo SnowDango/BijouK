@@ -333,7 +333,7 @@ naming:
   FunctionNaming:
     active: false
     excludes: [ '**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**' ]
-    functionPattern: '[a-z][a-zA-Z0-9]*'
+    functionPattern: '[A-Za-z][a-zA-Z0-9]*'
     excludeClassPattern: '$^'
   FunctionParameterNaming:
     active: true
@@ -627,6 +627,8 @@ style:
       - '0'
       - '1'
       - '2'
+      - '3'
+      - '5'
       - '0.5'
       - '100'
       - '1_000'
@@ -804,7 +806,7 @@ Compose:
   ComposableAnnotationNaming:
     active: true
   ComposableNaming:
-    active: true
+    active: false
     # -- You can optionally disable the checks in this rule for regex matches against the composable name (e.g. molecule presenters)
     # allowedComposableFunctionNames: .*Presenter,.*MoleculePresenter
   ComposableParamOrder:

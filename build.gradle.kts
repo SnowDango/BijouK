@@ -1,5 +1,7 @@
 import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.internal.lint.AndroidLintTask
+import io.gitlab.arturbosch.detekt.Detekt
+import io.gitlab.arturbosch.detekt.report.ReportMergeTask
 
 buildscript {
     repositories {
@@ -26,6 +28,10 @@ plugins {
     alias(libs.plugins.detekt)
 }
 
+val reportMerge = tasks.register<ReportMergeTask>("reportMerge") {
+    output = rootProject.file("./reports/detekt.xml")
+}
+
 subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
 
@@ -43,7 +49,7 @@ subprojects {
     detekt {
         autoCorrect = true
         parallel = true
-        config.setFrom("$rootDir/config/detekt/detekt.yml")
+        config = files("${rootProject.projectDir}/config/detekt/detekt.yml")
         buildUponDefaultConfig = true
         ignoreFailures = true
         basePath = file("$rootDir/../").absolutePath
@@ -52,8 +58,19 @@ subprojects {
     tasks.withType<AndroidLintTask> {
         finalizedBy("detekt")
     }
+    tasks.withType<Detekt> {
+        finalizedBy(reportMerge)
+    }
+
+    reportMerge.configure {
+        input.from(tasks.withType(Detekt::class).map { it.xmlReportFile })
+    }
 
     dependencies {
         detektPlugins(rootProject.libs.bundles.detekt)
     }
+}
+
+task("clean", Delete::class) {
+    delete(rootProject.layout.buildDirectory)
 }

@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="search_tab">
-        <item>Queue</item>
-        <item>Songs</item>
-        <item>Playlist</item>
-        <item>Album</item>
-        <item>Artist</item>
-    </string-array>
+    <string name="content_page_tab_queue">Queue</string>
+    <string name="content_page_tab_song">Song</string>
+    <string name="content_page_tab_playlist">Playlist</string>
+    <string name="content_page_tab_album">Album</string>
+    <string name="content_page_tab_artist">Artist</string>
 
 </resources>

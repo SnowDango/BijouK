@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.snowdango.bijouk.features.now_play"
+    namespace = "com.snowdango.bijouk.features.nowPlay"
     compileSdk = 35
 
     defaultConfig {

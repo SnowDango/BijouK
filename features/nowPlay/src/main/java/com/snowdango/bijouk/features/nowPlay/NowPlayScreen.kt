@@ -31,7 +31,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
-import androidx.compose.ui.res.stringArrayResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -39,7 +39,6 @@ import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
 import com.snowdango.bijouk.features.nowPlay.view.BottomSheetContent
 import com.snowdango.bijouk.features.nowPlay.view.QueueContent
 import com.snowdango.bijouk.features.nowPlay.view.SongsContent
-import com.snowdango.bijouk.features.now_play.R
 import com.snowdango.bijouk.model.cider.data.SearchData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -62,7 +61,7 @@ fun NowPlayScreen(
             baseUrl,
             token
         )
-    }
+    },
 ) {
     var sheetMaxHeight by remember { mutableStateOf(1000.dp) }
     val sheetMinHeight = 140.dp
@@ -98,11 +97,12 @@ fun NowPlayScreen(
                 }
             }
             if (sheetState.bottomSheetState.targetValue == sheetState.bottomSheetState.currentValue) {
-                if (sheetState.bottomSheetState.targetValue == SheetValue.PartiallyExpanded) {
-                    sheetHeight = sheetMinHeight
-                } else {
-                    sheetHeight = sheetMaxHeight
-                }
+                sheetHeight =
+                    if (sheetState.bottomSheetState.targetValue == SheetValue.PartiallyExpanded) {
+                        sheetMinHeight
+                    } else {
+                        sheetMaxHeight
+                    }
             }
         }
     }
@@ -159,7 +159,7 @@ fun NowPlayScreen(
                         if (sheetHeight == 1000.dp) sheetHeight = sheetMaxHeight
                     },
             ) {
-                SearchContent(
+                MainContent(
                     queueViewData = queueData.value,
                     searchData = searchData.value,
                     sheetSize = sheetMinHeight,
@@ -190,7 +190,7 @@ fun NowPlayScreen(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchContent(
+fun MainContent(
     queueViewData: NowPlayViewModel.QueueViewData?,
     searchData: SearchData?,
     sheetSize: Dp,
@@ -199,9 +199,8 @@ fun SearchContent(
     modifier: Modifier = Modifier,
     onClickSkip: () -> Unit
 ) {
-    val tabList = stringArrayResource(R.array.search_tab)
     val scope = rememberCoroutineScope()
-    val state = rememberPagerState(initialPage = 2) { tabList.size }
+    val state = rememberPagerState(initialPage = 2) { ContentPageRoute.entries.size }
 
     Column(
         modifier = modifier
@@ -211,11 +210,11 @@ fun SearchContent(
             selectedTabIndex = state.currentPage,
             modifier = Modifier.fillMaxWidth(),
         ) {
-            tabList.forEachIndexed { index, title ->
+            ContentPageRoute.entries.forEachIndexed { index, pageRoute ->
                 Tab(
                     selected = state.currentPage == index,
                     text = {
-                        Text(text = title)
+                        Text(text = stringResource(pageRoute.titleRes))
                     },
                     onClick = {
                         scope.launch {
@@ -231,8 +230,9 @@ fun SearchContent(
                 .fillMaxSize()
                 .weight(1f),
         ) {
-            when (it) {
-                0 -> { // Queue
+            val route = ContentPageRoute.entries[it]
+            when (route) {
+                ContentPageRoute.QUEUE -> {
                     QueueContent(
                         queueViewData = queueViewData,
                         sheetSize = sheetSize,
@@ -248,21 +248,16 @@ fun SearchContent(
                     )
                 }
 
-                1 -> { // Songs
+                ContentPageRoute.SONG -> {
                     SongsContent(
                         songs = searchData?.songs,
                         sheetSize = sheetSize,
                     )
                 }
 
-                2 -> { // Playlists
-                }
-
-                3 -> { // Album
-                }
-
-                4 -> { // Artist
-                }
+                ContentPageRoute.PLAYLIST -> {}
+                ContentPageRoute.ALBUM -> {}
+                ContentPageRoute.ARTIST -> {}
             }
         }
     }
