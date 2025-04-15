@@ -1,5 +1,6 @@
 package com.snowdango.bijouk.features.device
 
+import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -23,21 +24,25 @@ import org.koin.core.parameter.parametersOf
 
 class DevicesViewModel : ViewModel(), KoinComponent {
 
+    private val context: Context by inject()
     private val devicesModel: DevicesModel by inject()
-    private var ciderMultiModel: CiderMultiModel = get<CiderMultiModel> { parametersOf(listOf<DeviceData>()) }
+    private var ciderMultiModel: CiderMultiModel =
+        get<CiderMultiModel> { parametersOf(listOf<DeviceData>()) }
 
-    private val _devicesFlow: MutableStateFlow<List<DeviceData>> = MutableStateFlow(value = listOf())
+    private val _devicesFlow: MutableStateFlow<List<DeviceData>> =
+        MutableStateFlow(value = listOf())
     private val _activesFlow: MutableStateFlow<List<Long>> = MutableStateFlow(value = listOf())
     private val _isRefreshing: MutableStateFlow<Boolean> = MutableStateFlow(value = false)
-    val devicesFlow: StateFlow<DeviceViewData> = _devicesFlow.combine(_activesFlow) { devices, actives ->
-        devices.map { ActiveDeviceViewData(device = it, isActive = actives.contains(it.id)) }
-    }.combine(_isRefreshing) { devices, isRefresh ->
-        DeviceViewData(devices = devices, isRefreshing = isRefresh)
-    }.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5_000),
-        DeviceViewData(devices = listOf(), isRefreshing = false),
-    )
+    val devicesFlow: StateFlow<DeviceViewData> =
+        _devicesFlow.combine(_activesFlow) { devices, actives ->
+            devices.map { ActiveDeviceViewData(device = it, isActive = actives.contains(it.id)) }
+        }.combine(_isRefreshing) { devices, isRefresh ->
+            DeviceViewData(devices = devices, isRefreshing = isRefresh)
+        }.stateIn(
+            viewModelScope,
+            SharingStarted.WhileSubscribed(5_000),
+            DeviceViewData(devices = listOf(), isRefreshing = false),
+        )
     private val _testActiveFlow: MutableStateFlow<Boolean?> = MutableStateFlow(value = null)
     val testActiveFlow = _testActiveFlow.stateIn(
         viewModelScope,
@@ -85,31 +90,32 @@ class DevicesViewModel : ViewModel(), KoinComponent {
             throw ce
         } catch (th: Throwable) {
             Log.e("DevicesVieModel", th.toString())
-            _toastStringFlow.emit("Deviceのactive状態を取得できませんでした")
+            _toastStringFlow.emit(context.getString(R.string.toast_get_active_status_failed))
         }
     }
 
-    fun testActive(host: String, port: Int?, token: String, isUseSsl: Boolean) = viewModelScope.launch {
-        val baseUrl = if (isUseSsl) {
-            "https://"
-        } else {
-            "http://"
-        } + if (port == null) {
-            host
-        } else {
-            "$host:$port"
+    fun testActive(host: String, port: Int?, token: String, isUseSsl: Boolean) =
+        viewModelScope.launch {
+            val baseUrl = if (isUseSsl) {
+                "https://"
+            } else {
+                "http://"
+            } + if (port == null) {
+                host
+            } else {
+                "$host:$port"
+            }
+            val ciderModel = get<CiderModel> { parametersOf(baseUrl, token) }
+            try {
+                val active = ciderModel.isActive()
+                _testActiveFlow.emit(active)
+            } catch (ce: CancellationException) {
+                throw ce
+            } catch (th: Throwable) {
+                Log.e("DevicesVieModel", th.toString())
+                _testActiveFlow.emit(false)
+            }
         }
-        val ciderModel = get<CiderModel> { parametersOf(baseUrl, token) }
-        try {
-            val active = ciderModel.isActive()
-            _testActiveFlow.emit(active)
-        } catch (ce: CancellationException) {
-            throw ce
-        } catch (th: Throwable) {
-            Log.e("DevicesVieModel", th.toString())
-            _testActiveFlow.emit(false)
-        }
-    }
 
     fun clearTestActive() = viewModelScope.launch {
         _testActiveFlow.emit(null)
@@ -135,7 +141,7 @@ class DevicesViewModel : ViewModel(), KoinComponent {
             throw ce
         } catch (th: Throwable) {
             Log.e("DevicesViewModel", th.toString())
-            _toastStringFlow.emit("Deviceの保存に失敗しました")
+            _toastStringFlow.emit(context.getString(R.string.toast_save_device_failed))
         }
     }
 
@@ -143,6 +149,7 @@ class DevicesViewModel : ViewModel(), KoinComponent {
         val devices: List<ActiveDeviceViewData>,
         val isRefreshing: Boolean,
     )
+
     data class ActiveDeviceViewData(
         val device: DeviceData,
         val isActive: Boolean,

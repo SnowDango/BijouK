@@ -14,8 +14,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.snowdango.bijouk.features.nowPlay.R
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.component.SongCard
@@ -38,7 +40,8 @@ fun QueueSongCard(
             artwork = queueData.artwork,
             title = queueData.name,
             artist = queueData.artist,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .combinedClickable(
                     onLongClick = {
                         expanded = true
@@ -51,11 +54,11 @@ fun QueueSongCard(
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text("次に再生") },
+                text = { Text(text = stringResource(R.string.queue_dropdown_menu_next)) },
                 onClick = { onClickNext.invoke() }
             )
             DropdownMenuItem(
-                text = { Text("ここまでスキップ") },
+                text = { Text(text = stringResource(R.string.queue_dropdown_menu_skip)) },
                 onClick = { onClickSkip.invoke() }
             )
         }

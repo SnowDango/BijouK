@@ -49,15 +49,12 @@ import org.koin.core.parameter.parametersOf
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NowPlayScreen(
-    id: Long,
     name: String,
     baseUrl: String,
     token: String,
     modifier: Modifier = Modifier,
     viewModel: NowPlayViewModel = koinViewModel<NowPlayViewModel> {
         parametersOf(
-            id,
-            name,
             baseUrl,
             token
         )
@@ -66,6 +63,8 @@ fun NowPlayScreen(
     var sheetMaxHeight by remember { mutableStateOf(1000.dp) }
     val sheetMinHeight = 140.dp
     val destiny = LocalDensity.current
+
+    @Suppress("MagicNumber")
     val imageMaxSize = with(destiny) { LocalView.current.width.toDp() * 3 / 5 }
     val screenHeight = LocalView.current.height
     val sheetState = rememberBottomSheetScaffoldState(

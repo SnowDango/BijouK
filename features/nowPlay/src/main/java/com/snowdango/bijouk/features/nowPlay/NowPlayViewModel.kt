@@ -20,8 +20,6 @@ import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
 class NowPlayViewModel(
-    private val id: Long,
-    private val name: String,
     private val baseUrl: String,
     private val token: String,
 ) : ViewModel(), KoinComponent {

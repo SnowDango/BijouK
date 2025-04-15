@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     }
                     composable<Route.NOW_PLAY> { backStackEntry ->
                         val nowPlay = backStackEntry.toRoute<Route.NOW_PLAY>()
-                        NowPlayScreen(nowPlay.id, nowPlay.name, nowPlay.baseUrl, nowPlay.token)
+                        NowPlayScreen(nowPlay.name, nowPlay.baseUrl, nowPlay.token)
                     }
                 }
             }

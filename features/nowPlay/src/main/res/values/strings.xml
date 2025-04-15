@@ -7,4 +7,10 @@
     <string name="content_page_tab_album">Album</string>
     <string name="content_page_tab_artist">Artist</string>
 
+    <string name="top_bar_search_placeholder">Search</string>
+
+    <string name="queue_dropdown_menu_next">次に再生</string>
+    <string name="queue_dropdown_menu_skip">ここまでスキップ</string>
+    <string name="time_string_default">00:00</string>
+
 </resources>

@@ -18,9 +18,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
+import com.snowdango.bijouk.features.nowPlay.R
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -71,14 +73,16 @@ fun SeekBarComponent(playBackTimeData: PlayBackTimeData?, modifier: Modifier = M
                 .fillMaxWidth()
         ) {
             Text(
-                text = playBackTimeData?.currentTimeString ?: "00:00",
+                text = playBackTimeData?.currentTimeString
+                    ?: stringResource(R.string.time_string_default),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
             )
             Text(
-                text = ("-" + (playBackTimeData?.remainingTimeString ?: "00:00")),
+                text = ("-" + (playBackTimeData?.remainingTimeString
+                    ?: stringResource(R.string.time_string_default))),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Right,
                 modifier = Modifier

@@ -6,6 +6,6 @@ import org.koin.dsl.module
 object NowPlayModule {
 
     val module = module {
-        viewModel { param -> NowPlayViewModel(param.get(), param.get(), param.get(), param.get()) }
+        viewModel { param -> NowPlayViewModel(param.get(), param.get()) }
     }
 }

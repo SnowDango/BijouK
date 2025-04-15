@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="top_bar_title">Devices</string>
+
+    <string name="toast_get_active_status_failed">Deviceのactive状態を取得できませんでした</string>
+    <string name="toast_save_device_failed">Deviceの保存に失敗しました</string>
+
+
+</resources>

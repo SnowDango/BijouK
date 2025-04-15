@@ -24,6 +24,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
+import com.snowdango.bijouk.features.nowPlay.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,7 +66,7 @@ fun NowPlayTopBar(
                         },
                         expanded = false,
                         onExpandedChange = { },
-                        placeholder = { Text("Search") },
+                        placeholder = { Text(text = stringResource(R.string.top_bar_search_placeholder)) },
                         leadingIcon = { Icon(Icons.Default.Search, contentDescription = null) },
                     )
                 },
