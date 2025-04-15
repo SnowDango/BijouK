@@ -26,7 +26,7 @@ fun AlbumCard(
     album: String,
     artist: String,
     artwork: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Card(
         modifier = modifier

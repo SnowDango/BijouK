@@ -81,8 +81,10 @@ fun SeekBarComponent(playBackTimeData: PlayBackTimeData?, modifier: Modifier = M
                     .weight(1f),
             )
             Text(
-                text = ("-" + (playBackTimeData?.remainingTimeString
-                    ?: stringResource(R.string.time_string_default))),
+                text = "-" + (
+                        playBackTimeData?.remainingTimeString
+                            ?: stringResource(R.string.time_string_default)
+                        ),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Right,
                 modifier = Modifier

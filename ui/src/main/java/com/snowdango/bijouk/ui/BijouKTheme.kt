@@ -5,16 +5,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Typography
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.core.graphics.toColorInt
+import androidx.compose.ui.res.colorResource
 import com.materialkolor.rememberDynamicColorScheme
 
 @Composable
 fun BijouKTheme(
-    seedColor: Color = Color("#4B43DF".toColorInt()),
+    seedColor: Color = colorResource(R.color.seed_color),
     darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colorScheme = rememberDynamicColorScheme(seedColor = seedColor, isDark = darkTheme, isAmoled = false)
+    val colorScheme =
+        rememberDynamicColorScheme(seedColor = seedColor, isDark = darkTheme, isAmoled = false)
     MaterialTheme(
         colorScheme = colorScheme,
         typography = Typography(),
