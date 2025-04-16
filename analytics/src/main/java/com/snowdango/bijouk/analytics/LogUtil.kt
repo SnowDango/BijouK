@@ -4,7 +4,6 @@ import android.util.Log
 
 class LogUtil {
 
-
     fun d(tag: String, message: String) {
         Log.d(tag, message)
     }
@@ -28,7 +27,5 @@ class LogUtil {
             val logUtil = LogUtil()
             logUtil.e(getTag(), message)
         }
-
     }
-
 }
