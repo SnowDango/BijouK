@@ -96,15 +96,18 @@ class DevicesViewModel : ViewModel(), KoinComponent {
 
     fun testActive(host: String, port: Int?, token: String, isUseSsl: Boolean) =
         viewModelScope.launch {
-            val baseUrl = if (isUseSsl) {
-                "https://"
-            } else {
-                "http://"
-            } + if (port == null) {
-                host
-            } else {
-                "$host:$port"
-            }
+            val baseUrl = context.getString(
+                if (isUseSsl) {
+                    R.string.url_ssl
+                } else {
+                    R.string.url_not_ssl
+                },
+                if (port == null) {
+                    host
+                } else {
+                    "$host:$port"
+                }
+            )
             val ciderModel = get<CiderModel> { parametersOf(baseUrl, token) }
             try {
                 val active = ciderModel.isActive()

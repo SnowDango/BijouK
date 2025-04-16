@@ -6,5 +6,7 @@
     <string name="toast_get_active_status_failed">Deviceのactive状態を取得できませんでした</string>
     <string name="toast_save_device_failed">Deviceの保存に失敗しました</string>
 
+    <string name="url_not_ssl">http://%s</string>
+    <string name="url_ssl">https://%s</string>
 
 </resources>
