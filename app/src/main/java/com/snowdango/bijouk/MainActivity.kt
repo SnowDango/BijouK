@@ -91,15 +91,15 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                     }
-                    val currentRoute = navController.currentBackStackEntryAsState()
-                    val route = Route.fromNavBackStackEntry(currentRoute.value)
+                    val currentRouteState = navController.currentBackStackEntryAsState()
+                    val route = Route.fromNavBackStackEntry(currentRouteState.value)
                     if (bottomRoutes.any { it.route == route }) {
                         NavigationBar {
                             bottomRoutes.forEach { item ->
                                 NavigationBarItem(
                                     icon = { Icon(item.icon, contentDescription = null) },
                                     label = { Text(item.name) },
-                                    selected = currentRoute == item.route,
+                                    selected = route == item.route,
                                     onClick = {
                                         navController.navigate(item.route) {
                                             popUpTo(navController.graph.findStartDestination().id) {
