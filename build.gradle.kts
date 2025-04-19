@@ -26,6 +26,7 @@ plugins {
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.dokka) apply false
     alias(libs.plugins.detekt)
+    alias(libs.plugins.aboutLibraries)
 }
 
 val reportMerge = tasks.register<ReportMergeTask>("reportMerge") {

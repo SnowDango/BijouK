@@ -29,6 +29,8 @@ detekt = "1.23.8"
 detekt-compose = "0.4.22"
 dokka = "2.0.0"
 immutable = "0.3.8"
+compose-settings = "2.10.0"
+aboutLibraries = "12.0.0"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -55,6 +57,10 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-material2 = { group = "androidx.compose.material", name = "material" }
+
+# settings
+composeSettings-ui = { group = "com.github.alorma.compose-settings", name = "ui-tiles", version.ref = "compose-settings" }
+composeSettings-ui-extended = { group = "com.github.alorma.compose-settings", name = "ui-tiles-extended", version.ref = "compose-settings" }
 
 # room
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -97,6 +103,12 @@ coil-ktor = { group = "io.coil-kt.coil3", name = "coil-network-ktor3", version.r
 detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 detekt-compose = { group = "io.nlopez.compose.rules", name = "detekt", version.ref = "detekt-compose" }
 
+# aboutLibraries
+aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
+aboutlibraries-compose-core = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutLibraries" }
+aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
+
+
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 
@@ -116,12 +128,17 @@ detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 # dokka
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 
+# aboutLibraries
+aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
+
 [bundles]
 test = ["junit"]
 android-test = ["androidx-junit", "androidx-espresso-core", "androidx-ui-test-junit4", "androidx-runner"]
 android-debug = ["androidx-ui-tooling", "androidx-ui-test-manifest"]
 android-base = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx"]
 android-compose = ["androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "androidx-navigation", "androidx-material2"]
+settings-compose = ["composeSettings-ui", "composeSettings-ui-extended"]
+aboutlibraries = ["aboutlibraries-core", "aboutlibraries-compose-core", "aboutlibraries-compose-m3"]
 room = ["room-runtime", "room-ktx", "room-paging"]
 koin = ["koin-android", "koin-compose"]
 coroutine = ["kotlinx-coroutine"]

@@ -2,15 +2,16 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.aboutLibraries)
 }
 
 android {
-    namespace = "com.snowdango.bijouk.features.device"
+    namespace = "com.snowdango.bijouk.setting"
     compileSdk = 35
 
     defaultConfig {
         minSdk = 30
+
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -43,16 +44,11 @@ android {
 }
 
 dependencies {
-    implementation(project(":ui"))
-    implementation(project(":model"))
-    implementation(libs.kotlinx.collections.immutable)
     implementation(libs.bundles.android.base)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.android.compose)
-    implementation(libs.material.icon)
-    implementation(libs.bundles.coroutine)
-    implementation(libs.bundles.koin)
-    implementation(libs.aboutlibraries.core)
+    implementation(libs.bundles.settings.compose)
+    implementation(libs.bundles.aboutlibraries)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

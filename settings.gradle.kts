@@ -24,6 +24,7 @@ rootProject.name = "BijouK"
 include(":app")
 include(":features:device")
 include(":features:nowPlay")
+include(":features:setting")
 include(":repository")
 include(":domain")
 include(":model")

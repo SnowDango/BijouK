@@ -41,6 +41,7 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":repository"))
+    implementation(libs.aboutlibraries.core)
     implementation(libs.bundles.koin)
     implementation(libs.bundles.coroutine)
     testImplementation(libs.bundles.test)

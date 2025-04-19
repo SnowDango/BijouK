@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
+    alias(libs.plugins.aboutLibraries)
 }
 
 android {
@@ -46,9 +47,14 @@ android {
     }
 }
 
+aboutLibraries {
+    offlineMode = false
+}
+
 dependencies {
     implementation(project(":features:device"))
     implementation(project(":features:nowPlay"))
+    implementation(project(":features:setting"))
     implementation(project(":repository"))
     implementation(project(":domain"))
     implementation(project(":model"))
@@ -57,6 +63,9 @@ dependencies {
     implementation(libs.bundles.android.base)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.android.compose)
+    implementation(libs.aboutlibraries.core)
+    implementation(libs.material.icon)
+    implementation(libs.bundles.coroutine)
     implementation(libs.material.kolor)
     implementation(libs.bundles.koin)
     implementation(libs.kotlinx.serialization)
