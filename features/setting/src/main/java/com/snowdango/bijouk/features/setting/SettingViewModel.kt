@@ -8,5 +8,4 @@ class SettingViewModel(
 ) : ViewModel() {
 
     val versionName = versionData.versionName
-
 }

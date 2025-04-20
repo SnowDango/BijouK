@@ -10,8 +10,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.snowdango.bijouk.features.setting.R
 import com.snowdango.bijouk.ui.component.TitleTopBar
 import dev.jeziellago.compose.markdowntext.MarkdownText
 import java.io.File
@@ -24,7 +26,7 @@ fun AppInfoScreen() {
     Scaffold(
         topBar = {
             TitleTopBar(
-                title = "このアプリについて",
+                title = stringResource(R.string.app_info_top_bar_title),
             )
         }
     ) { paddingValue ->

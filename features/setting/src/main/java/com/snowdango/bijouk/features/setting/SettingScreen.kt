@@ -35,8 +35,8 @@ fun SettingScreen(
         ) {
             SettingsMenuLink(
                 icon = { Icon(imageVector = Icons.Default.Info, contentDescription = null) },
-                title = { Text(text = "このアプリについて") },
-                subtitle = { Text(text = "アプリについてを表示します") },
+                title = { Text(text = stringResource(R.string.setting_column_app_info)) },
+                subtitle = { Text(text = stringResource(R.string.setting_column_app_info_description)) },
                 onClick = {
                     onClickAppInfo.invoke()
                 }
