@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="setting_top_bar_title">Settings</string>
+
+    <string name="setting_column_oss_license">オープンソースライセンス</string>
+    <string name="setting_column_oss_license_description">オープンソースライセンスを表示します</string>
+
+</resources>
