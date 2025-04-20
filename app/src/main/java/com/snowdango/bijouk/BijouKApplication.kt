@@ -4,6 +4,7 @@ import android.app.Application
 import com.snowdango.bijouk.domain.DomainModule
 import com.snowdango.bijouk.features.device.DevicesModule
 import com.snowdango.bijouk.features.nowPlay.NowPlayModule
+import com.snowdango.bijouk.features.setting.SettingModule
 import com.snowdango.bijouk.model.ModelModule
 import com.snowdango.bijouk.repository.RepositoryModule
 import org.koin.android.ext.koin.androidContext
@@ -22,6 +23,7 @@ class BijouKApplication : Application() {
                 DomainModule.module,
                 DevicesModule.module,
                 NowPlayModule.module,
+                SettingModule.module(BuildConfig.VERSION_NAME)
             )
         }
     }

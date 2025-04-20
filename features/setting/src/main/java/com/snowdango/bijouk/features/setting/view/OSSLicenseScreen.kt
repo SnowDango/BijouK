@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.setting
+package com.snowdango.bijouk.features.setting.view
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding

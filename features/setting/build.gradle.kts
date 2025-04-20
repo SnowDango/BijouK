@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.snowdango.bijouk.setting"
+    namespace = "com.snowdango.bijouk.features.setting"
     compileSdk = 35
 
     defaultConfig {
@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.bundles.android.compose)
     implementation(libs.bundles.settings.compose)
     implementation(libs.bundles.aboutlibraries)
+    implementation(libs.bundles.koin)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

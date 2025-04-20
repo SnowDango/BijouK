@@ -31,15 +31,12 @@ import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.util.withContext
 import com.snowdango.bijouk.features.device.DeviceScreen
 import com.snowdango.bijouk.features.nowPlay.NowPlayScreen
-import com.snowdango.bijouk.setting.OSSLicenseScreen
-import com.snowdango.bijouk.setting.SettingScreen
+import com.snowdango.bijouk.features.setting.SettingScreen
+import com.snowdango.bijouk.features.setting.view.OSSLicenseScreen
 import com.snowdango.bijouk.ui.BijouKTheme
 import kotlinx.serialization.Serializable
-import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
-
-    val libs by inject<Libs>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -11,12 +11,14 @@ android {
     namespace = "com.snowdango.bijouk"
     compileSdk = 35
 
+    val versionNameBase = "0.0.1"
+
     defaultConfig {
         applicationId = "com.snowdango.bijouk"
         minSdk = 30
         targetSdk = 35
         versionCode = 1
-        versionName = "0.0.1"
+        versionName = versionNameBase
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -27,9 +29,13 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "VERSION_NAME", "\"$versionNameBase\"")
         }
         debug {
             isMinifyEnabled = false
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+            buildConfigField("String", "VERSION_NAME", "\"$versionNameBase-debug\"")
         }
     }
     compileOptions {
@@ -41,6 +47,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     lint {
         textReport = true
@@ -49,6 +56,9 @@ android {
 
 aboutLibraries {
     offlineMode = false
+    android {
+        registerAndroidTasks = true
+    }
 }
 
 dependencies {
