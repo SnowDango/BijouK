@@ -50,6 +50,7 @@ dependencies {
     implementation(libs.bundles.android.compose)
     implementation(libs.bundles.settings.compose)
     implementation(libs.bundles.aboutlibraries)
+    implementation(libs.markdown)
     implementation(libs.bundles.koin)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))

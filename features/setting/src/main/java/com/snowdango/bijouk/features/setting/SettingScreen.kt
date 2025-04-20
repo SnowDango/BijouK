@@ -20,6 +20,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun SettingScreen(
     onClickLicense: () -> Unit,
+    onClickAppInfo: () -> Unit,
     viewModel: SettingViewModel = koinViewModel<SettingViewModel>(),
 ) {
     Scaffold(
@@ -32,6 +33,14 @@ fun SettingScreen(
                 .padding(paddingValue)
                 .fillMaxSize()
         ) {
+            SettingsMenuLink(
+                icon = { Icon(imageVector = Icons.Default.Info, contentDescription = null) },
+                title = { Text(text = "このアプリについて") },
+                subtitle = { Text(text = "アプリについてを表示します") },
+                onClick = {
+                    onClickAppInfo.invoke()
+                }
+            )
             SettingsMenuLink(
                 icon = { Icon(imageVector = Icons.Default.Info, contentDescription = null) },
                 title = { Text(text = stringResource(R.string.setting_column_oss_license)) },

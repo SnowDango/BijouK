@@ -32,6 +32,7 @@ import com.mikepenz.aboutlibraries.util.withContext
 import com.snowdango.bijouk.features.device.DeviceScreen
 import com.snowdango.bijouk.features.nowPlay.NowPlayScreen
 import com.snowdango.bijouk.features.setting.SettingScreen
+import com.snowdango.bijouk.features.setting.view.AppInfoScreen
 import com.snowdango.bijouk.features.setting.view.OSSLicenseScreen
 import com.snowdango.bijouk.ui.BijouKTheme
 import kotlinx.serialization.Serializable
@@ -79,6 +80,9 @@ class MainActivity : ComponentActivity() {
                             SettingScreen(
                                 onClickLicense = {
                                     navController.navigate(Route.OSS_LICENSE)
+                                },
+                                onClickAppInfo = {
+                                    navController.navigate(Route.APP_INFO)
                                 }
                             )
                         }
@@ -86,6 +90,9 @@ class MainActivity : ComponentActivity() {
                             OSSLicenseScreen(
                                 libs = Libs.Builder().withContext(LocalContext.current).build()
                             )
+                        }
+                        composable<Route.APP_INFO> {
+                            AppInfoScreen()
                         }
                     }
                     val currentRouteState = navController.currentBackStackEntryAsState()
@@ -138,6 +145,9 @@ class MainActivity : ComponentActivity() {
         @Serializable
         object OSS_LICENSE : Route()
 
+        @Serializable
+        object APP_INFO : Route()
+
         companion object {
             @Composable
             fun fromNavBackStackEntry(navBackStackEntry: NavBackStackEntry?): Route? {
@@ -157,6 +167,10 @@ class MainActivity : ComponentActivity() {
 
                     in OSS_LICENSE.serializer().descriptor.serialName -> {
                         navBackStackEntry.toRoute<OSS_LICENSE>()
+                    }
+
+                    in APP_INFO.serializer().descriptor.serialName -> {
+                        navBackStackEntry.toRoute<APP_INFO>()
                     }
 
                     else -> null
