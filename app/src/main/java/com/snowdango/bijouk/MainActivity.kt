@@ -5,16 +5,35 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Computer
+import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.mikepenz.aboutlibraries.Libs
+import com.mikepenz.aboutlibraries.util.withContext
 import com.snowdango.bijouk.features.device.DeviceScreen
 import com.snowdango.bijouk.features.nowPlay.NowPlayScreen
+import com.snowdango.bijouk.features.setting.SettingScreen
+import com.snowdango.bijouk.features.setting.view.AppInfoScreen
+import com.snowdango.bijouk.features.setting.view.OSSLicenseScreen
 import com.snowdango.bijouk.ui.BijouKTheme
 import kotlinx.serialization.Serializable
 
@@ -27,35 +46,86 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             BijouKTheme {
-                NavHost(
-                    navController = navController,
-                    startDestination = Route.DEVICE,
+                Column(
                     modifier = Modifier
                         .fillMaxSize()
-                        .background(MaterialTheme.colorScheme.background)
                 ) {
-                    composable<Route.DEVICE> {
-                        DeviceScreen(
-                            onClickDevice = { data ->
-                                navController.navigate(
-                                    Route.NOW_PLAY(
-                                        id = data.id,
-                                        name = data.name,
-                                        baseUrl = data.baseUrl,
-                                        token = data.token
+                    NavHost(
+                        navController = navController,
+                        startDestination = Route.DEVICE,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(1f)
+                            .background(MaterialTheme.colorScheme.background)
+                    ) {
+                        composable<Route.DEVICE> {
+                            DeviceScreen(
+                                onClickDevice = { data ->
+                                    navController.navigate(
+                                        Route.NOW_PLAY(
+                                            id = data.id,
+                                            name = data.name,
+                                            baseUrl = data.baseUrl,
+                                            token = data.token
+                                        )
                                     )
+                                }
+                            )
+                        }
+                        composable<Route.NOW_PLAY> { backStackEntry ->
+                            val nowPlay = backStackEntry.toRoute<Route.NOW_PLAY>()
+                            NowPlayScreen(nowPlay.name, nowPlay.baseUrl, nowPlay.token)
+                        }
+                        composable<Route.SETTING> {
+                            SettingScreen(
+                                onClickLicense = {
+                                    navController.navigate(Route.OSS_LICENSE)
+                                },
+                                onClickAppInfo = {
+                                    navController.navigate(Route.APP_INFO)
+                                }
+                            )
+                        }
+                        composable<Route.OSS_LICENSE> {
+                            OSSLicenseScreen(
+                                libs = Libs.Builder().withContext(LocalContext.current).build()
+                            )
+                        }
+                        composable<Route.APP_INFO> {
+                            AppInfoScreen()
+                        }
+                    }
+                    val currentRouteState = navController.currentBackStackEntryAsState()
+                    val route = Route.fromNavBackStackEntry(currentRouteState.value)
+                    if (bottomRoutes.any { it.route == route }) {
+                        NavigationBar {
+                            bottomRoutes.forEach { item ->
+                                NavigationBarItem(
+                                    icon = { Icon(item.icon, contentDescription = null) },
+                                    label = { Text(item.name) },
+                                    selected = route == item.route,
+                                    onClick = {
+                                        navController.navigate(item.route) {
+                                            popUpTo(navController.graph.findStartDestination().id) {
+                                                saveState = true
+                                            }
+                                            launchSingleTop = true
+                                            restoreState = true
+                                        }
+                                    }
                                 )
                             }
-                        )
-                    }
-                    composable<Route.NOW_PLAY> { backStackEntry ->
-                        val nowPlay = backStackEntry.toRoute<Route.NOW_PLAY>()
-                        NowPlayScreen(nowPlay.name, nowPlay.baseUrl, nowPlay.token)
+                        }
                     }
                 }
             }
         }
     }
+
+    val bottomRoutes = listOf<BottomRoute>(
+        BottomRoute(Route.DEVICE, Icons.Default.Computer, "Devices"),
+        BottomRoute(Route.SETTING, Icons.Default.Settings, "Settings"),
+    )
 
     sealed class Route {
         @Serializable
@@ -68,5 +138,50 @@ class MainActivity : ComponentActivity() {
             val baseUrl: String,
             val token: String
         ) : Route()
+
+        @Serializable
+        object SETTING : Route()
+
+        @Serializable
+        object OSS_LICENSE : Route()
+
+        @Serializable
+        object APP_INFO : Route()
+
+        companion object {
+            @Composable
+            fun fromNavBackStackEntry(navBackStackEntry: NavBackStackEntry?): Route? {
+                if (navBackStackEntry?.destination?.route == null) return null
+                return when (navBackStackEntry.destination.route!!) {
+                    in DEVICE.serializer().descriptor.serialName -> {
+                        navBackStackEntry.toRoute<DEVICE>()
+                    }
+
+                    in NOW_PLAY.serializer().descriptor.serialName -> {
+                        navBackStackEntry.toRoute<NOW_PLAY>()
+                    }
+
+                    in SETTING.serializer().descriptor.serialName -> {
+                        navBackStackEntry.toRoute<SETTING>()
+                    }
+
+                    in OSS_LICENSE.serializer().descriptor.serialName -> {
+                        navBackStackEntry.toRoute<OSS_LICENSE>()
+                    }
+
+                    in APP_INFO.serializer().descriptor.serialName -> {
+                        navBackStackEntry.toRoute<APP_INFO>()
+                    }
+
+                    else -> null
+                }
+            }
+        }
     }
+
+    data class BottomRoute(
+        val route: Route,
+        val icon: ImageVector,
+        val name: String,
+    )
 }

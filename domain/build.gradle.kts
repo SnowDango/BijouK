@@ -47,6 +47,7 @@ android {
 dependencies {
     implementation(libs.bundles.room)
     ksp(libs.room.compiler)
+    implementation(libs.aboutlibraries.core)
     implementation(libs.bundles.koin)
     implementation(libs.bundles.ktor)
     implementation(libs.socket.io)

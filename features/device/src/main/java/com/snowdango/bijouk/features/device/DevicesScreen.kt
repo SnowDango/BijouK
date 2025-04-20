@@ -14,11 +14,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -37,6 +33,7 @@ import com.snowdango.bijouk.features.device.component.AddDeviceDialog
 import com.snowdango.bijouk.features.device.component.DeviceCard
 import com.snowdango.bijouk.model.devices.DeviceData
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.component.TitleTopBar
 import kotlinx.collections.immutable.ImmutableList
 import kotlinx.collections.immutable.persistentListOf
 import kotlinx.collections.immutable.toImmutableList
@@ -64,7 +61,9 @@ fun DeviceScreen(
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
-            TopBar()
+            TitleTopBar(
+                title = stringResource(R.string.top_bar_title),
+            )
         }
     ) { paddingValues: PaddingValues ->
         PullToRefreshBox(
@@ -113,26 +112,6 @@ fun DeviceScreen(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun TopBar(
-    modifier: Modifier = Modifier,
-) {
-    TopAppBar(
-        modifier = modifier,
-        title = {
-            Text(
-                text = stringResource(R.string.top_bar_title),
-                color = MaterialTheme.colorScheme.primary,
-                style = MaterialTheme.typography.headlineLarge,
-            )
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-        )
-    )
-}
-
 @Composable
 fun Content(
     devices: ImmutableList<DevicesViewModel.ActiveDeviceViewData>,
@@ -170,14 +149,6 @@ fun Content(
                 )
             }
         }
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewTopBar() {
-    BijouKTheme {
-        TopBar()
     }
 }
 
