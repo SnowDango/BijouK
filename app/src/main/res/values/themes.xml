@@ -2,10 +2,12 @@
 <resources>
 
     <style name="Theme.BijouKSplash" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/splashscreen_background</item>
+        <item name="windowSplashScreenBackground">#ffffff</item>
         <item name="postSplashScreenTheme">@style/Theme.BijouK</item>
         <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_launcher</item>
     </style>
 
-    <style name="Theme.BijouK" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.BijouK" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/seed_color</item>
+    </style>
 </resources>
