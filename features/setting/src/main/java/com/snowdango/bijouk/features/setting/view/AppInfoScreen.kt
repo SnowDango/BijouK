@@ -21,14 +21,17 @@ import java.io.FileOutputStream
 import java.io.InputStream
 
 @Composable
-fun AppInfoScreen() {
+fun AppInfoScreen(
+    modifier: Modifier = Modifier,
+) {
     val imageUri = assetImageCacheUri(LocalContext.current, "app_icon.png")
     Scaffold(
         topBar = {
             TitleTopBar(
                 title = stringResource(R.string.app_info_top_bar_title),
             )
-        }
+        },
+        modifier = modifier,
     ) { paddingValue ->
         MarkdownText(
             markdown = LocalContext.current.assets.open("app_info.md").bufferedReader()

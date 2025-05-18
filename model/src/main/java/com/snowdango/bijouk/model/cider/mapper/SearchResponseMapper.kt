@@ -1,6 +1,5 @@
 package com.snowdango.bijouk.model.cider.mapper
 
-
 import com.snowdango.bijouk.domain.api.entity.Albums
 import com.snowdango.bijouk.domain.api.entity.Artists
 import com.snowdango.bijouk.domain.api.entity.Playlists

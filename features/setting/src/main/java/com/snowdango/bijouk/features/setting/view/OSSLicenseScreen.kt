@@ -14,9 +14,10 @@ import com.snowdango.bijouk.ui.component.TitleTopBar
 @Composable
 fun OSSLicenseScreen(
     libs: Libs,
+    modifier: Modifier = Modifier,
 ) {
     Scaffold(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         topBar = {
             TitleTopBar(title = stringResource(R.string.license_top_bar_title))
         },
