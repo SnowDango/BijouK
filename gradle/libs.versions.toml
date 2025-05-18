@@ -13,7 +13,8 @@ composeBom = "2025.03.01"
 material = "1.7.8"
 navigation = "2.8.9"
 splash = "1.0.1"
-room = "2.6.1"
+room = "2.7.1"
+sqlite-bundled = "2.5.1"
 koin = "4.0.2"
 coroutine = "1.10.1"
 ktor = "3.1.1"
@@ -23,6 +24,7 @@ appcompat = "1.7.0"
 materialVersion = "1.12.0"
 coil = "3.1.0"
 socket = "2.1.2"
+kmp-socket = "1.2.0"
 ktlint = "12.1.2"
 detekt = "1.23.8"
 detekt-compose = "0.4.22"
@@ -31,6 +33,7 @@ immutable = "0.3.8"
 compose-settings = "2.10.0"
 aboutLibraries = "12.0.0"
 markdown = "0.5.7"
+kmlogger = "2.0.3"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -67,9 +70,11 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-paging = { group = "androidx.room", name = "room-paging", version.ref = "room" }
+androidx-sqlite-bundled = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite-bundled" }
 
 # koin
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
 
 # coroutine
@@ -80,14 +85,17 @@ kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotli
 
 # ktor client
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
-ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
 ktor-content = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-socket = { group = "io.ktor", name = "ktor-client-websockets", version.ref = "ktor" }
+ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
+ktor-ios = { group = "io.ktor", name = "ktor-client-ios", version.ref = "ktor" }
+ktor-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
 
 # socket
 socket-io = { group = "io.socket", name = "socket.io-client", version.ref = "socket" }
+kmp-socket = { group = "com.piasy", name = "kmp-socketio", version.ref = "kmp-socket" }
 
 # serialization
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
@@ -111,6 +119,9 @@ aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3",
 # markdown
 markdown = { group = "com.github.jeziellago", name = "compose-markdown", version.ref = "markdown" }
 
+# kmlogger
+kmlogger = { group = "com.diamondedge", name = "logging", version.ref = "kmlogger" }
+
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
@@ -121,6 +132,7 @@ androidx-core = { group = "androidx.test", name = "core", version.ref = "coreKtx
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-kotlin-multiplatform-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlin-cocoapods = { id = "org.jetbrains.kotlin.native.cocoapods", version.ref = "kotlin" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

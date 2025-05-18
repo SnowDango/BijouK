@@ -1,0 +1,15 @@
+package com.snowdango.bijouk.domain2
+
+import com.snowdango.bijouk.domain2.api.CiderSocket2
+import com.snowdango.bijouk.domain2.db.DevicesDatabase
+import com.snowdango.bijouk.domain2.db.getDevicesDatabase
+import org.koin.core.module.Module
+import org.koin.dsl.module
+
+
+actual object DomainModule2 {
+    actual val module: Module = module {
+        single<DevicesDatabase> { getDevicesDatabase() }
+        single<CiderSocket2> { param -> CiderSocket2(param.get()) }
+    }
+}

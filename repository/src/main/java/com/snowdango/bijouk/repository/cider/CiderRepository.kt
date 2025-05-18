@@ -10,10 +10,12 @@ import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
 import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
+import com.snowdango.bijouk.domain2.api.CiderSocket2
 
 class CiderRepository(
     private val ciderApi: CiderApi,
     private val ciderSocket: CiderSocket,
+    private val ciderSocket2: CiderSocket2,
 ) {
 
     suspend fun getActive(): BasicResponse {
@@ -64,9 +66,18 @@ class CiderRepository(
             onNowPlayingItemChangeEvent,
             onNowPlayingStatusChangeEvent
         )
+        ciderSocket2.startSocket(
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+        )
     }
 
     fun disconnect() {
         ciderSocket.closeSocket()
+        ciderSocket2.closeSocket()
     }
 }

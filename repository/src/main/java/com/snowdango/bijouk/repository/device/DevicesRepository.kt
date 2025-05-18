@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.repository.device
 
-import com.snowdango.bijouk.domain.db.DevicesDatabase
-import com.snowdango.bijouk.domain.db.entity.DevicesEntity
+import com.snowdango.bijouk.domain2.db.DevicesDatabase
+import com.snowdango.bijouk.domain2.db.entity.DevicesEntity
 
 class DevicesRepository(
     private val devicesDatabase: DevicesDatabase,

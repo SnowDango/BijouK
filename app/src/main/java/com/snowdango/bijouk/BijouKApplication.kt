@@ -2,6 +2,7 @@ package com.snowdango.bijouk
 
 import android.app.Application
 import com.snowdango.bijouk.domain.DomainModule
+import com.snowdango.bijouk.domain2.DomainModule2
 import com.snowdango.bijouk.features.device.DevicesModule
 import com.snowdango.bijouk.features.nowPlay.NowPlayModule
 import com.snowdango.bijouk.features.setting.SettingModule
@@ -21,6 +22,7 @@ class BijouKApplication : Application() {
                 RepositoryModule.module,
                 ModelModule.module,
                 DomainModule.module,
+                DomainModule2.module,
                 DevicesModule.module,
                 NowPlayModule.module,
                 SettingModule.module(BuildConfig.VERSION_NAME)

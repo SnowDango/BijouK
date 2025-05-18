@@ -40,6 +40,7 @@ android {
 
 dependencies {
     implementation(project(":domain"))
+    implementation(project(":domain2"))
     implementation(libs.aboutlibraries.core)
     implementation(libs.bundles.room)
     implementation(libs.bundles.koin)
