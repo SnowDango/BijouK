@@ -14,7 +14,7 @@ object RepositoryModule {
             val baseUrl = param.get<String>()
             CiderRepository(
                 get<CiderApi> { parametersOf(baseUrl, param.get()) },
-                get<CiderSocket> { parametersOf(baseUrl) }
+                get<CiderSocket> { parametersOf(baseUrl) },
             )
         }
     }

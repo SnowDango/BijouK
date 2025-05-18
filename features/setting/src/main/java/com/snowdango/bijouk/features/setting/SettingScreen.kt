@@ -20,6 +20,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun SettingScreen(
     onClickLicense: () -> Unit,
+    modifier: Modifier = Modifier,
     onClickAppInfo: () -> Unit,
     viewModel: SettingViewModel = koinViewModel<SettingViewModel>(),
 ) {
@@ -27,6 +28,7 @@ fun SettingScreen(
         topBar = {
             TitleTopBar(title = stringResource(R.string.setting_top_bar_title))
         },
+        modifier = modifier,
     ) { paddingValue ->
         Column(
             modifier = Modifier

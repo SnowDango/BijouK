@@ -1,5 +1,6 @@
 package com.snowdango.bijouk.repository.cider
 
+
 import com.snowdango.bijouk.domain.api.CiderApi
 import com.snowdango.bijouk.domain.api.CiderSocket
 import com.snowdango.bijouk.domain.api.event.NowPlayingItemDidChangeEvent
@@ -64,9 +65,18 @@ class CiderRepository(
             onNowPlayingItemChangeEvent,
             onNowPlayingStatusChangeEvent
         )
+        ciderSocket.startSocket(
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+        )
     }
 
     fun disconnect() {
+        ciderSocket.closeSocket()
         ciderSocket.closeSocket()
     }
 }
