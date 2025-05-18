@@ -74,7 +74,6 @@ kotlin {
                 implementation(libs.ktor.serialization)
                 implementation(libs.ktor.logging)
                 implementation(libs.ktor.content)
-                implementation(libs.ktor.serialization)
                 implementation(libs.ktor.socket)
 
                 // socket.io
