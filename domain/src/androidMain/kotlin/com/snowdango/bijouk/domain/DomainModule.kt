@@ -11,6 +11,6 @@ actual object DomainModule {
     actual val module: Module = module {
         single<DevicesDatabase> { getDevicesDatabase(get()) }
         single<CiderSocket> { param -> CiderSocket(param.get()) }
-        factory<CiderApi> { param -> CiderApi(baseUrl = param.get(), token = param.get()) }
+        factory<CiderApi> { param -> CiderApi(baseUrl = param.get<String>(0), token = param.get<String>(1)) }
     }
 }
