@@ -40,7 +40,6 @@ android {
 
 dependencies {
     implementation(project(":domain"))
-    implementation(project(":domain2"))
     implementation(project(":repository"))
     implementation(libs.aboutlibraries.core)
     implementation(libs.bundles.koin)

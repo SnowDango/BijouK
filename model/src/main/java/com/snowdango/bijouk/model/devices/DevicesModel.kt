@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.model.devices
 
 
-import com.snowdango.bijouk.domain2.db.entity.DevicesEntity
+import com.snowdango.bijouk.domain.db.entity.DevicesEntity
 import com.snowdango.bijouk.repository.device.DevicesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

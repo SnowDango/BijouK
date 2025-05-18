@@ -1,11 +1,11 @@
 package com.snowdango.bijouk.model.cider.mapper
 
 
-import com.snowdango.bijouk.domain2.api.entity.Albums
-import com.snowdango.bijouk.domain2.api.entity.Artists
-import com.snowdango.bijouk.domain2.api.entity.Playlists
-import com.snowdango.bijouk.domain2.api.entity.Songs
-import com.snowdango.bijouk.domain2.api.response.SearchResponse
+import com.snowdango.bijouk.domain.api.entity.Albums
+import com.snowdango.bijouk.domain.api.entity.Artists
+import com.snowdango.bijouk.domain.api.entity.Playlists
+import com.snowdango.bijouk.domain.api.entity.Songs
+import com.snowdango.bijouk.domain.api.response.SearchResponse
 import com.snowdango.bijouk.model.cider.data.SearchAlbum
 import com.snowdango.bijouk.model.cider.data.SearchArtist
 import com.snowdango.bijouk.model.cider.data.SearchData
