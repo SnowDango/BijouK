@@ -16,7 +16,7 @@ actual class Logger actual constructor(tag: String) {
     }
 
     actual fun e(tag: String?, throwable: Throwable) {
-        Log.d(tag ?: parentTag, "Throwable: $throwable CAUSE ${throwable.cause}")
+        Log.e(tag ?: parentTag, "Throwable: $throwable CAUSE ${throwable.cause}")
     }
 
     actual fun i(tag: String?, message: String) {
