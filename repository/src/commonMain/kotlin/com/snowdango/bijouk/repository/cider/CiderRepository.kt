@@ -65,18 +65,9 @@ class CiderRepository(
             onNowPlayingItemChangeEvent,
             onNowPlayingStatusChangeEvent
         )
-        ciderSocket.startSocket(
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-        )
     }
 
     fun disconnect() {
-        ciderSocket.closeSocket()
         ciderSocket.closeSocket()
     }
 }
