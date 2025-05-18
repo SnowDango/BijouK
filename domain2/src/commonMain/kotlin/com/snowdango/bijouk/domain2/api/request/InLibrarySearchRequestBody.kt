@@ -1,6 +1,6 @@
 package com.snowdango.bijouk.domain2.api.request
 
-import java.net.URLEncoder
+import net.thauvin.erik.urlencoder.UrlEncoderUtil
 
 data class InLibrarySearchRequestBody(
     val path: String,
@@ -13,7 +13,7 @@ data class InLibrarySearchRequestBody(
         ): SearchRequestBody {
             return SearchRequestBody(
                 path = "/v1/me/library/search?" +
-                        "term=${URLEncoder.encode(search, "utf-8")}" +
+                        "term=${UrlEncoderUtil.encode(search)}" +
                         "&types=${searchTypes.joinToString(",") { it.type }}" +
                         "&limit=$limit"
             )

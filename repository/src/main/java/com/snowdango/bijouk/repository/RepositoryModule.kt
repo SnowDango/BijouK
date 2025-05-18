@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.repository
 
-import com.snowdango.bijouk.domain.api.CiderApi
 import com.snowdango.bijouk.domain.api.CiderSocket
+import com.snowdango.bijouk.domain2.api.CiderApi
 import com.snowdango.bijouk.domain2.api.CiderSocket2
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import com.snowdango.bijouk.repository.device.DevicesRepository

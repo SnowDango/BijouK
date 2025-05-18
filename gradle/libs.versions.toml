@@ -34,6 +34,7 @@ compose-settings = "2.10.0"
 aboutLibraries = "12.0.0"
 markdown = "0.5.7"
 kmlogger = "2.0.3"
+url-encoder = "1.6.0"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -96,6 +97,8 @@ ktor-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "k
 # socket
 socket-io = { group = "io.socket", name = "socket.io-client", version.ref = "socket" }
 kmp-socket = { group = "com.piasy", name = "kmp-socketio", version.ref = "kmp-socket" }
+
+url-encoder = { group = "net.thauvin.erik.urlencoder", name = "urlencoder-lib", version.ref = "url-encoder" }
 
 # serialization
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }

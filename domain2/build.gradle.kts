@@ -82,6 +82,9 @@ kotlin {
 
                 // kmlogger
                 implementation(libs.kmlogger)
+
+                // url encoder
+                implementation(libs.url.encoder)
             }
         }
 

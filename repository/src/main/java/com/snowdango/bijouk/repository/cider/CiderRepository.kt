@@ -1,16 +1,17 @@
 package com.snowdango.bijouk.repository.cider
 
-import com.snowdango.bijouk.domain.api.CiderApi
+
 import com.snowdango.bijouk.domain.api.CiderSocket
 import com.snowdango.bijouk.domain.api.event.NowPlayingItemDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.NowPlayingStatusDidChange
 import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
-import com.snowdango.bijouk.domain.api.response.BasicResponse
-import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
-import com.snowdango.bijouk.domain.api.response.SearchResponse
-import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
+import com.snowdango.bijouk.domain2.api.CiderApi
 import com.snowdango.bijouk.domain2.api.CiderSocket2
+import com.snowdango.bijouk.domain2.api.response.BasicResponse
+import com.snowdango.bijouk.domain2.api.response.NowPlayingResponse
+import com.snowdango.bijouk.domain2.api.response.SearchResponse
+import com.snowdango.bijouk.domain2.api.response.data.QueueResponseData
 
 class CiderRepository(
     private val ciderApi: CiderApi,

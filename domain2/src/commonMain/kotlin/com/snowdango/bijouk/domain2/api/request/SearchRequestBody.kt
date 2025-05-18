@@ -2,7 +2,7 @@ package com.snowdango.bijouk.domain2.api.request
 
 
 import kotlinx.serialization.Serializable
-import java.net.URLEncoder
+import net.thauvin.erik.urlencoder.UrlEncoderUtil
 
 @Suppress("UnsafeOptInUsageError")
 @Serializable
@@ -17,7 +17,7 @@ data class SearchRequestBody(
         ): SearchRequestBody {
             return SearchRequestBody(
                 path = "/v1/catalog/jp/search?" +
-                        "term=${URLEncoder.encode(search, "utf-8")}" +
+                        "term=${UrlEncoderUtil.encode(search)}" +
                         "&types=${searchTypes.joinToString(",") { it.type }}" +
                         "&limit=$limit"
             )
