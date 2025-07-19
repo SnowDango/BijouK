@@ -84,6 +84,7 @@ fun NowPlayScreen(
     val nowPlayingStatusData = viewModel.nowPlayingStatusFlow.collectAsStateWithLifecycle()
     val queueData = viewModel.queueViewDataFlow.collectAsStateWithLifecycle()
     val searchData = viewModel.searchDataFlow.collectAsStateWithLifecycle()
+    val isChangeableSeek = viewModel.isChangeableSeekFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {
         withContext(Dispatchers.Default) {
@@ -127,9 +128,11 @@ fun NowPlayScreen(
                     sheetMaxHeight = sheetMaxHeight,
                     sheetHeight = sheetHeight,
                     imageSize = imageSize,
+                    isEnableChange = isChangeableSeek.value,
                     onClickPlayPause = { viewModel.playPause() },
                     onClickPrevious = { viewModel.prev() },
-                    onClickNext = { viewModel.next() }
+                    onClickNext = { viewModel.next() },
+                    onMoveSeek = { viewModel.seekTo(it) },
                 )
             },
             topBar = {
@@ -146,9 +149,9 @@ fun NowPlayScreen(
         ) {
             val safeDrawable = with(destiny) {
                 (
-                    WindowInsets.safeDrawing.getTop(destiny) +
-                        WindowInsets.safeDrawing.getBottom(destiny)
-                    ).toDp()
+                        WindowInsets.safeDrawing.getTop(destiny) +
+                                WindowInsets.safeDrawing.getBottom(destiny)
+                        ).toDp()
             }
             Box(
                 modifier = Modifier

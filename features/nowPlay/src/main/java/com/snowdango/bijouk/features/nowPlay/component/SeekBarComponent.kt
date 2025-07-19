@@ -27,7 +27,12 @@ import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SeekBarComponent(playBackTimeData: PlayBackTimeData?, modifier: Modifier = Modifier) {
+fun SeekBarComponent(
+    isEnableChange: Boolean,
+    playBackTimeData: PlayBackTimeData?,
+    modifier: Modifier = Modifier,
+    onMoveSeek: (Float) -> Unit,
+) {
     Column(
         modifier = modifier
             .padding(horizontal = 40.dp)
@@ -35,15 +40,24 @@ fun SeekBarComponent(playBackTimeData: PlayBackTimeData?, modifier: Modifier = M
     ) {
         var sliderState by remember { mutableFloatStateOf(0f) }
         var isChanging by remember { mutableStateOf(false) }
-        if (!isChanging) sliderState = playBackTimeData?.currentTime ?: 0f
+        if (!isEnableChange) {
+            isChanging = false
+        }
+        if (isEnableChange && !isChanging) {
+            sliderState = playBackTimeData?.currentTime ?: 0f
+        }
         Slider(
             value = sliderState,
             onValueChange = {
-                isChanging = true
+                if (!isChanging) {
+                    isChanging = true
+                }
                 sliderState = it
             },
             onValueChangeFinished = {
-                isChanging = false
+                if (isChanging) {
+                    onMoveSeek(sliderState)
+                }
             },
             thumb = {
                 SliderDefaults.Thumb(
@@ -82,9 +96,9 @@ fun SeekBarComponent(playBackTimeData: PlayBackTimeData?, modifier: Modifier = M
             )
             Text(
                 text = "-" + (
-                    playBackTimeData?.remainingTimeString
-                        ?: stringResource(R.string.time_string_default)
-                    ),
+                        playBackTimeData?.remainingTimeString
+                            ?: stringResource(R.string.time_string_default)
+                        ),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Right,
                 modifier = Modifier

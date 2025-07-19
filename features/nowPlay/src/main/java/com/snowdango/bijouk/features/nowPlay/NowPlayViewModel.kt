@@ -63,6 +63,12 @@ class NowPlayViewModel(
         SharingStarted.WhileSubscribed(5_000),
         _searchDataFlow.value,
     )
+    private val _isChangeableSeekFlow: MutableStateFlow<Boolean> = MutableStateFlow(true)
+    val isChangeableSeekFlow = _isChangeableSeekFlow.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        _isChangeableSeekFlow.value,
+    )
 
     private val playBackEventListener = object : CiderModel.PlayBackStatusEventListener {
         override fun onTimeChangeEvent(playBackTimeData: PlayBackTimeData) {
@@ -182,6 +188,19 @@ class NowPlayViewModel(
             throw ce
         } catch (th: Throwable) {
             Log.e("NowPlayViewModel", th.toString())
+        }
+    }
+
+    fun seekTo(time: Float) = viewModelScope.launch {
+        _isChangeableSeekFlow.emit(false)
+        try {
+            ciderModel.seekTo(time)
+            _isChangeableSeekFlow.emit(true)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+            _isChangeableSeekFlow.emit(true)
         }
     }
 

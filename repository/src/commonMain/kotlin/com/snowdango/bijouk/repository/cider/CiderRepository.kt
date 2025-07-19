@@ -41,6 +41,10 @@ class CiderRepository(
         return ciderApi.previous()
     }
 
+    suspend fun seekTo(to: Float): BasicResponse {
+        return ciderApi.seekTo(to)
+    }
+
     suspend fun postMoveQueue(index: Int, moveIndex: Int): BasicResponse {
         return ciderApi.moveQueue(index, moveIndex)
     }

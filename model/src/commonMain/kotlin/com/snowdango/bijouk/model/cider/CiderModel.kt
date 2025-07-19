@@ -49,6 +49,10 @@ class CiderModel(
         repository.postPrev()
     }
 
+    suspend fun seekTo(to: Float) {
+        repository.seekTo(to)
+    }
+
     suspend fun moveQueue(index: Int, moveIndex: Int) {
         repository.postMoveQueue(index, moveIndex)
     }
