@@ -44,7 +44,7 @@ android {
 
 dependencies {
     implementation(project(":ui"))
-    implementation(project(":model"))
+    implementation(project(":model2"))
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.bundles.android.base)
     implementation(platform(libs.androidx.compose.bom))

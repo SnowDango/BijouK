@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.features.nowPlay.NowPlayViewModel
 import com.snowdango.bijouk.features.nowPlay.component.QueueSongCard
-import com.snowdango.bijouk.model.cider.data.QueueData
+import com.snowdango.bijouk.model2.cider.data.QueueData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

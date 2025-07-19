@@ -1,0 +1,28 @@
+package com.snowdango.bijouk.model2.cider
+
+import com.snowdango.bijouk.model2.devices.DeviceData
+import com.snowdango.bijouk.repository.cider.CiderRepository
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import org.koin.core.parameter.parametersOf
+
+class CiderMultiModel(
+    devices: List<DeviceData>,
+) : KoinComponent {
+
+    private val repositories: Map<DeviceData, CiderRepository> = devices.associate {
+        it to get<CiderRepository> { parametersOf(it.baseUrl, it.token) }
+    }
+
+    suspend fun isActives(): List<Long> {
+        return repositories.map {
+            val isActive = try {
+                it.value.getActive()
+                true
+            } catch (_: Throwable) {
+                false
+            }
+            it.key.id to isActive
+        }.filter { it.second }.map { it.first }
+    }
+}

@@ -79,7 +79,8 @@ koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-compose-viewmodel", version.ref = "koin" }
 
 # coroutine
-kotlinx-coroutine = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
+kotlinx-coroutine-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutine" }
+kotlinx-coroutine-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutine" }
 
 # Immutable
 kotlinx-collections-immutable = { group = "org.jetbrains.kotlinx", name = "kotlinx-collections-immutable", version.ref = "immutable" }
@@ -163,7 +164,7 @@ settings-compose = ["composeSettings-ui", "composeSettings-ui-extended"]
 aboutlibraries = ["aboutlibraries-core", "aboutlibraries-compose-core", "aboutlibraries-compose-m3"]
 room = ["room-runtime", "room-ktx", "room-paging"]
 koin = ["koin-android", "koin-compose"]
-coroutine = ["kotlinx-coroutine"]
+coroutine = ["kotlinx-coroutine-android"]
 ktor = ["ktor-core", "ktor-android", "ktor-content", "ktor-logging", "ktor-serialization", "kotlinx-serialization", "ktor-socket"]
 coil = ["coil-compose", "coil-ktor"]
 detekt = ["detekt-formatting", "detekt-compose"]

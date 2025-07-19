@@ -23,7 +23,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.snowdango.bijouk.model.devices.DeviceData
+import com.snowdango.bijouk.model2.devices.DeviceData
 import com.snowdango.bijouk.ui.BijouKTheme
 
 @Composable
@@ -41,7 +41,8 @@ fun DeviceCard(
             .clickable { onClickDevice.invoke() },
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
+            modifier = Modifier
+                .padding(horizontal = 32.dp, vertical = 16.dp)
                 .fillMaxWidth()
                 .wrapContentHeight(),
             verticalAlignment = Alignment.CenterVertically,

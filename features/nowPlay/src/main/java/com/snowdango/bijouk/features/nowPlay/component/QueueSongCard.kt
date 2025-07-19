@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.features.nowPlay.R
-import com.snowdango.bijouk.model.cider.data.QueueData
+import com.snowdango.bijouk.model2.cider.data.QueueData
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.component.SongCard
 

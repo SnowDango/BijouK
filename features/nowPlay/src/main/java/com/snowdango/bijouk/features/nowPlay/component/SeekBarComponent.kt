@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.features.nowPlay.R
-import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
+import com.snowdango.bijouk.model2.cider.data.PlayBackTimeData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -82,9 +82,9 @@ fun SeekBarComponent(playBackTimeData: PlayBackTimeData?, modifier: Modifier = M
             )
             Text(
                 text = "-" + (
-                    playBackTimeData?.remainingTimeString
-                        ?: stringResource(R.string.time_string_default)
-                    ),
+                        playBackTimeData?.remainingTimeString
+                            ?: stringResource(R.string.time_string_default)
+                        ),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Right,
                 modifier = Modifier

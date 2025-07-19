@@ -1,0 +1,20 @@
+package com.snowdango.bijouk.model2.cider.data
+
+data class QueueDataList(
+    val list: List<QueueData>,
+)
+
+data class QueueData(
+    val songId: String,
+    val artwork: String,
+    val name: String,
+    val artist: String,
+    val album: String,
+    val state: State,
+) {
+    enum class State {
+        Before,
+        Current,
+        Waiting,
+    }
+}

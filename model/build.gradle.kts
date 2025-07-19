@@ -1,49 +1,78 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.kotlin.multiplatform.library)
+    alias(libs.plugins.kotlin.cocoapods)
 }
 
-android {
-    namespace = "com.snowdango.bijouk.model"
-    compileSdk = 35
+kotlin {
 
-    defaultConfig {
+    androidLibrary {
+        namespace = "com.snowdango.bijouk.model"
+        compileSdk = 35
         minSdk = 30
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        withHostTestBuilder {
         }
-        debug {
-            isMinifyEnabled = false
+
+        withDeviceTestBuilder {
+            sourceSetTreeName = "test"
+        }.configure {
+            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
-    lint {
-        textReport = true
-    }
-}
 
-dependencies {
-    implementation(project(":domain"))
-    implementation(project(":repository"))
-    implementation(libs.aboutlibraries.core)
-    implementation(libs.bundles.koin)
-    implementation(libs.bundles.coroutine)
-    testImplementation(libs.bundles.test)
-    testImplementation(kotlin("test"))
+    cocoapods {
+        version = "0.0.1"
+        summary = "Bijouk Model Module"
+        listOf(
+            iosX64(),
+            iosArm64(),
+            iosSimulatorArm64()
+        ).forEach {
+            it.binaries {
+                framework {
+                    baseName = "modelKit"
+                }
+            }
+        }
+        ios.deploymentTarget = "11.0"
+    }
+
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(project(":domain"))
+                implementation(project(":repository"))
+                implementation(libs.kotlin.stdlib)
+
+                // koin
+                implementation(libs.koin.core)
+                implementation(libs.koin.compose)
+
+                // coroutines
+                implementation(libs.kotlinx.coroutine.core)
+            }
+        }
+
+        commonTest {
+            dependencies {
+                implementation(libs.kotlin.test)
+            }
+        }
+
+        androidMain {
+            dependencies {
+            }
+        }
+
+        iosMain {
+            dependencies {
+            }
+        }
+    }
+
+    jvmToolchain(17)
+    compilerOptions {
+        freeCompilerArgs.add("-Xexpect-actual-classes")
+    }
 }

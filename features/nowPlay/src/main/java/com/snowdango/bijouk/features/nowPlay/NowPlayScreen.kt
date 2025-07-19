@@ -39,7 +39,7 @@ import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
 import com.snowdango.bijouk.features.nowPlay.view.BottomSheetContent
 import com.snowdango.bijouk.features.nowPlay.view.QueueContent
 import com.snowdango.bijouk.features.nowPlay.view.SongsContent
-import com.snowdango.bijouk.model.cider.data.SearchData
+import com.snowdango.bijouk.model2.cider.data.SearchData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -146,9 +146,9 @@ fun NowPlayScreen(
         ) {
             val safeDrawable = with(destiny) {
                 (
-                    WindowInsets.safeDrawing.getTop(destiny) +
-                        WindowInsets.safeDrawing.getBottom(destiny)
-                    ).toDp()
+                        WindowInsets.safeDrawing.getTop(destiny) +
+                                WindowInsets.safeDrawing.getBottom(destiny)
+                        ).toDp()
             }
             Box(
                 modifier = Modifier

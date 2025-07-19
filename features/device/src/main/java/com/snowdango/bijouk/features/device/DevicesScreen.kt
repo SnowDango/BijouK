@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.snowdango.bijouk.features.device.component.AddDeviceDialog
 import com.snowdango.bijouk.features.device.component.DeviceCard
-import com.snowdango.bijouk.model.devices.DeviceData
+import com.snowdango.bijouk.model2.devices.DeviceData
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.component.TitleTopBar
 import kotlinx.collections.immutable.ImmutableList

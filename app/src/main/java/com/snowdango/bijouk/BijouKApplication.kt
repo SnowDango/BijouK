@@ -5,7 +5,7 @@ import com.snowdango.bijouk.domain.DomainModule
 import com.snowdango.bijouk.features.device.DevicesModule
 import com.snowdango.bijouk.features.nowPlay.NowPlayModule
 import com.snowdango.bijouk.features.setting.SettingModule
-import com.snowdango.bijouk.model.ModelModule
+import com.snowdango.bijouk.model2.ModelModule
 import com.snowdango.bijouk.repository.RepositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext
