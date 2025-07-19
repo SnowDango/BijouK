@@ -12,8 +12,9 @@ kotlin {
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     androidLibrary {
         namespace = "com.snowdango.bijouk.domain"
-        compileSdk = 35
-        minSdk = 30
+        compileSdk = libs.versions.sdk.target.get().toInt()
+        minSdk = libs.versions.sdk.min.get().toInt()
+        version = libs.versions.version
 
         withHostTestBuilder {
         }
@@ -34,7 +35,7 @@ kotlin {
     // https://developer.android.com/kotlin/multiplatform/migrate
 
     cocoapods {
-        version = "0.0.1"
+        version = libs.versions.version.get()
         summary = "Bijouk Domain Module"
         listOf(
             iosX64(),

@@ -8,8 +8,9 @@ kotlin {
 
     androidLibrary {
         namespace = "com.snowdango.bijouk.model"
-        compileSdk = 35
-        minSdk = 30
+        compileSdk = libs.versions.sdk.target.get().toInt()
+        minSdk = libs.versions.sdk.min.get().toInt()
+        version = libs.versions.version
 
         withHostTestBuilder {
         }
@@ -22,7 +23,7 @@ kotlin {
     }
 
     cocoapods {
-        version = "0.0.1"
+        version = libs.versions.version.get()
         summary = "Bijouk Model Module"
         listOf(
             iosX64(),

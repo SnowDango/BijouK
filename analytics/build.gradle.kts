@@ -5,10 +5,11 @@ plugins {
 
 android {
     namespace = "com.snowdango.bijouk.analytics"
-    compileSdk = 35
+    compileSdk = libs.versions.sdk.target.get().toInt()
+    version = libs.versions.version
 
     defaultConfig {
-        minSdk = 30
+        minSdk = libs.versions.sdk.min.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
