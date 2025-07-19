@@ -12,7 +12,7 @@ kotlin {
     androidLibrary {
         namespace = "com.snowdango.bijouk.repository"
         compileSdk = libs.versions.sdk.target.get().toInt()
-        minSdk = 30
+        minSdk = libs.versions.sdk.min.get().toInt()
         version = libs.versions.version
 
         withHostTestBuilder {

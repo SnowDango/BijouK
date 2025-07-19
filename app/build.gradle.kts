@@ -17,7 +17,7 @@ android {
 
     defaultConfig {
         applicationId = "com.snowdango.bijouk"
-        minSdk = 30
+        minSdk = libs.versions.sdk.min.get().toInt()
         versionCode = 1
         versionName = versionNameBase
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
