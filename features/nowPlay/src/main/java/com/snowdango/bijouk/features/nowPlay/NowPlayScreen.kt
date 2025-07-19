@@ -172,7 +172,7 @@ fun NowPlayScreen(
                         viewModel.moveQueueNext(it)
                     },
                     onClickSkip = {
-                        // TODO skip
+                        viewModel.skipQueue(it)
                     }
                 )
             }
@@ -199,7 +199,7 @@ fun MainContent(
     onRefreshQueue: () -> Unit,
     onClickNext: (index: Int) -> Unit,
     modifier: Modifier = Modifier,
-    onClickSkip: () -> Unit
+    onClickSkip: (index: Int) -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val state = rememberPagerState(initialPage = 2) { ContentPageRoute.entries.size }
@@ -238,14 +238,14 @@ fun MainContent(
                     QueueContent(
                         queueViewData = queueViewData,
                         sheetSize = sheetSize,
-                        onClickNext = {
-                            onClickNext.invoke(it)
+                        onClickNext = { index ->
+                            onClickNext.invoke(index)
                         },
                         onRefreshQueue = {
                             onRefreshQueue.invoke()
                         },
-                        onClickSkip = {
-                            onClickSkip.invoke()
+                        onClickSkip = { index ->
+                            onClickSkip.invoke(index)
                         }
                     )
                 }

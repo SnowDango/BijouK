@@ -49,6 +49,10 @@ class CiderRepository(
         return ciderApi.moveQueue(index, moveIndex)
     }
 
+    suspend fun changeQueueIndex(index: Int): BasicResponse {
+        return ciderApi.changeQueueIndex(index)
+    }
+
     suspend fun searchAll(query: String): SearchResponse {
         return ciderApi.searchAll(query)
     }

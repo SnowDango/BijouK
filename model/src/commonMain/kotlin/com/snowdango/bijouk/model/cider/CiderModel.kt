@@ -57,6 +57,10 @@ class CiderModel(
         repository.postMoveQueue(index, moveIndex)
     }
 
+    suspend fun changeQueueIndex(index: Int) {
+        repository.changeQueueIndex(index)
+    }
+
     suspend fun getQueue(): QueueDataList {
         val queues = repository.getQueue()
         val currentIndex = queues.indexOfLast { it.attributes.currentPlaybackTime != null }
