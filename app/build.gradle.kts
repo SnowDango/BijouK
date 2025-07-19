@@ -13,7 +13,7 @@ android {
     namespace = "com.snowdango.bijouk"
     compileSdk = 35
 
-    val versionNameBase = "0.0.1"
+    val versionNameBase = libs.versions.version.get()
 
     defaultConfig {
         applicationId = "com.snowdango.bijouk"

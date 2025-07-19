@@ -7,6 +7,7 @@ plugins {
 android {
     namespace = "com.snowdango.bijouk.ui"
     compileSdk = 35
+    version = libs.versions.version
 
     defaultConfig {
         minSdk = 30

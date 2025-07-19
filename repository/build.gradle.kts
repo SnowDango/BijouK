@@ -13,6 +13,7 @@ kotlin {
         namespace = "com.snowdango.bijouk.repository"
         compileSdk = 35
         minSdk = 30
+        version = libs.versions.version
 
         withHostTestBuilder {
         }
@@ -25,7 +26,7 @@ kotlin {
     }
 
     cocoapods {
-        version = "0.0.1"
+        version = libs.versions.version.get()
         summary = "Bijouk Repository Module"
         listOf(
             iosX64(),
