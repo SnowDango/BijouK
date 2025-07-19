@@ -13,4 +13,8 @@
     <string name="queue_dropdown_menu_skip">ここまでスキップ</string>
     <string name="time_string_default">00:00</string>
 
+    <string name="search_song_dropdown_menu_play">今すぐ再生</string>
+    <string name="search_song_dropdown_menu_play_next">次に再生</string>
+    <string name="search_song_dropdown_menu_play_later">最後に再生</string>
+
 </resources>

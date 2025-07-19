@@ -4,6 +4,7 @@ import com.snowdango.bijouk.domain.api.request.ChangeQueueIndexRequestBody
 import com.snowdango.bijouk.domain.api.request.InLibrarySearchRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveSeekRequestBody
+import com.snowdango.bijouk.domain.api.request.PlayRequestBody
 import com.snowdango.bijouk.domain.api.request.SearchRequestBody
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
@@ -96,6 +97,33 @@ class CiderApi(
             url("/api/v1/playback/queue/change-to-index")
             contentType(ContentType.Application.Json)
             setBody(ChangeQueueIndexRequestBody(index = index))
+        }
+        return response.body<BasicResponse>()
+    }
+
+    suspend fun songPlayById(songId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-item")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Songs, songId))
+        }
+        return response.body<BasicResponse>()
+    }
+
+    suspend fun songPlayNextById(songId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-next")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Songs, songId))
+        }
+        return response.body<BasicResponse>()
+    }
+
+    suspend fun songPlayLaterById(songId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-later")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Songs, songId))
         }
         return response.body<BasicResponse>()
     }

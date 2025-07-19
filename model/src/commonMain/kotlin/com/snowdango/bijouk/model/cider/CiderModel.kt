@@ -61,6 +61,18 @@ class CiderModel(
         repository.changeQueueIndex(index)
     }
 
+    suspend fun songPlayById(id: String) {
+        repository.songPlayById(id)
+    }
+
+    suspend fun songPlayNextById(id: String) {
+        repository.songPlayNextById(id)
+    }
+
+    suspend fun songPlayLaterById(id: String) {
+        repository.songPlayLaterById(id)
+    }
+
     suspend fun getQueue(): QueueDataList {
         val queues = repository.getQueue()
         val currentIndex = queues.indexOfLast { it.attributes.currentPlaybackTime != null }
