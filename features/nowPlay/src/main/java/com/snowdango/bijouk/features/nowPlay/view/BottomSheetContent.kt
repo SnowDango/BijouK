@@ -53,8 +53,10 @@ fun BottomSheetContent(
     sheetMaxHeight: Dp,
     sheetHeight: Dp,
     imageSize: Dp,
+    isEnableChange: Boolean,
     onClickPlayPause: () -> Unit,
     onClickNext: () -> Unit,
+    onMoveSeek: (Float) -> Unit,
     modifier: Modifier = Modifier,
     onClickPrevious: () -> Unit
 ) {
@@ -162,9 +164,11 @@ fun BottomSheetContent(
                         modifier = Modifier.padding(top = 12.dp)
                     )
                     SeekBarComponent(
+                        isEnableChange = isEnableChange,
                         playBackTimeData = playBackTimeData,
                         modifier = Modifier
-                            .padding(top = 20.dp)
+                            .padding(top = 20.dp),
+                        onMoveSeek = onMoveSeek
                     )
                     PlayPauseControllerComponent(
                         playBackTimeData = playBackTimeData,

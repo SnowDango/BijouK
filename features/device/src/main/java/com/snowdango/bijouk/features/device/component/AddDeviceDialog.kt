@@ -72,7 +72,7 @@ fun AddDeviceDialog(
                         } else if (token.isBlank()) {
                             isValidateError = "Tokenが指定されていません"
                         } else {
-                            isValidateError = ""
+                            isValidateError = null
                             onClickAdd.invoke(name, host, port.toIntOrNull(), token, isUseSsl)
                         }
                     }
