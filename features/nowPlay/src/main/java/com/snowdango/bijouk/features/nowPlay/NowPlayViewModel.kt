@@ -21,7 +21,6 @@ import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 import java.time.Duration
 
-
 class NowPlayViewModel(
     private val baseUrl: String,
     private val token: String,
