@@ -149,9 +149,9 @@ fun NowPlayScreen(
         ) {
             val safeDrawable = with(destiny) {
                 (
-                    WindowInsets.safeDrawing.getTop(destiny) +
-                        WindowInsets.safeDrawing.getBottom(destiny)
-                    ).toDp()
+                        WindowInsets.safeDrawing.getTop(destiny) +
+                                WindowInsets.safeDrawing.getBottom(destiny)
+                        ).toDp()
             }
             Box(
                 modifier = Modifier
@@ -165,15 +165,12 @@ fun NowPlayScreen(
                     queueViewData = queueData.value,
                     searchData = searchData.value,
                     sheetSize = sheetMinHeight,
-                    onRefreshQueue = {
-                        viewModel.queueRefresh()
-                    },
-                    onClickNext = {
-                        viewModel.moveQueueNext(it)
-                    },
-                    onClickSkip = {
-                        viewModel.skipQueue(it)
-                    }
+                    onRefreshQueue = viewModel::queueRefresh,
+                    onClickNext = viewModel::moveQueueNext,
+                    onClickSkip = viewModel::skipQueue,
+                    onClickSearchPlay = viewModel::searchSongPlay,
+                    onClickSearchPlayNext = viewModel::searchSongPlayNext,
+                    onClickSearchPlayLater = viewModel::searchSongPlayLater,
                 )
             }
         }
@@ -198,8 +195,11 @@ fun MainContent(
     sheetSize: Dp,
     onRefreshQueue: () -> Unit,
     onClickNext: (index: Int) -> Unit,
+    onClickSkip: (index: Int) -> Unit,
+    onClickSearchPlay: (id: String) -> Unit,
+    onClickSearchPlayNext: (id: String) -> Unit,
     modifier: Modifier = Modifier,
-    onClickSkip: (index: Int) -> Unit
+    onClickSearchPlayLater: (id: String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val state = rememberPagerState(initialPage = 2) { ContentPageRoute.entries.size }
@@ -254,6 +254,9 @@ fun MainContent(
                     SongsContent(
                         songs = searchData?.songs,
                         sheetSize = sheetSize,
+                        onClickPlay = onClickSearchPlay,
+                        onClickPlayNext = onClickSearchPlayNext,
+                        onClickPlayLater = onClickSearchPlayLater
                     )
                 }
 

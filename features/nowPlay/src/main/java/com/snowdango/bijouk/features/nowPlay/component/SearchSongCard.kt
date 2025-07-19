@@ -15,20 +15,19 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.features.nowPlay.R
-import com.snowdango.bijouk.model.cider.data.QueueData
-import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.model.cider.data.SearchSong
 import com.snowdango.bijouk.ui.component.SongCard
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun QueueSongCard(
-    queueData: QueueData,
-    onClickNext: () -> Unit,
+fun SearchSongCard(
+    searchSong: SearchSong,
+    onClickPlay: (id: String) -> Unit,
+    onClickPlayNext: (id: String) -> Unit,
     modifier: Modifier = Modifier,
-    onClickSkip: () -> Unit,
+    onClickPlayLater: (id: String) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
     Box(
@@ -37,9 +36,9 @@ fun QueueSongCard(
             .fillMaxWidth()
     ) {
         SongCard(
-            artwork = queueData.artwork,
-            title = queueData.name,
-            artist = queueData.artist,
+            artwork = searchSong.artwork,
+            title = searchSong.name,
+            artist = searchSong.artist,
             modifier = Modifier
                 .fillMaxWidth()
                 .combinedClickable(
@@ -54,38 +53,26 @@ fun QueueSongCard(
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.queue_dropdown_menu_next)) },
+                text = { Text(text = stringResource(R.string.search_song_dropdown_menu_play)) },
                 onClick = {
-                    onClickNext.invoke()
+                    onClickPlay.invoke(searchSong.id)
                     expanded = false
                 }
             )
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.queue_dropdown_menu_skip)) },
+                text = { Text(text = stringResource(R.string.search_song_dropdown_menu_play_next)) },
                 onClick = {
-                    onClickSkip.invoke()
+                    onClickPlayNext.invoke(searchSong.id)
+                    expanded = false
+                }
+            )
+            DropdownMenuItem(
+                text = { Text(text = stringResource(R.string.search_song_dropdown_menu_play_later)) },
+                onClick = {
+                    onClickPlayLater.invoke(searchSong.id)
                     expanded = false
                 }
             )
         }
-    }
-}
-
-@Preview
-@Composable
-private fun PreviewQueueSongCard() {
-    BijouKTheme {
-        QueueSongCard(
-            queueData = QueueData(
-                songId = "",
-                name = "name",
-                artist = "artist",
-                artwork = "",
-                album = "",
-                state = QueueData.State.Waiting,
-            ),
-            onClickNext = {},
-            onClickSkip = {},
-        )
     }
 }

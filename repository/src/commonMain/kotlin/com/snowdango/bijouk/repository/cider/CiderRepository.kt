@@ -53,6 +53,18 @@ class CiderRepository(
         return ciderApi.changeQueueIndex(index)
     }
 
+    suspend fun songPlayById(id: String): BasicResponse {
+        return ciderApi.songPlayById(id)
+    }
+
+    suspend fun songPlayNextById(id: String): BasicResponse {
+        return ciderApi.songPlayNextById(id)
+    }
+
+    suspend fun songPlayLaterById(id: String): BasicResponse {
+        return ciderApi.songPlayLaterById(id)
+    }
+
     suspend fun searchAll(query: String): SearchResponse {
         return ciderApi.searchAll(query)
     }
