@@ -23,7 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.features.nowPlay.R
-import com.snowdango.bijouk.model2.cider.data.PlayBackTimeData
+import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

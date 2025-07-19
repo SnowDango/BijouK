@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.model2.devices
+package com.snowdango.bijouk.model.devices
 
 import com.snowdango.bijouk.domain.db.entity.DevicesEntity
 import com.snowdango.bijouk.repository.device.DevicesRepository

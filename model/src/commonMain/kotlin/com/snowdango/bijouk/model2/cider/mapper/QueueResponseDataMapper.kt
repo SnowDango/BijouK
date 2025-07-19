@@ -1,9 +1,9 @@
-package com.snowdango.bijouk.model2.cider.mapper
+package com.snowdango.bijouk.model.cider.mapper
 
 import com.snowdango.bijouk.domain.api.response.data.QueueAttributes
 import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
-import com.snowdango.bijouk.model2.cider.data.QueueData
-import com.snowdango.bijouk.model2.cider.mapper.converter.convert
+import com.snowdango.bijouk.model.cider.data.QueueData
+import com.snowdango.bijouk.model.cider.mapper.converter.convert
 
 fun QueueResponseData.convert(index: Int, currentIndex: Int): QueueData {
     return attributes.convert(id, index, currentIndex)

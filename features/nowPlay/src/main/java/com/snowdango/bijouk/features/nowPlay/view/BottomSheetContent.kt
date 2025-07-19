@@ -39,9 +39,9 @@ import com.snowdango.bijouk.features.nowPlay.component.NowPlaySongTitleComponent
 import com.snowdango.bijouk.features.nowPlay.component.PlayBackStateButtonsComponent
 import com.snowdango.bijouk.features.nowPlay.component.PlayPauseControllerComponent
 import com.snowdango.bijouk.features.nowPlay.component.SeekBarComponent
-import com.snowdango.bijouk.model2.cider.data.NowPlayData
-import com.snowdango.bijouk.model2.cider.data.NowPlayingStatusData
-import com.snowdango.bijouk.model2.cider.data.PlayBackTimeData
+import com.snowdango.bijouk.model.cider.data.NowPlayData
+import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
+import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

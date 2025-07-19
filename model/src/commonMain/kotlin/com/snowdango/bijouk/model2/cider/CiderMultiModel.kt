@@ -1,6 +1,6 @@
-package com.snowdango.bijouk.model2.cider
+package com.snowdango.bijouk.model.cider
 
-import com.snowdango.bijouk.model2.devices.DeviceData
+import com.snowdango.bijouk.model.devices.DeviceData
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get

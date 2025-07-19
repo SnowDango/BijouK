@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.model2.cider.data
+package com.snowdango.bijouk.model.cider.data
 
 data class NowPlayingStatusData(
     val isFav: Boolean,

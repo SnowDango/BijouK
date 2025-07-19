@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.model2.cider.data
+package com.snowdango.bijouk.model.cider.data
 
 data class NowPlayData(
     val id: String,

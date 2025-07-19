@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.model2.devices
+package com.snowdango.bijouk.model.devices
 
 data class DeviceData(
     val id: Long,

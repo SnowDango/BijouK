@@ -1,16 +1,16 @@
-package com.snowdango.bijouk.model2.cider.mapper
+package com.snowdango.bijouk.model.cider.mapper
 
 import com.snowdango.bijouk.domain.api.entity.Albums
 import com.snowdango.bijouk.domain.api.entity.Artists
 import com.snowdango.bijouk.domain.api.entity.Playlists
 import com.snowdango.bijouk.domain.api.entity.Songs
 import com.snowdango.bijouk.domain.api.response.SearchResponse
-import com.snowdango.bijouk.model2.cider.data.SearchAlbum
-import com.snowdango.bijouk.model2.cider.data.SearchArtist
-import com.snowdango.bijouk.model2.cider.data.SearchData
-import com.snowdango.bijouk.model2.cider.data.SearchPlaylist
-import com.snowdango.bijouk.model2.cider.data.SearchSong
-import com.snowdango.bijouk.model2.cider.mapper.converter.convert
+import com.snowdango.bijouk.model.cider.data.SearchAlbum
+import com.snowdango.bijouk.model.cider.data.SearchArtist
+import com.snowdango.bijouk.model.cider.data.SearchData
+import com.snowdango.bijouk.model.cider.data.SearchPlaylist
+import com.snowdango.bijouk.model.cider.data.SearchSong
+import com.snowdango.bijouk.model.cider.mapper.converter.convert
 
 fun SearchResponse.convert(): SearchData {
     return SearchData(

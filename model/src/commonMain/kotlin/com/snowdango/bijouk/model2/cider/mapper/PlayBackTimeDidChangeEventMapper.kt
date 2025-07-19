@@ -1,8 +1,8 @@
-package com.snowdango.bijouk.model2.cider.mapper
+package com.snowdango.bijouk.model.cider.mapper
 
 import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
-import com.snowdango.bijouk.model2.cider.data.PlayBackTimeData
-import com.snowdango.bijouk.model2.cider.mapper.converter.PlaybackTimeMapper
+import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
+import com.snowdango.bijouk.model.cider.mapper.converter.PlaybackTimeMapper
 
 @Suppress("SimpleDateFormat")
 fun PlayBackTimeDidChangeEvent.convert(): PlayBackTimeData {

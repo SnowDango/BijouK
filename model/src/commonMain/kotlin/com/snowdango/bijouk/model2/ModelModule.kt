@@ -1,8 +1,8 @@
-package com.snowdango.bijouk.model2
+package com.snowdango.bijouk.model
 
-import com.snowdango.bijouk.model2.cider.CiderModel
-import com.snowdango.bijouk.model2.cider.CiderMultiModel
-import com.snowdango.bijouk.model2.devices.DevicesModel
+import com.snowdango.bijouk.model.cider.CiderModel
+import com.snowdango.bijouk.model.cider.CiderMultiModel
+import com.snowdango.bijouk.model.devices.DevicesModel
 import org.koin.dsl.module
 
 object ModelModule {

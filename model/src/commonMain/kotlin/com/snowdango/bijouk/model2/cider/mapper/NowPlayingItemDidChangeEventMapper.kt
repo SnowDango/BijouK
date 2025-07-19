@@ -1,8 +1,8 @@
-package com.snowdango.bijouk.model2.cider.mapper
+package com.snowdango.bijouk.model.cider.mapper
 
 import com.snowdango.bijouk.domain.api.event.NowPlayingItemDidChangeEvent
-import com.snowdango.bijouk.model2.cider.data.NowPlayData
-import com.snowdango.bijouk.model2.cider.mapper.converter.convert
+import com.snowdango.bijouk.model.cider.data.NowPlayData
+import com.snowdango.bijouk.model.cider.mapper.converter.convert
 
 fun NowPlayingItemDidChangeEvent.convert(): NowPlayData {
     return NowPlayData(

@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.model2.cider.mapper.converter
+package com.snowdango.bijouk.model.cider.mapper.converter
 
 import platform.Foundation.NSDate
 import platform.Foundation.NSDateFormatter

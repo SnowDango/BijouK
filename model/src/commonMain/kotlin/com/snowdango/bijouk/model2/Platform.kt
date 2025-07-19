@@ -1,3 +1,3 @@
-package com.snowdango.bijouk.model2
+package com.snowdango.bijouk.model
 
 expect fun platform(): String

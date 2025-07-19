@@ -67,7 +67,7 @@ dependencies {
     implementation(project(":features:setting"))
     implementation(project(":repository"))
     implementation(project(":domain"))
-    implementation(project(":model2"))
+    implementation(project(":model"))
     implementation(project(":ui"))
     implementation(libs.androidx.splash)
     implementation(libs.bundles.android.base)

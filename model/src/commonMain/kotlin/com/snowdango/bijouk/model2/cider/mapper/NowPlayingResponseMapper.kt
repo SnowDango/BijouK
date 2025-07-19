@@ -1,12 +1,12 @@
-package com.snowdango.bijouk.model2.cider.mapper
+package com.snowdango.bijouk.model.cider.mapper
 
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.data.NowPlayingResponseData
-import com.snowdango.bijouk.model2.cider.data.NowPlayData
-import com.snowdango.bijouk.model2.cider.data.NowPlayingStatusData
-import com.snowdango.bijouk.model2.cider.data.PlayBackTimeData
-import com.snowdango.bijouk.model2.cider.mapper.converter.PlaybackTimeMapper
-import com.snowdango.bijouk.model2.cider.mapper.converter.convert
+import com.snowdango.bijouk.model.cider.data.NowPlayData
+import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
+import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
+import com.snowdango.bijouk.model.cider.mapper.converter.PlaybackTimeMapper
+import com.snowdango.bijouk.model.cider.mapper.converter.convert
 
 fun NowPlayingResponse.convert(): Triple<NowPlayData, PlayBackTimeData, NowPlayingStatusData> {
     return Triple(
