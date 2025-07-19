@@ -3,8 +3,11 @@ name: Test
 on:
   pull_request:
 
-jobs:
+permissions:
+  contents: write
+  discussions: write
 
+jobs:
   build:
     runs-on: ubuntu-latest
     steps:
