@@ -22,7 +22,7 @@ fun QueueContent(
     onClickNext: (index: Int) -> Unit,
     onRefreshQueue: () -> Unit,
     modifier: Modifier = Modifier,
-    onClickSkip: () -> Unit
+    onClickSkip: (index: Int) -> Unit
 ) {
     PullToRefreshBox(
         modifier = modifier.fillMaxSize(),
@@ -51,7 +51,7 @@ fun QueueContent(
                                         onClickNext.invoke(index)
                                     },
                                     onClickSkip = {
-                                        onClickSkip.invoke()
+                                        onClickSkip.invoke(index)
                                     },
                                 )
                             }

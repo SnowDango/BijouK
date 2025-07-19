@@ -228,6 +228,16 @@ class NowPlayViewModel(
         }
     }
 
+    fun skipQueue(index: Int) = viewModelScope.launch {
+        try {
+            ciderModel.changeQueueIndex(index)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+        }
+    }
+
     fun search(query: String) = viewModelScope.launch {
         try {
             val searchData = ciderModel.searchAll(query)

@@ -1,5 +1,6 @@
 package com.snowdango.bijouk.domain.api
 
+import com.snowdango.bijouk.domain.api.request.ChangeQueueIndexRequestBody
 import com.snowdango.bijouk.domain.api.request.InLibrarySearchRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveSeekRequestBody
@@ -86,6 +87,15 @@ class CiderApi(
             url("/api/v1/playback/queue/move-to-position")
             contentType(ContentType.Application.Json)
             setBody(MoveQueueRequestBody(startIndex = index, destinationIndex = moveIndex))
+        }
+        return response.body<BasicResponse>()
+    }
+
+    suspend fun changeQueueIndex(index: Int): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/queue/change-to-index")
+            contentType(ContentType.Application.Json)
+            setBody(ChangeQueueIndexRequestBody(index = index))
         }
         return response.body<BasicResponse>()
     }
