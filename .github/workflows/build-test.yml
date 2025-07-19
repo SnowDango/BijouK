@@ -4,10 +4,9 @@ on:
   pull_request:
 
 jobs:
+
   build:
-
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - name: set up JDK 17
@@ -16,8 +15,30 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
-
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: create debug google-services.json
+        run: |
+          touch app/debug/google-services.json
+          echo "${{ secret.DEBUG_GOOGLE_SERVICES_BASE64 }}" | base64 -d > app/debug/google-services.json
       - name: Build with Gradle
         run: ./gradlew assembleDebug
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: gradle
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: create debug google-services.json
+        run: |
+          touch app/debug/google-services.json
+          echo "${{ secret.DEBUG_GOOGLE_SERVICES_BASE64 }}" | base64 -d > app/debug/google-services.json
+      - name: Build with Gradle
+        run: ./gradlew detekt --auto-correct
+
