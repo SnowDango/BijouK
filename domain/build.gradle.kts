@@ -12,7 +12,7 @@ kotlin {
     // See: https://kotlinlang.org/docs/multiplatform-discover-project.html#targets
     androidLibrary {
         namespace = "com.snowdango.bijouk.domain"
-        compileSdk = 35
+        compileSdk = libs.versions.sdk.target.get().toInt()
         minSdk = 30
         version = libs.versions.version
 

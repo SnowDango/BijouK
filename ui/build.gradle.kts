@@ -6,7 +6,7 @@ plugins {
 
 android {
     namespace = "com.snowdango.bijouk.ui"
-    compileSdk = 35
+    compileSdk = libs.versions.sdk.target.get().toInt()
     version = libs.versions.version
 
     defaultConfig {

@@ -11,14 +11,13 @@ plugins {
 
 android {
     namespace = "com.snowdango.bijouk"
-    compileSdk = 35
+    compileSdk = libs.versions.sdk.target.get().toInt()
 
     val versionNameBase = libs.versions.version.get()
 
     defaultConfig {
         applicationId = "com.snowdango.bijouk"
         minSdk = 30
-        targetSdk = 35
         versionCode = 1
         versionName = versionNameBase
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"

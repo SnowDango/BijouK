@@ -8,7 +8,7 @@ kotlin {
 
     androidLibrary {
         namespace = "com.snowdango.bijouk.model"
-        compileSdk = 35
+        compileSdk = libs.versions.sdk.target.get().toInt()
         minSdk = 30
         version = libs.versions.version
 

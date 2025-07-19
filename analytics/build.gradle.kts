@@ -5,7 +5,8 @@ plugins {
 
 android {
     namespace = "com.snowdango.bijouk.analytics"
-    compileSdk = 35
+    compileSdk = libs.versions.sdk.target.get().toInt()
+    version = libs.versions.version
 
     defaultConfig {
         minSdk = 30
