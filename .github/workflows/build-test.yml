@@ -20,6 +20,11 @@ jobs:
           cache: gradle
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: create local.properties
+        run: |
+          touch local.properties
+          echo "deploygate.user=${{ secrets.DEPLOYGATE_USER }}" >> local.properties
+          echo "deploygate.token=${{ secrets.DEPLOYGATE_TOKEN }}" >> local.properties
       - name: create debug google-services.json
         run: |
           touch app/src/debug/google-services.json
@@ -38,6 +43,11 @@ jobs:
           cache: gradle
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
+      - name: create local.properties
+        run: |
+          touch local.properties
+          echo "deploygate.user=${{ secrets.DEPLOYGATE_USER }}" >> local.properties
+          echo "deploygate.token=${{ secrets.DEPLOYGATE_TOKEN }}" >> local.properties
       - name: create debug google-services.json
         run: |
           touch app/src/debug/google-services.json

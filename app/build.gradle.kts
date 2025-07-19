@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -7,6 +9,7 @@ plugins {
     alias(libs.plugins.aboutLibraries)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
+    alias(libs.plugins.deploygate)
 }
 
 android {
@@ -62,6 +65,20 @@ aboutLibraries {
     }
 }
 
+deploygate {
+    val properties = readProperties(file("../local.properties"))
+    appOwnerName = properties.getProperty("deploygate.user")
+    apiToken = properties.getProperty("deploygate.token")
+    deployments {
+        create("release") {
+            sourceFile = file("build/outputs/apk/release/app-release.apk")
+        }
+        create("debug") {
+            sourceFile = file("build/outputs/apk/debug/app-debug.apk")
+        }
+    }
+}
+
 dependencies {
     implementation(project(":features:device"))
     implementation(project(":features:nowPlay"))
@@ -87,4 +104,10 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)
     debugImplementation(libs.bundles.android.debug)
+}
+
+fun readProperties(propertiesFile: File) = Properties().apply {
+    propertiesFile.inputStream().use { fis ->
+        load(fis)
+    }
 }
