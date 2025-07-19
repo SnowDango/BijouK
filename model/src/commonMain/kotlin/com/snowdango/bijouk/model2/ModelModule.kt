@@ -12,4 +12,5 @@ object ModelModule {
         factory { param -> CiderMultiModel(param.get()) }
         factory { param -> CiderModel(param.get(), param.get()) }
     }
+
 }

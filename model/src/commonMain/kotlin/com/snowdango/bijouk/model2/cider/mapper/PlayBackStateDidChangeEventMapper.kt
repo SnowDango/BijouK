@@ -1,13 +1,11 @@
 package com.snowdango.bijouk.model.cider.mapper
 
-import android.annotation.SuppressLint
 import com.snowdango.bijouk.domain.api.event.Attributes
 import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
+import com.snowdango.bijouk.model.cider.mapper.converter.PlaybackTimeMapper
 import com.snowdango.bijouk.model.cider.mapper.converter.convert
-import com.snowdango.bijouk.model.cider.mapper.converter.convertPlaybackTime
-import com.snowdango.bijouk.model.cider.mapper.converter.convertRemainingTime
 
 fun PlayBackStateDidChangeEvent.convert(): Pair<NowPlayData?, PlayBackTimeData?> {
     return Pair(
@@ -27,14 +25,14 @@ fun Attributes.convertNowPlayData(): NowPlayData {
     )
 }
 
-@SuppressLint("SimpleDateFormat")
+@Suppress("SimpleDateFormat")
 fun Attributes.convertPlayBackTimeData(): PlayBackTimeData {
     return PlayBackTimeData(
         duration = durationInMillis / 1000f,
         currentTime = currentPlaybackTime.toFloat(),
         remainingTime = remainingTime.toFloat(),
-        currentTimeString = currentPlaybackTime.convertPlaybackTime(),
-        remainingTimeString = remainingTime.convertRemainingTime(),
+        currentTimeString = PlaybackTimeMapper.convertPlaybackTime(currentPlaybackTime),
+        remainingTimeString = PlaybackTimeMapper.convertRemainingTime(remainingTime),
         isPlaying = false,
     )
 }

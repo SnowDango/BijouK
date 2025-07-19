@@ -41,7 +41,8 @@ fun DeviceCard(
             .clickable { onClickDevice.invoke() },
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
+            modifier = Modifier
+                .padding(horizontal = 32.dp, vertical = 16.dp)
                 .fillMaxWidth()
                 .wrapContentHeight(),
             verticalAlignment = Alignment.CenterVertically,

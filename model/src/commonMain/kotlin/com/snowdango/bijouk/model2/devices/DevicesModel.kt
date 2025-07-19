@@ -3,6 +3,7 @@ package com.snowdango.bijouk.model.devices
 import com.snowdango.bijouk.domain.db.entity.DevicesEntity
 import com.snowdango.bijouk.repository.device.DevicesRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
