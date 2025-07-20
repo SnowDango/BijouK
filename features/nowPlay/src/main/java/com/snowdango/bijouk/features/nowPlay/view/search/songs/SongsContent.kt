@@ -53,28 +53,23 @@ fun SongsContent(
     Box(
         modifier = modifier.fillMaxSize()
     ) {
-
-        pagingSongs.let { songs ->
-            if (songs.itemCount != 0) {
-                LazyColumn(
-                    modifier = Modifier
-                        .fillMaxSize(),
-                    contentPadding = PaddingValues(
-                        top = 16.dp,
-                        bottom = sheetSize,
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentPadding = PaddingValues(
+                top = 16.dp,
+                bottom = sheetSize,
+            )
+        ) {
+            items(count = pagingSongs.itemCount) { index ->
+                val song = pagingSongs[index]
+                song?.let {
+                    SearchSongCard(
+                        searchSong = song,
+                        onClickPlay = viewModel::searchSongPlay,
+                        onClickPlayNext = viewModel::searchSongPlayNext,
+                        onClickPlayLater = viewModel::searchSongPlayLater,
                     )
-                ) {
-                    items(count = songs.itemCount) { index ->
-                        val song = songs[index]
-                        song?.let {
-                            SearchSongCard(
-                                searchSong = song,
-                                onClickPlay = viewModel::searchSongPlay,
-                                onClickPlayNext = viewModel::searchSongPlayNext,
-                                onClickPlayLater = viewModel::searchSongPlayLater,
-                            )
-                        }
-                    }
                 }
             }
         }
