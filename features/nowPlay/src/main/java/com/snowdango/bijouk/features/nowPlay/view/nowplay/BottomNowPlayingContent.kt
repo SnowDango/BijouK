@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.nowPlay.view
+package com.snowdango.bijouk.features.nowPlay.view.nowplay
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
@@ -33,6 +33,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.snowdango.bijouk.features.nowPlay.component.NowPlaySongTitleComponent
@@ -42,10 +43,14 @@ import com.snowdango.bijouk.features.nowPlay.component.SeekBarComponent
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BottomSheetContent(
+fun BottomNowPlayingContent(
+    baseUrl: String,
+    token: String,
     sheetState: SheetState,
     nowPlayData: NowPlayData?,
     playBackTimeData: PlayBackTimeData?,
@@ -53,13 +58,13 @@ fun BottomSheetContent(
     sheetMaxHeight: Dp,
     sheetHeight: Dp,
     imageSize: Dp,
-    isEnableChange: Boolean,
-    onClickPlayPause: () -> Unit,
-    onClickNext: () -> Unit,
-    onMoveSeek: (Float) -> Unit,
     modifier: Modifier = Modifier,
-    onClickPrevious: () -> Unit
+    viewModel: NowPlayingViewModel = koinViewModel<NowPlayingViewModel> {
+        parametersOf(baseUrl, token)
+    },
 ) {
+    val isEnableChange = viewModel.isChangeableSeekFlow.collectAsStateWithLifecycle()
+
     Box(
         modifier = modifier
             .fillMaxWidth()
@@ -138,7 +143,7 @@ fun BottomSheetContent(
                                 .padding(start = 8.dp, end = 26.dp)
                                 .size(30.dp)
                                 .clickable {
-                                    onClickPlayPause.invoke()
+                                    viewModel.playPause()
                                 },
                         )
                     } else {
@@ -164,17 +169,25 @@ fun BottomSheetContent(
                         modifier = Modifier.padding(top = 12.dp)
                     )
                     SeekBarComponent(
-                        isEnableChange = isEnableChange,
+                        isEnableChange = isEnableChange.value,
                         playBackTimeData = playBackTimeData,
                         modifier = Modifier
                             .padding(top = 20.dp),
-                        onMoveSeek = onMoveSeek
+                        onMoveSeek = {
+                            viewModel.seekTo(it)
+                        }
                     )
                     PlayPauseControllerComponent(
                         playBackTimeData = playBackTimeData,
-                        onClickPlayPause = onClickPlayPause,
-                        onClickNext = onClickNext,
-                        onClickPrevious = onClickPrevious,
+                        onClickPlayPause = {
+                            viewModel.playPause()
+                        },
+                        onClickNext = {
+                            viewModel.next()
+                        },
+                        onClickPrevious = {
+                            viewModel.prev()
+                        },
                         modifier = Modifier
                             .padding(top = 40.dp)
                     )

@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.nowPlay.view
+package com.snowdango.bijouk.features.nowPlay.view.queue
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -7,27 +7,41 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.snowdango.bijouk.features.nowPlay.NowPlayViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.snowdango.bijouk.features.nowPlay.action.QueueRefreshAction
 import com.snowdango.bijouk.features.nowPlay.component.QueueSongCard
 import com.snowdango.bijouk.model.cider.data.QueueData
+import org.koin.compose.viewmodel.koinViewModel
+import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QueueContent(
-    queueViewData: NowPlayViewModel.QueueViewData?,
+    baseUrl: String,
+    token: String,
+    queueRefreshAction: QueueRefreshAction,
     sheetSize: Dp,
-    onClickNext: (index: Int) -> Unit,
-    onRefreshQueue: () -> Unit,
+    onClearQueueRefreshAction: () -> Unit,
     modifier: Modifier = Modifier,
-    onClickSkip: (index: Int) -> Unit
+    viewModel: QueueViewModel = koinViewModel<QueueViewModel> {
+        parametersOf(baseUrl, token)
+    },
 ) {
+    val queueViewData = viewModel.queueViewDataFlow.collectAsStateWithLifecycle()
+
+    LaunchedEffect(queueRefreshAction) {
+        viewModel.onQueueRefreshAction(queueRefreshAction)
+        onClearQueueRefreshAction.invoke()
+    }
+
     PullToRefreshBox(
         modifier = modifier.fillMaxSize(),
-        isRefreshing = queueViewData?.isRefresh == true,
-        onRefresh = { onRefreshQueue.invoke() }
+        isRefreshing = queueViewData.value?.isRefresh == true,
+        onRefresh = viewModel::queueRefresh,
     ) {
         Box(
             modifier = Modifier
@@ -41,17 +55,17 @@ fun QueueContent(
                     bottom = sheetSize,
                 )
             ) {
-                queueViewData?.let { viewData ->
+                queueViewData.value?.let { viewData ->
                     viewData.queueDataList.list.forEachIndexed { index, queueData ->
                         if (queueData.state == QueueData.State.Waiting) {
                             item {
                                 QueueSongCard(
                                     queueData = queueData,
                                     onClickNext = {
-                                        onClickNext.invoke(index)
+                                        viewModel.moveQueueNext(index)
                                     },
                                     onClickSkip = {
-                                        onClickSkip.invoke(index)
+                                        viewModel.skipQueue(index)
                                     },
                                 )
                             }

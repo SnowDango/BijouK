@@ -35,11 +35,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.snowdango.bijouk.features.nowPlay.action.QueueRefreshAction
+import com.snowdango.bijouk.features.nowPlay.action.SearchSongsAction
 import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
-import com.snowdango.bijouk.features.nowPlay.view.BottomSheetContent
-import com.snowdango.bijouk.features.nowPlay.view.QueueContent
-import com.snowdango.bijouk.features.nowPlay.view.SongsContent
-import com.snowdango.bijouk.model.cider.data.SearchData
+import com.snowdango.bijouk.features.nowPlay.view.nowplay.BottomNowPlayingContent
+import com.snowdango.bijouk.features.nowPlay.view.queue.QueueContent
+import com.snowdango.bijouk.features.nowPlay.view.search.songs.SearchSongsContent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -82,9 +83,10 @@ fun NowPlayScreen(
     val nowPlayData = viewModel.nowPlayFlow.collectAsStateWithLifecycle()
     val playBackTimeData = viewModel.playBackTimeData.collectAsStateWithLifecycle()
     val nowPlayingStatusData = viewModel.nowPlayingStatusFlow.collectAsStateWithLifecycle()
-    val queueData = viewModel.queueViewDataFlow.collectAsStateWithLifecycle()
-    val searchData = viewModel.searchDataFlow.collectAsStateWithLifecycle()
-    val isChangeableSeek = viewModel.isChangeableSeekFlow.collectAsStateWithLifecycle()
+    val queueRefreshAction = viewModel.queueRefreshActionFlow.collectAsStateWithLifecycle(
+        initialValue = QueueRefreshAction.NoAction
+    )
+    val searchSongsAction = viewModel.searchSongsActionFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {
         withContext(Dispatchers.Default) {
@@ -120,7 +122,9 @@ fun NowPlayScreen(
             scaffoldState = sheetState,
             sheetPeekHeight = sheetMinHeight,
             sheetContent = {
-                BottomSheetContent(
+                BottomNowPlayingContent(
+                    baseUrl = baseUrl,
+                    token = token,
                     sheetState = sheetState.bottomSheetState,
                     nowPlayData = nowPlayData.value,
                     playBackTimeData = playBackTimeData.value,
@@ -128,11 +132,6 @@ fun NowPlayScreen(
                     sheetMaxHeight = sheetMaxHeight,
                     sheetHeight = sheetHeight,
                     imageSize = imageSize,
-                    isEnableChange = isChangeableSeek.value,
-                    onClickPlayPause = { viewModel.playPause() },
-                    onClickPrevious = { viewModel.prev() },
-                    onClickNext = { viewModel.next() },
-                    onMoveSeek = { viewModel.seekTo(it) },
                 )
             },
             topBar = {
@@ -162,15 +161,13 @@ fun NowPlayScreen(
                     },
             ) {
                 MainContent(
-                    queueViewData = queueData.value,
-                    searchData = searchData.value,
+                    baseUrl = baseUrl,
+                    token = token,
                     sheetSize = sheetMinHeight,
-                    onRefreshQueue = viewModel::queueRefresh,
-                    onClickNext = viewModel::moveQueueNext,
-                    onClickSkip = viewModel::skipQueue,
-                    onClickSearchPlay = viewModel::searchSongPlay,
-                    onClickSearchPlayNext = viewModel::searchSongPlayNext,
-                    onClickSearchPlayLater = viewModel::searchSongPlayLater,
+                    queueRefreshAction = queueRefreshAction.value,
+                    onClearQueueRefreshAction = viewModel::clearQueueRefreshAction,
+                    searchSongsAction = searchSongsAction.value,
+                    onQueueRefreshAction = viewModel::onQueueRefreshAction,
                 )
             }
         }
@@ -190,16 +187,14 @@ fun NowPlayScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainContent(
-    queueViewData: NowPlayViewModel.QueueViewData?,
-    searchData: SearchData?,
+    baseUrl: String,
+    token: String,
     sheetSize: Dp,
-    onRefreshQueue: () -> Unit,
-    onClickNext: (index: Int) -> Unit,
-    onClickSkip: (index: Int) -> Unit,
-    onClickSearchPlay: (id: String) -> Unit,
-    onClickSearchPlayNext: (id: String) -> Unit,
+    queueRefreshAction: QueueRefreshAction,
+    searchSongsAction: SearchSongsAction,
+    onClearQueueRefreshAction: () -> Unit,
+    onQueueRefreshAction: (QueueRefreshAction) -> Unit,
     modifier: Modifier = Modifier,
-    onClickSearchPlayLater: (id: String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val state = rememberPagerState(initialPage = 2) { ContentPageRoute.entries.size }
@@ -236,27 +231,21 @@ fun MainContent(
             when (route) {
                 ContentPageRoute.QUEUE -> {
                     QueueContent(
-                        queueViewData = queueViewData,
+                        baseUrl = baseUrl,
+                        token = token,
                         sheetSize = sheetSize,
-                        onClickNext = { index ->
-                            onClickNext.invoke(index)
-                        },
-                        onRefreshQueue = {
-                            onRefreshQueue.invoke()
-                        },
-                        onClickSkip = { index ->
-                            onClickSkip.invoke(index)
-                        }
+                        queueRefreshAction = queueRefreshAction,
+                        onClearQueueRefreshAction = onClearQueueRefreshAction,
                     )
                 }
 
                 ContentPageRoute.SONG -> {
-                    SongsContent(
-                        songs = searchData?.songs,
+                    SearchSongsContent(
+                        baseUrl = baseUrl,
+                        token = token,
                         sheetSize = sheetSize,
-                        onClickPlay = onClickSearchPlay,
-                        onClickPlayNext = onClickSearchPlayNext,
-                        onClickPlayLater = onClickSearchPlayLater
+                        searchSongsAction = searchSongsAction,
+                        onQueueRefreshAction = onQueueRefreshAction,
                     )
                 }
 
