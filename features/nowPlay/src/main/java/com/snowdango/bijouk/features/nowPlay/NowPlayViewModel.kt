@@ -3,23 +3,23 @@ package com.snowdango.bijouk.features.nowPlay
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.snowdango.bijouk.features.nowPlay.view.queue.QueueViewModel
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
-import com.snowdango.bijouk.model.cider.data.QueueData
-import com.snowdango.bijouk.model.cider.data.QueueDataList
 import com.snowdango.bijouk.model.cider.data.SearchData
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.time.delay
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
-import java.time.Duration
+
 
 class NowPlayViewModel(
     private val baseUrl: String,
@@ -53,17 +53,17 @@ class NowPlayViewModel(
         SharingStarted.WhileSubscribed(5_000),
         _nowPlayingStatusFlow.value,
     )
-    private val _queueViewDataFlow: MutableStateFlow<QueueViewData?> = MutableStateFlow(null)
-    val queueViewDataFlow = _queueViewDataFlow.stateIn(
-        viewModelScope,
-        SharingStarted.WhileSubscribed(5_000),
-        _queueViewDataFlow.value,
-    )
     private val _searchDataFlow: MutableStateFlow<SearchData?> = MutableStateFlow(null)
     val searchDataFlow = _searchDataFlow.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         _searchDataFlow.value,
+    )
+    private val _queueRefreshActionFlow: MutableSharedFlow<QueueViewModel.QueueRefreshAction> =
+        MutableStateFlow(QueueViewModel.QueueRefreshAction.NoAction)
+    val queueRefreshActionFlow = _queueRefreshActionFlow.shareIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
     )
 
     private val playBackEventListener = object : CiderModel.PlayBackStatusEventListener {
@@ -86,7 +86,7 @@ class NowPlayViewModel(
         override fun onNowPlayingItemChangeEvent(nowPlayData: NowPlayData) {
             viewModelScope.launch {
                 _nowPlayFlow.emit(nowPlayData)
-                queueRefresh()
+                _queueRefreshActionFlow.emit(QueueViewModel.QueueRefreshAction.Refresh)
             }
         }
 
@@ -114,7 +114,6 @@ class NowPlayViewModel(
 
     init {
         nowPlayLoad()
-        queueLoad()
         ciderModel.connect(socketConnectionEventListener, playBackEventListener)
     }
 
@@ -130,70 +129,6 @@ class NowPlayViewModel(
             Log.e("NowPlayViewModel", th.toString())
             _nowPlayFlow.emit(null)
             _playbackTimeFlow.emit(null)
-        }
-    }
-
-    // queueに変更を加えた際に遅延して更新しないと反映されない
-    fun queueDelayRefresh() = viewModelScope.launch {
-        delay(Duration.ofSeconds(2))
-        queueLoad()
-    }
-
-    fun queueRefresh() = viewModelScope.launch {
-        val currentData = _queueViewDataFlow.value
-        _queueViewDataFlow.emit(
-            currentData?.copy(isRefresh = true)
-        )
-        queueLoad()
-    }
-
-    private fun queueLoad() = viewModelScope.launch {
-        try {
-            val data = ciderModel.getQueue()
-            _queueViewDataFlow.emit(
-                QueueViewData(queueDataList = data, isRefresh = false)
-            )
-        } catch (ce: CancellationException) {
-            throw ce
-        } catch (th: Throwable) {
-            Log.e("NowPlayViewModel", th.toString())
-            _queueViewDataFlow.emit(
-                QueueViewData(queueDataList = QueueDataList(listOf()), isRefresh = false)
-            )
-        }
-    }
-
-    fun moveQueueNext(index: Int) = viewModelScope.launch {
-        _queueViewDataFlow.value?.let { queueViewData ->
-            try {
-                val nextIndex = queueViewData.queueDataList.list
-                    .indexOfFirst { it.state == QueueData.State.Current } + 1
-                ciderModel.moveQueue(index, nextIndex)
-                val currentViewData = queueViewData.copy(
-                    queueDataList = queueViewData.queueDataList.copy(
-                        list = queueViewData.queueDataList.list.toMutableList().also {
-                            val data = it[index]
-                            it.removeAt(index)
-                            it.add(nextIndex, data)
-                        }
-                    )
-                )
-                _queueViewDataFlow.emit(currentViewData)
-            } catch (ce: CancellationException) {
-                throw ce
-            } catch (th: Throwable) {
-                Log.e("NowPlayViewModel", th.toString())
-            }
-        }
-    }
-
-    fun skipQueue(index: Int) = viewModelScope.launch {
-        try {
-            ciderModel.changeQueueIndex(index)
-        } catch (ce: CancellationException) {
-            throw ce
-        } catch (th: Throwable) {
-            Log.e("NowPlayViewModel", th.toString())
         }
     }
 
@@ -225,7 +160,7 @@ class NowPlayViewModel(
     fun searchSongPlayNext(songId: String) = viewModelScope.launch {
         try {
             ciderModel.songPlayNextById(songId)
-            queueDelayRefresh()
+            _queueRefreshActionFlow.emit(QueueViewModel.QueueRefreshAction.DelayRefresh)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -236,7 +171,7 @@ class NowPlayViewModel(
     fun searchSongPlayLater(songId: String) = viewModelScope.launch {
         try {
             ciderModel.songPlayLaterById(songId)
-            queueDelayRefresh()
+            _queueRefreshActionFlow.emit(QueueViewModel.QueueRefreshAction.DelayRefresh)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -244,13 +179,12 @@ class NowPlayViewModel(
         }
     }
 
+    fun clearQueueRefreshAction() = viewModelScope.launch {
+        _queueRefreshActionFlow.emit(QueueViewModel.QueueRefreshAction.NoAction)
+    }
+
     override fun onCleared() {
         super.onCleared()
         ciderModel.disconnect()
     }
-
-    data class QueueViewData(
-        val queueDataList: QueueDataList,
-        val isRefresh: Boolean,
-    )
 }

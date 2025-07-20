@@ -36,8 +36,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
-import com.snowdango.bijouk.features.nowPlay.view.nowplay.NowPlayingContent
+import com.snowdango.bijouk.features.nowPlay.view.nowplay.BottomNowPlayingContent
 import com.snowdango.bijouk.features.nowPlay.view.queue.QueueContent
+import com.snowdango.bijouk.features.nowPlay.view.queue.QueueViewModel
 import com.snowdango.bijouk.features.nowPlay.view.search.songs.SongsContent
 import com.snowdango.bijouk.model.cider.data.SearchData
 import kotlinx.coroutines.Dispatchers
@@ -82,8 +83,10 @@ fun NowPlayScreen(
     val nowPlayData = viewModel.nowPlayFlow.collectAsStateWithLifecycle()
     val playBackTimeData = viewModel.playBackTimeData.collectAsStateWithLifecycle()
     val nowPlayingStatusData = viewModel.nowPlayingStatusFlow.collectAsStateWithLifecycle()
-    val queueData = viewModel.queueViewDataFlow.collectAsStateWithLifecycle()
     val searchData = viewModel.searchDataFlow.collectAsStateWithLifecycle()
+    val queueRefreshAction = viewModel.queueRefreshActionFlow.collectAsStateWithLifecycle(
+        initialValue = QueueViewModel.QueueRefreshAction.NoAction
+    )
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {
         withContext(Dispatchers.Default) {
@@ -119,7 +122,7 @@ fun NowPlayScreen(
             scaffoldState = sheetState,
             sheetPeekHeight = sheetMinHeight,
             sheetContent = {
-                NowPlayingContent(
+                BottomNowPlayingContent(
                     baseUrl = baseUrl,
                     token = token,
                     sheetState = sheetState.bottomSheetState,
@@ -158,12 +161,12 @@ fun NowPlayScreen(
                     },
             ) {
                 MainContent(
-                    queueViewData = queueData.value,
+                    baseUrl = baseUrl,
+                    token = token,
                     searchData = searchData.value,
                     sheetSize = sheetMinHeight,
-                    onRefreshQueue = viewModel::queueRefresh,
-                    onClickNext = viewModel::moveQueueNext,
-                    onClickSkip = viewModel::skipQueue,
+                    queueRefreshAction = queueRefreshAction.value,
+                    onClearQueueRefreshAction = viewModel::clearQueueRefreshAction,
                     onClickSearchPlay = viewModel::searchSongPlay,
                     onClickSearchPlayNext = viewModel::searchSongPlayNext,
                     onClickSearchPlayLater = viewModel::searchSongPlayLater,
@@ -186,12 +189,12 @@ fun NowPlayScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainContent(
-    queueViewData: NowPlayViewModel.QueueViewData?,
+    baseUrl: String,
+    token: String,
     searchData: SearchData?,
     sheetSize: Dp,
-    onRefreshQueue: () -> Unit,
-    onClickNext: (index: Int) -> Unit,
-    onClickSkip: (index: Int) -> Unit,
+    queueRefreshAction: QueueViewModel.QueueRefreshAction,
+    onClearQueueRefreshAction: () -> Unit,
     onClickSearchPlay: (id: String) -> Unit,
     onClickSearchPlayNext: (id: String) -> Unit,
     modifier: Modifier = Modifier,
@@ -232,17 +235,11 @@ fun MainContent(
             when (route) {
                 ContentPageRoute.QUEUE -> {
                     QueueContent(
-                        queueViewData = queueViewData,
+                        baseUrl = baseUrl,
+                        token = token,
                         sheetSize = sheetSize,
-                        onClickNext = { index ->
-                            onClickNext.invoke(index)
-                        },
-                        onRefreshQueue = {
-                            onRefreshQueue.invoke()
-                        },
-                        onClickSkip = { index ->
-                            onClickSkip.invoke(index)
-                        }
+                        queueRefreshAction = queueRefreshAction,
+                        onClearQueueRefreshAction = onClearQueueRefreshAction,
                     )
                 }
 
