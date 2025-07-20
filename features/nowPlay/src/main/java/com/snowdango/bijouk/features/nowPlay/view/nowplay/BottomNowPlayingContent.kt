@@ -48,7 +48,7 @@ import org.koin.core.parameter.parametersOf
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NowPlayingContent(
+fun BottomNowPlayingContent(
     baseUrl: String,
     token: String,
     sheetState: SheetState,
