@@ -73,6 +73,10 @@ class CiderRepository(
         return ciderApi.searchSongs(query, offset, limit)
     }
 
+    suspend fun searchAlbums(query: String, offset: Int, limit: Int): SearchResponse {
+        return ciderApi.searchAlbums(query, offset, limit)
+    }
+
     fun connect(
         onConnect: () -> Unit,
         onDisConnect: () -> Unit,

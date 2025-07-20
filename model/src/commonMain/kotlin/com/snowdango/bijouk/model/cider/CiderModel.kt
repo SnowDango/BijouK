@@ -6,7 +6,8 @@ import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
 import com.snowdango.bijouk.model.cider.data.SearchData
 import com.snowdango.bijouk.model.cider.mapper.convert
-import com.snowdango.bijouk.model.cider.paging.SongsPagingSource
+import com.snowdango.bijouk.model.cider.paging.SearchAlbumsPagingSource
+import com.snowdango.bijouk.model.cider.paging.SearchSongsPagingSource
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -89,8 +90,14 @@ class CiderModel(
 
     fun getSearchSongsPagingSource(
         query: String,
-    ): SongsPagingSource {
-        return SongsPagingSource(query, repository)
+    ): SearchSongsPagingSource {
+        return SearchSongsPagingSource(query, repository)
+    }
+
+    fun getSearchAlbumsPagingSource(
+        query: String,
+    ): SearchAlbumsPagingSource {
+        return SearchAlbumsPagingSource(query, repository)
     }
 
     fun connect(
