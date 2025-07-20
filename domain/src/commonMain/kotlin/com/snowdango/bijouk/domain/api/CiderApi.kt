@@ -110,6 +110,15 @@ class CiderApi(
         return response.body<BasicResponse>()
     }
 
+    suspend fun albumPlayById(albumId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-item")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Albums, albumId))
+        }
+        return response.body<BasicResponse>()
+    }
+
     suspend fun songPlayNextById(songId: String): BasicResponse {
         val response = client.post {
             url("/api/v1/playback/play-next")
@@ -119,11 +128,29 @@ class CiderApi(
         return response.body<BasicResponse>()
     }
 
+    suspend fun albumPlayNextById(albumId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-next")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Albums, albumId))
+        }
+        return response.body<BasicResponse>()
+    }
+
     suspend fun songPlayLaterById(songId: String): BasicResponse {
         val response = client.post {
             url("/api/v1/playback/play-later")
             contentType(ContentType.Application.Json)
             setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Songs, songId))
+        }
+        return response.body<BasicResponse>()
+    }
+
+    suspend fun albumPlayLaterById(albumId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-later")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Albums, albumId))
         }
         return response.body<BasicResponse>()
     }

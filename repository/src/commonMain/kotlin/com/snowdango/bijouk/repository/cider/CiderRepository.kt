@@ -57,12 +57,24 @@ class CiderRepository(
         return ciderApi.songPlayById(id)
     }
 
+    suspend fun albumPlayById(id: String): BasicResponse {
+        return ciderApi.albumPlayById(id)
+    }
+
     suspend fun songPlayNextById(id: String): BasicResponse {
         return ciderApi.songPlayNextById(id)
     }
 
+    suspend fun albumPlayNextById(id: String): BasicResponse {
+        return ciderApi.albumPlayNextById(id)
+    }
+
     suspend fun songPlayLaterById(id: String): BasicResponse {
         return ciderApi.songPlayLaterById(id)
+    }
+
+    suspend fun albumPlayLaterById(id: String): BasicResponse {
+        return ciderApi.albumPlayLaterById(id)
     }
 
     suspend fun searchAll(query: String): SearchResponse {

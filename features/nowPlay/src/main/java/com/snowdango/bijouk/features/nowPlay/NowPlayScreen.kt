@@ -260,6 +260,7 @@ fun MainContent(
                         token = token,
                         sheetSize = sheetSize,
                         searchAlbumsAction = searchAlbumsAction,
+                        onQueueRefreshAction = onQueueRefreshAction,
                     )
                 }
 

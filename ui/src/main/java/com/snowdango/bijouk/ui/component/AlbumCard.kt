@@ -1,8 +1,11 @@
 package com.snowdango.bijouk.ui.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.basicMarquee
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -14,7 +17,10 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
@@ -33,36 +39,54 @@ fun AlbumCard(
             .fillMaxWidth()
             .wrapContentHeight(),
     ) {
-        Column(
+        Box(
             modifier = Modifier
-                .padding(12.dp)
-                .fillMaxWidth(),
-            horizontalAlignment = CenterHorizontally,
+                .fillMaxWidth()
+                .wrapContentHeight()
         ) {
-            AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(artwork)
-                    .build(),
-                contentDescription = null,
+            Column(
                 modifier = Modifier
-                    .background(Color.Red)
-                    .aspectRatio(1.0f)
-                    .fillMaxWidth(fraction = 0.5f)
-                    .weight(1f)
-            )
-            Text(
-                text = album,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .padding(top = 8.dp)
-            )
-            Text(
-                text = artist,
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier
-                    .padding(top = 4.dp)
-                    .alpha(0.5f)
-            )
+                    .padding(12.dp)
+                    .fillMaxWidth(),
+                horizontalAlignment = CenterHorizontally,
+            ) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth(fraction = 0.7f)
+                        .aspectRatio(1.0f)
+                ) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(artwork)
+                            .build(),
+                        contentScale = ContentScale.Inside,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxSize()
+                    )
+                }
+                Text(
+                    text = album,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .padding(top = 8.dp)
+                        .fillMaxWidth(fraction = 0.7f)
+                        .basicMarquee()
+                )
+                Text(
+                    text = artist,
+                    style = MaterialTheme.typography.bodyMedium,
+                    maxLines = 1,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .padding(top = 4.dp)
+                        .alpha(0.5f)
+                        .fillMaxWidth(fraction = 0.7f)
+                        .basicMarquee()
+                )
+            }
         }
     }
 }
