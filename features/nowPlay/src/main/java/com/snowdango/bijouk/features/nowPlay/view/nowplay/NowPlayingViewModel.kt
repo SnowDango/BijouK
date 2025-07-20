@@ -68,5 +68,4 @@ class NowPlayingViewModel(
             _isChangeableSeekFlow.emit(true)
         }
     }
-
 }

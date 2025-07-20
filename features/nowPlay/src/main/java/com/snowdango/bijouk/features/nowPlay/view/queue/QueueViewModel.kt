@@ -120,5 +120,4 @@ class QueueViewModel(
         val queueDataList: QueueDataList,
         val isRefresh: Boolean,
     )
-
 }

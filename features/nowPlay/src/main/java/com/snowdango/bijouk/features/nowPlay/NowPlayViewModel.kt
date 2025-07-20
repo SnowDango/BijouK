@@ -20,7 +20,6 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-
 class NowPlayViewModel(
     private val baseUrl: String,
     private val token: String,
