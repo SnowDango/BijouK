@@ -20,7 +20,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-class SongsViewModel(
+class SearchSongsViewModel(
     private val baseUrl: String,
     private val token: String,
 ) : ViewModel(), KoinComponent {
@@ -37,7 +37,7 @@ class SongsViewModel(
         ciderModel.getSearchSongsPagingSource(query)
     }.flow.cachedIn(viewModelScope)
 
-    val _searchSongsPlayActionCompleteFlow: MutableStateFlow<SearchSongsPlayAction> =
+    private val _searchSongsPlayActionCompleteFlow: MutableStateFlow<SearchSongsPlayAction> =
         MutableStateFlow(SearchSongsPlayAction.NoAction)
     val searchSongsPlayActionCompleteFlow = _searchSongsPlayActionCompleteFlow.stateIn(
         viewModelScope,

@@ -40,7 +40,7 @@ import com.snowdango.bijouk.features.nowPlay.action.SearchSongsAction
 import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
 import com.snowdango.bijouk.features.nowPlay.view.nowplay.BottomNowPlayingContent
 import com.snowdango.bijouk.features.nowPlay.view.queue.QueueContent
-import com.snowdango.bijouk.features.nowPlay.view.search.songs.SongsContent
+import com.snowdango.bijouk.features.nowPlay.view.search.songs.SearchSongsContent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -240,7 +240,7 @@ fun MainContent(
                 }
 
                 ContentPageRoute.SONG -> {
-                    SongsContent(
+                    SearchSongsContent(
                         baseUrl = baseUrl,
                         token = token,
                         sheetSize = sheetSize,

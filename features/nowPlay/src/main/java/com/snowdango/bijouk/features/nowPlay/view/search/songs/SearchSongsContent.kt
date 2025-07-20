@@ -18,14 +18,14 @@ import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
 @Composable
-fun SongsContent(
+fun SearchSongsContent(
     baseUrl: String,
     token: String,
     sheetSize: Dp,
     searchSongsAction: SearchSongsAction,
     onQueueRefreshAction: (QueueRefreshAction) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: SongsViewModel = koinViewModel<SongsViewModel>(
+    viewModel: SearchSongsViewModel = koinViewModel<SearchSongsViewModel>(
         parameters = { parametersOf(baseUrl, token) }
     ),
 ) {
@@ -40,10 +40,13 @@ fun SongsContent(
 
     LaunchedEffect(playActionComplete.value) {
         when (playActionComplete.value) {
-            SongsViewModel.SearchSongsPlayAction.NoAction -> {}
-            SongsViewModel.SearchSongsPlayAction.Play -> {}
-            SongsViewModel.SearchSongsPlayAction.PlayNext -> onQueueRefreshAction(QueueRefreshAction.DelayRefresh)
-            SongsViewModel.SearchSongsPlayAction.PlayLater -> onQueueRefreshAction(
+            SearchSongsViewModel.SearchSongsPlayAction.NoAction -> {}
+            SearchSongsViewModel.SearchSongsPlayAction.Play -> {}
+            SearchSongsViewModel.SearchSongsPlayAction.PlayNext -> onQueueRefreshAction(
+                QueueRefreshAction.DelayRefresh
+            )
+
+            SearchSongsViewModel.SearchSongsPlayAction.PlayLater -> onQueueRefreshAction(
                 QueueRefreshAction.DelayRefresh
             )
         }
