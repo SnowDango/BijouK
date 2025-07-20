@@ -37,11 +37,13 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.snowdango.bijouk.features.nowPlay.action.QueueRefreshAction
 import com.snowdango.bijouk.features.nowPlay.action.SearchAlbumsAction
+import com.snowdango.bijouk.features.nowPlay.action.SearchArtistsAction
 import com.snowdango.bijouk.features.nowPlay.action.SearchSongsAction
 import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
 import com.snowdango.bijouk.features.nowPlay.view.nowplay.BottomNowPlayingContent
 import com.snowdango.bijouk.features.nowPlay.view.queue.QueueContent
 import com.snowdango.bijouk.features.nowPlay.view.search.album.SearchAlbumsContent
+import com.snowdango.bijouk.features.nowPlay.view.search.artist.SearchArtistsContent
 import com.snowdango.bijouk.features.nowPlay.view.search.songs.SearchSongsContent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -89,7 +91,8 @@ fun NowPlayScreen(
         initialValue = QueueRefreshAction.NoAction
     )
     val searchSongsAction = viewModel.searchSongsActionFlow.collectAsStateWithLifecycle()
-    val searchPlaylistsAction = viewModel.searchPlaylistsActionFlow.collectAsStateWithLifecycle()
+    val searchPlaylistsAction = viewModel.searchAlbumsActionFlow.collectAsStateWithLifecycle()
+    val searchArtistsAction = viewModel.searchArtistsActionFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {
         withContext(Dispatchers.Default) {
@@ -172,6 +175,7 @@ fun NowPlayScreen(
                     searchSongsAction = searchSongsAction.value,
                     onQueueRefreshAction = viewModel::onQueueRefreshAction,
                     searchAlbumsAction = searchPlaylistsAction.value,
+                    searchArtistsAction = searchArtistsAction.value,
                 )
             }
         }
@@ -197,6 +201,7 @@ fun MainContent(
     queueRefreshAction: QueueRefreshAction,
     searchSongsAction: SearchSongsAction,
     searchAlbumsAction: SearchAlbumsAction,
+    searchArtistsAction: SearchArtistsAction,
     onClearQueueRefreshAction: () -> Unit,
     onQueueRefreshAction: (QueueRefreshAction) -> Unit,
     modifier: Modifier = Modifier,
@@ -264,7 +269,14 @@ fun MainContent(
                     )
                 }
 
-                ContentPageRoute.ARTIST -> {}
+                ContentPageRoute.ARTIST -> {
+                    SearchArtistsContent(
+                        baseUrl = baseUrl,
+                        token = token,
+                        sheetSize = sheetSize,
+                        searchArtistsAction = searchArtistsAction,
+                    )
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ import com.snowdango.bijouk.model.cider.data.QueueDataList
 import com.snowdango.bijouk.model.cider.data.SearchData
 import com.snowdango.bijouk.model.cider.mapper.convert
 import com.snowdango.bijouk.model.cider.paging.SearchAlbumsPagingSource
+import com.snowdango.bijouk.model.cider.paging.SearchArtistsPagingSource
 import com.snowdango.bijouk.model.cider.paging.SearchSongsPagingSource
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import org.koin.core.component.KoinComponent
@@ -110,6 +111,12 @@ class CiderModel(
         query: String,
     ): SearchAlbumsPagingSource {
         return SearchAlbumsPagingSource(query, repository)
+    }
+
+    fun getSearchArtistsPagingSource(
+        query: String,
+    ): SearchArtistsPagingSource {
+        return SearchArtistsPagingSource(query, repository)
     }
 
     fun connect(
