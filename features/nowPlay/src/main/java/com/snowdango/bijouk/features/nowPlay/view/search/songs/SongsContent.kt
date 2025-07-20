@@ -3,21 +3,23 @@ package com.snowdango.bijouk.features.nowPlay.view.search.songs
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.snowdango.bijouk.features.nowPlay.component.SearchSongCard
 import com.snowdango.bijouk.model.cider.data.SearchSong
-import com.snowdango.bijouk.ui.component.SongCard
 
 @Composable
 fun SongsContent(
     songs: List<SearchSong>?,
     sheetSize: Dp,
-    modifier: Modifier = Modifier
+    onClickPlay: (id: String) -> Unit,
+    onClickPlayNext: (id: String) -> Unit,
+    modifier: Modifier = Modifier,
+    onClickPlayLater: (id: String) -> Unit,
 ) {
     Box(
         modifier = modifier.fillMaxSize()
@@ -32,13 +34,11 @@ fun SongsContent(
                 )
             ) {
                 items(songs) {
-                    SongCard(
-                        artwork = it.artwork,
-                        title = it.name,
-                        artist = it.artist,
-                        modifier = Modifier
-                            .padding(horizontal = 16.dp, vertical = 4.dp)
-                            .fillMaxSize()
+                    SearchSongCard(
+                        searchSong = it,
+                        onClickPlay = onClickPlay,
+                        onClickPlayNext = onClickPlayNext,
+                        onClickPlayLater = onClickPlayLater,
                     )
                 }
             }

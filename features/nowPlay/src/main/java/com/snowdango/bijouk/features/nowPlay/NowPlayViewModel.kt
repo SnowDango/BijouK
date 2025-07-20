@@ -15,9 +15,11 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.time.delay
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
+import java.time.Duration
 
 class NowPlayViewModel(
     private val baseUrl: String,
@@ -131,6 +133,12 @@ class NowPlayViewModel(
         }
     }
 
+    // queueに変更を加えた際に遅延して更新しないと反映されない
+    fun queueDelayRefresh() = viewModelScope.launch {
+        delay(Duration.ofSeconds(2))
+        queueLoad()
+    }
+
     fun queueRefresh() = viewModelScope.launch {
         val currentData = _queueViewDataFlow.value
         _queueViewDataFlow.emit(
@@ -179,6 +187,16 @@ class NowPlayViewModel(
         }
     }
 
+    fun skipQueue(index: Int) = viewModelScope.launch {
+        try {
+            ciderModel.changeQueueIndex(index)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+        }
+    }
+
     fun search(query: String) = viewModelScope.launch {
         try {
             val searchData = ciderModel.searchAll(query)
@@ -192,6 +210,38 @@ class NowPlayViewModel(
 
     fun searchClear() = viewModelScope.launch {
         _searchDataFlow.emit(null)
+    }
+
+    fun searchSongPlay(songId: String) = viewModelScope.launch {
+        try {
+            ciderModel.songPlayById(songId)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+        }
+    }
+
+    fun searchSongPlayNext(songId: String) = viewModelScope.launch {
+        try {
+            ciderModel.songPlayNextById(songId)
+            queueDelayRefresh()
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+        }
+    }
+
+    fun searchSongPlayLater(songId: String) = viewModelScope.launch {
+        try {
+            ciderModel.songPlayLaterById(songId)
+            queueDelayRefresh()
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+        }
     }
 
     override fun onCleared() {
