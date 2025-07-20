@@ -22,7 +22,7 @@ data class ArtistsData(
 @Suppress("UnsafeOptInUsageError")
 @Serializable
 data class ArtistAttributes(
-    val artwork: Artwork,
+    val artwork: Artwork? = null,
     val classicalUrl: String? = null,
     val genreNames: List<String>,
     val name: String,

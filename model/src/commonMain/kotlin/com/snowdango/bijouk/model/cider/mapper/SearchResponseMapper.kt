@@ -28,7 +28,7 @@ fun Artists.convert(): List<SearchArtist> {
             name = it.attributes.name,
             href = it.href,
             albums = it.relationships.albums.convert(),
-            artwork = it.attributes.artwork.convert(),
+            artwork = it.attributes.artwork?.convert() ?: "",
         )
     }
 }

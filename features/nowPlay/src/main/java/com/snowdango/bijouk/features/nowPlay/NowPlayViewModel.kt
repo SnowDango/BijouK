@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.features.nowPlay.action.QueueRefreshAction
 import com.snowdango.bijouk.features.nowPlay.action.SearchAlbumsAction
+import com.snowdango.bijouk.features.nowPlay.action.SearchArtistsAction
 import com.snowdango.bijouk.features.nowPlay.action.SearchSongsAction
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.data.NowPlayData
@@ -68,10 +69,17 @@ class NowPlayViewModel(
     )
     private val _searchAlbumsActionFlow: MutableStateFlow<SearchAlbumsAction> =
         MutableStateFlow(SearchAlbumsAction.Blank)
-    val searchPlaylistsActionFlow = _searchAlbumsActionFlow.stateIn(
+    val searchAlbumsActionFlow = _searchAlbumsActionFlow.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         _searchAlbumsActionFlow.value,
+    )
+    private val _searchArtistsActionFlow: MutableStateFlow<SearchArtistsAction> =
+        MutableStateFlow(SearchArtistsAction.Blank)
+    val searchArtistsActionFlow = _searchArtistsActionFlow.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        _searchArtistsActionFlow.value,
     )
 
     private val playBackEventListener = object : CiderModel.PlayBackStatusEventListener {
@@ -143,11 +151,13 @@ class NowPlayViewModel(
     fun search(query: String) = viewModelScope.launch {
         _searchSongsActionFlow.emit(SearchSongsAction.SearchSongs(query))
         _searchAlbumsActionFlow.emit(SearchAlbumsAction.SearchAlbums(query))
+        _searchArtistsActionFlow.emit(SearchArtistsAction.SearchArtists(query))
     }
 
     fun searchClear() = viewModelScope.launch {
         _searchSongsActionFlow.emit(SearchSongsAction.Blank)
         _searchAlbumsActionFlow.emit(SearchAlbumsAction.Blank)
+        _searchArtistsActionFlow.emit(SearchArtistsAction.Blank)
     }
 
     fun onQueueRefreshAction(queueRefreshAction: QueueRefreshAction) = viewModelScope.launch {
