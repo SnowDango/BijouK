@@ -12,9 +12,9 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
@@ -197,14 +197,15 @@ fun MainContent(
     modifier: Modifier = Modifier,
 ) {
     val scope = rememberCoroutineScope()
-    val state = rememberPagerState(initialPage = 2) { ContentPageRoute.entries.size }
+    val state = rememberPagerState(initialPage = 0) { ContentPageRoute.entries.size }
 
     Column(
         modifier = modifier
             .fillMaxSize()
     ) {
-        TabRow(
+        ScrollableTabRow(
             selectedTabIndex = state.currentPage,
+            edgePadding = 8.dp,
             modifier = Modifier.fillMaxWidth(),
         ) {
             ContentPageRoute.entries.forEachIndexed { index, pageRoute ->
