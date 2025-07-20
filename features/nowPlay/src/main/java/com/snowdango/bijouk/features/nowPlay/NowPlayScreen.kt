@@ -12,9 +12,9 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ScrollableTabRow
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Tab
+import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
@@ -36,10 +36,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.snowdango.bijouk.features.nowPlay.action.QueueRefreshAction
+import com.snowdango.bijouk.features.nowPlay.action.SearchAlbumsAction
 import com.snowdango.bijouk.features.nowPlay.action.SearchSongsAction
 import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
 import com.snowdango.bijouk.features.nowPlay.view.nowplay.BottomNowPlayingContent
 import com.snowdango.bijouk.features.nowPlay.view.queue.QueueContent
+import com.snowdango.bijouk.features.nowPlay.view.search.album.SearchAlbumsContent
 import com.snowdango.bijouk.features.nowPlay.view.search.songs.SearchSongsContent
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -87,6 +89,7 @@ fun NowPlayScreen(
         initialValue = QueueRefreshAction.NoAction
     )
     val searchSongsAction = viewModel.searchSongsActionFlow.collectAsStateWithLifecycle()
+    val searchPlaylistsAction = viewModel.searchPlaylistsActionFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {
         withContext(Dispatchers.Default) {
@@ -168,6 +171,7 @@ fun NowPlayScreen(
                     onClearQueueRefreshAction = viewModel::clearQueueRefreshAction,
                     searchSongsAction = searchSongsAction.value,
                     onQueueRefreshAction = viewModel::onQueueRefreshAction,
+                    searchAlbumsAction = searchPlaylistsAction.value,
                 )
             }
         }
@@ -192,6 +196,7 @@ fun MainContent(
     sheetSize: Dp,
     queueRefreshAction: QueueRefreshAction,
     searchSongsAction: SearchSongsAction,
+    searchAlbumsAction: SearchAlbumsAction,
     onClearQueueRefreshAction: () -> Unit,
     onQueueRefreshAction: (QueueRefreshAction) -> Unit,
     modifier: Modifier = Modifier,
@@ -203,9 +208,8 @@ fun MainContent(
         modifier = modifier
             .fillMaxSize()
     ) {
-        ScrollableTabRow(
+        TabRow(
             selectedTabIndex = state.currentPage,
-            edgePadding = 8.dp,
             modifier = Modifier.fillMaxWidth(),
         ) {
             ContentPageRoute.entries.forEachIndexed { index, pageRoute ->
@@ -250,8 +254,16 @@ fun MainContent(
                     )
                 }
 
-                ContentPageRoute.PLAYLIST -> {}
-                ContentPageRoute.ALBUM -> {}
+                ContentPageRoute.ALBUM -> {
+                    SearchAlbumsContent(
+                        baseUrl = baseUrl,
+                        token = token,
+                        sheetSize = sheetSize,
+                        searchAlbumsAction = searchAlbumsAction,
+                        onQueueRefreshAction = onQueueRefreshAction,
+                    )
+                }
+
                 ContentPageRoute.ARTIST -> {}
             }
         }

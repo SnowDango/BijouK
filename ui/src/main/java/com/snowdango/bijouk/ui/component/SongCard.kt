@@ -49,7 +49,6 @@ fun SongCard(
                     .size(48.dp)
                     .clip(RoundedCornerShape(8.dp)),
             )
-
             Column(
                 modifier = Modifier
                     .padding(start = 8.dp)

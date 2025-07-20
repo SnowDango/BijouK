@@ -15,7 +15,7 @@ class CiderSocket(
     private val baseUrl: String,
 ) {
 
-    private val logger: Logger = Logger("CiderSocket2")
+    private val logger: Logger = Logger("CiderSocket")
     private var client: Socket? = null
 
     fun startSocket(
@@ -37,7 +37,7 @@ class CiderSocket(
         ) { socket ->
             socket.on("API:Playback") { param ->
                 val json = Json.decodeFromString(JsonObject.serializer(), param[0].toString())
-                logger.d("null", json.toString())
+                logger.d(null, json.toString())
                 val type =
                     EventType.entries.find {
                         it.type == json["type"].toString().removeSurrounding("\"")

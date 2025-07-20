@@ -10,7 +10,8 @@ data class SearchData(
 data class SearchPlaylist(
     val id: String,
     val name: String,
-    val description: String,
+    val curatorName: String,
+    val description: String?,
     val artwork: String,
     val href: String,
 )

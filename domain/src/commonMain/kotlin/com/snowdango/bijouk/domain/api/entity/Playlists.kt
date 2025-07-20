@@ -25,8 +25,8 @@ data class PlaylistAttributes(
     val artwork: Artwork,
     val audioTraits: List<String>? = null,
     val curatorName: String,
-    val description: PlaylistDescription,
-    val editorialNotes: EditorialNotes,
+    val description: PlaylistDescription? = null,
+    val editorialNotes: EditorialNotes? = null,
     val hasCollaboration: Boolean,
     val isChart: Boolean,
     val lastModifiedDate: String,
@@ -40,6 +40,6 @@ data class PlaylistAttributes(
 @Suppress("UnsafeOptInUsageError")
 @Serializable
 data class PlaylistDescription(
-    val short: String,
+    val short: String? = null,
     val standard: String
 )

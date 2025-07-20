@@ -2,24 +2,24 @@ package com.snowdango.bijouk.model.cider.paging
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.snowdango.bijouk.model.cider.data.SearchSong
+import com.snowdango.bijouk.model.cider.data.SearchAlbum
 import com.snowdango.bijouk.model.cider.mapper.convert
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import kotlin.coroutines.cancellation.CancellationException
 
-class SongsPagingSource(
+class SearchAlbumsPagingSource(
     private val query: String,
     private val repository: CiderRepository,
-) : PagingSource<Int, SearchSong>() {
+) : PagingSource<Int, SearchAlbum>() {
 
-    override fun getRefreshKey(state: PagingState<Int, SearchSong>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, SearchAlbum>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchSong> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchAlbum> {
         try {
             return if (query.isBlank()) {
                 LoadResult.Page(
@@ -29,16 +29,16 @@ class SongsPagingSource(
                 )
             } else {
                 val position = params.key ?: 0
-                val response = repository.searchSongs(
+                val response = repository.searchAlbums(
                     query = query,
                     limit = params.loadSize,
                     offset = position * params.loadSize
                 )
-                val songs = response.data.results.songs?.convert() ?: emptyList()
+                val albums = response.data.results.albums?.convert() ?: emptyList()
                 LoadResult.Page(
-                    data = songs,
+                    data = albums,
                     prevKey = if (position == 0) null else position - 1,
-                    nextKey = if (songs.isEmpty()) null else position + 1,
+                    nextKey = if (albums.isEmpty()) null else position + 1,
                 )
             }
         } catch (ce: CancellationException) {
@@ -47,6 +47,4 @@ class SongsPagingSource(
             return LoadResult.Error(e)
         }
     }
-
-
 }

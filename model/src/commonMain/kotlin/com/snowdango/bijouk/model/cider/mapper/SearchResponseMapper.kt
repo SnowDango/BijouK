@@ -63,7 +63,8 @@ fun Playlists.convert(): List<SearchPlaylist> {
         SearchPlaylist(
             id = it.id,
             name = it.attributes.name,
-            description = it.attributes.description.standard,
+            curatorName = it.attributes.curatorName,
+            description = it.attributes.description?.standard,
             artwork = it.attributes.artwork.convert(),
             href = href,
         )
