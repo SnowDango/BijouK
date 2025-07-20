@@ -19,7 +19,6 @@ import com.snowdango.bijouk.features.nowPlay.component.SearchAlbumCard
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
-
 @Composable
 fun SearchAlbumsContent(
     baseUrl: String,
@@ -32,7 +31,6 @@ fun SearchAlbumsContent(
         parameters = { parametersOf(baseUrl, token) }
     ),
 ) {
-
     val pagingAlbums = viewModel.searchAlbumsFlow.collectAsLazyPagingItems()
     val playActionComplete =
         viewModel.searchAlbumsPlayActionCompleteFlow.collectAsStateWithLifecycle()

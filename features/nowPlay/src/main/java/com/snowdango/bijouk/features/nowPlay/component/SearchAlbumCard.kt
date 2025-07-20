@@ -20,7 +20,6 @@ import com.snowdango.bijouk.features.nowPlay.R
 import com.snowdango.bijouk.model.cider.data.SearchAlbum
 import com.snowdango.bijouk.ui.component.AlbumCard
 
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SearchAlbumCard(
