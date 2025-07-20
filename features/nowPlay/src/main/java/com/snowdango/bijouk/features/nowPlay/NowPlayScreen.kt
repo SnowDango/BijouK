@@ -36,9 +36,9 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
-import com.snowdango.bijouk.features.nowPlay.view.BottomSheetContent
-import com.snowdango.bijouk.features.nowPlay.view.QueueContent
-import com.snowdango.bijouk.features.nowPlay.view.SongsContent
+import com.snowdango.bijouk.features.nowPlay.view.nowplay.NowPlayingContent
+import com.snowdango.bijouk.features.nowPlay.view.queue.QueueContent
+import com.snowdango.bijouk.features.nowPlay.view.search.songs.SongsContent
 import com.snowdango.bijouk.model.cider.data.SearchData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -84,7 +84,6 @@ fun NowPlayScreen(
     val nowPlayingStatusData = viewModel.nowPlayingStatusFlow.collectAsStateWithLifecycle()
     val queueData = viewModel.queueViewDataFlow.collectAsStateWithLifecycle()
     val searchData = viewModel.searchDataFlow.collectAsStateWithLifecycle()
-    val isChangeableSeek = viewModel.isChangeableSeekFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {
         withContext(Dispatchers.Default) {
@@ -120,7 +119,9 @@ fun NowPlayScreen(
             scaffoldState = sheetState,
             sheetPeekHeight = sheetMinHeight,
             sheetContent = {
-                BottomSheetContent(
+                NowPlayingContent(
+                    baseUrl = baseUrl,
+                    token = token,
                     sheetState = sheetState.bottomSheetState,
                     nowPlayData = nowPlayData.value,
                     playBackTimeData = playBackTimeData.value,
@@ -128,11 +129,6 @@ fun NowPlayScreen(
                     sheetMaxHeight = sheetMaxHeight,
                     sheetHeight = sheetHeight,
                     imageSize = imageSize,
-                    isEnableChange = isChangeableSeek.value,
-                    onClickPlayPause = { viewModel.playPause() },
-                    onClickPrevious = { viewModel.prev() },
-                    onClickNext = { viewModel.next() },
-                    onMoveSeek = { viewModel.seekTo(it) },
                 )
             },
             topBar = {
@@ -149,9 +145,9 @@ fun NowPlayScreen(
         ) {
             val safeDrawable = with(destiny) {
                 (
-                    WindowInsets.safeDrawing.getTop(destiny) +
-                        WindowInsets.safeDrawing.getBottom(destiny)
-                    ).toDp()
+                        WindowInsets.safeDrawing.getTop(destiny) +
+                                WindowInsets.safeDrawing.getBottom(destiny)
+                        ).toDp()
             }
             Box(
                 modifier = Modifier

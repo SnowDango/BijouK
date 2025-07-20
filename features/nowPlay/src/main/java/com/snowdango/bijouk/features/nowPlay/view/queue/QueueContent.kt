@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.nowPlay.view
+package com.snowdango.bijouk.features.nowPlay.view.queue
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
