@@ -45,5 +45,4 @@ class SearchArtistsViewModel(
     private fun clearSearchArtists() {
         this.query = ""
     }
-
 }

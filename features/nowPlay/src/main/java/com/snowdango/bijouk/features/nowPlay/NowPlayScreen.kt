@@ -154,9 +154,9 @@ fun NowPlayScreen(
         ) {
             val safeDrawable = with(destiny) {
                 (
-                        WindowInsets.safeDrawing.getTop(destiny) +
-                                WindowInsets.safeDrawing.getBottom(destiny)
-                        ).toDp()
+                    WindowInsets.safeDrawing.getTop(destiny) +
+                        WindowInsets.safeDrawing.getBottom(destiny)
+                    ).toDp()
             }
             Box(
                 modifier = Modifier

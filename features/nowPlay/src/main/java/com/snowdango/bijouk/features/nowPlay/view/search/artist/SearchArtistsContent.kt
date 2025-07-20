@@ -17,7 +17,6 @@ import com.snowdango.bijouk.features.nowPlay.component.SearchArtistCard
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
-
 @Composable
 fun SearchArtistsContent(
     baseUrl: String,
