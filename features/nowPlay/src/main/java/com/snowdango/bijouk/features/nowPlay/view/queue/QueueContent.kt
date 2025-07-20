@@ -12,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.snowdango.bijouk.features.nowPlay.action.QueueRefreshAction
 import com.snowdango.bijouk.features.nowPlay.component.QueueSongCard
 import com.snowdango.bijouk.model.cider.data.QueueData
 import org.koin.compose.viewmodel.koinViewModel
@@ -22,7 +23,7 @@ import org.koin.core.parameter.parametersOf
 fun QueueContent(
     baseUrl: String,
     token: String,
-    queueRefreshAction: QueueViewModel.QueueRefreshAction,
+    queueRefreshAction: QueueRefreshAction,
     sheetSize: Dp,
     onClearQueueRefreshAction: () -> Unit,
     modifier: Modifier = Modifier,

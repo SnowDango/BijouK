@@ -14,12 +14,14 @@ data class SearchRequestBody(
             search: String,
             searchTypes: List<SearchType> = SearchType.entries.toList(),
             limit: Int = 20,
+            offset: Int = 0,
         ): SearchRequestBody {
             return SearchRequestBody(
                 path = "/v1/catalog/jp/search?" +
                         "term=${UrlEncoderUtil.encode(search)}" +
                         "&types=${searchTypes.joinToString(",") { it.type }}" +
-                        "&limit=$limit"
+                        "&limit=$limit" +
+                        "&offset=$offset"
             )
         }
     }

@@ -3,6 +3,7 @@ package com.snowdango.bijouk.features.nowPlay.view.queue
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.snowdango.bijouk.features.nowPlay.action.QueueRefreshAction
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
@@ -119,11 +120,5 @@ class QueueViewModel(
         val queueDataList: QueueDataList,
         val isRefresh: Boolean,
     )
-
-    enum class QueueRefreshAction {
-        NoAction,
-        Refresh,
-        DelayRefresh,
-    }
 
 }

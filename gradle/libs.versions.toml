@@ -17,6 +17,7 @@ composeBom = "2025.03.01"
 material = "1.7.8"
 navigation = "2.8.9"
 splash = "1.0.1"
+paging = "3.3.6"
 room = "2.7.1"
 sqlite-bundled = "2.5.1"
 koin = "4.0.2"
@@ -74,6 +75,10 @@ androidx-material2 = { group = "androidx.compose.material", name = "material" }
 # settings
 composeSettings-ui = { group = "com.github.alorma.compose-settings", name = "ui-tiles", version.ref = "compose-settings" }
 composeSettings-ui-extended = { group = "com.github.alorma.compose-settings", name = "ui-tiles-extended", version.ref = "compose-settings" }
+
+# paging
+paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 # room
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
@@ -181,6 +186,7 @@ android-base = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx"]
 android-compose = ["androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "androidx-navigation", "androidx-material2"]
 settings-compose = ["composeSettings-ui", "composeSettings-ui-extended"]
 aboutlibraries = ["aboutlibraries-core", "aboutlibraries-compose-core", "aboutlibraries-compose-m3"]
+paging = ["paging-runtime", "paging-compose"]
 room = ["room-runtime", "room-ktx", "room-paging"]
 koin = ["koin-android", "koin-compose"]
 coroutine = ["kotlinx-coroutine-android"]

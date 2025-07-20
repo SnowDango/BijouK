@@ -137,6 +137,22 @@ class CiderApi(
         return response.body<SearchResponse>()
     }
 
+    suspend fun searchSongs(query: String, offset: Int, limit: Int): SearchResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                SearchRequestBody.create(
+                    search = query,
+                    searchTypes = listOf(SearchRequestBody.SearchType.Songs),
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<SearchResponse>()
+    }
+
     suspend fun inLibrarySearchAll(query: String): SearchResponse {
         val response = client.get {
             url("/api/v1/amapi/run-v3")

@@ -35,12 +35,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.snowdango.bijouk.features.nowPlay.action.QueueRefreshAction
+import com.snowdango.bijouk.features.nowPlay.action.SearchSongsAction
 import com.snowdango.bijouk.features.nowPlay.component.NowPlayTopBar
 import com.snowdango.bijouk.features.nowPlay.view.nowplay.BottomNowPlayingContent
 import com.snowdango.bijouk.features.nowPlay.view.queue.QueueContent
-import com.snowdango.bijouk.features.nowPlay.view.queue.QueueViewModel
 import com.snowdango.bijouk.features.nowPlay.view.search.songs.SongsContent
-import com.snowdango.bijouk.model.cider.data.SearchData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -83,10 +83,10 @@ fun NowPlayScreen(
     val nowPlayData = viewModel.nowPlayFlow.collectAsStateWithLifecycle()
     val playBackTimeData = viewModel.playBackTimeData.collectAsStateWithLifecycle()
     val nowPlayingStatusData = viewModel.nowPlayingStatusFlow.collectAsStateWithLifecycle()
-    val searchData = viewModel.searchDataFlow.collectAsStateWithLifecycle()
     val queueRefreshAction = viewModel.queueRefreshActionFlow.collectAsStateWithLifecycle(
-        initialValue = QueueViewModel.QueueRefreshAction.NoAction
+        initialValue = QueueRefreshAction.NoAction
     )
+    val searchSongsAction = viewModel.searchSongsActionFlow.collectAsStateWithLifecycle()
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {
         withContext(Dispatchers.Default) {
@@ -163,13 +163,11 @@ fun NowPlayScreen(
                 MainContent(
                     baseUrl = baseUrl,
                     token = token,
-                    searchData = searchData.value,
                     sheetSize = sheetMinHeight,
                     queueRefreshAction = queueRefreshAction.value,
                     onClearQueueRefreshAction = viewModel::clearQueueRefreshAction,
-                    onClickSearchPlay = viewModel::searchSongPlay,
-                    onClickSearchPlayNext = viewModel::searchSongPlayNext,
-                    onClickSearchPlayLater = viewModel::searchSongPlayLater,
+                    searchSongsAction = searchSongsAction.value,
+                    onQueueRefreshAction = viewModel::onQueueRefreshAction,
                 )
             }
         }
@@ -191,14 +189,12 @@ fun NowPlayScreen(
 fun MainContent(
     baseUrl: String,
     token: String,
-    searchData: SearchData?,
     sheetSize: Dp,
-    queueRefreshAction: QueueViewModel.QueueRefreshAction,
+    queueRefreshAction: QueueRefreshAction,
+    searchSongsAction: SearchSongsAction,
     onClearQueueRefreshAction: () -> Unit,
-    onClickSearchPlay: (id: String) -> Unit,
-    onClickSearchPlayNext: (id: String) -> Unit,
+    onQueueRefreshAction: (QueueRefreshAction) -> Unit,
     modifier: Modifier = Modifier,
-    onClickSearchPlayLater: (id: String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val state = rememberPagerState(initialPage = 2) { ContentPageRoute.entries.size }
@@ -245,11 +241,11 @@ fun MainContent(
 
                 ContentPageRoute.SONG -> {
                     SongsContent(
-                        songs = searchData?.songs,
+                        baseUrl = baseUrl,
+                        token = token,
                         sheetSize = sheetSize,
-                        onClickPlay = onClickSearchPlay,
-                        onClickPlayNext = onClickSearchPlayNext,
-                        onClickPlayLater = onClickSearchPlayLater
+                        searchSongsAction = searchSongsAction,
+                        onQueueRefreshAction = onQueueRefreshAction,
                     )
                 }
 
