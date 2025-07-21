@@ -5,7 +5,7 @@ import com.snowdango.bijouk.model.cider.data.ArtistDetailData
 import com.snowdango.bijouk.model.cider.mapper.converter.convert
 
 fun ArtistsResponse.convert(): ArtistDetailData? {
-    val data = data.firstOrNull() ?: return null
+    val data = data.data.firstOrNull() ?: return null
     return ArtistDetailData(
         id = data.id,
         href = data.href,

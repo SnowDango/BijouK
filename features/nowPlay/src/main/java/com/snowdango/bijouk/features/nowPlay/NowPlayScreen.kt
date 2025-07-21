@@ -64,6 +64,7 @@ fun NowPlayScreen(
             token
         )
     },
+    onClickArtist: (artistId: String) -> Unit,
 ) {
     var sheetMaxHeight by remember { mutableStateOf(1000.dp) }
     val sheetMinHeight = 140.dp
@@ -154,9 +155,9 @@ fun NowPlayScreen(
         ) {
             val safeDrawable = with(destiny) {
                 (
-                    WindowInsets.safeDrawing.getTop(destiny) +
-                        WindowInsets.safeDrawing.getBottom(destiny)
-                    ).toDp()
+                        WindowInsets.safeDrawing.getTop(destiny) +
+                                WindowInsets.safeDrawing.getBottom(destiny)
+                        ).toDp()
             }
             Box(
                 modifier = Modifier
@@ -176,6 +177,7 @@ fun NowPlayScreen(
                     onQueueRefreshAction = viewModel::onQueueRefreshAction,
                     searchAlbumsAction = searchPlaylistsAction.value,
                     searchArtistsAction = searchArtistsAction.value,
+                    onClickArtist = onClickArtist,
                 )
             }
         }
@@ -205,6 +207,7 @@ fun MainContent(
     onClearQueueRefreshAction: () -> Unit,
     onQueueRefreshAction: (QueueRefreshAction) -> Unit,
     modifier: Modifier = Modifier,
+    onClickArtist: (artistId: String) -> Unit,
 ) {
     val scope = rememberCoroutineScope()
     val state = rememberPagerState(initialPage = 0) { ContentPageRoute.entries.size }
@@ -275,6 +278,7 @@ fun MainContent(
                         token = token,
                         sheetSize = sheetSize,
                         searchArtistsAction = searchArtistsAction,
+                        onClickArtist = onClickArtist,
                     )
                 }
             }

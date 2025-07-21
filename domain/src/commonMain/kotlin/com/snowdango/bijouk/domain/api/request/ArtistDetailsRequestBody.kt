@@ -14,7 +14,7 @@ data class ArtistDetailsRequestBody(
             viewsTypes: List<ViewsType> = ViewsType.entries.toList(),
         ): SearchRequestBody {
             return SearchRequestBody(
-                path = "/v1/catalog/jp/artists${artistId}?" +
+                path = "/v1/catalog/jp/artists/${artistId}?" +
                         "&views=${viewsTypes.joinToString(",") { it.type }}"
             )
         }

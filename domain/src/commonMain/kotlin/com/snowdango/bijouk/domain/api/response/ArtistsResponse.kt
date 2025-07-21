@@ -7,5 +7,12 @@ import kotlinx.serialization.Serializable
 @Suppress("UnsafeOptInUsageError")
 @Serializable
 data class ArtistsResponse(
-    val `data`: List<ArtistsData>
+    val `data`: ArtistsResponseData,
 )
+
+@Suppress("UnsafeOptInUsageError")
+@Serializable
+data class ArtistsResponseData(
+    val data: List<ArtistsData>,
+)
+

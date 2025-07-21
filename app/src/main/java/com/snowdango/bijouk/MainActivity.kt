@@ -29,6 +29,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.util.withContext
+import com.snowdango.bijouk.features.artist.ArtistsDetailScreen
 import com.snowdango.bijouk.features.device.DeviceScreen
 import com.snowdango.bijouk.features.nowPlay.NowPlayScreen
 import com.snowdango.bijouk.features.setting.SettingScreen
@@ -74,8 +75,31 @@ class MainActivity : ComponentActivity() {
                         }
                         composable<Route.NOW_PLAY> { backStackEntry ->
                             val nowPlay = backStackEntry.toRoute<Route.NOW_PLAY>()
-                            NowPlayScreen(nowPlay.name, nowPlay.baseUrl, nowPlay.token)
+                            NowPlayScreen(
+                                nowPlay.name,
+                                nowPlay.baseUrl,
+                                nowPlay.token,
+                                onClickArtist = { artistId ->
+                                    navController.navigate(
+                                        Route.ARTIST(
+                                            artistId = artistId,
+                                            baseUrl = nowPlay.baseUrl,
+                                            token = nowPlay.token
+                                        )
+                                    )
+                                },
+                            )
                         }
+
+                        composable<Route.ARTIST> { backStackEntry ->
+                            val artist = backStackEntry.toRoute<Route.ARTIST>()
+                            ArtistsDetailScreen(
+                                artist.baseUrl,
+                                artist.token,
+                                artist.artistId,
+                            )
+                        }
+
                         composable<Route.SETTING> {
                             SettingScreen(
                                 onClickLicense = {
@@ -140,6 +164,13 @@ class MainActivity : ComponentActivity() {
         ) : Route()
 
         @Serializable
+        data class ARTIST(
+            val artistId: String,
+            val baseUrl: String,
+            val token: String,
+        ) : Route()
+
+        @Serializable
         object SETTING : Route()
 
         @Serializable
@@ -159,6 +190,10 @@ class MainActivity : ComponentActivity() {
 
                     in NOW_PLAY.serializer().descriptor.serialName -> {
                         navBackStackEntry.toRoute<NOW_PLAY>()
+                    }
+
+                    in ARTIST.serializer().descriptor.serialName -> {
+                        navBackStackEntry.toRoute<ARTIST>()
                     }
 
                     in SETTING.serializer().descriptor.serialName -> {
