@@ -17,7 +17,8 @@ data class ArtistsData(
     val href: String,
     val id: String,
     val relationships: ArtistRelationships,
-    val type: String
+    val type: String,
+    val views: ArtistViews? = null
 )
 
 @Suppress("UnsafeOptInUsageError")
@@ -42,4 +43,6 @@ data class ArtistViews(
     @SerialName("top-songs")
     val topSongs: TopSongs? = null,
     val singles: Singles? = null,
+    @SerialName("full-albums")
+    val fullAlbums: FullAlbums? = null,
 )

@@ -3,7 +3,7 @@ package com.snowdango.bijouk.model.cider.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.snowdango.bijouk.model.cider.data.SearchArtist
-import com.snowdango.bijouk.model.cider.mapper.convert
+import com.snowdango.bijouk.model.cider.mapper.converter.convertSearch
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import kotlin.coroutines.cancellation.CancellationException
 
@@ -34,7 +34,7 @@ class SearchArtistsPagingSource(
                     limit = params.loadSize,
                     offset = position * params.loadSize
                 )
-                val artists = response.data.results.artists?.convert() ?: emptyList()
+                val artists = response.data.results.artists?.convertSearch() ?: emptyList()
                 LoadResult.Page(
                     data = artists,
                     prevKey = if (position == 0) null else position - 1,

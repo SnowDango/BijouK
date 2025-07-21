@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.model.cider.mapper
+package com.snowdango.bijouk.model.cider.mapper.api
 
 import com.snowdango.bijouk.domain.api.response.data.QueueAttributes
 import com.snowdango.bijouk.domain.api.response.data.QueueResponseData

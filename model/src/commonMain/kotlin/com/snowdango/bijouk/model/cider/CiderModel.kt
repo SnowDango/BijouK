@@ -1,11 +1,13 @@
 package com.snowdango.bijouk.model.cider
 
+import com.snowdango.bijouk.model.cider.data.ArtistDetailData
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
 import com.snowdango.bijouk.model.cider.data.SearchData
-import com.snowdango.bijouk.model.cider.mapper.convert
+import com.snowdango.bijouk.model.cider.mapper.api.convert
+import com.snowdango.bijouk.model.cider.mapper.event.convert
 import com.snowdango.bijouk.model.cider.paging.SearchAlbumsPagingSource
 import com.snowdango.bijouk.model.cider.paging.SearchArtistsPagingSource
 import com.snowdango.bijouk.model.cider.paging.SearchSongsPagingSource
@@ -117,6 +119,11 @@ class CiderModel(
         query: String,
     ): SearchArtistsPagingSource {
         return SearchArtistsPagingSource(query, repository)
+    }
+
+    suspend fun getArtistDetails(artistId: String): ArtistDetailData? {
+        val response = repository.getArtistDetails(artistId)
+        return response.convert()
     }
 
     fun connect(
