@@ -8,6 +8,7 @@ import com.snowdango.bijouk.domain.api.event.NowPlayingStatusDidChange
 import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
 import com.snowdango.bijouk.domain.api.response.ArtistsResponse
+import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
@@ -96,6 +97,14 @@ class CiderRepository(
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
         return ciderApi.getArtistDetails(artistId)
+    }
+
+    suspend fun getArtistTopSongs(
+        artistId: String,
+        limit: Int,
+        offset: Int
+    ): ArtistsTopSongResponse {
+        return ciderApi.getArtistTopSongs(artistId, limit, offset)
     }
 
     fun connect(

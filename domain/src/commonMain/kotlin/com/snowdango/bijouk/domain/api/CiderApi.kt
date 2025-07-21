@@ -1,6 +1,7 @@
 package com.snowdango.bijouk.domain.api
 
 import com.snowdango.bijouk.domain.api.request.ArtistDetailsRequestBody
+import com.snowdango.bijouk.domain.api.request.ArtistsViewsRequestBody
 import com.snowdango.bijouk.domain.api.request.ChangeQueueIndexRequestBody
 import com.snowdango.bijouk.domain.api.request.InLibrarySearchRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
@@ -8,6 +9,7 @@ import com.snowdango.bijouk.domain.api.request.MoveSeekRequestBody
 import com.snowdango.bijouk.domain.api.request.PlayRequestBody
 import com.snowdango.bijouk.domain.api.request.SearchRequestBody
 import com.snowdango.bijouk.domain.api.response.ArtistsResponse
+import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
@@ -225,6 +227,26 @@ class CiderApi(
             )
         }
         return response.body<ArtistsResponse>()
+    }
+
+    suspend fun getArtistTopSongs(
+        artistId: String,
+        limit: Int,
+        offset: Int
+    ): ArtistsTopSongResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                ArtistsViewsRequestBody.create(
+                    artistId = artistId,
+                    viewType = ArtistsViewsRequestBody.ViewType.TopSongs,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<ArtistsTopSongResponse>()
     }
 
 
