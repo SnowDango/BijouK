@@ -1,7 +1,6 @@
 package com.snowdango.bijouk.features.artist.component
 
 import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -47,7 +46,7 @@ fun ArtistsDetailHeader(
             maxLines = 1,
             textAlign = TextAlign.Center,
             modifier = Modifier
-                .padding(top = 16.dp)
+                .padding(vertical = 16.dp)
                 .fillMaxWidth(fraction = 0.75f)
                 .basicMarquee()
         )
