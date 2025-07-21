@@ -221,12 +221,12 @@ class CiderApi(
             setBody(
                 ArtistDetailsRequestBody.create(
                     artistId,
-                    viewsTypes = ArtistDetailsRequestBody.ViewsType.entries
                 )
             )
         }
         return response.body<ArtistsResponse>()
     }
+
 
     suspend fun inLibrarySearchAll(query: String): SearchResponse {
         val response = client.get {

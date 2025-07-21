@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.snowdango.bijouk.features.artist.component.ArtistTopSongs
 import com.snowdango.bijouk.features.artist.component.ArtistsDetailHeader
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -56,11 +55,11 @@ fun ArtistsDetailScreen(
                         )
                     }
 
-                    data.topSongs?.let {
+                    /*data.topSongs?.let {
                         item {
                             ArtistTopSongs(it)
                         }
-                    }
+                    }*/
                 }
             }
         }

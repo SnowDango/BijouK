@@ -13,8 +13,5 @@ fun ArtistsResponse.convert(): ArtistDetailData? {
         name = data.attributes.name,
         artwork = data.attributes.artwork?.convert() ?: "",
         url = data.attributes.url,
-        topSongs = data.views?.topSongs?.convert(),
-        singles = data.views?.singles?.convert(),
-        fullAlbums = data.views?.fullAlbums?.convert(),
     )
 }
