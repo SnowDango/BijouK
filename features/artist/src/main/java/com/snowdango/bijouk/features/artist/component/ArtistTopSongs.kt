@@ -2,16 +2,15 @@ package com.snowdango.bijouk.features.artist.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowForward
@@ -26,22 +25,25 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import com.snowdango.bijouk.model.cider.data.entity.Song
+import com.snowdango.bijouk.ui.BijouKTheme
 
 
 @Composable
 fun ArtistTopSongs(
     songs: List<Song>,
+    modifier: Modifier = Modifier,
 ) {
     @Suppress("MagicNumber")
     val topSongsCell = 4
+
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(vertical = 16.dp)
-            .fillMaxWidth()
             .wrapContentHeight(),
         horizontalAlignment = Alignment.Start,
     ) {
@@ -66,28 +68,31 @@ fun ArtistTopSongs(
             )
         }
 
-        LazyHorizontalGrid(
-            rows = GridCells.Fixed(count = topSongsCell),
+        LazyRow(
             contentPadding = PaddingValues(
-                horizontal = 32.dp
+                start = 32.dp,
+                end = 16.dp,
             ),
             modifier = Modifier
+                .padding(vertical = 4.dp)
                 .fillMaxWidth()
-                .heightIn(max = 250.dp)
         ) {
-            items(count = songs.size) { index ->
-                val song = songs[index]
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                ) {
-                    TopSongs(
-                        song = song,
+            val chunkedSongs = songs.chunked(topSongsCell)
+            chunkedSongs.forEach { chunk ->
+                item {
+                    Column(
                         modifier = Modifier
-                            .fillMaxWidth()
-                    )
-                    if (((index + 1) / topSongsCell) != 0) {
-                        HorizontalDivider()
+                            .fillParentMaxWidth(),
+                    ) {
+                        chunk.forEachIndexed { index, song ->
+                            TopSongs(
+                                song = song,
+                                isDividerVisible = chunk.getOrNull(index + 1) != null,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .wrapContentHeight()
+                            )
+                        }
                     }
                 }
             }
@@ -98,13 +103,13 @@ fun ArtistTopSongs(
 @Composable
 fun TopSongs(
     song: Song,
+    isDividerVisible: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
-            .padding(vertical = 8.dp)
-            .padding(end = 16.dp)
-            .fillMaxWidth(),
+            .padding(end = 16.dp, top = 8.dp, bottom = 4.dp)
+            .wrapContentHeight(),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         AsyncImage(
@@ -116,30 +121,92 @@ fun TopSongs(
                 .size(48.dp)
                 .clip(RoundedCornerShape(8.dp)),
         )
-        Column(
-            modifier = Modifier
-                .padding(start = 8.dp)
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
-        ) {
-            Text(
-                text = song.name,
+        Box {
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 4.dp),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.bodyMedium,
-            )
-            Text(
-                text = song.artist,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .alpha(alpha = 0.5f),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.bodyMedium,
-            )
+                    .padding(start = 8.dp)
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.Start,
+            ) {
+                Text(
+                    text = song.name,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 4.dp),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Text(
+                    text = song.artist,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .alpha(alpha = 0.5f),
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                if (isDividerVisible) {
+                    HorizontalDivider()
+                }
+            }
         }
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewTopSong() {
+    BijouKTheme {
+        TopSongs(
+            song = Song(
+                id = "1",
+                name = "Top Song",
+                artist = "Artist Name",
+                album = "Album Name",
+                artwork = "https://example.com/artwork.jpg",
+                href = "https://example.com/song.mp3",
+                genres = listOf("Pops"),
+                hasLyrics = true,
+                composerName = "Composer Name",
+            ),
+            isDividerVisible = true,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
+@Preview
+@Composable
+private fun PreviewArtistTopSongs() {
+    BijouKTheme {
+        ArtistTopSongs(
+            songs = listOf(
+                Song(
+                    id = "1",
+                    name = "Top Song 1",
+                    artist = "Artist Name",
+                    album = "Album Name",
+                    artwork = "https://example.com/artwork1.jpg",
+                    href = "https://example.com/song1.mp3",
+                    genres = listOf("Pops"),
+                    hasLyrics = true,
+                    composerName = "Composer Name",
+                ),
+                Song(
+                    id = "2",
+                    name = "Top Song 2",
+                    artist = "Artist Name",
+                    album = "Album Name",
+                    artwork = "https://example.com/artwork2.jpg",
+                    href = "https://example.com/song2.mp3",
+                    genres = listOf("Rock"),
+                    hasLyrics = true,
+                    composerName = "Composer Name",
+                )
+            ),
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
