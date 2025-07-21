@@ -29,7 +29,6 @@ fun ArtistsDetailScreen(
         )
     }
 ) {
-
     val artistDetailData = viewModel.artistDetailDataFlow.collectAsStateWithLifecycle()
     val artistTopSongs = viewModel.artistTopSongsFlow.collectAsStateWithLifecycle()
 
@@ -63,10 +62,8 @@ fun ArtistsDetailScreen(
                             ArtistTopSongs(topSongs)
                         }
                     }
-
                 }
             }
         }
     }
-
 }

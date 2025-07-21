@@ -32,7 +32,6 @@ import coil3.request.ImageRequest
 import com.snowdango.bijouk.model.cider.data.entity.Song
 import com.snowdango.bijouk.ui.BijouKTheme
 
-
 @Composable
 fun ArtistTopSongs(
     songs: List<Song>,

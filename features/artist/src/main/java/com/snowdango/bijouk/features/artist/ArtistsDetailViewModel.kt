@@ -68,5 +68,4 @@ class ArtistsDetailViewModel(
             _artistTopSongsFlow.emit(null)
         }
     }
-
 }
