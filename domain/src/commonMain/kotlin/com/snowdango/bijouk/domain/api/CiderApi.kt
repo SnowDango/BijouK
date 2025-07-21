@@ -1,11 +1,13 @@
 package com.snowdango.bijouk.domain.api
 
+import com.snowdango.bijouk.domain.api.request.ArtistDetailsRequestBody
 import com.snowdango.bijouk.domain.api.request.ChangeQueueIndexRequestBody
 import com.snowdango.bijouk.domain.api.request.InLibrarySearchRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveSeekRequestBody
 import com.snowdango.bijouk.domain.api.request.PlayRequestBody
 import com.snowdango.bijouk.domain.api.request.SearchRequestBody
+import com.snowdango.bijouk.domain.api.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
@@ -210,6 +212,20 @@ class CiderApi(
             )
         }
         return response.body<SearchResponse>()
+    }
+
+    suspend fun getArtistDetails(artistId: String): ArtistsResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                ArtistDetailsRequestBody.create(
+                    artistId,
+                    viewsTypes = ArtistDetailsRequestBody.ViewsType.entries
+                )
+            )
+        }
+        return response.body<ArtistsResponse>()
     }
 
     suspend fun inLibrarySearchAll(query: String): SearchResponse {
