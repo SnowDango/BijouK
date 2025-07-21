@@ -87,11 +87,16 @@ fun ArtistTopSongs(
                         chunk.forEachIndexed { index, song ->
                             TopSongs(
                                 song = song,
-                                isDividerVisible = chunk.getOrNull(index + 1) != null,
                                 modifier = Modifier
                                     .fillMaxWidth()
                                     .wrapContentHeight()
                             )
+                            if (chunk.getOrNull(index + 1) != null) {
+                                HorizontalDivider(
+                                    modifier = Modifier
+                                        .padding(start = 56.dp, end = 16.dp)
+                                )
+                            }
                         }
                     }
                 }
@@ -103,7 +108,6 @@ fun ArtistTopSongs(
 @Composable
 fun TopSongs(
     song: Song,
-    isDividerVisible: Boolean,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -147,9 +151,6 @@ fun TopSongs(
                     overflow = TextOverflow.Ellipsis,
                     style = MaterialTheme.typography.bodyMedium,
                 )
-                if (isDividerVisible) {
-                    HorizontalDivider()
-                }
             }
         }
     }
@@ -171,7 +172,6 @@ private fun PreviewTopSong() {
                 hasLyrics = true,
                 composerName = "Composer Name",
             ),
-            isDividerVisible = true,
             modifier = Modifier.fillMaxWidth()
         )
     }
