@@ -51,7 +51,7 @@ kotlin {
                 implementation(libs.koin.compose)
 
                 // paging
-                implementation(libs.paging.runtime)
+                implementation(libs.paging.common)
 
                 // coroutines
                 implementation(libs.kotlinx.coroutine.core)

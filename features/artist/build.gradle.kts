@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.snowdango.bijouk.features.nowPlay"
+    namespace = "com.snowdango.bijouk.features.artist"
     compileSdk = libs.versions.sdk.target.get().toInt()
     version = libs.versions.version
 
@@ -43,18 +43,10 @@ android {
 }
 
 dependencies {
-    implementation(project(":ui"))
-    implementation(project(":model"))
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.bundles.android.base)
     implementation(libs.kotlinx.collections.immutable)
     implementation(libs.bundles.android.base)
-    implementation(libs.material.icon)
-    implementation(libs.aboutlibraries.core)
-    implementation(libs.bundles.coil)
-    implementation(libs.bundles.coroutine)
-    implementation(libs.bundles.koin)
-    implementation(libs.bundles.paging)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)
