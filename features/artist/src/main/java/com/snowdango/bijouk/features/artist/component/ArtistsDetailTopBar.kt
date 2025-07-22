@@ -173,7 +173,8 @@ fun ArtistsDetailTopBar(
                                         contentDescription = null,
                                         modifier = Modifier
                                             .size(44.dp),
-                                    ) }
+                                    )
+                                }
                             }
                         }
                     }
