@@ -42,6 +42,12 @@ class ArtistsDetailViewModel(
         SharingStarted.WhileSubscribed(5_000),
         _artistFullAlbumsFlow.value
     )
+    private val _artistSinglesFlow: MutableStateFlow<List<Album>?> = MutableStateFlow(null)
+    val artistSinglesFlow = _artistSinglesFlow.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        _artistSinglesFlow.value
+    )
 
     init {
         load()
@@ -51,6 +57,7 @@ class ArtistsDetailViewModel(
         getArtistDetail()
         getArtistTopSongs()
         getArtistFullAlbums()
+        getArtistSingles()
     }
 
     private fun getArtistDetail() = viewModelScope.launch {
@@ -88,4 +95,17 @@ class ArtistsDetailViewModel(
             _artistFullAlbumsFlow.emit(null)
         }
     }
+
+    private fun getArtistSingles() = viewModelScope.launch {
+        try {
+            val singles = ciderModel.getArtistSingles(artistId)
+            _artistSinglesFlow.emit(singles)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("ArtistsDetailViewModel", th.toString())
+            _artistSinglesFlow.emit(null)
+        }
+    }
+
 }

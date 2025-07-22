@@ -9,6 +9,7 @@ import com.snowdango.bijouk.domain.api.request.SearchRequestBody
 import com.snowdango.bijouk.domain.api.request.artist.ArtistDetailsRequestBody
 import com.snowdango.bijouk.domain.api.request.artist.ArtistViewsRequestBody
 import com.snowdango.bijouk.domain.api.response.ArtistFullAlbumResponse
+import com.snowdango.bijouk.domain.api.response.ArtistSingleResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
@@ -270,6 +271,25 @@ class CiderApi(
         return response.body<ArtistFullAlbumResponse>()
     }
 
+    suspend fun getArtistSingles(
+        artistId: String,
+        limit: Int,
+        offset: Int
+    ): ArtistSingleResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                ArtistViewsRequestBody.create(
+                    artistId = artistId,
+                    viewType = ArtistViewsRequestBody.ViewType.Singles,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<ArtistSingleResponse>()
+    }
 
     suspend fun inLibrarySearchAll(query: String): SearchResponse {
         val response = client.get {

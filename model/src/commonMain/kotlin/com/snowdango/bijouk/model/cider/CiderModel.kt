@@ -142,6 +142,15 @@ class CiderModel(
         return response.convert()
     }
 
+    suspend fun getArtistSingles(
+        artistId: String,
+        limit: Int = 20,
+        offset: Int = 0
+    ): List<Album>? {
+        val response = repository.getArtistSingles(artistId, limit, offset)
+        return response.convert()
+    }
+
     fun connect(
         connectionEventListener: SocketConnectionEventListener,
         playBackEventListener: PlayBackStatusEventListener,
