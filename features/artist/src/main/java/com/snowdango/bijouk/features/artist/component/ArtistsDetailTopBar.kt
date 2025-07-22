@@ -1,7 +1,6 @@
 package com.snowdango.bijouk.features.artist.component
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -55,7 +54,6 @@ import coil3.compose.AsyncImage
 import com.snowdango.bijouk.features.artist.R
 import com.snowdango.bijouk.model.cider.data.entity.Station
 import com.snowdango.bijouk.ui.BijouKTheme
-import com.snowdango.bijouk.ui.component.topbar.CollapsibleAppBar
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
 @SuppressLint("UnusedBoxWithConstraintsScope", "AutoboxingStateCreation")
@@ -82,13 +80,13 @@ fun ArtistsDetailTopBar(
         } else {
             if (isCollapsed) isCollapsed = false
         }
-        val absOffsetDp = with(density){
+        val absOffsetDp = with(density) {
             (scrollBehavior.state.heightOffset - scrollBehavior.state.heightOffsetLimit).toDp()
         }
         val stationAlphaTargetDp = absOffsetDp - 224.dp
-        if(stationAlphaTargetDp > 0.dp){
+        if (stationAlphaTargetDp > 0.dp) {
             stationAlpha = stationAlphaTargetDp.value / 90f
-        }else{
+        } else {
             if (stationAlpha != 0.0f) stationAlpha = 0.0f
         }
     }
@@ -247,7 +245,7 @@ private fun PreviewArtistsDetailHeader() {
         ArtistsDetailTopBar(
             name = "Artist Name",
             artwork = "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/5e/e1/5e" +
-                    "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
+                "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
             scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
             onNavigationBack = {},
             onPlayStation = {},
@@ -255,7 +253,7 @@ private fun PreviewArtistsDetailHeader() {
                 id = "station1",
                 name = "Station Name",
                 artwork = "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/5e/e1/5e" +
-                        "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
+                    "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
                 href = "",
             )
         )
