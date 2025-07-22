@@ -1,42 +1,56 @@
 package com.snowdango.bijouk.features.artist.component
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBars
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LargeTopAppBar
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
+import com.snowdango.bijouk.features.artist.R
 import com.snowdango.bijouk.ui.BijouKTheme
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
@@ -46,19 +60,19 @@ fun ArtistsDetailTopBar(
     name: String,
     artwork: String,
     scrollBehavior: TopAppBarScrollBehavior,
+    onNavigationBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val density = LocalDensity.current
     val systemBarHeight = WindowInsets.systemBars.asPaddingValues().calculateTopPadding()
-    var artworkAlpha by remember { mutableFloatStateOf(1.0f) }
+    var isCollapsed by remember { mutableStateOf(false) }
     var titleBlurHeight by remember { mutableStateOf(0.dp) }
 
     LaunchedEffect(scrollBehavior.state.heightOffset) {
         if (scrollBehavior.state.heightOffset == scrollBehavior.state.heightOffsetLimit) {
-            if (artworkAlpha != 0.0f) artworkAlpha = 0.0f
+            if (!isCollapsed) isCollapsed = true
         } else {
-            if (artworkAlpha != 1.0f) artworkAlpha = 1.0f
+            if (isCollapsed) isCollapsed = false
         }
     }
 
@@ -79,9 +93,8 @@ fun ArtistsDetailTopBar(
                     .width(width)
                     .height(width)
                     .layoutId("artwork")
-                    .alpha(artworkAlpha),
+                    .alpha(if (isCollapsed) 0.0f else 1f),
             )
-
             Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -97,18 +110,55 @@ fun ArtistsDetailTopBar(
                     .layoutId("titleBlur"),
             )
 
+            Box(
+                modifier = Modifier
+                    .size(52.dp)
+                    .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
+                    .clip(shape = CircleShape)
+                    .layoutId("station"),
+                contentAlignment = Alignment.Center,
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.icon),
+                    contentDescription = null,
+                    modifier = Modifier
+                        .size(44.dp),
+                )
+            }
+
             LargeTopAppBar(
                 title = {
                     Text(
                         text = name,
-                        maxLines = 2,
+                        maxLines = if (isCollapsed) 1 else 2,
                         fontWeight = FontWeight.ExtraBold,
+                        overflow = TextOverflow.Ellipsis,
                         color = Color.White,
                         modifier = Modifier
+                            .padding(
+                                end = if (isCollapsed) 48.dp else 100.dp,
+                            )
+                            .fillMaxWidth()
                             .onGloballyPositioned {
                                 with(density) {
                                     titleBlurHeight = it.size.height.toDp()
                                 }
+                            }
+                    )
+                },
+                navigationIcon = {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                        contentDescription = null,
+                        tint = if (isCollapsed) {
+                            MaterialTheme.colorScheme.onSurface
+                        } else {
+                            Color.White
+                        },
+                        modifier = Modifier
+                            .padding(start = 16.dp, end = 8.dp)
+                            .clickable {
+                                onNavigationBack.invoke()
                             }
                     )
                 },
@@ -128,6 +178,7 @@ val constraintSet = ConstraintSet {
     val artworkRef = createRefFor("artwork")
     val topbarRef = createRefFor("topbar")
     val titleBlurRef = createRefFor("titleBlur")
+    val stationRef = createRefFor("station")
     constrain(artworkRef) {
         start.linkTo(topbarRef.start)
         end.linkTo(topbarRef.end)
@@ -137,6 +188,10 @@ val constraintSet = ConstraintSet {
         start.linkTo(artworkRef.start)
         end.linkTo(artworkRef.end)
         bottom.linkTo(parent.bottom)
+    }
+    constrain(stationRef) {
+        end.linkTo(parent.end, margin = 32.dp)
+        bottom.linkTo(parent.bottom, margin = 16.dp)
     }
 }
 
@@ -148,8 +203,10 @@ private fun PreviewArtistsDetailHeader() {
     BijouKTheme {
         ArtistsDetailTopBar(
             name = "Artist Name",
-            artwork = "https://example.com/artwork.jpg",
-            scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+            artwork = "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/5e/e1/5e" +
+                    "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
+            scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
+            onNavigationBack = {},
         )
     }
 }

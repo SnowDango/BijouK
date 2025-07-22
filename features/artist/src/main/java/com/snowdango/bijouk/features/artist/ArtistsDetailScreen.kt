@@ -32,6 +32,7 @@ fun ArtistsDetailScreen(
     token: String,
     artistId: String,
     modifier: Modifier = Modifier,
+    onNavigationBack: () -> Unit,
     viewModel: ArtistsDetailViewModel = koinViewModel<ArtistsDetailViewModel> {
         parametersOf(
             baseUrl,
@@ -55,6 +56,7 @@ fun ArtistsDetailScreen(
                 artistTopSongs = artistTopSongs.value,
                 artistFullAlbums = artistFullAlbums.value,
                 artistSingles = artistSingles.value,
+                onNavigationBack = onNavigationBack,
             )
         } else {
             // TODO: Failure UI
@@ -70,6 +72,7 @@ fun ArtistsDetailContent(
     artistTopSongs: List<Song>?,
     artistFullAlbums: List<Album>?,
     artistSingles: List<Album>?,
+    onNavigationBack: () -> Unit,
 ) {
     val lazyListState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
@@ -82,6 +85,7 @@ fun ArtistsDetailContent(
                 name = detailData.name,
                 artwork = detailData.artwork,
                 scrollBehavior = scrollBehavior,
+                onNavigationBack = onNavigationBack,
             )
         }
     ) { paddingValues ->

@@ -13,5 +13,6 @@ fun ArtistsResponse.convert(): ArtistDetailData? {
         name = data.attributes.name,
         artwork = data.attributes.artwork?.convert() ?: "",
         url = data.attributes.url,
+        stations = data.relationships.stations?.convert() ?: emptyList(),
     )
 }

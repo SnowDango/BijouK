@@ -32,5 +32,6 @@ data class ArtistAttributes(
 @Suppress("UnsafeOptInUsageError")
 @Serializable
 data class ArtistRelationships(
-    val albums: Albums
+    val albums: Albums,
+    val stations: Stations? = null,
 )

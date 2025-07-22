@@ -97,6 +97,9 @@ class MainActivity : ComponentActivity() {
                                 artist.baseUrl,
                                 artist.token,
                                 artist.artistId,
+                                onNavigationBack = {
+                                    navController.popBackStack()
+                                },
                             )
                         }
 

@@ -1,6 +1,5 @@
 package com.snowdango.bijouk.domain.api.request.artist
 
-import com.snowdango.bijouk.domain.api.request.SearchRequestBody
 import kotlinx.serialization.Serializable
 
 
@@ -12,9 +11,10 @@ data class ArtistDetailsRequestBody(
     companion object {
         fun create(
             artistId: String,
-        ): SearchRequestBody {
-            return SearchRequestBody(
-                path = "/v1/catalog/jp/artists/${artistId}"
+        ): ArtistDetailsRequestBody {
+            return ArtistDetailsRequestBody(
+                path = "/v1/catalog/jp/artists/${artistId}?" +
+                        "include=default-playable-content"
             )
         }
     }
