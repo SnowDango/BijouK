@@ -107,5 +107,4 @@ class ArtistsDetailViewModel(
             _artistSinglesFlow.emit(null)
         }
     }
-
 }

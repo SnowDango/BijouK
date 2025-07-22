@@ -31,7 +31,6 @@ import coil3.request.ImageRequest
 import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.ui.BijouKTheme
 
-
 @Composable
 fun ArtistSingles(
     singles: List<Album>,
@@ -146,7 +145,7 @@ private fun PreviewFullAlbums() {
                 trackCount = 20,
                 releaseYear = "2023",
 
-                ),
+            ),
             modifier = Modifier.fillMaxWidth(
                 fraction = 0.5f
             )
