@@ -1,11 +1,13 @@
 package com.snowdango.bijouk.features.artist.component
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
@@ -28,6 +30,7 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -50,10 +53,12 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import coil3.compose.AsyncImage
 import com.snowdango.bijouk.features.artist.R
+import com.snowdango.bijouk.model.cider.data.entity.Station
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.component.topbar.CollapsibleAppBar
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
-@SuppressLint("UnusedBoxWithConstraintsScope")
+@SuppressLint("UnusedBoxWithConstraintsScope", "AutoboxingStateCreation")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ArtistsDetailTopBar(
@@ -61,18 +66,30 @@ fun ArtistsDetailTopBar(
     artwork: String,
     scrollBehavior: TopAppBarScrollBehavior,
     onNavigationBack: () -> Unit,
+    onPlayStation: (stationId: String) -> Unit,
     modifier: Modifier = Modifier,
+    station: Station? = null,
 ) {
     val density = LocalDensity.current
     val systemBarHeight = WindowInsets.systemBars.asPaddingValues().calculateTopPadding()
     var isCollapsed by remember { mutableStateOf(false) }
     var titleBlurHeight by remember { mutableStateOf(0.dp) }
+    var stationAlpha by remember { mutableFloatStateOf(1.0f) }
 
     LaunchedEffect(scrollBehavior.state.heightOffset) {
         if (scrollBehavior.state.heightOffset == scrollBehavior.state.heightOffsetLimit) {
             if (!isCollapsed) isCollapsed = true
         } else {
             if (isCollapsed) isCollapsed = false
+        }
+        val absOffsetDp = with(density){
+            (scrollBehavior.state.heightOffset - scrollBehavior.state.heightOffsetLimit).toDp()
+        }
+        val stationAlphaTargetDp = absOffsetDp - 224.dp
+        if(stationAlphaTargetDp > 0.dp){
+            stationAlpha = stationAlphaTargetDp.value / 90f
+        }else{
+            if (stationAlpha != 0.0f) stationAlpha = 0.0f
         }
     }
 
@@ -82,7 +99,7 @@ fun ArtistsDetailTopBar(
         val width = maxWidth
         ConstraintLayout(
             modifier = modifier,
-            constraintSet = constraintSet,
+            constraintSet = constraintSet(station != null),
         ) {
             AsyncImage(
                 model = cacheableImageRequest(
@@ -111,41 +128,58 @@ fun ArtistsDetailTopBar(
                     .layoutId("titleBlur"),
             )
 
-            Box(
-                modifier = Modifier
-                    .size(52.dp)
-                    .background(color = MaterialTheme.colorScheme.primary, shape = CircleShape)
-                    .clip(shape = CircleShape)
-                    .layoutId("station"),
-                contentAlignment = Alignment.Center,
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.icon),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .size(44.dp),
-                )
-            }
-
             LargeTopAppBar(
                 title = {
-                    Text(
-                        text = name,
-                        maxLines = if (isCollapsed) 1 else 2,
-                        fontWeight = FontWeight.ExtraBold,
-                        overflow = TextOverflow.Ellipsis,
-                        color = Color.White,
+                    Row(
                         modifier = Modifier
-                            .padding(
-                                end = if (isCollapsed) 48.dp else 100.dp,
-                            )
-                            .fillMaxWidth()
-                            .onGloballyPositioned {
-                                with(density) {
-                                    titleBlurHeight = it.size.height.toDp()
+                            .fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            text = name,
+                            maxLines = if (isCollapsed) 1 else 2,
+                            fontWeight = FontWeight.ExtraBold,
+                            overflow = TextOverflow.Ellipsis,
+                            color = Color.White,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .weight(1f)
+                                .onGloballyPositioned {
+                                    with(density) {
+                                        titleBlurHeight = it.size.height.toDp()
+                                    }
+                                }
+                        )
+                        if (station != null) {
+                            Box(
+                                modifier = Modifier
+                                    .alpha(stationAlpha)
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        .padding(end = 32.dp, bottom = 16.dp)
+                                        .size(52.dp)
+                                        .background(
+                                            color = MaterialTheme.colorScheme.primary,
+                                            shape = CircleShape
+                                        )
+                                        .clip(shape = CircleShape)
+                                        .layoutId("station")
+                                        .clickable {
+                                            onPlayStation.invoke(station.id)
+                                        },
+                                    contentAlignment = Alignment.Center,
+                                ) {
+                                    Image(
+                                        painter = painterResource(R.drawable.icon),
+                                        contentDescription = null,
+                                        modifier = Modifier
+                                            .size(44.dp),
+                                    )
                                 }
                             }
-                    )
+                        }
+                    }
                 },
                 navigationIcon = {
                     Box(
@@ -180,11 +214,12 @@ fun ArtistsDetailTopBar(
     }
 }
 
-val constraintSet = ConstraintSet {
+fun constraintSet(
+    hasStation: Boolean,
+) = ConstraintSet {
     val artworkRef = createRefFor("artwork")
     val topbarRef = createRefFor("topbar")
     val titleBlurRef = createRefFor("titleBlur")
-    val stationRef = createRefFor("station")
     constrain(artworkRef) {
         start.linkTo(topbarRef.start)
         end.linkTo(topbarRef.end)
@@ -195,10 +230,13 @@ val constraintSet = ConstraintSet {
         end.linkTo(artworkRef.end)
         bottom.linkTo(parent.bottom)
     }
-    constrain(stationRef) {
-        end.linkTo(parent.end, margin = 32.dp)
-        bottom.linkTo(parent.bottom, margin = 16.dp)
-    }
+    /*if (hasStation) {
+        val stationRef = createRefFor("station")
+        constrain(stationRef) {
+            end.linkTo(parent.end, margin = 32.dp)
+            bottom.linkTo(parent.bottom, margin = 16.dp)
+        }
+    }*/
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -209,9 +247,17 @@ private fun PreviewArtistsDetailHeader() {
         ArtistsDetailTopBar(
             name = "Artist Name",
             artwork = "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/5e/e1/5e" +
-                "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
+                    "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
             scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
             onNavigationBack = {},
+            onPlayStation = {},
+            station = Station(
+                id = "station1",
+                name = "Station Name",
+                artwork = "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/5e/e1/5e" +
+                        "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
+                href = "",
+            )
         )
     }
 }

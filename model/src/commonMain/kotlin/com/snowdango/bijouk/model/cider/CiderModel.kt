@@ -151,6 +151,10 @@ class CiderModel(
         return response.convert()
     }
 
+    suspend fun stationPlayById(stationId: String) {
+        repository.stationPlayById(stationId)
+    }
+
     fun connect(
         connectionEventListener: SocketConnectionEventListener,
         playBackEventListener: PlayBackStatusEventListener,

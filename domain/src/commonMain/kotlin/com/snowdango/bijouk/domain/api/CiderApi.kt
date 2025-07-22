@@ -291,6 +291,15 @@ class CiderApi(
         return response.body<ArtistSingleResponse>()
     }
 
+    suspend fun stationPlayById(stationId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-item")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Stations, stationId))
+        }
+        return response.body<BasicResponse>()
+    }
+
     suspend fun inLibrarySearchAll(query: String): SearchResponse {
         val response = client.get {
             url("/api/v1/amapi/run-v3")

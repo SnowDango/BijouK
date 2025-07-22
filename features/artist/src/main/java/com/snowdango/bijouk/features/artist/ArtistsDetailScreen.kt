@@ -1,6 +1,7 @@
 package com.snowdango.bijouk.features.artist
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -57,6 +58,7 @@ fun ArtistsDetailScreen(
                 artistFullAlbums = artistFullAlbums.value,
                 artistSingles = artistSingles.value,
                 onNavigationBack = onNavigationBack,
+                onPlayStation = viewModel::stationPlayById,
             )
         } else {
             // TODO: Failure UI
@@ -73,9 +75,11 @@ fun ArtistsDetailContent(
     artistFullAlbums: List<Album>?,
     artistSingles: List<Album>?,
     onNavigationBack: () -> Unit,
+    onPlayStation: (stationId: String) -> Unit,
 ) {
     val lazyListState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    Log.d("ArtistsDetailContent", "stations: ${detailData.stations}")
     Scaffold(
         modifier = Modifier
             .fillMaxSize()
@@ -86,6 +90,8 @@ fun ArtistsDetailContent(
                 artwork = detailData.artwork,
                 scrollBehavior = scrollBehavior,
                 onNavigationBack = onNavigationBack,
+                onPlayStation = onPlayStation,
+                station = detailData.stations.firstOrNull(),
             )
         }
     ) { paddingValues ->

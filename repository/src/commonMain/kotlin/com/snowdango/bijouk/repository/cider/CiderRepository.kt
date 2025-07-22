@@ -125,6 +125,10 @@ class CiderRepository(
         return ciderApi.getArtistSingles(artistId, limit, offset)
     }
 
+    suspend fun stationPlayById(stationId: String): BasicResponse {
+        return ciderApi.stationPlayById(stationId)
+    }
+
     fun connect(
         onConnect: () -> Unit,
         onDisConnect: () -> Unit,

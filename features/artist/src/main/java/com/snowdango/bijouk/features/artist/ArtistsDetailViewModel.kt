@@ -107,4 +107,14 @@ class ArtistsDetailViewModel(
             _artistSinglesFlow.emit(null)
         }
     }
+
+    fun stationPlayById(stationId: String) = viewModelScope.launch {
+        try {
+            ciderModel.stationPlayById(stationId)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("ArtistsDetailViewModel", th.toString())
+        }
+    }
 }

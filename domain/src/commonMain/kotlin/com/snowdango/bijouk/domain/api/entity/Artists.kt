@@ -1,5 +1,6 @@
 package com.snowdango.bijouk.domain.api.entity
 
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Suppress("UnsafeOptInUsageError")
@@ -33,5 +34,6 @@ data class ArtistAttributes(
 @Serializable
 data class ArtistRelationships(
     val albums: Albums,
+    @SerialName("default-playable-content")
     val stations: Stations? = null,
 )
