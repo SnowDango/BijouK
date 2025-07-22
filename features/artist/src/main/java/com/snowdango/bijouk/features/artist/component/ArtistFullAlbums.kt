@@ -146,7 +146,7 @@ private fun PreviewFullAlbums() {
                 trackCount = 20,
                 releaseYear = "2023",
 
-                ),
+            ),
             modifier = Modifier.fillMaxWidth(
                 fraction = 0.5f
             )

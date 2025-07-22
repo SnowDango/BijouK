@@ -201,7 +201,6 @@ val constraintSet = ConstraintSet {
     }
 }
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
@@ -210,7 +209,7 @@ private fun PreviewArtistsDetailHeader() {
         ArtistsDetailTopBar(
             name = "Artist Name",
             artwork = "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/5e/e1/5e" +
-                    "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
+                "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
             scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
             onNavigationBack = {},
         )
