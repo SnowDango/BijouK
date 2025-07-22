@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.bundles.android.base)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.android.compose)
+    implementation(libs.androidx.constraint)
     implementation(libs.material.icon)
     implementation(libs.aboutlibraries.core)
     implementation(libs.bundles.coil)
