@@ -97,7 +97,7 @@ fun ArtistsDetailTopBar(
         val width = maxWidth
         ConstraintLayout(
             modifier = modifier,
-            constraintSet = constraintSet(station != null),
+            constraintSet = constraintSet,
         ) {
             AsyncImage(
                 model = cacheableImageRequest(
@@ -173,8 +173,7 @@ fun ArtistsDetailTopBar(
                                         contentDescription = null,
                                         modifier = Modifier
                                             .size(44.dp),
-                                    )
-                                }
+                                    ) }
                             }
                         }
                     }
@@ -212,9 +211,7 @@ fun ArtistsDetailTopBar(
     }
 }
 
-fun constraintSet(
-    hasStation: Boolean,
-) = ConstraintSet {
+val constraintSet = ConstraintSet {
     val artworkRef = createRefFor("artwork")
     val topbarRef = createRefFor("topbar")
     val titleBlurRef = createRefFor("titleBlur")
