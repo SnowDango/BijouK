@@ -1,5 +1,6 @@
-package com.snowdango.bijouk.domain.api.request
+package com.snowdango.bijouk.domain.api.request.artist
 
+import com.snowdango.bijouk.domain.api.request.SearchRequestBody
 import kotlinx.serialization.Serializable
 
 

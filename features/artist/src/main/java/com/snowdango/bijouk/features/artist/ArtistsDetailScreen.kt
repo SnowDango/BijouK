@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.snowdango.bijouk.features.artist.component.ArtistFullAlbums
 import com.snowdango.bijouk.features.artist.component.ArtistTopSongs
 import com.snowdango.bijouk.features.artist.component.ArtistsDetailHeader
 import org.koin.compose.viewmodel.koinViewModel
@@ -27,10 +28,11 @@ fun ArtistsDetailScreen(
             token,
             artistId,
         )
-    }
+    },
 ) {
     val artistDetailData = viewModel.artistDetailDataFlow.collectAsStateWithLifecycle()
     val artistTopSongs = viewModel.artistTopSongsFlow.collectAsStateWithLifecycle()
+    val artistFullAlbums = viewModel.artistFullAlbumsFlow.collectAsStateWithLifecycle()
 
     Box(
         modifier = modifier.fillMaxSize()
@@ -55,11 +57,16 @@ fun ArtistsDetailScreen(
                             data.artwork,
                         )
                     }
-
                     val topSongs = artistTopSongs.value
                     if (!topSongs.isNullOrEmpty()) {
                         item {
                             ArtistTopSongs(topSongs)
+                        }
+                    }
+                    val fullAlbums = artistFullAlbums.value
+                    if (!fullAlbums.isNullOrEmpty()) {
+                        item {
+                            ArtistFullAlbums(fullAlbums)
                         }
                     }
                 }

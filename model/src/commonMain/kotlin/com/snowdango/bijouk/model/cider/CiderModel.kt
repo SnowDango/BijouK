@@ -6,6 +6,7 @@ import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
 import com.snowdango.bijouk.model.cider.data.SearchData
+import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.model.cider.data.entity.Song
 import com.snowdango.bijouk.model.cider.mapper.api.convert
 import com.snowdango.bijouk.model.cider.mapper.event.convert
@@ -129,6 +130,15 @@ class CiderModel(
 
     suspend fun getArtistTopSongs(artistId: String, limit: Int = 20, offset: Int = 0): List<Song>? {
         val response = repository.getArtistTopSongs(artistId, limit, offset)
+        return response.convert()
+    }
+
+    suspend fun getArtistFullAlbums(
+        artistId: String,
+        limit: Int = 20,
+        offset: Int = 0
+    ): List<Album>? {
+        val response = repository.getArtistFullAlbums(artistId, limit, offset)
         return response.convert()
     }
 

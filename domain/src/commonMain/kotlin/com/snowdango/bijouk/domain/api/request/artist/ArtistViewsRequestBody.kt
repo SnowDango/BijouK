@@ -1,10 +1,10 @@
-package com.snowdango.bijouk.domain.api.request
+package com.snowdango.bijouk.domain.api.request.artist
 
 import kotlinx.serialization.Serializable
 
 @Suppress("UnsafeOptInUsageError")
 @Serializable
-data class ArtistsViewsRequestBody(
+data class ArtistViewsRequestBody(
     val path: String,
 ) {
     companion object {
@@ -13,8 +13,8 @@ data class ArtistsViewsRequestBody(
             viewType: ViewType,
             limit: Int,
             offset: Int,
-        ): ArtistsViewsRequestBody {
-            return ArtistsViewsRequestBody(
+        ): ArtistViewsRequestBody {
+            return ArtistViewsRequestBody(
                 path = "/v1/catalog/jp/artists/${artistId}/view/${viewType.value}?" +
                         "limit=${limit}" +
                         "&offset=${offset}"

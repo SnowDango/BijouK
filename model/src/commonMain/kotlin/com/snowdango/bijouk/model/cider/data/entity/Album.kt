@@ -9,4 +9,5 @@ data class Album(
     val genres: List<String>? = null,
     val copyRight: String? = null,
     val trackCount: Int,
+    val releaseYear: String,
 )

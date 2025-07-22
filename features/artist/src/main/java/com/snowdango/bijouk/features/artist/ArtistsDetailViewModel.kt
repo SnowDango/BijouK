@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.data.ArtistDetailData
+import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.model.cider.data.entity.Song
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -35,6 +36,12 @@ class ArtistsDetailViewModel(
         SharingStarted.WhileSubscribed(5_000),
         _artistTopSongsFlow.value
     )
+    private val _artistFullAlbumsFlow: MutableStateFlow<List<Album>?> = MutableStateFlow(null)
+    val artistFullAlbumsFlow = _artistFullAlbumsFlow.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        _artistFullAlbumsFlow.value
+    )
 
     init {
         load()
@@ -43,6 +50,7 @@ class ArtistsDetailViewModel(
     private fun load() = viewModelScope.launch {
         getArtistDetail()
         getArtistTopSongs()
+        getArtistFullAlbums()
     }
 
     private fun getArtistDetail() = viewModelScope.launch {
@@ -66,6 +74,18 @@ class ArtistsDetailViewModel(
         } catch (th: Throwable) {
             Log.e("ArtistsDetailViewModel", th.toString())
             _artistTopSongsFlow.emit(null)
+        }
+    }
+
+    private fun getArtistFullAlbums() = viewModelScope.launch {
+        try {
+            val albums = ciderModel.getArtistFullAlbums(artistId)
+            _artistFullAlbumsFlow.emit(albums)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("ArtistsDetailViewModel", th.toString())
+            _artistFullAlbumsFlow.emit(null)
         }
     }
 }

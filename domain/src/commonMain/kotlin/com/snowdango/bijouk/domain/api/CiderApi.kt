@@ -1,13 +1,14 @@
 package com.snowdango.bijouk.domain.api
 
-import com.snowdango.bijouk.domain.api.request.ArtistDetailsRequestBody
-import com.snowdango.bijouk.domain.api.request.ArtistsViewsRequestBody
 import com.snowdango.bijouk.domain.api.request.ChangeQueueIndexRequestBody
 import com.snowdango.bijouk.domain.api.request.InLibrarySearchRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveSeekRequestBody
 import com.snowdango.bijouk.domain.api.request.PlayRequestBody
 import com.snowdango.bijouk.domain.api.request.SearchRequestBody
+import com.snowdango.bijouk.domain.api.request.artist.ArtistDetailsRequestBody
+import com.snowdango.bijouk.domain.api.request.artist.ArtistViewsRequestBody
+import com.snowdango.bijouk.domain.api.response.ArtistFullAlbumResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
@@ -238,15 +239,35 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                ArtistsViewsRequestBody.create(
+                ArtistViewsRequestBody.create(
                     artistId = artistId,
-                    viewType = ArtistsViewsRequestBody.ViewType.TopSongs,
+                    viewType = ArtistViewsRequestBody.ViewType.TopSongs,
                     limit = limit,
                     offset = offset,
                 )
             )
         }
         return response.body<ArtistsTopSongResponse>()
+    }
+
+    suspend fun getArtistFullAlbums(
+        artistId: String,
+        limit: Int,
+        offset: Int
+    ): ArtistFullAlbumResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                ArtistViewsRequestBody.create(
+                    artistId = artistId,
+                    viewType = ArtistViewsRequestBody.ViewType.FullAlbums,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<ArtistFullAlbumResponse>()
     }
 
 
