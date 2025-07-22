@@ -49,9 +49,9 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
 import com.snowdango.bijouk.features.artist.R
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
 @SuppressLint("UnusedBoxWithConstraintsScope")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -85,9 +85,10 @@ fun ArtistsDetailTopBar(
             constraintSet = constraintSet,
         ) {
             AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(artwork)
-                    .build(),
+                model = cacheableImageRequest(
+                    context = LocalContext.current,
+                    data = artwork,
+                ).build(),
                 contentDescription = null,
                 modifier = Modifier
                     .width(width)
@@ -147,20 +148,25 @@ fun ArtistsDetailTopBar(
                     )
                 },
                 navigationIcon = {
-                    Icon(
-                        imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                        contentDescription = null,
-                        tint = if (isCollapsed) {
-                            MaterialTheme.colorScheme.onSurface
-                        } else {
-                            Color.White
-                        },
+                    Box(
                         modifier = Modifier
-                            .padding(start = 16.dp, end = 8.dp)
+                            .padding(start = 8.dp)
                             .clickable {
                                 onNavigationBack.invoke()
-                            }
-                    )
+                            },
+                    ) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                            contentDescription = null,
+                            tint = if (isCollapsed) {
+                                MaterialTheme.colorScheme.onSurface
+                            } else {
+                                Color.White
+                            },
+                            modifier = Modifier
+                                .padding(all = 8.dp),
+                        )
+                    }
                 },
                 colors = TopAppBarDefaults.largeTopAppBarColors(
                     containerColor = Color.Transparent,

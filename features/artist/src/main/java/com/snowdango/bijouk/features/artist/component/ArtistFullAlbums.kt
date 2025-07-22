@@ -27,9 +27,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
 import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
 @Composable
 fun ArtistFullAlbums(
@@ -98,9 +98,10 @@ fun FullAlbums(
             .padding(top = 8.dp, end = 8.dp, bottom = 4.dp)
     ) {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(album.artwork)
-                .build(),
+            model = cacheableImageRequest(
+                context = LocalContext.current,
+                data = album.artwork,
+            ).build(),
             contentDescription = null,
             modifier = Modifier
                 .fillMaxWidth()
@@ -145,7 +146,7 @@ private fun PreviewFullAlbums() {
                 trackCount = 20,
                 releaseYear = "2023",
 
-            ),
+                ),
             modifier = Modifier.fillMaxWidth(
                 fraction = 0.5f
             )
