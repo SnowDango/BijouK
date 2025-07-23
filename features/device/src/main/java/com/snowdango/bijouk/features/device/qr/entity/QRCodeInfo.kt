@@ -2,7 +2,6 @@ package com.snowdango.bijouk.features.device.qr.entity
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class QRCodeInfo(
     val address: String,

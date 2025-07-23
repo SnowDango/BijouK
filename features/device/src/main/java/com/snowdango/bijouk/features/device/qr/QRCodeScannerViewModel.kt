@@ -10,10 +10,8 @@ import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.devices.DevicesModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import kotlinx.serialization.json.Json
@@ -61,7 +59,7 @@ class QRCodeScannerViewModel : ViewModel(), KoinComponent {
             val ciderModel = get<CiderModel> { parametersOf(baseUrl, token) }
             try {
                 val action = ciderModel.isActive()
-                if(action){
+                if (action) {
                     _testActiveFlow.emit(TestState.Success(address, token))
                 } else {
                     _testActiveFlow.emit(TestState.Error)
@@ -112,5 +110,4 @@ class QRCodeScannerViewModel : ViewModel(), KoinComponent {
         data object Success : SaveState()
         data object Error : SaveState()
     }
-
 }
