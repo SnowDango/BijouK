@@ -40,9 +40,14 @@ import kotlinx.coroutines.withContext
 @Composable
 fun SecondScreen(
     connectionState: Boolean,
+    isEnableChange: Boolean,
     nowPlayData: NowPlayData?,
     playBackTimeData: PlayBackTimeData?,
     nowPlayingStatusData: NowPlayingStatusData,
+    onPlayPause: () -> Unit,
+    onSeekTo: (Float) -> Unit,
+    onNext: () -> Unit,
+    onPrevious: () -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable (Dp) -> Unit,
 ) {
@@ -106,12 +111,17 @@ fun SecondScreen(
             sheetContent = {
                 BottomNowPlayingContent(
                     sheetState = sheetState.bottomSheetState,
+                    isEnableChange = isEnableChange,
                     nowPlayData = nowPlayData,
                     playBackTimeData = playBackTimeData,
                     nowPlayingStatusData = nowPlayingStatusData,
                     sheetMaxHeight = sheetMaxHeight,
                     sheetHeight = sheetHeight,
                     imageSize = imageSize,
+                    onPlayPause = onPlayPause,
+                    onSeekTo = onSeekTo,
+                    onNext = onNext,
+                    onPrevious = onPrevious,
                 )
             },
         ) {
@@ -140,9 +150,14 @@ private fun PreviewSecondScreen() {
     BijouKTheme {
         SecondScreen(
             connectionState = true,
+            isEnableChange = true,
             nowPlayData = null,
             playBackTimeData = null,
             nowPlayingStatusData = NowPlayingStatusData(isFav = false, isInLib = false),
+            onPlayPause = {},
+            onSeekTo = {},
+            onNext = {},
+            onPrevious = {},
         ) {
             Box(
                 modifier = Modifier

@@ -39,6 +39,7 @@ class SecondActivity : ComponentActivity() {
                 parametersOf(secondActivityData.baseUrl, secondActivityData.token)
             }
             val connectionState = viewModel.connectionStateFlow.collectAsStateWithLifecycle()
+            val isEnableChange = viewModel.isChangeableSeekFlow.collectAsStateWithLifecycle()
             val nowPlayData = viewModel.nowPlayFlow.collectAsStateWithLifecycle()
             val playbackTimeData = viewModel.playBackTimeData.collectAsStateWithLifecycle()
             val nowPlayingStatusData = viewModel.nowPlayingStatusFlow.collectAsStateWithLifecycle()
@@ -46,9 +47,14 @@ class SecondActivity : ComponentActivity() {
             BijouKTheme {
                 SecondScreen(
                     connectionState.value,
+                    isEnableChange.value,
                     nowPlayData.value,
                     playbackTimeData.value,
                     nowPlayingStatusData.value,
+                    onPlayPause = viewModel::playPause,
+                    onSeekTo = viewModel::seekTo,
+                    onNext = viewModel::next,
+                    onPrevious = viewModel::prev,
                     modifier = Modifier.fillMaxSize()
                 ) { sheetMinHeight ->
                     val navController = rememberNavController()

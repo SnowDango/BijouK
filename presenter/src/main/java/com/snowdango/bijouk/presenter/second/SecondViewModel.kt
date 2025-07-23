@@ -48,6 +48,12 @@ class SecondViewModel(
         SharingStarted.WhileSubscribed(5_000),
         _nowPlayingStatusFlow.value,
     )
+    private val _isChangeableSeekFlow: MutableStateFlow<Boolean> = MutableStateFlow(true)
+    val isChangeableSeekFlow = _isChangeableSeekFlow.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        _isChangeableSeekFlow.value,
+    )
 
     private val playBackEventListener = object : CiderModel.PlayBackStatusEventListener {
         override fun onTimeChangeEvent(playBackTimeData: PlayBackTimeData) {
@@ -112,6 +118,49 @@ class SecondViewModel(
             Log.e("NowPlayViewModel", th.toString())
             _nowPlayFlow.emit(null)
             _playbackTimeFlow.emit(null)
+        }
+    }
+
+    fun playPause() = viewModelScope.launch {
+        try {
+            ciderModel.playPause()
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+        }
+    }
+
+    fun next() = viewModelScope.launch {
+        try {
+            ciderModel.next()
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+        }
+    }
+
+    fun prev() = viewModelScope.launch {
+        try {
+            ciderModel.prev()
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+        }
+    }
+
+    fun seekTo(time: Float) = viewModelScope.launch {
+        _isChangeableSeekFlow.emit(false)
+        try {
+            ciderModel.seekTo(time)
+            _isChangeableSeekFlow.emit(true)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+            _isChangeableSeekFlow.emit(true)
         }
     }
 }

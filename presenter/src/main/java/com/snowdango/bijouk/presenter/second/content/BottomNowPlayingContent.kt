@@ -47,16 +47,19 @@ import com.snowdango.bijouk.ui.image.cacheableImageRequest
 @Composable
 fun BottomNowPlayingContent(
     sheetState: SheetState,
+    isEnableChange: Boolean,
     nowPlayData: NowPlayData?,
     playBackTimeData: PlayBackTimeData?,
     nowPlayingStatusData: NowPlayingStatusData,
     sheetMaxHeight: Dp,
     sheetHeight: Dp,
     imageSize: Dp,
+    onPlayPause: () -> Unit,
+    onSeekTo: (Float) -> Unit,
+    onNext: () -> Unit,
+    onPrevious: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val isEnableChange = true
-    // viewModel.isChangeableSeekFlow.collectAsStateWithLifecycle()
 
     Box(
         modifier = modifier
@@ -137,7 +140,7 @@ fun BottomNowPlayingContent(
                                 .padding(start = 8.dp, end = 26.dp)
                                 .size(30.dp)
                                 .clickable {
-                                    // viewModel.playPause()
+                                    onPlayPause.invoke()
                                 },
                         )
                     } else {
@@ -168,19 +171,19 @@ fun BottomNowPlayingContent(
                         modifier = Modifier
                             .padding(top = 20.dp),
                         onMoveSeek = {
-                            // viewModel.seekTo(it)
+                            onSeekTo.invoke(it)
                         }
                     )
                     PlayPauseControllerComponent(
                         playBackTimeData = playBackTimeData,
                         onClickPlayPause = {
-                            // viewModel.playPause()
+                            onPlayPause.invoke()
                         },
                         onClickNext = {
-                            // viewModel.next()
+                            onNext.invoke()
                         },
                         onClickPrevious = {
-                            // viewModel.prev()
+                            onPrevious.invoke()
                         },
                         modifier = Modifier
                             .padding(top = 40.dp)
