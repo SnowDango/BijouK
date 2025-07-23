@@ -9,6 +9,7 @@ import com.snowdango.bijouk.model.cider.CiderMultiModel
 import com.snowdango.bijouk.model.devices.DeviceData
 import com.snowdango.bijouk.model.devices.DevicesModel
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -60,7 +61,7 @@ class DevicesViewModel : ViewModel(), KoinComponent {
     }
 
     fun load() {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val devices = devicesModel.loadDevice()
                 _devicesFlow.emit(devices)
@@ -76,13 +77,13 @@ class DevicesViewModel : ViewModel(), KoinComponent {
 
     fun refresh() {
         _isRefreshing.tryEmit(true)
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             load()
             _isRefreshing.emit(false)
         }
     }
 
-    fun getActives() = viewModelScope.launch {
+    fun getActives() = viewModelScope.launch(Dispatchers.IO) {
         try {
             val actives = ciderMultiModel.isActives()
             _activesFlow.emit(actives)
@@ -95,7 +96,7 @@ class DevicesViewModel : ViewModel(), KoinComponent {
     }
 
     fun testActive(host: String, port: Int?, token: String, isUseSsl: Boolean) =
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             val baseUrl = context.getString(
                 if (isUseSsl) {
                     R.string.url_ssl
@@ -120,7 +121,7 @@ class DevicesViewModel : ViewModel(), KoinComponent {
             }
         }
 
-    fun clearTestActive() = viewModelScope.launch {
+    fun clearTestActive() = viewModelScope.launch(Dispatchers.IO) {
         _testActiveFlow.emit(null)
     }
 
@@ -130,7 +131,7 @@ class DevicesViewModel : ViewModel(), KoinComponent {
         port: Int?,
         token: String,
         isUseSsl: Boolean
-    ) = viewModelScope.launch {
+    ) = viewModelScope.launch(Dispatchers.IO) {
         try {
             devicesModel.saveDevice(
                 name = name,

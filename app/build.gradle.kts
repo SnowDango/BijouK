@@ -80,10 +80,7 @@ deploygate {
 }
 
 dependencies {
-    implementation(project(":features:device"))
-    implementation(project(":features:nowPlay"))
-    implementation(project(":features:setting"))
-    implementation(project(":features:artist"))
+    implementation(project(":presenter"))
     implementation(project(":repository"))
     implementation(project(":domain"))
     implementation(project(":model"))

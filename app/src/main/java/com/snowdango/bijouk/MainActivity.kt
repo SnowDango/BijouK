@@ -1,44 +1,6 @@
 package com.snowdango.bijouk
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Computer
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.NavigationBar
-import androidx.compose.material3.NavigationBarItem
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.platform.LocalContext
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.navigation.NavBackStackEntry
-import androidx.navigation.NavGraph.Companion.findStartDestination
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import androidx.navigation.toRoute
-import com.mikepenz.aboutlibraries.Libs
-import com.mikepenz.aboutlibraries.util.withContext
-import com.snowdango.bijouk.features.artist.ArtistsDetailScreen
-import com.snowdango.bijouk.features.device.DeviceScreen
-import com.snowdango.bijouk.features.nowPlay.NowPlayScreen
-import com.snowdango.bijouk.features.setting.SettingScreen
-import com.snowdango.bijouk.features.setting.view.AppInfoScreen
-import com.snowdango.bijouk.features.setting.view.OSSLicenseScreen
-import com.snowdango.bijouk.ui.BijouKTheme
-import kotlinx.serialization.Serializable
-
-class MainActivity : ComponentActivity() {
+/*class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +59,7 @@ class MainActivity : ComponentActivity() {
                                 artist.baseUrl,
                                 artist.token,
                                 artist.artistId,
+                                sheetMinSize = 100.dp,
                                 onNavigationBack = {
                                     navController.popBackStack()
                                 },
@@ -222,4 +185,4 @@ class MainActivity : ComponentActivity() {
         val icon: ImageVector,
         val name: String,
     )
-}
+}*/
