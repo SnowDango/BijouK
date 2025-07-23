@@ -50,6 +50,7 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.android.compose)
     implementation(libs.bundles.settings.compose)
+    implementation(libs.material.icon)
     implementation(libs.bundles.aboutlibraries)
     implementation(libs.markdown)
     implementation(libs.bundles.koin)

@@ -13,9 +13,10 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
-composeBom = "2025.03.01"
+composeBom = "2025.07.00"
 constraint = "1.1.1"
 material = "1.7.8"
+material3 = "1.4.0-alpha18"
 navigation = "2.8.9"
 splash = "1.0.1"
 paging = "3.3.6"
@@ -45,6 +46,8 @@ google-services = "4.4.3"
 firebase-bom = "33.16.0"
 firebase-crashlytics = "3.0.4"
 deploygate = "2.9.0"
+qrkit = "0.4.0"
+material3Jvmstubs = "1.4.0-alpha18"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -70,7 +73,7 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
-androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
+androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" } # 1.4.0が使いたいだけなのでbomでreleaseされたらversion設定を外す
 androidx-material2 = { group = "androidx.compose.material", name = "material" }
 androidx-constraint = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraint" }
 
@@ -136,6 +139,9 @@ detekt-compose = { group = "io.nlopez.compose.rules", name = "detekt", version.r
 aboutlibraries-core = { module = "com.mikepenz:aboutlibraries-core", version.ref = "aboutLibraries" }
 aboutlibraries-compose-core = { module = "com.mikepenz:aboutlibraries-compose", version.ref = "aboutLibraries" }
 aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
+
+# qrkit
+qrkit = { group = "io.github.kalinjul.easyqrscan", name = "scanner", version.ref = "qrkit" }
 
 # markdown
 markdown = { group = "com.github.jeziellago", name = "compose-markdown", version.ref = "markdown" }

@@ -1,9 +1,10 @@
-package com.snowdango.bijouk.features.device
+package com.snowdango.bijouk.features.device.devices
 
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.snowdango.bijouk.features.device.R
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderMultiModel
 import com.snowdango.bijouk.model.devices.DeviceData

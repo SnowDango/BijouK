@@ -26,7 +26,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mikepenz.aboutlibraries.Libs
 import com.mikepenz.aboutlibraries.util.withContext
-import com.snowdango.bijouk.features.device.DeviceScreen
+import com.snowdango.bijouk.features.device.devices.DeviceScreen
+import com.snowdango.bijouk.features.device.qr.QRCodeScannerScreen
 import com.snowdango.bijouk.features.setting.SettingScreen
 import com.snowdango.bijouk.features.setting.view.AppInfoScreen
 import com.snowdango.bijouk.features.setting.view.OSSLicenseScreen
@@ -66,6 +67,9 @@ class FirstActivity : ComponentActivity() {
                                             token = data.token,
                                         ),
                                     )
+                                },
+                                onNavigateScan = {
+                                    navController.navigate(FirstRoute.QR_SCAN)
                                 }
                             )
                         }
@@ -86,6 +90,13 @@ class FirstActivity : ComponentActivity() {
                         }
                         composable<FirstRoute.APP_INFO> {
                             AppInfoScreen()
+                        }
+                        composable<FirstRoute.QR_SCAN> {
+                            QRCodeScannerScreen(
+                                onNavigationBack = {
+                                    navController.popBackStack()
+                                }
+                            )
                         }
                     }
                     val currentRouteState = navController.currentBackStackEntryAsState()

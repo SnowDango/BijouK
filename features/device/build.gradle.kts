@@ -54,6 +54,8 @@ dependencies {
     implementation(libs.bundles.coroutine)
     implementation(libs.bundles.koin)
     implementation(libs.aboutlibraries.core)
+    implementation(libs.kotlinx.serialization)
+    implementation(libs.qrkit)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

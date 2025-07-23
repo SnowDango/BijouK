@@ -18,6 +18,9 @@ sealed class FirstRoute {
     @Serializable
     object APP_INFO : FirstRoute()
 
+    @Serializable
+    data object QR_SCAN : FirstRoute()
+
     companion object {
         @Composable
         fun fromNavBackStackEntry(navBackStackEntry: NavBackStackEntry?): FirstRoute? {
@@ -37,6 +40,10 @@ sealed class FirstRoute {
 
                 in APP_INFO.serializer().descriptor.serialName -> {
                     navBackStackEntry.toRoute<APP_INFO>()
+                }
+
+                in QR_SCAN.serializer().descriptor.serialName -> {
+                    navBackStackEntry.toRoute<QR_SCAN>()
                 }
 
                 else -> null
