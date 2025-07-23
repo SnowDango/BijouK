@@ -33,6 +33,7 @@ import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.event.keyboardAsState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -51,6 +52,7 @@ fun SecondScreen(
     modifier: Modifier = Modifier,
     content: @Composable (Dp) -> Unit,
 ) {
+    val isKeyboardVisible by keyboardAsState()
     val sheetMinHeight = 140.dp
     var sheetMaxHeight by remember { mutableStateOf(1000.dp) }
     val destiny = LocalDensity.current
@@ -73,6 +75,12 @@ fun SecondScreen(
         val systemBarHeight = WindowInsets.systemBars.asPaddingValues().calculateTopPadding()
         val topBarHeight = TopAppBarDefaults.TopAppBarExpandedHeight
         sheetMaxHeight = windowHeight - systemBarHeight - topBarHeight
+    }
+
+    LaunchedEffect(isKeyboardVisible) {
+        if (isKeyboardVisible) {
+            sheetState.bottomSheetState.partialExpand()
+        }
     }
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {
@@ -108,6 +116,7 @@ fun SecondScreen(
             modifier = Modifier.fillMaxSize(),
             scaffoldState = sheetState,
             sheetPeekHeight = sheetMinHeight,
+            sheetSwipeEnabled = !isKeyboardVisible,
             sheetContent = {
                 BottomNowPlayingContent(
                     sheetState = sheetState.bottomSheetState,
