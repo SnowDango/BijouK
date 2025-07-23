@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.aboutLibraries)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
@@ -45,13 +47,20 @@ android {
 }
 
 dependencies {
+    implementation(project(":features:device"))
+    implementation(project(":features:setting"))
     implementation(project(":ui"))
+    implementation(project(":model"))
     implementation(libs.bundles.android.base)
+    implementation(libs.androidx.splash)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.android.compose)
+    implementation(libs.material.icon)
     implementation(libs.bundles.coroutine)
     implementation(libs.bundles.koin)
+    implementation(libs.bundles.coil)
     implementation(libs.bundles.aboutlibraries)
+    implementation(libs.kotlinx.serialization)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)
