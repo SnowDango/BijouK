@@ -3,11 +3,11 @@
 
     <string name="setting_top_bar_title">Settings</string>
 
-    <string name="setting_column_app_info">このアプリについて</string>
-    <string name="setting_column_app_info_description">アプリについてを表示します</string>
+    <string name="setting_column_app_info">About</string>
+    <string name="setting_column_app_info_description">Display information about the app</string>
 
-    <string name="setting_column_oss_license">オープンソースライセンス</string>
-    <string name="setting_column_oss_license_description">オープンソースライセンスを表示します</string>
+    <string name="setting_column_oss_license">Open source license</string>
+    <string name="setting_column_oss_license_description">Display open source license</string>
 
     <string name="license_top_bar_title">Licenses</string>
 
