@@ -159,7 +159,7 @@ fun BottomNowPlayingContent(
                         title = nowPlayData?.name.orEmpty(),
                         artist = nowPlayData?.artistName.orEmpty(),
                         modifier = Modifier
-                            .padding(top = 100.dp)
+                            .padding(top = 60.dp)
                     )
                     PlayBackStateButtonsComponent(
                         nowPlayingStatusData = nowPlayingStatusData,
