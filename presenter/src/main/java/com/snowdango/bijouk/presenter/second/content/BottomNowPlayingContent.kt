@@ -60,7 +60,6 @@ fun BottomNowPlayingContent(
     onPrevious: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     Box(
         modifier = modifier
             .fillMaxWidth()
