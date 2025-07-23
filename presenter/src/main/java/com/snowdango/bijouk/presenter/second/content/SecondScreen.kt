@@ -44,11 +44,10 @@ fun SecondScreen(
     nowPlayData: NowPlayData?,
     playBackTimeData: PlayBackTimeData?,
     nowPlayingStatusData: NowPlayingStatusData,
-
     modifier: Modifier = Modifier,
     content: @Composable (Dp) -> Unit,
 ) {
-    val sheetMinHeight = 100.dp
+    val sheetMinHeight = 140.dp
     var sheetMaxHeight by remember { mutableStateOf(1000.dp) }
     val destiny = LocalDensity.current
 
@@ -69,8 +68,7 @@ fun SecondScreen(
         val windowHeight = LocalConfiguration.current.screenHeightDp.dp
         val systemBarHeight = WindowInsets.systemBars.asPaddingValues().calculateTopPadding()
         val topBarHeight = TopAppBarDefaults.TopAppBarExpandedHeight
-        val handleHeight = 48.dp
-        sheetMaxHeight = windowHeight - systemBarHeight - topBarHeight - handleHeight
+        sheetMaxHeight = windowHeight - systemBarHeight - topBarHeight
     }
 
     LaunchedEffect(sheetState.bottomSheetState.targetValue) {

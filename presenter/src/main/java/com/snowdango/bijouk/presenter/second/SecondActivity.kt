@@ -6,10 +6,21 @@ import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import com.snowdango.bijouk.features.artist.ArtistsDetailScreen
+import com.snowdango.bijouk.features.queue.QueueScreen
+import com.snowdango.bijouk.features.search.SearchScreen
 import com.snowdango.bijouk.presenter.second.content.SecondScreen
+import com.snowdango.bijouk.ui.BijouKTheme
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -18,6 +29,7 @@ class SecondActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         val secondActivityData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.extras?.getParcelable(KEY_DEVICE_DATA, SecondActivityData::class.java)
         } else {
@@ -31,14 +43,61 @@ class SecondActivity : ComponentActivity() {
             val nowPlayData = viewModel.nowPlayFlow.collectAsStateWithLifecycle()
             val playbackTimeData = viewModel.playBackTimeData.collectAsStateWithLifecycle()
             val nowPlayingStatusData = viewModel.nowPlayingStatusFlow.collectAsStateWithLifecycle()
-            SecondScreen(
-                connectionState.value,
-                nowPlayData.value,
-                playbackTimeData.value,
-                nowPlayingStatusData.value,
-                modifier = Modifier.fillMaxSize(),
-            ) { sheetMinHeight ->
-                
+
+            BijouKTheme {
+                SecondScreen(
+                    connectionState.value,
+                    nowPlayData.value,
+                    playbackTimeData.value,
+                    nowPlayingStatusData.value,
+                    modifier = Modifier.fillMaxSize()
+                ) { sheetMinHeight ->
+                    val navController = rememberNavController()
+                    NavHost(
+                        navController = navController,
+                        startDestination = SecondRoute.QUEUE,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(MaterialTheme.colorScheme.background)
+                    ) {
+                        composable<SecondRoute.QUEUE> {
+                            QueueScreen(
+                                name = secondActivityData.name,
+                                baseUrl = secondActivityData.baseUrl,
+                                token = secondActivityData.token,
+                                sheetMinSize = sheetMinHeight,
+                                modifier = Modifier.fillMaxSize(),
+                                onNavigateSearch = {
+                                    navController.navigate(SecondRoute.SEARCH)
+                                },
+                            )
+                        }
+                        composable<SecondRoute.SEARCH> {
+                            SearchScreen(
+                                baseUrl = secondActivityData.baseUrl,
+                                token = secondActivityData.token,
+                                sheetMinSize = sheetMinHeight,
+                                onNavigateArtist = {
+                                    navController.navigate(SecondRoute.ARTIST(artistId = it))
+                                },
+                                modifier = Modifier.fillMaxSize(),
+                            )
+                        }
+                        composable<SecondRoute.ARTIST> { backStackEntry ->
+                            val artist = backStackEntry.toRoute<SecondRoute.ARTIST>()
+                            ArtistsDetailScreen(
+                                baseUrl = secondActivityData.baseUrl,
+                                token = secondActivityData.token,
+                                artistId = artist.artistId,
+                                sheetMinSize = sheetMinHeight,
+                                onNavigationBack = {
+                                    navController.popBackStack()
+                                },
+                                modifier = Modifier.fillMaxSize(),
+                            )
+                        }
+                    }
+                }
             }
         }
     }

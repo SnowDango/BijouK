@@ -14,6 +14,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.snowdango.bijouk.features.artist.component.ArtistFullAlbums
@@ -32,6 +33,7 @@ fun ArtistsDetailScreen(
     baseUrl: String,
     token: String,
     artistId: String,
+    sheetMinSize: Dp,
     modifier: Modifier = Modifier,
     onNavigationBack: () -> Unit,
     viewModel: ArtistsDetailViewModel = koinViewModel<ArtistsDetailViewModel> {
@@ -57,6 +59,7 @@ fun ArtistsDetailScreen(
                 artistTopSongs = artistTopSongs.value,
                 artistFullAlbums = artistFullAlbums.value,
                 artistSingles = artistSingles.value,
+                sheetMinSize = sheetMinSize,
                 onNavigationBack = onNavigationBack,
                 onPlayStation = viewModel::stationPlayById,
             )
@@ -74,6 +77,7 @@ fun ArtistsDetailContent(
     artistTopSongs: List<Song>?,
     artistFullAlbums: List<Album>?,
     artistSingles: List<Album>?,
+    sheetMinSize: Dp,
     onNavigationBack: () -> Unit,
     onPlayStation: (stationId: String) -> Unit,
 ) {
@@ -99,7 +103,7 @@ fun ArtistsDetailContent(
             state = lazyListState,
             contentPadding = PaddingValues(
                 horizontal = 16.dp,
-                vertical = 32.dp,
+                vertical = sheetMinSize,
             ),
             modifier = Modifier
                 .fillMaxSize()

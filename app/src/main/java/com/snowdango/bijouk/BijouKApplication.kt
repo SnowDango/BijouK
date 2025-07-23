@@ -2,11 +2,8 @@ package com.snowdango.bijouk
 
 import android.app.Application
 import com.snowdango.bijouk.domain.DomainModule
-import com.snowdango.bijouk.features.artist.ArtistModule
-import com.snowdango.bijouk.features.device.DevicesModule
-import com.snowdango.bijouk.features.nowPlay.NowPlayModule
-import com.snowdango.bijouk.features.setting.SettingModule
 import com.snowdango.bijouk.model.ModelModule
+import com.snowdango.bijouk.presenter.PresenterModule
 import com.snowdango.bijouk.repository.RepositoryModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext
@@ -22,10 +19,12 @@ class BijouKApplication : Application() {
                 RepositoryModule.module,
                 ModelModule.module,
                 DomainModule.module,
-                DevicesModule.module,
-                NowPlayModule.module,
-                ArtistModule.module,
-                SettingModule.module(BuildConfig.VERSION_NAME)
+                PresenterModule.modules,
+                PresenterModule.queueModule,
+                PresenterModule.searchModule,
+                PresenterModule.artistModule,
+                PresenterModule.deviceModule,
+                PresenterModule.settingModule(BuildConfig.VERSION_NAME),
             )
         }
     }
