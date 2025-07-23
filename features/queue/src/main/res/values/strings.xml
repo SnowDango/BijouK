@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="queue_loading_error_toast">Failed to get the queue</string>
+
     <string name="queue_dropdown_menu_next">次に再生</string>
     <string name="queue_dropdown_menu_skip">ここまでスキップ</string>
 
