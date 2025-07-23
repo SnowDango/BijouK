@@ -8,6 +8,7 @@ import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -57,7 +58,7 @@ class SecondViewModel(
 
     private val playBackEventListener = object : CiderModel.PlayBackStatusEventListener {
         override fun onTimeChangeEvent(playBackTimeData: PlayBackTimeData) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 _playbackTimeFlow.emit(playBackTimeData)
             }
         }
@@ -66,21 +67,21 @@ class SecondViewModel(
             nowPlayData: NowPlayData?,
             playBackTimeData: PlayBackTimeData?
         ) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 nowPlayData?.let { _nowPlayFlow.emit(it) }
                 playBackTimeData?.let { _playbackTimeFlow.emit(it) }
             }
         }
 
         override fun onNowPlayingItemChangeEvent(nowPlayData: NowPlayData) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 _nowPlayFlow.emit(nowPlayData)
                 // TODO Queueの更新アクションを発行する
             }
         }
 
         override fun onNowPlayingStatusChangeEvent(nowPlayingStatusData: NowPlayingStatusData) {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 _nowPlayingStatusFlow.emit(nowPlayingStatusData)
             }
         }
@@ -88,14 +89,14 @@ class SecondViewModel(
 
     private val socketConnectionEventListener = object : CiderModel.SocketConnectionEventListener {
         override fun onConnect() {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 _connectionStateFlow.emit(true)
             }
             nowPlayLoad()
         }
 
         override fun onDisConnect() {
-            viewModelScope.launch {
+            viewModelScope.launch(Dispatchers.IO) {
                 _connectionStateFlow.emit(false)
             }
         }
@@ -106,7 +107,7 @@ class SecondViewModel(
         ciderModel.connect(socketConnectionEventListener, playBackEventListener)
     }
 
-    private fun nowPlayLoad() = viewModelScope.launch {
+    private fun nowPlayLoad() = viewModelScope.launch(Dispatchers.IO) {
         try {
             val data = ciderModel.getNowPlay()
             _nowPlayFlow.emit(data.first)
@@ -121,7 +122,7 @@ class SecondViewModel(
         }
     }
 
-    fun playPause() = viewModelScope.launch {
+    fun playPause() = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.playPause()
         } catch (ce: CancellationException) {
@@ -131,7 +132,7 @@ class SecondViewModel(
         }
     }
 
-    fun next() = viewModelScope.launch {
+    fun next() = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.next()
         } catch (ce: CancellationException) {
@@ -141,7 +142,7 @@ class SecondViewModel(
         }
     }
 
-    fun prev() = viewModelScope.launch {
+    fun prev() = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.prev()
         } catch (ce: CancellationException) {
@@ -151,7 +152,7 @@ class SecondViewModel(
         }
     }
 
-    fun seekTo(time: Float) = viewModelScope.launch {
+    fun seekTo(time: Float) = viewModelScope.launch(Dispatchers.IO) {
         _isChangeableSeekFlow.emit(false)
         try {
             ciderModel.seekTo(time)

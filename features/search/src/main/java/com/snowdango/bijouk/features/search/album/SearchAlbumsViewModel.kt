@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.model.cider.CiderModel
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -17,7 +18,7 @@ class SearchAlbumsViewModel(
 
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
 
-    fun searchAlbumPlay(albumId: String) = viewModelScope.launch {
+    fun searchAlbumPlay(albumId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.albumPlayById(albumId)
         } catch (ce: CancellationException) {
@@ -27,7 +28,7 @@ class SearchAlbumsViewModel(
         }
     }
 
-    fun searchAlbumPlayNext(albumId: String) = viewModelScope.launch {
+    fun searchAlbumPlayNext(albumId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.albumPlayNextById(albumId)
         } catch (ce: CancellationException) {
@@ -37,7 +38,7 @@ class SearchAlbumsViewModel(
         }
     }
 
-    fun searchAlbumPlayLater(albumId: String) = viewModelScope.launch {
+    fun searchAlbumPlayLater(albumId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.albumPlayLaterById(albumId)
         } catch (ce: CancellationException) {

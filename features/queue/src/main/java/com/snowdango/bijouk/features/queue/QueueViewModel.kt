@@ -7,6 +7,7 @@ import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -36,12 +37,12 @@ class QueueViewModel(
     }
 
     // queueに変更を加えた際に遅延して更新しないと反映されない
-    fun queueDelayRefresh() = viewModelScope.launch {
+    fun queueDelayRefresh() = viewModelScope.launch(Dispatchers.IO) {
         delay(Duration.ofSeconds(2))
         queueLoad()
     }
 
-    fun queueRefresh() = viewModelScope.launch {
+    fun queueRefresh() = viewModelScope.launch(Dispatchers.IO) {
         val currentData = _queueViewDataFlow.value
         _queueViewDataFlow.emit(
             currentData?.copy(isRefresh = true)
@@ -49,7 +50,7 @@ class QueueViewModel(
         queueLoad()
     }
 
-    private fun queueLoad() = viewModelScope.launch {
+    private fun queueLoad() = viewModelScope.launch(Dispatchers.IO) {
         try {
             val data = ciderModel.getQueue()
             _queueViewDataFlow.emit(
@@ -65,7 +66,7 @@ class QueueViewModel(
         }
     }
 
-    fun moveQueueNext(index: Int) = viewModelScope.launch {
+    fun moveQueueNext(index: Int) = viewModelScope.launch(Dispatchers.IO) {
         _queueViewDataFlow.value?.let { queueViewData ->
             try {
                 val nextIndex = queueViewData.queueDataList.list
@@ -89,7 +90,7 @@ class QueueViewModel(
         }
     }
 
-    fun skipQueue(index: Int) = viewModelScope.launch {
+    fun skipQueue(index: Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.changeQueueIndex(index)
         } catch (ce: CancellationException) {

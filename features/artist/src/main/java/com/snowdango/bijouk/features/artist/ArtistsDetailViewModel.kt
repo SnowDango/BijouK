@@ -8,6 +8,7 @@ import com.snowdango.bijouk.model.cider.data.ArtistDetailData
 import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.model.cider.data.entity.Song
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -53,14 +54,14 @@ class ArtistsDetailViewModel(
         load()
     }
 
-    private fun load() = viewModelScope.launch {
+    private fun load() = viewModelScope.launch(Dispatchers.IO) {
         getArtistDetail()
         getArtistTopSongs()
         getArtistFullAlbums()
         getArtistSingles()
     }
 
-    private fun getArtistDetail() = viewModelScope.launch {
+    private fun getArtistDetail() = viewModelScope.launch(Dispatchers.IO) {
         try {
             val artistDetail = ciderModel.getArtistDetails(artistId)
             _artistDetailDataFlow.emit(artistDetail)
@@ -72,7 +73,7 @@ class ArtistsDetailViewModel(
         }
     }
 
-    private fun getArtistTopSongs() = viewModelScope.launch {
+    private fun getArtistTopSongs() = viewModelScope.launch(Dispatchers.IO) {
         try {
             val topSongs = ciderModel.getArtistTopSongs(artistId)
             _artistTopSongsFlow.emit(topSongs)
@@ -84,7 +85,7 @@ class ArtistsDetailViewModel(
         }
     }
 
-    private fun getArtistFullAlbums() = viewModelScope.launch {
+    private fun getArtistFullAlbums() = viewModelScope.launch(Dispatchers.IO) {
         try {
             val albums = ciderModel.getArtistFullAlbums(artistId)
             _artistFullAlbumsFlow.emit(albums)
@@ -96,7 +97,7 @@ class ArtistsDetailViewModel(
         }
     }
 
-    private fun getArtistSingles() = viewModelScope.launch {
+    private fun getArtistSingles() = viewModelScope.launch(Dispatchers.IO) {
         try {
             val singles = ciderModel.getArtistSingles(artistId)
             _artistSinglesFlow.emit(singles)
@@ -108,7 +109,7 @@ class ArtistsDetailViewModel(
         }
     }
 
-    fun stationPlayById(stationId: String) = viewModelScope.launch {
+    fun stationPlayById(stationId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.stationPlayById(stationId)
         } catch (ce: CancellationException) {
