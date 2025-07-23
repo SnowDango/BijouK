@@ -25,11 +25,17 @@ class QueueViewModel(
 
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
 
-    private val _queueViewDataFlow: MutableStateFlow<QueueViewData?> = MutableStateFlow(null)
+    private val _queueViewDataFlow: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val queueViewDataFlow = _queueViewDataFlow.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         _queueViewDataFlow.value,
+    )
+    private val _isRefreshFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isRefreshFlow = _isRefreshFlow.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        _isRefreshFlow.value,
     )
 
     init {
@@ -43,49 +49,44 @@ class QueueViewModel(
     }
 
     fun queueRefresh() = viewModelScope.launch(Dispatchers.IO) {
-        val currentData = _queueViewDataFlow.value
-        _queueViewDataFlow.emit(
-            currentData?.copy(isRefresh = true)
-        )
+        _isRefreshFlow.emit(true)
         queueLoad()
     }
 
     private fun queueLoad() = viewModelScope.launch(Dispatchers.IO) {
         try {
             val data = ciderModel.getQueue()
-            _queueViewDataFlow.emit(
-                QueueViewData(queueDataList = data, isRefresh = false)
-            )
+            _isRefreshFlow.emit(false)
+            _queueViewDataFlow.emit(UiState.Success(data))
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
             Log.e("NowPlayViewModel", th.toString())
-            _queueViewDataFlow.emit(
-                QueueViewData(queueDataList = QueueDataList(listOf()), isRefresh = false)
-            )
+            _isRefreshFlow.emit(false)
+            _queueViewDataFlow.emit(UiState.Error)
         }
     }
 
     fun moveQueueNext(index: Int) = viewModelScope.launch(Dispatchers.IO) {
-        _queueViewDataFlow.value?.let { queueViewData ->
+        _queueViewDataFlow.value.let { uiState ->
             try {
-                val nextIndex = queueViewData.queueDataList.list
+                if (uiState !is UiState.Success) return@launch
+                val nextIndex = uiState.queueDataList.list
                     .indexOfFirst { it.state == QueueData.State.Current } + 1
                 ciderModel.moveQueue(index, nextIndex)
-                val currentViewData = queueViewData.copy(
-                    queueDataList = queueViewData.queueDataList.copy(
-                        list = queueViewData.queueDataList.list.toMutableList().also {
-                            val data = it[index]
-                            it.removeAt(index)
-                            it.add(nextIndex, data)
-                        }
-                    )
+                val queueDataList = uiState.queueDataList.copy(
+                    list = uiState.queueDataList.list.toMutableList().also {
+                        val data = it[index]
+                        it.removeAt(index)
+                        it.add(nextIndex, data)
+                    }
                 )
-                _queueViewDataFlow.emit(currentViewData)
+                _queueViewDataFlow.emit(UiState.Success(queueDataList))
             } catch (ce: CancellationException) {
                 throw ce
             } catch (th: Throwable) {
                 Log.e("NowPlayViewModel", th.toString())
+                _queueViewDataFlow.emit(UiState.Error)
             }
         }
     }
@@ -100,8 +101,9 @@ class QueueViewModel(
         }
     }
 
-    data class QueueViewData(
-        val queueDataList: QueueDataList,
-        val isRefresh: Boolean,
-    )
+    sealed class UiState {
+        data object Loading : UiState()
+        data class Success(val queueDataList: QueueDataList) : UiState()
+        data object Error : UiState()
+    }
 }

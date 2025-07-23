@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="artist_loading_error_toast">Failed to get artist info</string>
+
+</resources>
