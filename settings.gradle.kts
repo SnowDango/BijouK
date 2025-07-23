@@ -23,6 +23,7 @@ dependencyResolutionManagement {
 rootProject.name = "BijouK"
 
 include(":app")
+include(":presenter")
 include(":features:device")
 include(":features:nowPlay")
 include(":features:setting")
