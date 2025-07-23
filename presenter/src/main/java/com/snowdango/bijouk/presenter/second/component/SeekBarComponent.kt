@@ -96,9 +96,9 @@ fun SeekBarComponent(
             )
             Text(
                 text = "-" + (
-                        playBackTimeData?.remainingTimeString
-                            ?: stringResource(R.string.time_string_default)
-                        ),
+                    playBackTimeData?.remainingTimeString
+                        ?: stringResource(R.string.time_string_default)
+                    ),
                 style = MaterialTheme.typography.bodyMedium,
                 textAlign = TextAlign.Right,
                 modifier = Modifier

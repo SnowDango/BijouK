@@ -38,7 +38,6 @@ import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(

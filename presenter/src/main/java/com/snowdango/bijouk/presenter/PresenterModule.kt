@@ -20,5 +20,4 @@ object PresenterModule {
     val queueModule = QueueModule.module
     val searchModule = SearchModule.module
     fun settingModule(versionName: String) = SettingModule.module(versionName)
-
 }

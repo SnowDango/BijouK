@@ -36,7 +36,6 @@ import com.snowdango.bijouk.ui.BijouKTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SecondScreen(

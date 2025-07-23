@@ -25,7 +25,6 @@ fun SearchSongsScreen(
         parameters = { parametersOf(baseUrl, token) }
     ),
 ) {
-
     Box(
         modifier = modifier.fillMaxSize()
     ) {

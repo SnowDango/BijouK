@@ -46,5 +46,4 @@ class SearchSongsViewModel(
             Log.e("NowPlayViewModel", th.toString())
         }
     }
-
 }

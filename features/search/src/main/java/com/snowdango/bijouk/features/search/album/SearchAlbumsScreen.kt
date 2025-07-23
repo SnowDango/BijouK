@@ -27,7 +27,6 @@ fun SearchAlbumsScreen(
         parameters = { parametersOf(baseUrl, token) }
     ),
 ) {
-
     Box(
         modifier = modifier.fillMaxSize()
     ) {

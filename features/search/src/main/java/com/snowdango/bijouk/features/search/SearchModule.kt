@@ -12,5 +12,4 @@ object SearchModule {
         viewModel { param -> SearchSongsViewModel(param.get(), param.get()) }
         viewModel { param -> SearchAlbumsViewModel(param.get(), param.get()) }
     }
-
 }

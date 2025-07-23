@@ -8,5 +8,4 @@ object QueueModule {
     val module = module {
         viewModel { param -> QueueViewModel(param.get(), param.get()) }
     }
-
 }

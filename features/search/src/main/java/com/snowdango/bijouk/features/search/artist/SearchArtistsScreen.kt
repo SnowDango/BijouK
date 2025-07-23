@@ -21,7 +21,6 @@ fun SearchArtistsScreen(
     modifier: Modifier = Modifier,
     onClickArtist: (artistId: String) -> Unit,
 ) {
-
     Box(
         modifier = modifier.fillMaxSize()
     ) {
