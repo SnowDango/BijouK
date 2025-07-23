@@ -25,7 +25,7 @@ class ArtistsDetailViewModel(
 
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
 
-    private val _artistDetailDataFlow: MutableStateFlow<ArtistDetailData?> = MutableStateFlow(null)
+    private val _artistDetailDataFlow: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val artistDetailDataFlow = _artistDetailDataFlow.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
@@ -62,14 +62,19 @@ class ArtistsDetailViewModel(
     }
 
     private fun getArtistDetail() = viewModelScope.launch(Dispatchers.IO) {
+        _artistDetailDataFlow.emit(UiState.Loading)
         try {
             val artistDetail = ciderModel.getArtistDetails(artistId)
-            _artistDetailDataFlow.emit(artistDetail)
+            if (artistDetail != null) {
+                _artistDetailDataFlow.emit(UiState.Success(artistDetail))
+            } else {
+                _artistDetailDataFlow.emit(UiState.Error)
+            }
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
             Log.e("ArtistsDetailViewModel", th.toString())
-            _artistDetailDataFlow.emit(null)
+            _artistDetailDataFlow.emit(UiState.Error)
         }
     }
 
@@ -117,5 +122,11 @@ class ArtistsDetailViewModel(
         } catch (th: Throwable) {
             Log.e("ArtistsDetailViewModel", th.toString())
         }
+    }
+
+    sealed class UiState {
+        data object Loading : UiState()
+        data class Success(val artistDetailData: ArtistDetailData) : UiState()
+        data object Error : UiState()
     }
 }
