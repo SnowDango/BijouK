@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.model.cider.mapper
+package com.snowdango.bijouk.model.cider.mapper.event
 
 import com.snowdango.bijouk.domain.api.event.Attributes
 import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent

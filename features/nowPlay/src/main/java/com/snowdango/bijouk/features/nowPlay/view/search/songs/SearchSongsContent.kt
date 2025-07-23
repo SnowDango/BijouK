@@ -57,12 +57,12 @@ fun SearchSongsContent(
         modifier = modifier.fillMaxSize()
     ) {
         LazyColumn(
-            modifier = Modifier
-                .fillMaxSize(),
             contentPadding = PaddingValues(
                 top = 16.dp,
                 bottom = sheetSize,
-            )
+            ),
+            modifier = Modifier
+                .fillMaxSize(),
         ) {
             items(count = pagingSongs.itemCount) { index ->
                 val song = pagingSongs[index]

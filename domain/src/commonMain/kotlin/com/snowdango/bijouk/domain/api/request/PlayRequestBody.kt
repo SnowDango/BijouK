@@ -23,5 +23,6 @@ data class PlayRequestBody(
         Playlists("playlists"),
         Albums("albums"),
         Artists("artists"),
+        Stations("stations"),
     }
 }

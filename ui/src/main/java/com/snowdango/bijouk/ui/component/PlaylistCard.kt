@@ -18,8 +18,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
 @Composable
 fun PlaylistCard(
@@ -40,9 +40,10 @@ fun PlaylistCard(
             horizontalAlignment = CenterHorizontally,
         ) {
             AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(thumbnail)
-                    .build(),
+                model = cacheableImageRequest(
+                    context = LocalContext.current,
+                    data = thumbnail,
+                ).build(),
                 contentDescription = null,
                 modifier = Modifier
                     .background(Color.Red)

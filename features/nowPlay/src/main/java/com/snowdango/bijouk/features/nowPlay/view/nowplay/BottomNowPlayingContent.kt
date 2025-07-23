@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
 import com.snowdango.bijouk.features.nowPlay.component.NowPlaySongTitleComponent
 import com.snowdango.bijouk.features.nowPlay.component.PlayBackStateButtonsComponent
 import com.snowdango.bijouk.features.nowPlay.component.PlayPauseControllerComponent
@@ -43,6 +42,7 @@ import com.snowdango.bijouk.features.nowPlay.component.SeekBarComponent
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
+import com.snowdango.bijouk.ui.image.cacheableImageRequest
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -97,9 +97,10 @@ fun BottomNowPlayingContent(
                         contentAlignment = Alignment.Center,
                     ) {
                         AsyncImage(
-                            model = ImageRequest.Builder(LocalContext.current)
-                                .data(nowPlayData?.artwork)
-                                .build(),
+                            model = cacheableImageRequest(
+                                context = LocalContext.current,
+                                data = nowPlayData?.artwork,
+                            ).build(),
                             contentDescription = null,
                             modifier = Modifier
                                 .size(imageSize)

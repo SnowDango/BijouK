@@ -11,9 +11,10 @@ testRunner = " 1.6.2"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
 composeBom = "2025.03.01"
+constraint = "1.1.1"
 material = "1.7.8"
 navigation = "2.8.9"
 splash = "1.0.1"
@@ -71,6 +72,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-material2 = { group = "androidx.compose.material", name = "material" }
+androidx-constraint = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraint" }
 
 # settings
 composeSettings-ui = { group = "com.github.alorma.compose-settings", name = "ui-tiles", version.ref = "compose-settings" }
@@ -78,6 +80,7 @@ composeSettings-ui-extended = { group = "com.github.alorma.compose-settings", na
 
 # paging
 paging-runtime = { group = "androidx.paging", name = "paging-runtime", version.ref = "paging" }
+paging-common = { group = "androidx.paging", name = "paging-common", version.ref = "paging" }
 paging-compose = { group = "androidx.paging", name = "paging-compose", version.ref = "paging" }
 
 # room

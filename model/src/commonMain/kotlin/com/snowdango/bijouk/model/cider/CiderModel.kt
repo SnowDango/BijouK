@@ -1,11 +1,15 @@
 package com.snowdango.bijouk.model.cider
 
+import com.snowdango.bijouk.model.cider.data.ArtistDetailData
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
 import com.snowdango.bijouk.model.cider.data.SearchData
-import com.snowdango.bijouk.model.cider.mapper.convert
+import com.snowdango.bijouk.model.cider.data.entity.Album
+import com.snowdango.bijouk.model.cider.data.entity.Song
+import com.snowdango.bijouk.model.cider.mapper.api.convert
+import com.snowdango.bijouk.model.cider.mapper.event.convert
 import com.snowdango.bijouk.model.cider.paging.SearchAlbumsPagingSource
 import com.snowdango.bijouk.model.cider.paging.SearchArtistsPagingSource
 import com.snowdango.bijouk.model.cider.paging.SearchSongsPagingSource
@@ -117,6 +121,38 @@ class CiderModel(
         query: String,
     ): SearchArtistsPagingSource {
         return SearchArtistsPagingSource(query, repository)
+    }
+
+    suspend fun getArtistDetails(artistId: String): ArtistDetailData? {
+        val response = repository.getArtistDetails(artistId)
+        return response.convert()
+    }
+
+    suspend fun getArtistTopSongs(artistId: String, limit: Int = 20, offset: Int = 0): List<Song>? {
+        val response = repository.getArtistTopSongs(artistId, limit, offset)
+        return response.convert()
+    }
+
+    suspend fun getArtistFullAlbums(
+        artistId: String,
+        limit: Int = 20,
+        offset: Int = 0
+    ): List<Album>? {
+        val response = repository.getArtistFullAlbums(artistId, limit, offset)
+        return response.convert()
+    }
+
+    suspend fun getArtistSingles(
+        artistId: String,
+        limit: Int = 20,
+        offset: Int = 0
+    ): List<Album>? {
+        val response = repository.getArtistSingles(artistId, limit, offset)
+        return response.convert()
+    }
+
+    suspend fun stationPlayById(stationId: String) {
+        repository.stationPlayById(stationId)
     }
 
     fun connect(

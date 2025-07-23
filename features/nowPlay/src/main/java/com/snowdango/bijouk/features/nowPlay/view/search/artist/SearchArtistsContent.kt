@@ -27,6 +27,7 @@ fun SearchArtistsContent(
     viewModel: SearchArtistsViewModel = koinViewModel<SearchArtistsViewModel>(
         parameters = { parametersOf(baseUrl, token) }
     ),
+    onClickArtist: (artistId: String) -> Unit,
 ) {
     val pagingArtists = viewModel.searchArtistsFlow.collectAsLazyPagingItems()
 
@@ -53,6 +54,7 @@ fun SearchArtistsContent(
                 artist?.let {
                     SearchArtistCard(
                         searchArtist = it,
+                        onClickArtist = onClickArtist,
                     )
                 }
             }

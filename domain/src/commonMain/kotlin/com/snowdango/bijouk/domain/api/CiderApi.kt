@@ -6,6 +6,12 @@ import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveSeekRequestBody
 import com.snowdango.bijouk.domain.api.request.PlayRequestBody
 import com.snowdango.bijouk.domain.api.request.SearchRequestBody
+import com.snowdango.bijouk.domain.api.request.artist.ArtistDetailsRequestBody
+import com.snowdango.bijouk.domain.api.request.artist.ArtistViewsRequestBody
+import com.snowdango.bijouk.domain.api.response.ArtistFullAlbumResponse
+import com.snowdango.bijouk.domain.api.response.ArtistSingleResponse
+import com.snowdango.bijouk.domain.api.response.ArtistsResponse
+import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
@@ -210,6 +216,88 @@ class CiderApi(
             )
         }
         return response.body<SearchResponse>()
+    }
+
+    suspend fun getArtistDetails(artistId: String): ArtistsResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                ArtistDetailsRequestBody.create(
+                    artistId,
+                )
+            )
+        }
+        return response.body<ArtistsResponse>()
+    }
+
+    suspend fun getArtistTopSongs(
+        artistId: String,
+        limit: Int,
+        offset: Int
+    ): ArtistsTopSongResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                ArtistViewsRequestBody.create(
+                    artistId = artistId,
+                    viewType = ArtistViewsRequestBody.ViewType.TopSongs,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<ArtistsTopSongResponse>()
+    }
+
+    suspend fun getArtistFullAlbums(
+        artistId: String,
+        limit: Int,
+        offset: Int
+    ): ArtistFullAlbumResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                ArtistViewsRequestBody.create(
+                    artistId = artistId,
+                    viewType = ArtistViewsRequestBody.ViewType.FullAlbums,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<ArtistFullAlbumResponse>()
+    }
+
+    suspend fun getArtistSingles(
+        artistId: String,
+        limit: Int,
+        offset: Int
+    ): ArtistSingleResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                ArtistViewsRequestBody.create(
+                    artistId = artistId,
+                    viewType = ArtistViewsRequestBody.ViewType.Singles,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<ArtistSingleResponse>()
+    }
+
+    suspend fun stationPlayById(stationId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-item")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Stations, stationId))
+        }
+        return response.body<BasicResponse>()
     }
 
     suspend fun inLibrarySearchAll(query: String): SearchResponse {

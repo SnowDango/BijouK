@@ -7,6 +7,10 @@ import com.snowdango.bijouk.domain.api.event.NowPlayingItemDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.NowPlayingStatusDidChange
 import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
+import com.snowdango.bijouk.domain.api.response.ArtistFullAlbumResponse
+import com.snowdango.bijouk.domain.api.response.ArtistSingleResponse
+import com.snowdango.bijouk.domain.api.response.ArtistsResponse
+import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
@@ -91,6 +95,38 @@ class CiderRepository(
 
     suspend fun searchArtists(query: String, offset: Int, limit: Int): SearchResponse {
         return ciderApi.searchArtists(query, offset, limit)
+    }
+
+    suspend fun getArtistDetails(artistId: String): ArtistsResponse {
+        return ciderApi.getArtistDetails(artistId)
+    }
+
+    suspend fun getArtistTopSongs(
+        artistId: String,
+        limit: Int,
+        offset: Int
+    ): ArtistsTopSongResponse {
+        return ciderApi.getArtistTopSongs(artistId, limit, offset)
+    }
+
+    suspend fun getArtistFullAlbums(
+        artistId: String,
+        limit: Int,
+        offset: Int,
+    ): ArtistFullAlbumResponse {
+        return ciderApi.getArtistFullAlbums(artistId, limit, offset)
+    }
+
+    suspend fun getArtistSingles(
+        artistId: String,
+        limit: Int,
+        offset: Int,
+    ): ArtistSingleResponse {
+        return ciderApi.getArtistSingles(artistId, limit, offset)
+    }
+
+    suspend fun stationPlayById(stationId: String): BasicResponse {
+        return ciderApi.stationPlayById(stationId)
     }
 
     fun connect(
