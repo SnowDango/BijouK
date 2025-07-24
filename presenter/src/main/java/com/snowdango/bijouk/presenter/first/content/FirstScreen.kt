@@ -32,12 +32,14 @@ import com.snowdango.bijouk.presenter.second.SecondActivity
 import com.snowdango.bijouk.presenter.second.SecondActivityData
 
 @Composable
-fun FirstScreen() {
+fun FirstScreen(
+    modifier: Modifier = Modifier,
+) {
     val context = LocalContext.current
     val navController = rememberNavController()
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
     ) {
         NavHost(

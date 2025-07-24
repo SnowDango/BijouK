@@ -23,7 +23,7 @@ fun ProgressContent(
 
 @Preview
 @Composable
-fun ProgressContentPreview() {
+private fun ProgressContentPreview() {
     BijouKTheme {
         ProgressContent()
     }

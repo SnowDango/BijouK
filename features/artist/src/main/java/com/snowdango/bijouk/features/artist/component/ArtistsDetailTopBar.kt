@@ -97,7 +97,8 @@ fun ArtistsDetailTopBar(
     ) {
         val width = maxWidth
         ConstraintLayout(
-            modifier = modifier,
+            modifier = Modifier
+                .fillMaxWidth(),
             constraintSet = constraintSet,
         ) {
             AsyncImage(
