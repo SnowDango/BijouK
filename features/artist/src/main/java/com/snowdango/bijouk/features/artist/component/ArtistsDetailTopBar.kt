@@ -203,7 +203,7 @@ fun ArtistsDetailTopBar(
                         )
                     }
                 },
-                colors = TopAppBarDefaults.largeTopAppBarColors(
+                colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent,
                 ),
                 expandedHeight = width - systemBarHeight,
@@ -229,13 +229,6 @@ val constraintSet = ConstraintSet {
         end.linkTo(artworkRef.end)
         bottom.linkTo(parent.bottom)
     }
-    /*if (hasStation) {
-        val stationRef = createRefFor("station")
-        constrain(stationRef) {
-            end.linkTo(parent.end, margin = 32.dp)
-            bottom.linkTo(parent.bottom, margin = 16.dp)
-        }
-    }*/
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
