@@ -22,6 +22,4 @@ class FirstActivity : ComponentActivity() {
             }
         }
     }
-
-
 }

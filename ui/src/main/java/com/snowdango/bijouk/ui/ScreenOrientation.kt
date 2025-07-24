@@ -9,7 +9,6 @@ import androidx.compose.material3.windowsizeclass.WindowWidthSizeClass
 import androidx.compose.material3.windowsizeclass.calculateWindowSizeClass
 import androidx.compose.runtime.Composable
 
-
 @SuppressLint("SourceLockedOrientationActivity")
 @Composable
 fun Activity.InitScreenOrientation() {
@@ -25,5 +24,5 @@ fun Activity.InitScreenOrientation() {
 private fun Activity.isCompact(): Boolean {
     val windowSizeClass = calculateWindowSizeClass(this)
     return windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
-            windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+        windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
 }
