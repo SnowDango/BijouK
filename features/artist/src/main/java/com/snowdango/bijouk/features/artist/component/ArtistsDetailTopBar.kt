@@ -80,14 +80,12 @@ fun ArtistsDetailTopBar(
         } else {
             if (isCollapsed) isCollapsed = false
         }
-        val absOffsetDp = with(density) {
-            (scrollBehavior.state.heightOffset - scrollBehavior.state.heightOffsetLimit).toDp()
-        }
-        val stationAlphaTargetDp = absOffsetDp - 224.dp
-        if (stationAlphaTargetDp > 0.dp) {
-            stationAlpha = stationAlphaTargetDp.value / 90f
+        val stationVisibleOffsetLimit = scrollBehavior.state.heightOffsetLimit / 2
+        val betweenOffset = stationVisibleOffsetLimit - scrollBehavior.state.heightOffset
+        stationAlpha = if (betweenOffset >= 0f) {
+            0.0f
         } else {
-            if (stationAlpha != 0.0f) stationAlpha = 0.0f
+            betweenOffset / stationVisibleOffsetLimit
         }
     }
 
