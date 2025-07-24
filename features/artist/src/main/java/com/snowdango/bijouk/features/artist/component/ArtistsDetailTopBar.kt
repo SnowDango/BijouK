@@ -82,7 +82,7 @@ fun ArtistsDetailTopBar(
         }
         val stationVisibleOffsetLimit = scrollBehavior.state.heightOffsetLimit / 2
         val betweenOffset = stationVisibleOffsetLimit - scrollBehavior.state.heightOffset
-        stationAlpha = if(betweenOffset >= 0f){
+        stationAlpha = if (betweenOffset >= 0f) {
             0.0f
         } else {
             betweenOffset / stationVisibleOffsetLimit
