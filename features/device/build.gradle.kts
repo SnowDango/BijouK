@@ -32,9 +32,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         compose = true
     }
@@ -55,7 +52,7 @@ dependencies {
     implementation(libs.bundles.koin)
     implementation(libs.aboutlibraries.core)
     implementation(libs.kotlinx.serialization)
-    implementation(libs.qrkit)
+    implementation(libs.qrscanner)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

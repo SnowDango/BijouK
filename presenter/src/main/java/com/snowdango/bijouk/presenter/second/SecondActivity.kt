@@ -21,6 +21,7 @@ import com.snowdango.bijouk.features.queue.QueueScreen
 import com.snowdango.bijouk.features.search.SearchScreen
 import com.snowdango.bijouk.presenter.second.content.SecondScreen
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.InitScreenOrientation
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -35,6 +36,7 @@ class SecondActivity : ComponentActivity() {
             intent.extras?.getParcelable(KEY_DEVICE_DATA)
         } ?: throw IllegalArgumentException("Device data is required")
         setContent {
+            InitScreenOrientation()
             val viewModel = koinViewModel<SecondViewModel> {
                 parametersOf(secondActivityData.baseUrl, secondActivityData.token)
             }
