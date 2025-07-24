@@ -20,8 +20,8 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun SettingScreen(
     onClickLicense: () -> Unit,
-    modifier: Modifier = Modifier,
     onClickAppInfo: () -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: SettingViewModel = koinViewModel<SettingViewModel>(),
 ) {
     Scaffold(

@@ -3,10 +3,10 @@ version = "0.0.1"
 sdk-target = "36"
 sdk-min = "30"
 
-agp = "8.9.1"
-kotlin = "2.1.10"
-ksp = "2.1.10-1.0.31"
-coreKtx = "1.15.0"
+agp = "8.11.1"
+kotlin = "2.2.0"
+ksp = "2.2.0-2.0.2"
+coreKtx = "1.16.0"
 testRunner = " 1.6.2"
 junit = "4.13.2"
 junitVersion = "1.2.1"
@@ -15,39 +15,36 @@ lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
 composeBom = "2025.07.00"
 constraint = "1.1.1"
-material = "1.7.8"
 material3 = "1.4.0-alpha18"
-navigation = "2.8.9"
+navigation = "2.9.2"
 splash = "1.0.1"
 paging = "3.3.6"
-room = "2.7.1"
-sqlite-bundled = "2.5.1"
-koin = "4.0.2"
-coroutine = "1.10.1"
-ktor = "3.1.1"
-serialization = "1.8.0"
-kolor = "2.0.2"
-appcompat = "1.7.0"
+room = "2.7.2"
+sqlite-bundled = "2.5.2"
+koin = "4.1.0"
+coroutine = "1.10.2"
+ktor = "3.2.2"
+serialization = "1.9.0"
+kolor = "3.0.0"
+appcompat = "1.7.1"
 materialVersion = "1.12.0"
-coil = "3.1.0"
-socket = "2.1.2"
-kmp-socket = "1.2.0"
-ktlint = "12.1.2"
+coil = "3.2.0"
+kmp-socket = "1.3.2"
+ktlint = "13.0.0"
 detekt = "1.23.8"
-detekt-compose = "0.4.22"
+detekt-compose = "0.4.23"
 dokka = "2.0.0"
-immutable = "0.3.8"
-compose-settings = "2.10.0"
-aboutLibraries = "12.0.0"
+immutable = "0.4.0"
+compose-settings = "2.13.0"
+aboutLibraries = "12.2.4"
 markdown = "0.5.7"
 kmlogger = "2.0.3"
 url-encoder = "1.6.0"
 google-services = "4.4.3"
-firebase-bom = "33.16.0"
-firebase-crashlytics = "3.0.4"
+firebase-bom = "34.0.0"
+firebase-crashlytics = "3.0.5"
 deploygate = "2.9.0"
-qrkit = "0.4.0"
-material3Jvmstubs = "1.4.0-alpha18"
+qrscanner = "0.4.0"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -74,6 +71,7 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" } # 1.4.0が使いたいだけなのでbomでreleaseされたらversion設定を外す
+androidx-material3-window = { group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-material2 = { group = "androidx.compose.material", name = "material" }
 androidx-constraint = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraint" }
 
@@ -116,7 +114,6 @@ ktor-ios = { group = "io.ktor", name = "ktor-client-ios", version.ref = "ktor" }
 ktor-darwin = { group = "io.ktor", name = "ktor-client-darwin", version.ref = "ktor" }
 
 # socket
-socket-io = { group = "io.socket", name = "socket.io-client", version.ref = "socket" }
 kmp-socket = { group = "com.piasy", name = "kmp-socketio", version.ref = "kmp-socket" }
 
 url-encoder = { group = "net.thauvin.erik.urlencoder", name = "urlencoder-lib", version.ref = "url-encoder" }
@@ -141,7 +138,7 @@ aboutlibraries-compose-core = { module = "com.mikepenz:aboutlibraries-compose", 
 aboutlibraries-compose-m3 = { module = "com.mikepenz:aboutlibraries-compose-m3", version.ref = "aboutLibraries" }
 
 # qrkit
-qrkit = { group = "io.github.kalinjul.easyqrscan", name = "scanner", version.ref = "qrkit" }
+qrscanner = { group = "io.github.kalinjul.easyqrscan", name = "scanner", version.ref = "qrscanner" }
 
 # markdown
 markdown = { group = "com.github.jeziellago", name = "compose-markdown", version.ref = "markdown" }
@@ -153,7 +150,6 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 material = { group = "com.google.android.material", name = "material", version.ref = "materialVersion" }
 kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
-androidx-core = { group = "androidx.test", name = "core", version.ref = "coreKtx" }
 
 # Firebase
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
@@ -193,7 +189,7 @@ test = ["junit"]
 android-test = ["androidx-junit", "androidx-espresso-core", "androidx-ui-test-junit4", "androidx-runner"]
 android-debug = ["androidx-ui-tooling", "androidx-ui-test-manifest"]
 android-base = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx"]
-android-compose = ["androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "androidx-navigation", "androidx-material2"]
+android-compose = ["androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "androidx-navigation", "androidx-material2", "androidx-material3-window"]
 settings-compose = ["composeSettings-ui", "composeSettings-ui-extended"]
 aboutlibraries = ["aboutlibraries-core", "aboutlibraries-compose-core", "aboutlibraries-compose-m3"]
 paging = ["paging-runtime", "paging-compose"]

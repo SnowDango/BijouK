@@ -39,6 +39,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.layoutId
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalContext
@@ -94,7 +95,8 @@ fun ArtistsDetailTopBar(
     ) {
         val width = maxWidth
         ConstraintLayout(
-            modifier = modifier,
+            modifier = Modifier
+                .fillMaxWidth(),
             constraintSet = constraintSet,
         ) {
             AsyncImage(
@@ -103,6 +105,7 @@ fun ArtistsDetailTopBar(
                     data = artwork,
                 ).build(),
                 contentDescription = null,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .width(width)
                     .height(width)

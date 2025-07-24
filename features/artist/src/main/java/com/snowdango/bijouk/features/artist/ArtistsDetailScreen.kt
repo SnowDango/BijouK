@@ -41,8 +41,8 @@ fun ArtistsDetailScreen(
     token: String,
     artistId: String,
     sheetMinSize: Dp,
-    modifier: Modifier = Modifier,
     onNavigationBack: () -> Unit,
+    modifier: Modifier = Modifier,
     viewModel: ArtistsDetailViewModel = koinViewModel<ArtistsDetailViewModel> {
         parametersOf(
             baseUrl,
@@ -106,12 +106,13 @@ fun ArtistsDetailContent(
     sheetMinSize: Dp,
     onNavigationBack: () -> Unit,
     onPlayStation: (stationId: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     val lazyListState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     Log.d("ArtistsDetailContent", "stations: ${detailData.stations}")
     Scaffold(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxSize()
             .nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = {
