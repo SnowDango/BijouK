@@ -36,6 +36,7 @@
         <activity
             android:name=".presenter.second.SecondActivity"
             android:exported="true"
+            android:configChanges="screenSize"
             android:theme="@style/Theme.BijouK">
 
         </activity>

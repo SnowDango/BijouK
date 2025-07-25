@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
@@ -13,6 +14,7 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -74,6 +76,7 @@ fun AddDeviceDialog(
                         } else {
                             isValidateError = null
                             onClickAdd.invoke(name, host, port.toIntOrNull(), token, isUseSsl)
+                            onDismissRequest.invoke()
                         }
                     }
                 ) {
@@ -145,7 +148,7 @@ fun AddDeviceDialog(
                 Row(
                     modifier = Modifier
                         .padding(start = 8.dp)
-                        .fillMaxWidth(),
+                        .width(OutlinedTextFieldDefaults.MinWidth),
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(

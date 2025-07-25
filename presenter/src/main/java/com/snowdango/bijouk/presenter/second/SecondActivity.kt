@@ -2,6 +2,7 @@ package com.snowdango.bijouk.presenter.second
 
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -21,25 +22,32 @@ import com.snowdango.bijouk.features.queue.QueueScreen
 import com.snowdango.bijouk.features.search.SearchScreen
 import com.snowdango.bijouk.presenter.second.content.SecondScreen
 import com.snowdango.bijouk.ui.BijouKTheme
-import com.snowdango.bijouk.ui.InitScreenOrientation
-import org.koin.compose.viewmodel.koinViewModel
+import com.snowdango.bijouk.ui.extend.SetOrientation
+import com.snowdango.bijouk.ui.extend.screenType
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 class SecondActivity : ComponentActivity() {
 
+    private lateinit var secondActivityData: SecondActivityData
+    private val viewModel: SecondViewModel by viewModel {
+        parametersOf(secondActivityData.baseUrl, secondActivityData.token)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        val secondActivityData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+        secondActivityData = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.extras?.getParcelable(KEY_DEVICE_DATA, SecondActivityData::class.java)
         } else {
             intent.extras?.getParcelable(KEY_DEVICE_DATA)
         } ?: throw IllegalArgumentException("Device data is required")
+
         setContent {
-            InitScreenOrientation()
-            val viewModel = koinViewModel<SecondViewModel> {
-                parametersOf(secondActivityData.baseUrl, secondActivityData.token)
-            }
+            SetOrientation()
+            val screenType = screenType()
+
             val connectionState = viewModel.connectionStateFlow.collectAsStateWithLifecycle()
             val isEnableChange = viewModel.isChangeableSeekFlow.collectAsStateWithLifecycle()
             val nowPlayData = viewModel.nowPlayFlow.collectAsStateWithLifecycle()
@@ -107,6 +115,10 @@ class SecondActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
     }
 
     companion object {
