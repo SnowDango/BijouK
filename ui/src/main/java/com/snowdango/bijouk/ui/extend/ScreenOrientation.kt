@@ -11,7 +11,6 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 
-
 @Composable
 @OptIn(ExperimentalMaterial3WindowSizeClassApi::class)
 fun Activity.SetOrientation() {
@@ -19,8 +18,8 @@ fun Activity.SetOrientation() {
     val orientation: Int by remember(windowSizeClass) {
         derivedStateOf {
             if (
-                windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
-                || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+                windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
+                windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
             ) {
                 ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
             } else {

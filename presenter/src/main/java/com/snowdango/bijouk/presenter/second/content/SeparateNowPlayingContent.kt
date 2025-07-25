@@ -1,6 +1,5 @@
 package com.snowdango.bijouk.presenter.second.content
 
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.aspectRatio
@@ -32,7 +31,6 @@ import com.snowdango.bijouk.presenter.second.component.PlayPauseControllerCompon
 import com.snowdango.bijouk.presenter.second.component.SeekBarComponent
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,8 +69,7 @@ fun SeparateNowPlayingContent(
                 .padding(contentPadding)
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally,
-        ){
-
+        ) {
             AsyncImage(
                 model = cacheableImageRequest(
                     context = LocalContext.current,
@@ -122,7 +119,6 @@ fun SeparateNowPlayingContent(
                 modifier = Modifier
                     .padding(top = 40.dp)
             )
-
         }
     }
 }

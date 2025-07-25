@@ -22,8 +22,8 @@ fun Activity.screenType(): ScreenType {
     val screenType: ScreenType by remember(windowSizeClass) {
         derivedStateOf {
             if (
-                windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact
-                || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
+                windowSizeClass.widthSizeClass == WindowWidthSizeClass.Compact ||
+                windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
             ) {
                 ScreenType.SINGLE
             } else if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Medium) {
