@@ -29,10 +29,12 @@ fun Attributes.convertNowPlayData(): NowPlayData {
 fun Attributes.convertPlayBackTimeData(): PlayBackTimeData {
     return PlayBackTimeData(
         duration = durationInMillis / 1000f,
-        currentTime = currentPlaybackTime.toFloat(),
-        remainingTime = remainingTime.toFloat(),
-        currentTimeString = PlaybackTimeMapper.convertPlaybackTime(currentPlaybackTime),
-        remainingTimeString = PlaybackTimeMapper.convertRemainingTime(remainingTime),
+        currentTime = currentPlaybackTime?.toFloat() ?: 0f,
+        remainingTime = remainingTime?.toFloat() ?: 0f,
+        currentTimeString = currentPlaybackTime?.let { PlaybackTimeMapper.convertPlaybackTime(it) }
+            ?: "00:00",
+        remainingTimeString = remainingTime?.let { PlaybackTimeMapper.convertRemainingTime(it) }
+            ?: "00:00",
         isPlaying = false,
     )
 }

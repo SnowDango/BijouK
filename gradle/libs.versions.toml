@@ -18,6 +18,7 @@ constraint = "1.1.1"
 material3 = "1.4.0-alpha18"
 navigation = "2.9.2"
 splash = "1.0.1"
+window = "1.4.0"
 paging = "3.3.6"
 room = "2.7.2"
 sqlite-bundled = "2.5.2"
@@ -71,9 +72,13 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3", version.ref = "material3" } # 1.4.0が使いたいだけなのでbomでreleaseされたらversion設定を外す
+androidx-material3-adaptive = { module = "androidx.compose.material3.adaptive:adaptive" }
 androidx-material3-window = { group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-material2 = { group = "androidx.compose.material", name = "material" }
 androidx-constraint = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraint" }
+
+# window
+androidx-window = { group = "androidx.window", name = "window", version.ref = "window" }
 
 # settings
 composeSettings-ui = { group = "com.github.alorma.compose-settings", name = "ui-tiles", version.ref = "compose-settings" }
@@ -188,8 +193,8 @@ deploygate = { id = "deploygate" }
 test = ["junit"]
 android-test = ["androidx-junit", "androidx-espresso-core", "androidx-ui-test-junit4", "androidx-runner"]
 android-debug = ["androidx-ui-tooling", "androidx-ui-test-manifest"]
-android-base = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx"]
-android-compose = ["androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "androidx-navigation", "androidx-material2", "androidx-material3-window"]
+android-base = ["androidx-core-ktx", "androidx-lifecycle-runtime-ktx", "androidx-window"]
+android-compose = ["androidx-activity-compose", "androidx-ui", "androidx-ui-graphics", "androidx-ui-tooling-preview", "androidx-material3", "androidx-navigation", "androidx-material2", "androidx-material3-window", "androidx-material3-adaptive"]
 settings-compose = ["composeSettings-ui", "composeSettings-ui-extended"]
 aboutlibraries = ["aboutlibraries-core", "aboutlibraries-compose-core", "aboutlibraries-compose-m3"]
 paging = ["paging-runtime", "paging-compose"]
