@@ -26,18 +26,10 @@ fun Activity.screenType(): ScreenType {
                 || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Compact
             ) {
                 ScreenType.SINGLE
-            } else if (
-                windowSizeClass.widthSizeClass == WindowWidthSizeClass.Medium
-                || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Medium
-            ) {
+            } else if (windowSizeClass.widthSizeClass == WindowWidthSizeClass.Medium) {
                 ScreenType.SINGLE
-            } else if (
-                windowSizeClass.widthSizeClass == WindowWidthSizeClass.Expanded
-                || windowSizeClass.heightSizeClass == WindowHeightSizeClass.Medium
-            ) {
-                ScreenType.SEPARATED
             } else {
-                ScreenType.SINGLE
+                ScreenType.SEPARATED
             }
         }
     }

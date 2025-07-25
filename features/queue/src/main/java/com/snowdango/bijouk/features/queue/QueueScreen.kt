@@ -41,6 +41,7 @@ import org.koin.core.parameter.parametersOf
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun QueueScreen(
+    isNeedTitle: Boolean,
     name: String,
     baseUrl: String,
     token: String,
@@ -70,11 +71,13 @@ fun QueueScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
-                        text = name,
-                        color = MaterialTheme.colorScheme.primary,
-                        style = MaterialTheme.typography.headlineLarge,
-                    )
+                    if (isNeedTitle) {
+                        Text(
+                            text = name,
+                            color = MaterialTheme.colorScheme.primary,
+                            style = MaterialTheme.typography.headlineLarge,
+                        )
+                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
@@ -159,6 +162,7 @@ fun QueueScreen(
 private fun QueueScreenPreview() {
     BijouKTheme {
         QueueScreen(
+            isNeedTitle = true,
             name = "Queue",
             baseUrl = "https://example.com",
             token = "example_token",

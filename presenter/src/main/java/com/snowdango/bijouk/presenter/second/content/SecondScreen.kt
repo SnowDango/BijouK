@@ -2,16 +2,22 @@ package com.snowdango.bijouk.presenter.second.content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.asPaddingValues
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.systemBars
+import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
@@ -27,6 +33,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.model.cider.data.NowPlayData
@@ -34,12 +42,61 @@ import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.event.keyboardAsState
+import com.snowdango.bijouk.ui.extend.ScreenType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SecondScreen(
+    screenType: ScreenType,
+    name: String,
+    connectionState: Boolean,
+    isEnableChange: Boolean,
+    nowPlayData: NowPlayData?,
+    playBackTimeData: PlayBackTimeData?,
+    nowPlayingStatusData: NowPlayingStatusData,
+    onPlayPause: () -> Unit,
+    onSeekTo: (Float) -> Unit,
+    onNext: () -> Unit,
+    onPrevious: () -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable (Dp) -> Unit,
+) {
+    if (screenType == ScreenType.SINGLE) {
+        SingleSecondScreen(
+            connectionState = connectionState,
+            isEnableChange = isEnableChange,
+            nowPlayData = nowPlayData,
+            playBackTimeData = playBackTimeData,
+            nowPlayingStatusData = nowPlayingStatusData,
+            onPlayPause = onPlayPause,
+            onSeekTo = onSeekTo,
+            onNext = onNext,
+            onPrevious = onPrevious,
+            modifier = modifier,
+            content = content,
+        )
+    } else {
+        SeparateSecondScreen(
+            name = name,
+            isEnableChange = isEnableChange,
+            nowPlayData = nowPlayData,
+            playBackTimeData = playBackTimeData,
+            nowPlayingStatusData = nowPlayingStatusData,
+            onPlayPause = onPlayPause,
+            onSeekTo = onSeekTo,
+            onNext = onNext,
+            onPrevious = onPrevious,
+            modifier = modifier,
+            content = content,
+        )
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun SingleSecondScreen(
     connectionState: Boolean,
     isEnableChange: Boolean,
     nowPlayData: NowPlayData?,
@@ -153,11 +210,74 @@ fun SecondScreen(
     }
 }
 
+@Composable
+fun SeparateSecondScreen(
+    name: String,
+    isEnableChange: Boolean,
+    nowPlayData: NowPlayData?,
+    playBackTimeData: PlayBackTimeData?,
+    nowPlayingStatusData: NowPlayingStatusData,
+    onPlayPause: () -> Unit,
+    onSeekTo: (Float) -> Unit,
+    onNext: () -> Unit,
+    onPrevious: () -> Unit,
+    modifier: Modifier = Modifier,
+    content: @Composable (Dp) -> Unit,
+) {
+    Row(
+        modifier = modifier
+            .fillMaxSize()
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(fraction = 0.5f)
+                .fillMaxHeight()
+        ) {
+            SeparateNowPlayingContent(
+                name = name,
+                isEnableChange = isEnableChange,
+                nowPlayData = nowPlayData,
+                playBackTimeData = playBackTimeData,
+                nowPlayingStatusData = nowPlayingStatusData,
+                onPlayPause = onPlayPause,
+                onSeekTo = onSeekTo,
+                onNext = onNext,
+                onPrevious = onPrevious,
+            )
+        }
+        Box(
+            modifier = Modifier
+                .background(MaterialTheme.colorScheme.surfaceContainerHigh)
+        ) {
+            Box(
+                modifier = Modifier
+                    .systemBarsPadding()
+                    .padding(top = TopAppBarDefaults.TopAppBarExpandedHeight)
+                    .background(MaterialTheme.colorScheme.background)
+            ) {
+                VerticalDivider()
+            }
+        }
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .weight(1f)
+        ) {
+            content(0.dp)
+        }
+    }
+}
+
 @Preview
 @Composable
-private fun PreviewSecondScreen() {
+private fun PreviewSecondScreen(
+    @PreviewParameter(SecondScreenPreviewParameterProvider::class) screenType: ScreenType,
+) {
     BijouKTheme {
         SecondScreen(
+            screenType = screenType,
+            name = "BijouK",
             connectionState = true,
             isEnableChange = true,
             nowPlayData = null,
@@ -175,4 +295,9 @@ private fun PreviewSecondScreen() {
             )
         }
     }
+}
+
+private class SecondScreenPreviewParameterProvider : PreviewParameterProvider<ScreenType> {
+    override val values: Sequence<ScreenType>
+        get() = sequenceOf(ScreenType.SINGLE, ScreenType.SEPARATED)
 }

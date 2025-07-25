@@ -22,6 +22,7 @@ import com.snowdango.bijouk.features.queue.QueueScreen
 import com.snowdango.bijouk.features.search.SearchScreen
 import com.snowdango.bijouk.presenter.second.content.SecondScreen
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.extend.ScreenType
 import com.snowdango.bijouk.ui.extend.SetOrientation
 import com.snowdango.bijouk.ui.extend.screenType
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -56,6 +57,8 @@ class SecondActivity : ComponentActivity() {
 
             BijouKTheme {
                 SecondScreen(
+                    screenType = screenType,
+                    name = secondActivityData.name,
                     connectionState.value,
                     isEnableChange.value,
                     nowPlayData.value,
@@ -77,6 +80,7 @@ class SecondActivity : ComponentActivity() {
                     ) {
                         composable<SecondRoute.QUEUE> {
                             QueueScreen(
+                                isNeedTitle = screenType == ScreenType.SINGLE,
                                 name = secondActivityData.name,
                                 baseUrl = secondActivityData.baseUrl,
                                 token = secondActivityData.token,
