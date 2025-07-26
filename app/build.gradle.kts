@@ -82,6 +82,7 @@ dependencies {
     implementation(project(":domain"))
     implementation(project(":model"))
     implementation(project(":ui"))
+    implementation(project(":infla"))
     implementation(libs.androidx.splash)
     implementation(libs.bundles.android.base)
     implementation(platform(libs.androidx.compose.bom))
