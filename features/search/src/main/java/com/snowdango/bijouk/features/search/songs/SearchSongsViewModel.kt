@@ -3,6 +3,7 @@ package com.snowdango.bijouk.features.search.songs
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.snowdango.bijouk.infla.SharedEventStore
 import com.snowdango.bijouk.model.cider.CiderModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -16,6 +17,7 @@ class SearchSongsViewModel(
     private val token: String,
 ) : ViewModel(), KoinComponent {
 
+    private val sharedEventStore: SharedEventStore by inject()
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
 
     fun searchSongPlay(songId: String) = viewModelScope.launch(Dispatchers.IO) {
@@ -31,6 +33,7 @@ class SearchSongsViewModel(
     fun searchSongPlayNext(songId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.songPlayNextById(songId)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -41,6 +44,7 @@ class SearchSongsViewModel(
     fun searchSongPlayLater(songId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.songPlayLaterById(songId)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
