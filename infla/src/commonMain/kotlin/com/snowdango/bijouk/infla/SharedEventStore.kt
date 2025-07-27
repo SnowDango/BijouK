@@ -24,6 +24,7 @@ class SharedEventStore(
 
     sealed class SharedEvent {
         data object QueueUpdated : SharedEvent()
+        data object QueueDelayUpdated : SharedEvent()
     }
 
 }

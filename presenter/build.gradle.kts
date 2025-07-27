@@ -51,6 +51,7 @@ dependencies {
     implementation(project(":features:artist"))
     implementation(project(":ui"))
     implementation(project(":model"))
+    implementation(project(":infla"))
     implementation(libs.bundles.android.base)
     implementation(libs.androidx.splash)
     implementation(platform(libs.androidx.compose.bom))

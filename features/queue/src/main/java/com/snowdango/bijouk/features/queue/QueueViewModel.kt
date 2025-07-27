@@ -3,6 +3,7 @@ package com.snowdango.bijouk.features.queue
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.snowdango.bijouk.infla.SharedEventStore
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
@@ -23,6 +24,7 @@ class QueueViewModel(
     private val token: String,
 ) : ViewModel(), KoinComponent {
 
+    val sharedEventStore: SharedEventStore by inject()
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
 
     private val _queueViewDataFlow: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
@@ -40,6 +42,21 @@ class QueueViewModel(
 
     init {
         queueLoad()
+        initEventListener()
+    }
+
+    fun initEventListener() = viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.IO) {
+            sharedEventStore.events.collect { event ->
+                when (event) {
+                    is SharedEventStore.SharedEvent.QueueUpdated -> queueRefresh()
+                    is SharedEventStore.SharedEvent.QueueDelayUpdated -> queueDelayRefresh()
+                    else -> {
+                        // 他のイベントは無視
+                    }
+                }
+            }
+        }
     }
 
     // queueに変更を加えた際に遅延して更新しないと反映されない
