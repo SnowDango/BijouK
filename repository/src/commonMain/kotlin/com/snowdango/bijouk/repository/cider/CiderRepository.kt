@@ -65,6 +65,10 @@ class CiderRepository(
         return ciderApi.albumPlayById(id)
     }
 
+    suspend fun playlistPlayById(id: String): BasicResponse {
+        return ciderApi.playlistPlayById(id)
+    }
+
     suspend fun songPlayNextById(id: String): BasicResponse {
         return ciderApi.songPlayNextById(id)
     }
@@ -73,12 +77,20 @@ class CiderRepository(
         return ciderApi.albumPlayNextById(id)
     }
 
+    suspend fun playlistPlayNextById(id: String): BasicResponse {
+        return ciderApi.playlistPlayNextById(id)
+    }
+
     suspend fun songPlayLaterById(id: String): BasicResponse {
         return ciderApi.songPlayLaterById(id)
     }
 
     suspend fun albumPlayLaterById(id: String): BasicResponse {
         return ciderApi.albumPlayLaterById(id)
+    }
+
+    suspend fun playlistPlayLaterById(id: String): BasicResponse {
+        return ciderApi.playlistPlayLaterById(id)
     }
 
     suspend fun searchAll(query: String): SearchResponse {
@@ -95,6 +107,10 @@ class CiderRepository(
 
     suspend fun searchArtists(query: String, offset: Int, limit: Int): SearchResponse {
         return ciderApi.searchArtists(query, offset, limit)
+    }
+
+    suspend fun searchPlaylists(query: String, offset: Int, limit: Int): SearchResponse {
+        return ciderApi.searchPlaylists(query, offset, limit)
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {

@@ -16,7 +16,7 @@ data class SearchResponseData(
 @Suppress("UnsafeOptInUsageError")
 @Serializable
 data class SearchResponseMeta(
-    val metrics: SearchResponseMetaMetrics,
+    val metrics: SearchResponseMetaMetrics? = null,
     val results: SearchResponseMetaResults,
 )
 
