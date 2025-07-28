@@ -48,6 +48,7 @@ fun QueueScreen(
     token: String,
     sheetMinSize: Dp,
     onNavigateSearch: () -> Unit,
+    onNavigateLibrary: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QueueViewModel = koinViewModel<QueueViewModel> {
         parametersOf(baseUrl, token)
@@ -86,7 +87,7 @@ fun QueueScreen(
                 actions = {
                     IconButton(
                         onClick = {
-
+                            onNavigateLibrary.invoke()
                         }
                     ) {
                         Icon(
@@ -179,6 +180,7 @@ private fun QueueScreenPreview() {
             token = "example_token",
             sheetMinSize = 100.dp,
             onNavigateSearch = {},
+            onNavigateLibrary = {},
             modifier = Modifier.fillMaxSize(),
             viewModel = QueueViewModel("", "")
         )

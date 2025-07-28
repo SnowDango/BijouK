@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.snowdango.bijouk.features.artist.ArtistsDetailScreen
+import com.snowdango.bijouk.features.library.LibraryScreen
 import com.snowdango.bijouk.features.queue.QueueScreen
 import com.snowdango.bijouk.features.search.SearchScreen
 import com.snowdango.bijouk.presenter.second.content.SecondScreen
@@ -89,6 +90,9 @@ class SecondActivity : ComponentActivity() {
                                 onNavigateSearch = {
                                     navController.navigate(SecondRoute.SEARCH)
                                 },
+                                onNavigateLibrary = {
+                                    navController.navigate(SecondRoute.LIBRARY)
+                                },
                             )
                         }
                         composable<SecondRoute.SEARCH> {
@@ -100,6 +104,17 @@ class SecondActivity : ComponentActivity() {
                                     navController.navigate(SecondRoute.ARTIST(artistId = it))
                                 },
                                 modifier = Modifier.fillMaxSize(),
+                            )
+                        }
+                        composable<SecondRoute.LIBRARY> {
+                            LibraryScreen(
+                                baseUrl = secondActivityData.baseUrl,
+                                token = secondActivityData.token,
+                                sheetMinSize = sheetMinHeight,
+                                modifier = Modifier.fillMaxSize(),
+                                onNavigateArtist = {
+                                    navController.navigate(SecondRoute.ARTIST(artistId = it))
+                                },
                             )
                         }
                         composable<SecondRoute.ARTIST> { backStackEntry ->

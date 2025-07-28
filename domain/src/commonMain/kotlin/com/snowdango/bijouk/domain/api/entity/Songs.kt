@@ -17,7 +17,7 @@ data class SongData(
     val attributes: SongAttributes,
     val href: String,
     val id: String,
-    val meta: SongMeta,
+    val meta: SongMeta? = null,
     val type: String
 )
 
@@ -28,24 +28,24 @@ data class SongAttributes(
     val artistName: String,
     val artwork: Artwork,
     val attribution: String? = null,
-    val audioLocale: String,
-    val audioTraits: List<String>,
+    val audioLocale: String? = null,
+    val audioTraits: List<String>? = null,
     val composerName: String? = null,
     val discNumber: Int,
     val durationInMillis: Int,
     val genreNames: List<String>,
     val hasLyrics: Boolean,
-    val hasTimeSyncedLyrics: Boolean,
-    val isAppleDigitalMaster: Boolean,
-    val isMasteredForItunes: Boolean,
-    val isVocalAttenuationAllowed: Boolean,
-    val isrc: String,
+    val hasTimeSyncedLyrics: Boolean? = null,
+    val isAppleDigitalMaster: Boolean? = null,
+    val isMasteredForItunes: Boolean? = null,
+    val isVocalAttenuationAllowed: Boolean? = null,
+    val isrc: String? = null,
     val name: String,
     val playParams: PlayParams,
-    val previews: List<Preview>,
+    val previews: List<Preview>? = null,
     val releaseDate: String,
     val trackNumber: Int,
-    val url: String
+    val url: String? = null,
 )
 
 @Suppress("UnsafeOptInUsageError")

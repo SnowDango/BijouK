@@ -49,6 +49,7 @@ dependencies {
     implementation(project(":features:search"))
     implementation(project(":features:queue"))
     implementation(project(":features:artist"))
+    implementation(project(":features:library"))
     implementation(project(":ui"))
     implementation(project(":model"))
     implementation(project(":infla"))

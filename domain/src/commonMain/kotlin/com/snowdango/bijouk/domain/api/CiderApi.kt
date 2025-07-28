@@ -15,6 +15,7 @@ import com.snowdango.bijouk.domain.api.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
+import com.snowdango.bijouk.domain.api.response.SearchInLibraryResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
 import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
 import io.ktor.client.HttpClient
@@ -261,6 +262,86 @@ class CiderApi(
         return response.body<SearchResponse>()
     }
 
+    suspend fun searchInLibrarySongs(
+        query: String,
+        offset: Int,
+        limit: Int
+    ): SearchInLibraryResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                InLibrarySearchRequestBody.create(
+                    search = query,
+                    searchTypes = listOf(InLibrarySearchRequestBody.InLibrarySearchType.Songs),
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<SearchInLibraryResponse>()
+    }
+
+    suspend fun searchInLibraryAlbums(
+        query: String,
+        offset: Int,
+        limit: Int
+    ): SearchInLibraryResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                InLibrarySearchRequestBody.create(
+                    search = query,
+                    searchTypes = listOf(InLibrarySearchRequestBody.InLibrarySearchType.Albums),
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<SearchInLibraryResponse>()
+    }
+
+    suspend fun searchInLibraryArtists(
+        query: String,
+        offset: Int,
+        limit: Int
+    ): SearchInLibraryResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                InLibrarySearchRequestBody.create(
+                    search = query,
+                    searchTypes = listOf(InLibrarySearchRequestBody.InLibrarySearchType.Artists),
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<SearchInLibraryResponse>()
+    }
+
+    suspend fun searchInLibraryPlaylists(
+        query: String,
+        offset: Int,
+        limit: Int
+    ): SearchInLibraryResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                InLibrarySearchRequestBody.create(
+                    search = query,
+                    searchTypes = listOf(InLibrarySearchRequestBody.InLibrarySearchType.Playlists),
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<SearchInLibraryResponse>()
+    }
+
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
@@ -341,15 +422,6 @@ class CiderApi(
             setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Stations, stationId))
         }
         return response.body<BasicResponse>()
-    }
-
-    suspend fun inLibrarySearchAll(query: String): SearchResponse {
-        val response = client.get {
-            url("/api/v1/amapi/run-v3")
-            contentType(ContentType.Application.Json)
-            setBody(InLibrarySearchRequestBody.create(search = query))
-        }
-        return response.body<SearchResponse>()
     }
 }
 

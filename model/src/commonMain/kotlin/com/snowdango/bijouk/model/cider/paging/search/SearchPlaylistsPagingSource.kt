@@ -1,25 +1,25 @@
-package com.snowdango.bijouk.model.cider.paging
+package com.snowdango.bijouk.model.cider.paging.search
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.snowdango.bijouk.model.cider.data.SearchArtist
+import com.snowdango.bijouk.model.cider.data.SearchPlaylist
 import com.snowdango.bijouk.model.cider.mapper.converter.convertSearch
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import kotlin.coroutines.cancellation.CancellationException
 
-class SearchArtistsPagingSource(
+class SearchPlaylistsPagingSource(
     private val query: String,
     private val repository: CiderRepository,
-) : PagingSource<Int, SearchArtist>() {
+) : PagingSource<Int, SearchPlaylist>() {
 
-    override fun getRefreshKey(state: PagingState<Int, SearchArtist>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, SearchPlaylist>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchArtist> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchPlaylist> {
         try {
             return if (query.isBlank()) {
                 LoadResult.Page(
@@ -29,16 +29,16 @@ class SearchArtistsPagingSource(
                 )
             } else {
                 val position = params.key ?: 0
-                val response = repository.searchArtists(
+                val response = repository.searchPlaylists(
                     query = query,
                     limit = params.loadSize,
                     offset = position * params.loadSize
                 )
-                val artists = response.data.results.artists?.convertSearch() ?: emptyList()
+                val playlists = response.data.results.playlists?.convertSearch() ?: emptyList()
                 LoadResult.Page(
-                    data = artists,
+                    data = playlists,
                     prevKey = if (position == 0) null else position - 1,
-                    nextKey = if (artists.isEmpty()) null else position + 1,
+                    nextKey = if (playlists.isEmpty()) null else position + 1,
                 )
             }
         } catch (ce: CancellationException) {

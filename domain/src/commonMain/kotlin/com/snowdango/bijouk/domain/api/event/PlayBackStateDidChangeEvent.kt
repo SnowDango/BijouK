@@ -24,7 +24,7 @@ data class PlayBackStateDidChangeEventData(
 data class Attributes(
     val albumName: String,
     val artistName: String,
-    val artwork: Artwork,
+    val artwork: Artwork? = null,
     val audioLocale: String? = null,
     val audioTraits: List<String>? = null,
     val composerName: String? = null,

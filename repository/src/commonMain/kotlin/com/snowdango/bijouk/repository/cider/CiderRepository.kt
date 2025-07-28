@@ -13,6 +13,7 @@ import com.snowdango.bijouk.domain.api.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
+import com.snowdango.bijouk.domain.api.response.SearchInLibraryResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
 import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
 
@@ -111,6 +112,38 @@ class CiderRepository(
 
     suspend fun searchPlaylists(query: String, offset: Int, limit: Int): SearchResponse {
         return ciderApi.searchPlaylists(query, offset, limit)
+    }
+
+    suspend fun searchInLibrarySongs(
+        query: String,
+        offset: Int,
+        limit: Int
+    ): SearchInLibraryResponse {
+        return ciderApi.searchInLibrarySongs(query, offset, limit)
+    }
+
+    suspend fun searchInLibraryAlbums(
+        query: String,
+        offset: Int,
+        limit: Int
+    ): SearchInLibraryResponse {
+        return ciderApi.searchInLibraryAlbums(query, offset, limit)
+    }
+
+    suspend fun searchInLibraryArtists(
+        query: String,
+        offset: Int,
+        limit: Int
+    ): SearchInLibraryResponse {
+        return ciderApi.searchInLibraryArtists(query, offset, limit)
+    }
+
+    suspend fun searchInLibraryPlaylists(
+        query: String,
+        offset: Int,
+        limit: Int
+    ): SearchInLibraryResponse {
+        return ciderApi.searchInLibraryPlaylists(query, offset, limit)
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
