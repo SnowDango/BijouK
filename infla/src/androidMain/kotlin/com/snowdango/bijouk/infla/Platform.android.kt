@@ -1,0 +1,3 @@
+package com.snowdango.bijouk.infla
+
+actual fun platform() = "Android"

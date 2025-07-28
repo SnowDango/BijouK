@@ -1,6 +1,6 @@
 package com.snowdango.bijouk.features.search.album
 
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -27,11 +27,13 @@ fun SearchAlbumsScreen(
         parameters = { parametersOf(baseUrl, token) }
     ),
 ) {
-    Box(
+    BoxWithConstraints(
         modifier = modifier.fillMaxSize()
     ) {
         LazyVerticalGrid(
-            columns = GridCells.Fixed(2),
+            columns = GridCells.Fixed(
+                if (maxWidth < 600.dp) 2 else 3
+            ),
             modifier = Modifier
                 .padding(horizontal = 8.dp)
                 .fillMaxSize(),

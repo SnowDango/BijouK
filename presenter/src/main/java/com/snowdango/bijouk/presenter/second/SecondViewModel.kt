@@ -3,6 +3,7 @@ package com.snowdango.bijouk.presenter.second
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.snowdango.bijouk.infla.SharedEventStore
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
@@ -21,6 +22,8 @@ class SecondViewModel(
     private val baseUrl: String,
     private val token: String,
 ) : ViewModel(), KoinComponent {
+
+    val sharedEventStore: SharedEventStore by inject()
 
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
 
@@ -76,13 +79,14 @@ class SecondViewModel(
         override fun onNowPlayingItemChangeEvent(nowPlayData: NowPlayData) {
             viewModelScope.launch(Dispatchers.IO) {
                 _nowPlayFlow.emit(nowPlayData)
-                // TODO Queueの更新アクションを発行する
+                sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueUpdated)
             }
         }
 
         override fun onNowPlayingStatusChangeEvent(nowPlayingStatusData: NowPlayingStatusData) {
             viewModelScope.launch(Dispatchers.IO) {
                 _nowPlayingStatusFlow.emit(nowPlayingStatusData)
+                sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueUpdated)
             }
         }
     }
