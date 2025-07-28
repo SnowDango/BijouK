@@ -20,7 +20,6 @@ class SearchPlaylistViewModel(
     private val sharedEventStore: SharedEventStore by inject()
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
 
-
     fun searchPlaylistPlay(playlistId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
             ciderModel.playlistPlayById(playlistId)
@@ -52,5 +51,4 @@ class SearchPlaylistViewModel(
             Log.e("NowPlayViewModel", th.toString())
         }
     }
-
 }
