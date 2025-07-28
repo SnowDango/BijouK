@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class Songs(
     val `data`: List<SongData>,
     val href: String,
-    val next: String
+    val next: String? = null,
 )
 
 @Suppress("UnsafeOptInUsageError")
@@ -43,7 +43,7 @@ data class SongAttributes(
     val name: String,
     val playParams: PlayParams,
     val previews: List<Preview>? = null,
-    val releaseDate: String,
+    val releaseDate: String? = null,
     val trackNumber: Int,
     val url: String? = null,
 )

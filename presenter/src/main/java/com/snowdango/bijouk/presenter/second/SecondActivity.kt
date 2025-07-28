@@ -18,8 +18,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.snowdango.bijouk.features.artist.ArtistsDetailScreen
-import com.snowdango.bijouk.features.library.LibraryScreen
 import com.snowdango.bijouk.features.queue.QueueScreen
+import com.snowdango.bijouk.features.search.LibrarySearchScreen
 import com.snowdango.bijouk.features.search.SearchScreen
 import com.snowdango.bijouk.presenter.second.content.SecondScreen
 import com.snowdango.bijouk.ui.BijouKTheme
@@ -107,7 +107,7 @@ class SecondActivity : ComponentActivity() {
                             )
                         }
                         composable<SecondRoute.LIBRARY> {
-                            LibraryScreen(
+                            LibrarySearchScreen(
                                 baseUrl = secondActivityData.baseUrl,
                                 token = secondActivityData.token,
                                 sheetMinSize = sheetMinHeight,
