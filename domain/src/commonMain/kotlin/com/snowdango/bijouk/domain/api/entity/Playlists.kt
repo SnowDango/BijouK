@@ -22,7 +22,7 @@ data class PlaylistData(
 @Suppress("UnsafeOptInUsageError")
 @Serializable
 data class PlaylistAttributes(
-    val artwork: Artwork,
+    val artwork: Artwork? = null,
     val audioTraits: List<String>? = null,
     val curatorName: String,
     val description: PlaylistDescription? = null,

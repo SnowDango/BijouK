@@ -5,6 +5,7 @@ import com.snowdango.bijouk.domain.api.request.InLibrarySearchRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveSeekRequestBody
 import com.snowdango.bijouk.domain.api.request.PlayRequestBody
+import com.snowdango.bijouk.domain.api.request.SearchPlaylistRequestBody
 import com.snowdango.bijouk.domain.api.request.SearchRequestBody
 import com.snowdango.bijouk.domain.api.request.artist.ArtistDetailsRequestBody
 import com.snowdango.bijouk.domain.api.request.artist.ArtistViewsRequestBody
@@ -125,6 +126,15 @@ class CiderApi(
         return response.body<BasicResponse>()
     }
 
+    suspend fun playlistPlayById(playlistId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-item")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Playlists, playlistId))
+        }
+        return response.body<BasicResponse>()
+    }
+
     suspend fun songPlayNextById(songId: String): BasicResponse {
         val response = client.post {
             url("/api/v1/playback/play-next")
@@ -143,6 +153,15 @@ class CiderApi(
         return response.body<BasicResponse>()
     }
 
+    suspend fun playlistPlayNextById(playlistId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-next")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Playlists, playlistId))
+        }
+        return response.body<BasicResponse>()
+    }
+
     suspend fun songPlayLaterById(songId: String): BasicResponse {
         val response = client.post {
             url("/api/v1/playback/play-later")
@@ -157,6 +176,15 @@ class CiderApi(
             url("/api/v1/playback/play-later")
             contentType(ContentType.Application.Json)
             setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Albums, albumId))
+        }
+        return response.body<BasicResponse>()
+    }
+
+    suspend fun playlistPlayLaterById(playlistId: String): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/play-later")
+            contentType(ContentType.Application.Json)
+            setBody(PlayRequestBody.create(PlayRequestBody.PlayType.Playlists, playlistId))
         }
         return response.body<BasicResponse>()
     }
@@ -210,6 +238,21 @@ class CiderApi(
                 SearchRequestBody.create(
                     search = query,
                     searchTypes = listOf(SearchRequestBody.SearchType.Artists),
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<SearchResponse>()
+    }
+
+    suspend fun searchPlaylists(query: String, offset: Int, limit: Int): SearchResponse {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                SearchPlaylistRequestBody.create(
+                    search = query,
                     limit = limit,
                     offset = offset,
                 )

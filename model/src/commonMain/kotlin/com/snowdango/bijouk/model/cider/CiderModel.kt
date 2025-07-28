@@ -12,6 +12,7 @@ import com.snowdango.bijouk.model.cider.mapper.api.convert
 import com.snowdango.bijouk.model.cider.mapper.event.convert
 import com.snowdango.bijouk.model.cider.paging.SearchAlbumsPagingSource
 import com.snowdango.bijouk.model.cider.paging.SearchArtistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.SearchPlaylistsPagingSource
 import com.snowdango.bijouk.model.cider.paging.SearchSongsPagingSource
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import org.koin.core.component.KoinComponent
@@ -76,6 +77,10 @@ class CiderModel(
         repository.albumPlayById(id)
     }
 
+    suspend fun playlistPlayById(id: String) {
+        repository.playlistPlayById(id)
+    }
+
     suspend fun songPlayNextById(id: String) {
         repository.songPlayNextById(id)
     }
@@ -84,12 +89,20 @@ class CiderModel(
         repository.albumPlayNextById(id)
     }
 
+    suspend fun playlistPlayNextById(id: String) {
+        repository.playlistPlayNextById(id)
+    }
+
     suspend fun songPlayLaterById(id: String) {
         repository.songPlayLaterById(id)
     }
 
     suspend fun albumPlayLaterById(id: String) {
         repository.albumPlayLaterById(id)
+    }
+
+    suspend fun playlistPlayLaterById(id: String) {
+        repository.playlistPlayLaterById(id)
     }
 
     suspend fun getQueue(): QueueDataList {
@@ -121,6 +134,12 @@ class CiderModel(
         query: String,
     ): SearchArtistsPagingSource {
         return SearchArtistsPagingSource(query, repository)
+    }
+
+    fun getSearchPlaylistsPagingSource(
+        query: String,
+    ): SearchPlaylistsPagingSource {
+        return SearchPlaylistsPagingSource(query, repository)
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistDetailData? {

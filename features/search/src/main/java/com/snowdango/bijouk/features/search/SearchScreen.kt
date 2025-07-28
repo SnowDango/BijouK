@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.snowdango.bijouk.features.search.album.SearchAlbumsScreen
 import com.snowdango.bijouk.features.search.artist.SearchArtistsScreen
+import com.snowdango.bijouk.features.search.playlist.SearchPlaylistScreen
 import com.snowdango.bijouk.features.search.songs.SearchSongsScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
@@ -56,6 +57,7 @@ fun SearchScreen(
     val searchSongs = viewModel.searchSongsFlow.collectAsLazyPagingItems()
     val searchAlbums = viewModel.searchAlbumsFlow.collectAsLazyPagingItems()
     val searchArtists = viewModel.searchArtistsFlow.collectAsLazyPagingItems()
+    val searchPlaylists = viewModel.searchPlaylistsFlow.collectAsLazyPagingItems()
 
     val keyboardController = LocalSoftwareKeyboardController.current
     var inputString by remember { mutableStateOf("") }
@@ -74,6 +76,7 @@ fun SearchScreen(
                             searchSongs.refresh()
                             searchAlbums.refresh()
                             searchArtists.refresh()
+                            searchPlaylists.refresh()
                         },
                         expanded = false,
                         onExpandedChange = { },
@@ -149,6 +152,16 @@ fun SearchScreen(
                             modifier = Modifier.fillMaxSize(),
                             searchArtists = searchArtists,
                             onClickArtist = onNavigateArtist,
+                        )
+                    }
+
+                    SearchContentRoute.PLAYLIST -> {
+                        SearchPlaylistScreen(
+                            baseUrl = baseUrl,
+                            token = token,
+                            sheetMinSize = sheetMinSize,
+                            searchPlaylist = searchPlaylists,
+                            modifier = Modifier.fillMaxSize(),
                         )
                     }
                 }
