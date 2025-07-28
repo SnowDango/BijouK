@@ -33,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.snowdango.bijouk.features.search.album.SearchAlbumsScreen
 import com.snowdango.bijouk.features.search.artist.SearchArtistsScreen
+import com.snowdango.bijouk.features.search.playlist.SearchPlaylistScreen
 import com.snowdango.bijouk.features.search.songs.SearchSongsScreen
 import kotlinx.coroutines.launch
 import org.koin.compose.viewmodel.koinViewModel
@@ -149,6 +150,15 @@ fun SearchScreen(
                             modifier = Modifier.fillMaxSize(),
                             searchArtists = searchArtists,
                             onClickArtist = onNavigateArtist,
+                        )
+                    }
+
+                    SearchContentRoute.PLAYLIST -> {
+                        SearchPlaylistScreen(
+                            baseUrl = baseUrl,
+                            token = token,
+                            sheetMinSize = sheetMinSize,
+                            modifier = Modifier.fillMaxSize(),
                         )
                     }
                 }
