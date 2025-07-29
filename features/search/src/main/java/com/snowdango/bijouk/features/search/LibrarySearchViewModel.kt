@@ -30,7 +30,11 @@ class LibrarySearchViewModel(
             initialLoadSize = 25,
         )
     ) {
-        ciderModel.getSearchInLibrarySongsPagingSource(query)
+        if (query.isBlank()) {
+            ciderModel.getLibraryAllSongsPagingSource()
+        } else {
+            ciderModel.getSearchInLibrarySongsPagingSource(query)
+        }
     }.flow.cachedIn(viewModelScope)
     val searchArtistsFlow: Flow<PagingData<SearchArtist>> = Pager(
         config = PagingConfig(
@@ -38,7 +42,11 @@ class LibrarySearchViewModel(
             initialLoadSize = 25,
         )
     ) {
-        ciderModel.getSearchInLibraryArtistsPagingSource(query)
+        if (query.isBlank()) {
+            ciderModel.getLibraryAllArtistsPagingSource()
+        } else {
+            ciderModel.getSearchInLibraryArtistsPagingSource(query)
+        }
     }.flow.cachedIn(viewModelScope)
     val searchAlbumsFlow: Flow<PagingData<SearchAlbum>> = Pager(
         config = PagingConfig(
@@ -46,7 +54,11 @@ class LibrarySearchViewModel(
             initialLoadSize = 25,
         )
     ) {
-        ciderModel.getSearchInLibraryAlbumsPagingSource(query)
+        if (query.isBlank()) {
+            ciderModel.getLibraryAllAlbumsPagingSource()
+        } else {
+            ciderModel.getSearchInLibraryAlbumsPagingSource(query)
+        }
     }.flow.cachedIn(viewModelScope)
 
     val searchPlaylistsFlow: Flow<PagingData<SearchPlaylist>> = Pager(
@@ -55,7 +67,11 @@ class LibrarySearchViewModel(
             initialLoadSize = 25,
         )
     ) {
-        ciderModel.getSearchInLibraryPlaylistsPagingSource(query)
+        if (query.isBlank()) {
+            ciderModel.getLibraryAllPlaylistsPagingSource()
+        } else {
+            ciderModel.getSearchInLibraryPlaylistsPagingSource(query)
+        }
     }.flow.cachedIn(viewModelScope)
 
     fun setQuery(query: String) {

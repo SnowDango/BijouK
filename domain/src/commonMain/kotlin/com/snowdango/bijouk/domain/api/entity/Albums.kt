@@ -30,7 +30,7 @@ data class AlbumMetaData(
 @Serializable
 data class AlbumAttributes(
     val artistName: String,
-    val artwork: Artwork,
+    val artwork: Artwork? = null,
     val audioTraits: List<String>? = null,
     val classicalUrl: String? = null,
     val copyright: String? = null,
@@ -44,7 +44,7 @@ data class AlbumAttributes(
     val name: String,
     val playParams: PlayParams,
     val recordLabel: String? = null,
-    val releaseDate: String,
+    val releaseDate: String? = null,
     val trackCount: Int,
     val upc: String? = null,
     val url: String? = null,

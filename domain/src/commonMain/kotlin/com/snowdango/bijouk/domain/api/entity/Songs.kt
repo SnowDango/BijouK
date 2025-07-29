@@ -24,9 +24,9 @@ data class SongData(
 @Suppress("UnsafeOptInUsageError")
 @Serializable
 data class SongAttributes(
-    val albumName: String,
-    val artistName: String,
-    val artwork: Artwork,
+    val albumName: String? = null,
+    val artistName: String? = null,
+    val artwork: Artwork? = null,
     val attribution: String? = null,
     val audioLocale: String? = null,
     val audioTraits: List<String>? = null,

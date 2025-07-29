@@ -3,6 +3,10 @@ package com.snowdango.bijouk.repository.cider
 
 import com.snowdango.bijouk.domain.api.CiderApi
 import com.snowdango.bijouk.domain.api.CiderSocket
+import com.snowdango.bijouk.domain.api.entity.AlbumData
+import com.snowdango.bijouk.domain.api.entity.ArtistsData
+import com.snowdango.bijouk.domain.api.entity.PlaylistData
+import com.snowdango.bijouk.domain.api.entity.SongData
 import com.snowdango.bijouk.domain.api.event.NowPlayingItemDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.NowPlayingStatusDidChange
 import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
@@ -12,6 +16,7 @@ import com.snowdango.bijouk.domain.api.response.ArtistSingleResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
+import com.snowdango.bijouk.domain.api.response.LibraryResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.SearchInLibraryResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
@@ -144,6 +149,34 @@ class CiderRepository(
         limit: Int
     ): SearchInLibraryResponse {
         return ciderApi.searchInLibraryPlaylists(query, offset, limit)
+    }
+
+    suspend fun libraryAllSongs(
+        limit: Int,
+        offset: Int
+    ): LibraryResponse<SongData> {
+        return ciderApi.libraryAllSongs(limit, offset)
+    }
+
+    suspend fun libraryAllAlbums(
+        limit: Int,
+        offset: Int
+    ): LibraryResponse<AlbumData> {
+        return ciderApi.libraryAllAlbums(limit, offset)
+    }
+
+    suspend fun libraryAllArtists(
+        limit: Int,
+        offset: Int
+    ): LibraryResponse<ArtistsData> {
+        return ciderApi.libraryAllArtists(limit, offset)
+    }
+
+    suspend fun libraryAllPlaylists(
+        limit: Int,
+        offset: Int
+    ): LibraryResponse<PlaylistData> {
+        return ciderApi.libraryAllPlaylists(limit, offset)
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {

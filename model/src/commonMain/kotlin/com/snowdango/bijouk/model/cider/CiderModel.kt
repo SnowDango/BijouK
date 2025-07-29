@@ -10,6 +10,10 @@ import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.model.cider.data.entity.Song
 import com.snowdango.bijouk.model.cider.mapper.api.convert
 import com.snowdango.bijouk.model.cider.mapper.event.convert
+import com.snowdango.bijouk.model.cider.paging.library.LibraryAllAlbumsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.LibraryAllArtistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.LibraryAllPlaylistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.LibraryAllSongsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryAlbumsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryArtistsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryPlaylistsPagingSource
@@ -168,6 +172,22 @@ class CiderModel(
         query: String,
     ): SearchInLibraryPlaylistsPagingSource {
         return SearchInLibraryPlaylistsPagingSource(query, repository)
+    }
+
+    fun getLibraryAllSongsPagingSource(): LibraryAllSongsPagingSource {
+        return LibraryAllSongsPagingSource(repository)
+    }
+
+    fun getLibraryAllAlbumsPagingSource(): LibraryAllAlbumsPagingSource {
+        return LibraryAllAlbumsPagingSource(repository)
+    }
+
+    fun getLibraryAllArtistsPagingSource(): LibraryAllArtistsPagingSource {
+        return LibraryAllArtistsPagingSource(repository)
+    }
+
+    fun getLibraryAllPlaylistsPagingSource(): LibraryAllPlaylistsPagingSource {
+        return LibraryAllPlaylistsPagingSource(repository)
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistDetailData? {

@@ -1,7 +1,12 @@
 package com.snowdango.bijouk.domain.api
 
+import com.snowdango.bijouk.domain.api.entity.AlbumData
+import com.snowdango.bijouk.domain.api.entity.ArtistsData
+import com.snowdango.bijouk.domain.api.entity.PlaylistData
+import com.snowdango.bijouk.domain.api.entity.SongData
 import com.snowdango.bijouk.domain.api.request.ChangeQueueIndexRequestBody
 import com.snowdango.bijouk.domain.api.request.InLibrarySearchRequestBody
+import com.snowdango.bijouk.domain.api.request.LibraryRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveSeekRequestBody
 import com.snowdango.bijouk.domain.api.request.PlayRequestBody
@@ -14,6 +19,7 @@ import com.snowdango.bijouk.domain.api.response.ArtistSingleResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.response.BasicResponse
+import com.snowdango.bijouk.domain.api.response.LibraryResponse
 import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.SearchInLibraryResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
@@ -340,6 +346,78 @@ class CiderApi(
             )
         }
         return response.body<SearchInLibraryResponse>()
+    }
+
+    suspend fun libraryAllSongs(
+        limit: Int,
+        offset: Int
+    ): LibraryResponse<SongData> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                LibraryRequestBody.create(
+                    type = LibraryRequestBody.LibraryType.SONGS,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<LibraryResponse<SongData>>()
+    }
+
+    suspend fun libraryAllAlbums(
+        limit: Int,
+        offset: Int
+    ): LibraryResponse<AlbumData> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                LibraryRequestBody.create(
+                    type = LibraryRequestBody.LibraryType.ALBUMS,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<LibraryResponse<AlbumData>>()
+    }
+
+    suspend fun libraryAllArtists(
+        limit: Int,
+        offset: Int
+    ): LibraryResponse<ArtistsData> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                LibraryRequestBody.create(
+                    type = LibraryRequestBody.LibraryType.ARTISTS,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<LibraryResponse<ArtistsData>>()
+    }
+
+    suspend fun libraryAllPlaylists(
+        limit: Int,
+        offset: Int
+    ): LibraryResponse<PlaylistData> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                LibraryRequestBody.create(
+                    type = LibraryRequestBody.LibraryType.PLAYLISTS,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<LibraryResponse<PlaylistData>>()
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
