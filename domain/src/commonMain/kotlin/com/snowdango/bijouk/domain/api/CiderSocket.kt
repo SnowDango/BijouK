@@ -102,13 +102,4 @@ class CiderSocket(
         NowPlayingStatusDidChange("playbackStatus.nowPlayingStatusDidChange"),
         NowPlayingItemDidChange("playbackStatus.nowPlayingItemDidChange")
     }
-
-    interface SocketEventListener {
-        fun onTimeChangeEvent(playBackTimeDidChangeEvent: PlayBackTimeDidChangeEvent)
-        fun onStateChangeEvent(playBackStateDidChangeEvent: PlayBackStateDidChangeEvent)
-        fun onNowPlayingItemChangeEvent(nowPlayingItemDidChangeEvent: NowPlayingItemDidChangeEvent)
-        fun onNowPlayingStatusChangeEvent(nowPlayingStatusDidChange: NowPlayingStatusDidChange)
-        fun onConnect()
-        fun onDisconnect()
-    }
 }

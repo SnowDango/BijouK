@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.infla.SharedEventStore
-import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
+import com.snowdango.bijouk.model.cider.CiderSocketModel
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
@@ -26,7 +26,7 @@ class SecondViewModel(
 
     val sharedEventStore: SharedEventStore by inject()
 
-    private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
+    private val ciderSocketModel: CiderSocketModel by inject { parametersOf(baseUrl) }
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
 
     private val _connectionStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
@@ -61,7 +61,7 @@ class SecondViewModel(
         _isChangeableSeekFlow.value,
     )
 
-    private val playBackEventListener = object : CiderModel.PlayBackStatusEventListener {
+    private val playBackEventListener = object : CiderSocketModel.PlayBackStatusEventListener {
         override fun onTimeChangeEvent(playBackTimeData: PlayBackTimeData) {
             viewModelScope.launch(Dispatchers.IO) {
                 _playbackTimeFlow.emit(playBackTimeData)
@@ -93,24 +93,25 @@ class SecondViewModel(
         }
     }
 
-    private val socketConnectionEventListener = object : CiderModel.SocketConnectionEventListener {
-        override fun onConnect() {
-            viewModelScope.launch(Dispatchers.IO) {
-                _connectionStateFlow.emit(true)
+    private val socketConnectionEventListener =
+        object : CiderSocketModel.SocketConnectionEventListener {
+            override fun onConnect() {
+                viewModelScope.launch(Dispatchers.IO) {
+                    _connectionStateFlow.emit(true)
+                }
+                nowPlayLoad()
             }
-            nowPlayLoad()
-        }
 
-        override fun onDisConnect() {
-            viewModelScope.launch(Dispatchers.IO) {
-                _connectionStateFlow.emit(false)
+            override fun onDisConnect() {
+                viewModelScope.launch(Dispatchers.IO) {
+                    _connectionStateFlow.emit(false)
+                }
             }
         }
-    }
 
     init {
         nowPlayLoad()
-        ciderModel.connect(socketConnectionEventListener, playBackEventListener)
+        ciderSocketModel.connect(socketConnectionEventListener, playBackEventListener)
     }
 
     private fun nowPlayLoad() = viewModelScope.launch(Dispatchers.IO) {
@@ -169,5 +170,10 @@ class SecondViewModel(
             Log.e("NowPlayViewModel", th.toString())
             _isChangeableSeekFlow.emit(true)
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        ciderSocketModel.disconnect()
     }
 }

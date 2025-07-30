@@ -1,14 +1,10 @@
 package com.snowdango.bijouk.model.cider
 
 import com.snowdango.bijouk.model.cider.data.ArtistDetailData
-import com.snowdango.bijouk.model.cider.data.NowPlayData
-import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
-import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.model.cider.data.SearchData
 import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.model.cider.data.entity.Song
 import com.snowdango.bijouk.model.cider.mapper.api.convert
-import com.snowdango.bijouk.model.cider.mapper.event.convert
 import com.snowdango.bijouk.model.cider.paging.library.LibraryAllAlbumsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.LibraryAllArtistsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.LibraryAllPlaylistsPagingSource
@@ -37,7 +33,6 @@ class CiderModel(
             token
         )
     }
-
 
     suspend fun searchAll(query: String): SearchData {
         val result = repository.searchAll(query)
@@ -134,48 +129,5 @@ class CiderModel(
     ): List<Album>? {
         val response = repository.getArtistSingles(artistId, limit, offset)
         return response.convert()
-    }
-
-    fun connect(
-        connectionEventListener: SocketConnectionEventListener,
-        playBackEventListener: PlayBackStatusEventListener,
-    ) {
-        repository.connect(
-            onConnect = {
-                connectionEventListener.onConnect()
-            },
-            onDisConnect = {
-                connectionEventListener.onDisConnect()
-            },
-            onTimeChangeEvent = {
-                playBackEventListener.onTimeChangeEvent(it.convert())
-            },
-            onStateChangeEvent = {
-                val data = it.convert()
-                playBackEventListener.onStateChangeEvent(data.first, data.second)
-            },
-            onNowPlayingItemChangeEvent = {
-                playBackEventListener.onNowPlayingItemChangeEvent(it.convert())
-            },
-            onNowPlayingStatusChangeEvent = {
-                playBackEventListener.onNowPlayingStatusChangeEvent(it.convert())
-            },
-        )
-    }
-
-    fun disconnect() {
-        repository.disconnect()
-    }
-
-    interface PlayBackStatusEventListener {
-        fun onTimeChangeEvent(playBackTimeData: PlayBackTimeData)
-        fun onStateChangeEvent(nowPlayData: NowPlayData?, playBackTimeData: PlayBackTimeData?)
-        fun onNowPlayingItemChangeEvent(nowPlayData: NowPlayData)
-        fun onNowPlayingStatusChangeEvent(nowPlayingStatusData: NowPlayingStatusData)
-    }
-
-    interface SocketConnectionEventListener {
-        fun onConnect()
-        fun onDisConnect()
     }
 }

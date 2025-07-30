@@ -2,15 +2,10 @@ package com.snowdango.bijouk.repository.cider
 
 
 import com.snowdango.bijouk.domain.api.CiderApi
-import com.snowdango.bijouk.domain.api.CiderSocket
 import com.snowdango.bijouk.domain.api.entity.AlbumData
 import com.snowdango.bijouk.domain.api.entity.ArtistsData
 import com.snowdango.bijouk.domain.api.entity.PlaylistData
 import com.snowdango.bijouk.domain.api.entity.SongData
-import com.snowdango.bijouk.domain.api.event.NowPlayingItemDidChangeEvent
-import com.snowdango.bijouk.domain.api.event.NowPlayingStatusDidChange
-import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
-import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
 import com.snowdango.bijouk.domain.api.response.ArtistFullAlbumResponse
 import com.snowdango.bijouk.domain.api.response.ArtistSingleResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsResponse
@@ -21,7 +16,6 @@ import com.snowdango.bijouk.domain.api.response.SearchResponse
 
 class CiderRepository(
     private val ciderApi: CiderApi,
-    private val ciderSocket: CiderSocket,
 ) {
 
     suspend fun searchAll(query: String): SearchResponse {
@@ -130,27 +124,5 @@ class CiderRepository(
         offset: Int,
     ): ArtistSingleResponse {
         return ciderApi.getArtistSingles(artistId, limit, offset)
-    }
-
-    fun connect(
-        onConnect: () -> Unit,
-        onDisConnect: () -> Unit,
-        onTimeChangeEvent: (PlayBackTimeDidChangeEvent) -> Unit,
-        onStateChangeEvent: (PlayBackStateDidChangeEvent) -> Unit,
-        onNowPlayingItemChangeEvent: (NowPlayingItemDidChangeEvent) -> Unit,
-        onNowPlayingStatusChangeEvent: (NowPlayingStatusDidChange) -> Unit
-    ) {
-        ciderSocket.startSocket(
-            onConnect,
-            onDisConnect,
-            onTimeChangeEvent,
-            onStateChangeEvent,
-            onNowPlayingItemChangeEvent,
-            onNowPlayingStatusChangeEvent
-        )
-    }
-
-    fun disconnect() {
-        ciderSocket.closeSocket()
     }
 }
