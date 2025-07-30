@@ -38,7 +38,7 @@ class CiderApi(
     private val token: String,
 ) {
 
-    private val client: HttpClient by lazy { getCiderApi(baseUrl, token) }
+    private val client: HttpClient by lazy { getCiderHttpClient(baseUrl, token) }
 
     suspend fun active(): BasicResponse {
         val response = client.get {
@@ -502,5 +502,3 @@ class CiderApi(
         return response.body<BasicResponse>()
     }
 }
-
-expect fun getCiderApi(baseUrl: String, token: String): HttpClient

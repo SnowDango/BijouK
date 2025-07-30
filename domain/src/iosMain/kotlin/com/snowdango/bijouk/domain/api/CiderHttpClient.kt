@@ -15,7 +15,7 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
 
-actual fun getCiderApi(baseUrl: String, token: String): HttpClient {
+actual fun getCiderHttpClient(baseUrl: String, token: String): HttpClient {
     return HttpClient(Darwin) {
         install(DefaultRequest) {
             url(baseUrl)
