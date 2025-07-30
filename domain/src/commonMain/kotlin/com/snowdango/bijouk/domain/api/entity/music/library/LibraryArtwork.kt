@@ -1,20 +1,15 @@
-package com.snowdango.bijouk.domain.api.entity.rpc
+package com.snowdango.bijouk.domain.api.entity.music.library
 
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RPCArtwork(
-    val height: Int? = null,
-    val url: String? = null,
-    val width: Int? = null,
-    val hasP3: Boolean? = null,
+data class LibraryArtwork(
     val bgColor: String? = null,
+    val height: Int? = null,
+    val width: Int? = null,
     val textColor1: String? = null,
     val textColor2: String? = null,
     val textColor3: String? = null,
     val textColor4: String? = null,
-    val gradient: Gradient? = null,
-) {
-    @Serializable
-    data object Gradient
-}
+    val url: String,
+)

@@ -96,7 +96,7 @@ data class QueueMetadata(
     val gapless: Boolean,
     val genre: String,
     val genreId: Int? = null,
-    val isMasteredForItunes: Boolean,
+    val isMasteredForItunes: Boolean? = null,
     val itemId: String,
     val itemName: String,
     val kind: String,

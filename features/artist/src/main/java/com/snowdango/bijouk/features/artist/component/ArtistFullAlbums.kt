@@ -27,13 +27,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.snowdango.bijouk.model.cider.data.entity.Album
+import com.snowdango.bijouk.model.cider.data.entity.AlbumData
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
 @Composable
 fun ArtistFullAlbums(
-    albums: List<Album>,
+    albums: List<AlbumData>,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -90,7 +90,7 @@ fun ArtistFullAlbums(
 
 @Composable
 fun FullAlbums(
-    album: Album,
+    album: AlbumData,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -135,7 +135,7 @@ fun FullAlbums(
 private fun PreviewFullAlbums() {
     BijouKTheme {
         FullAlbums(
-            album = Album(
+            album = AlbumData(
                 id = "1",
                 name = "Test Album",
                 artist = "Test Artist",

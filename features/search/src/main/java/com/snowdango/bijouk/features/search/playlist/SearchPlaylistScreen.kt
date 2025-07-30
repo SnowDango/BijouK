@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.snowdango.bijouk.features.search.playlist.component.SearchPlaylistCard
-import com.snowdango.bijouk.model.cider.data.SearchPlaylist
+import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -21,7 +21,7 @@ fun SearchPlaylistScreen(
     baseUrl: String,
     token: String,
     sheetMinSize: Dp,
-    searchPlaylist: LazyPagingItems<SearchPlaylist>,
+    searchPlaylist: LazyPagingItems<PlaylistData>,
     modifier: Modifier = Modifier,
     viewModel: SearchPlaylistViewModel = koinViewModel<SearchPlaylistViewModel> {
         parametersOf(baseUrl, token)

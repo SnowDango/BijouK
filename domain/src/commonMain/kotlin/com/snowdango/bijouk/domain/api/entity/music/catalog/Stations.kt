@@ -1,6 +1,5 @@
 package com.snowdango.bijouk.domain.api.entity.music.catalog
 
-import com.snowdango.bijouk.domain.api.entity.music.Artwork
 import com.snowdango.bijouk.domain.api.entity.music.PlayParameters
 import kotlinx.serialization.Serializable
 

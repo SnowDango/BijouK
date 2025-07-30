@@ -6,8 +6,8 @@ import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.ArtistDetailData
-import com.snowdango.bijouk.model.cider.data.entity.Album
-import com.snowdango.bijouk.model.cider.data.entity.Song
+import com.snowdango.bijouk.model.cider.data.entity.AlbumData
+import com.snowdango.bijouk.model.cider.data.entity.SongData
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -33,19 +33,19 @@ class ArtistsDetailViewModel(
         SharingStarted.WhileSubscribed(5_000),
         _artistDetailDataFlow.value
     )
-    private val _artistTopSongsFlow: MutableStateFlow<List<Song>?> = MutableStateFlow(null)
+    private val _artistTopSongsFlow: MutableStateFlow<List<SongData>?> = MutableStateFlow(null)
     val artistTopSongsFlow = _artistTopSongsFlow.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         _artistTopSongsFlow.value
     )
-    private val _artistFullAlbumsFlow: MutableStateFlow<List<Album>?> = MutableStateFlow(null)
+    private val _artistFullAlbumsFlow: MutableStateFlow<List<AlbumData>?> = MutableStateFlow(null)
     val artistFullAlbumsFlow = _artistFullAlbumsFlow.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         _artistFullAlbumsFlow.value
     )
-    private val _artistSinglesFlow: MutableStateFlow<List<Album>?> = MutableStateFlow(null)
+    private val _artistSinglesFlow: MutableStateFlow<List<AlbumData>?> = MutableStateFlow(null)
     val artistSinglesFlow = _artistSinglesFlow.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),

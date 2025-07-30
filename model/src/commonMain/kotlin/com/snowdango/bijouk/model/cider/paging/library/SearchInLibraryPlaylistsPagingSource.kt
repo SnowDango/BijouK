@@ -21,27 +21,26 @@ class SearchInLibraryPlaylistsPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PlaylistData> {
         try {
-            return if (query.isBlank()) {
-                LoadResult.Page(
-                    data = emptyList(),
-                    prevKey = null,
-                    nextKey = null
+            val position = params.key ?: 0
+            val playlists = if (query.isBlank()) {
+                val response = repository.libraryAllPlaylists(
+                    limit = params.loadSize,
+                    offset = position * params.loadSize
                 )
+                response.data.data?.map { it.convert() }.orEmpty()
             } else {
-                val position = params.key ?: 0
                 val response = repository.searchInLibraryPlaylists(
                     query = query,
                     limit = params.loadSize,
                     offset = position * params.loadSize
                 )
-                val playlists =
-                    response.data.results.playlists?.data?.map { it.convert() }.orEmpty()
-                LoadResult.Page(
-                    data = playlists,
-                    prevKey = if (position == 0) null else position - 1,
-                    nextKey = if (playlists.isEmpty()) null else position + 1,
-                )
+                response.data.results.playlists?.data?.map { it.convert() }.orEmpty()
             }
+            return LoadResult.Page(
+                data = playlists,
+                prevKey = if (position == 0) null else position - 1,
+                nextKey = if (playlists.isEmpty()) null else position + 1,
+            )
         } catch (ce: CancellationException) {
             throw ce
         } catch (e: Exception) {

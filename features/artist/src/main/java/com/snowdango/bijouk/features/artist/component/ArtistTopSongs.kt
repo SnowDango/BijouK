@@ -28,13 +28,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import com.snowdango.bijouk.model.cider.data.entity.Song
+import com.snowdango.bijouk.model.cider.data.entity.SongData
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
 @Composable
 fun ArtistTopSongs(
-    songs: List<Song>,
+    songs: List<SongData>,
     modifier: Modifier = Modifier,
 ) {
     @Suppress("MagicNumber")
@@ -106,7 +106,7 @@ fun ArtistTopSongs(
 
 @Composable
 fun TopSongs(
-    song: Song,
+    song: SongData,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -161,7 +161,7 @@ fun TopSongs(
 private fun PreviewTopSong() {
     BijouKTheme {
         TopSongs(
-            song = Song(
+            song = SongData(
                 id = "1",
                 name = "Top Song",
                 artist = "Artist Name",
@@ -183,7 +183,7 @@ private fun PreviewArtistTopSongs() {
     BijouKTheme {
         ArtistTopSongs(
             songs = listOf(
-                Song(
+                SongData(
                     id = "1",
                     name = "Top Song 1",
                     artist = "Artist Name",
@@ -194,7 +194,7 @@ private fun PreviewArtistTopSongs() {
                     hasLyrics = true,
                     composerName = "Composer Name",
                 ),
-                Song(
+                SongData(
                     id = "2",
                     name = "Top Song 2",
                     artist = "Artist Name",

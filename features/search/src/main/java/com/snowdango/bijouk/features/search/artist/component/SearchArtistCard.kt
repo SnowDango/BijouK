@@ -7,12 +7,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.snowdango.bijouk.model.cider.data.SearchArtist
+import com.snowdango.bijouk.model.cider.data.entity.ArtistData
 import com.snowdango.bijouk.ui.component.ArtistCard
 
 @Composable
 fun SearchArtistCard(
-    searchArtist: SearchArtist,
+    searchArtist: ArtistData,
     modifier: Modifier = Modifier,
     onClickArtist: (artistId: String) -> Unit,
 ) {

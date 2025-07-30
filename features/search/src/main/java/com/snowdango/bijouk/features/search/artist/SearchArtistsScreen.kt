@@ -12,12 +12,12 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.snowdango.bijouk.features.search.artist.component.SearchArtistCard
-import com.snowdango.bijouk.model.cider.data.SearchArtist
+import com.snowdango.bijouk.model.cider.data.entity.ArtistData
 
 @Composable
 fun SearchArtistsScreen(
     sheetMinSize: Dp,
-    searchArtists: LazyPagingItems<SearchArtist>,
+    searchArtists: LazyPagingItems<ArtistData>,
     modifier: Modifier = Modifier,
     onClickArtist: (artistId: String) -> Unit,
 ) {

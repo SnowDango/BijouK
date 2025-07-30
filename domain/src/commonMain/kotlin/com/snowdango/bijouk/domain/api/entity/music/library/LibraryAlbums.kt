@@ -1,6 +1,5 @@
 package com.snowdango.bijouk.domain.api.entity.music.library
 
-import com.snowdango.bijouk.domain.api.entity.music.Artwork
 import com.snowdango.bijouk.domain.api.entity.music.PlayParameters
 import kotlinx.serialization.Serializable
 
@@ -15,7 +14,7 @@ data class LibraryAlbums(
     @Serializable
     data class Attributes(
         val artistName: String,
-        val artwork: Artwork,
+        val artwork: LibraryArtwork? = null,
         val contentRating: String? = null,
         val dateAdded: String? = null,
         val name: String,

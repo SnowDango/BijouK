@@ -7,10 +7,10 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.snowdango.bijouk.model.cider.CiderModel
-import com.snowdango.bijouk.model.cider.data.SearchAlbum
-import com.snowdango.bijouk.model.cider.data.SearchArtist
-import com.snowdango.bijouk.model.cider.data.SearchPlaylist
-import com.snowdango.bijouk.model.cider.data.SearchSong
+import com.snowdango.bijouk.model.cider.data.entity.AlbumData
+import com.snowdango.bijouk.model.cider.data.entity.ArtistData
+import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
+import com.snowdango.bijouk.model.cider.data.entity.SongData
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -24,7 +24,7 @@ class SearchViewModel(
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
 
     private var query: String = ""
-    val searchSongsFlow: Flow<PagingData<SearchSong>> = Pager(
+    val searchSongsFlow: Flow<PagingData<SongData>> = Pager(
         config = PagingConfig(
             pageSize = 30,
             initialLoadSize = 30,
@@ -32,7 +32,7 @@ class SearchViewModel(
     ) {
         ciderModel.getSearchSongsPagingSource(query)
     }.flow.cachedIn(viewModelScope)
-    val searchArtistsFlow: Flow<PagingData<SearchArtist>> = Pager(
+    val searchArtistsFlow: Flow<PagingData<ArtistData>> = Pager(
         config = PagingConfig(
             pageSize = 30,
             initialLoadSize = 30,
@@ -40,7 +40,7 @@ class SearchViewModel(
     ) {
         ciderModel.getSearchArtistsPagingSource(query)
     }.flow.cachedIn(viewModelScope)
-    val searchAlbumsFlow: Flow<PagingData<SearchAlbum>> = Pager(
+    val searchAlbumsFlow: Flow<PagingData<AlbumData>> = Pager(
         config = PagingConfig(
             pageSize = 30,
             initialLoadSize = 30,
@@ -49,7 +49,7 @@ class SearchViewModel(
         ciderModel.getSearchAlbumsPagingSource(query)
     }.flow.cachedIn(viewModelScope)
 
-    val searchPlaylistsFlow: Flow<PagingData<SearchPlaylist>> = Pager(
+    val searchPlaylistsFlow: Flow<PagingData<PlaylistData>> = Pager(
         config = PagingConfig(
             pageSize = 30,
             initialLoadSize = 30,

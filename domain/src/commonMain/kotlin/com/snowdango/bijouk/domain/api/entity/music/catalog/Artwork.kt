@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.domain.api.entity.music
+package com.snowdango.bijouk.domain.api.entity.music.catalog
 
 import kotlinx.serialization.Serializable
 

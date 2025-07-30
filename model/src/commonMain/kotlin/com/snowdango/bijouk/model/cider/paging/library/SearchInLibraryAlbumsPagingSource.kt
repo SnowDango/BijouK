@@ -21,34 +21,26 @@ class SearchInLibraryAlbumsPagingSource(
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, AlbumData> {
         try {
-            return if (query.isBlank()) {
-                LoadResult.Page(
-                    data = emptyList(),
-                    prevKey = null,
-                    nextKey = null
+            val position = params.key ?: 0
+            val albums = if (query.isBlank()) {
+                val response = repository.libraryAllAlbums(
+                    limit = params.loadSize,
+                    offset = position * params.loadSize
                 )
+                response.data.data?.map { it.convert() }.orEmpty()
             } else {
-                val position = params.key ?: 0
-                val albums = if (query.isNotEmpty()) {
-                    val response = repository.searchInLibraryAlbums(
-                        query = query,
-                        limit = params.loadSize,
-                        offset = position * params.loadSize
-                    )
-                    response.data.results.albums?.data?.map { it.convert() }.orEmpty()
-                } else {
-                    val response = repository.libraryAllAlbums(
-                        limit = params.loadSize,
-                        offset = position * params.loadSize
-                    )
-                    response.data.data?.map { it.convert() }.orEmpty()
-                }
-                LoadResult.Page(
-                    data = albums,
-                    prevKey = if (position == 0) null else position - 1,
-                    nextKey = if (albums.isEmpty()) null else position + 1,
+                val response = repository.searchInLibraryAlbums(
+                    query = query,
+                    limit = params.loadSize,
+                    offset = position * params.loadSize
                 )
+                response.data.results.albums?.data?.map { it.convert() }.orEmpty()
             }
+            return LoadResult.Page(
+                data = albums,
+                prevKey = if (position == 0) null else position - 1,
+                nextKey = if (albums.isEmpty()) null else position + 1,
+            )
         } catch (ce: CancellationException) {
             throw ce
         } catch (e: Exception) {
