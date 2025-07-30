@@ -1,9 +1,11 @@
 package com.snowdango.bijouk.domain.api.music
 
-import com.snowdango.bijouk.domain.api.entity.AlbumData
-import com.snowdango.bijouk.domain.api.entity.ArtistsData
-import com.snowdango.bijouk.domain.api.entity.PlaylistData
-import com.snowdango.bijouk.domain.api.entity.SongData
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Songs
+import com.snowdango.bijouk.domain.api.entity.music.library.LibraryAlbums
+import com.snowdango.bijouk.domain.api.entity.music.library.LibraryArtists
+import com.snowdango.bijouk.domain.api.entity.music.library.LibraryPlaylists
+import com.snowdango.bijouk.domain.api.entity.music.library.LibrarySongs
 import com.snowdango.bijouk.domain.api.getCiderHttpClient
 import com.snowdango.bijouk.domain.api.music.request.ArtistDetailsRequestBody
 import com.snowdango.bijouk.domain.api.music.request.ArtistViewsRequestBody
@@ -11,12 +13,10 @@ import com.snowdango.bijouk.domain.api.music.request.InLibrarySearchRequestBody
 import com.snowdango.bijouk.domain.api.music.request.LibraryRequestBody
 import com.snowdango.bijouk.domain.api.music.request.SearchPlaylistRequestBody
 import com.snowdango.bijouk.domain.api.music.request.SearchRequestBody
-import com.snowdango.bijouk.domain.api.music.response.ArtistFullAlbumResponse
-import com.snowdango.bijouk.domain.api.music.response.ArtistSingleResponse
 import com.snowdango.bijouk.domain.api.music.response.ArtistsResponse
-import com.snowdango.bijouk.domain.api.music.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.music.response.LibraryResponse
-import com.snowdango.bijouk.domain.api.music.response.SearchInLibraryResponse
+import com.snowdango.bijouk.domain.api.music.response.LibrarySearchResponse
+import com.snowdango.bijouk.domain.api.music.response.RelationshipViewResponse
 import com.snowdango.bijouk.domain.api.music.response.SearchResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -109,7 +109,7 @@ class CiderApi(
         query: String,
         offset: Int,
         limit: Int
-    ): SearchInLibraryResponse {
+    ): LibrarySearchResponse {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -122,14 +122,14 @@ class CiderApi(
                 )
             )
         }
-        return response.body<SearchInLibraryResponse>()
+        return response.body<LibrarySearchResponse>()
     }
 
     suspend fun searchInLibraryAlbums(
         query: String,
         offset: Int,
         limit: Int
-    ): SearchInLibraryResponse {
+    ): LibrarySearchResponse {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -142,14 +142,14 @@ class CiderApi(
                 )
             )
         }
-        return response.body<SearchInLibraryResponse>()
+        return response.body<LibrarySearchResponse>()
     }
 
     suspend fun searchInLibraryArtists(
         query: String,
         offset: Int,
         limit: Int
-    ): SearchInLibraryResponse {
+    ): LibrarySearchResponse {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -162,14 +162,14 @@ class CiderApi(
                 )
             )
         }
-        return response.body<SearchInLibraryResponse>()
+        return response.body<LibrarySearchResponse>()
     }
 
     suspend fun searchInLibraryPlaylists(
         query: String,
         offset: Int,
         limit: Int
-    ): SearchInLibraryResponse {
+    ): LibrarySearchResponse {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -182,13 +182,13 @@ class CiderApi(
                 )
             )
         }
-        return response.body<SearchInLibraryResponse>()
+        return response.body<LibrarySearchResponse>()
     }
 
     suspend fun libraryAllSongs(
         limit: Int,
         offset: Int
-    ): LibraryResponse<SongData> {
+    ): LibraryResponse<LibrarySongs> {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -200,13 +200,13 @@ class CiderApi(
                 )
             )
         }
-        return response.body<LibraryResponse<SongData>>()
+        return response.body<LibraryResponse<LibrarySongs>>()
     }
 
     suspend fun libraryAllAlbums(
         limit: Int,
         offset: Int
-    ): LibraryResponse<AlbumData> {
+    ): LibraryResponse<LibraryAlbums> {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -218,13 +218,13 @@ class CiderApi(
                 )
             )
         }
-        return response.body<LibraryResponse<AlbumData>>()
+        return response.body<LibraryResponse<LibraryAlbums>>()
     }
 
     suspend fun libraryAllArtists(
         limit: Int,
         offset: Int
-    ): LibraryResponse<ArtistsData> {
+    ): LibraryResponse<LibraryArtists> {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -236,13 +236,13 @@ class CiderApi(
                 )
             )
         }
-        return response.body<LibraryResponse<ArtistsData>>()
+        return response.body<LibraryResponse<LibraryArtists>>()
     }
 
     suspend fun libraryAllPlaylists(
         limit: Int,
         offset: Int
-    ): LibraryResponse<PlaylistData> {
+    ): LibraryResponse<LibraryPlaylists> {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -254,7 +254,7 @@ class CiderApi(
                 )
             )
         }
-        return response.body<LibraryResponse<PlaylistData>>()
+        return response.body<LibraryResponse<LibraryPlaylists>>()
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
@@ -274,7 +274,7 @@ class CiderApi(
         artistId: String,
         limit: Int,
         offset: Int
-    ): ArtistsTopSongResponse {
+    ): RelationshipViewResponse<Songs> {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -287,14 +287,14 @@ class CiderApi(
                 )
             )
         }
-        return response.body<ArtistsTopSongResponse>()
+        return response.body<RelationshipViewResponse<Songs>>()
     }
 
     suspend fun getArtistFullAlbums(
         artistId: String,
         limit: Int,
         offset: Int
-    ): ArtistFullAlbumResponse {
+    ): RelationshipViewResponse<Albums> {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -307,14 +307,14 @@ class CiderApi(
                 )
             )
         }
-        return response.body<ArtistFullAlbumResponse>()
+        return response.body<RelationshipViewResponse<Albums>>()
     }
 
     suspend fun getArtistSingles(
         artistId: String,
         limit: Int,
         offset: Int
-    ): ArtistSingleResponse {
+    ): RelationshipViewResponse<Albums> {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
@@ -327,6 +327,6 @@ class CiderApi(
                 )
             )
         }
-        return response.body<ArtistSingleResponse>()
+        return response.body<RelationshipViewResponse<Albums>>()
     }
 }

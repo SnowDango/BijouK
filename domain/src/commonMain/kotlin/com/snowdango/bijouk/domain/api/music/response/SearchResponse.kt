@@ -1,49 +1,34 @@
 package com.snowdango.bijouk.domain.api.music.response
 
-import com.snowdango.bijouk.domain.api.entity.Albums
-import com.snowdango.bijouk.domain.api.entity.Artists
-import com.snowdango.bijouk.domain.api.entity.Playlists
-import com.snowdango.bijouk.domain.api.entity.Songs
+
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Artists
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Playlists
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Songs
 import kotlinx.serialization.Serializable
 
-@Suppress("UnsafeOptInUsageError")
+
 @Serializable
 data class SearchResponse(
-    val `data`: SearchResponseData
-)
-
-@Suppress("UnsafeOptInUsageError")
-@Serializable
-data class SearchResponseData(
-    val meta: SearchResponseMeta,
-    val results: SearchResponseResults,
-)
-
-@Suppress("UnsafeOptInUsageError")
-@Serializable
-data class SearchResponseMeta(
-    val metrics: SearchResponseMetaMetrics? = null,
-    val results: SearchResponseMetaResults,
-)
-
-@Suppress("UnsafeOptInUsageError")
-@Serializable
-data class SearchResponseMetaMetrics(
-    val dataSetId: String
-)
-
-@Suppress("UnsafeOptInUsageError")
-@Serializable
-data class SearchResponseMetaResults(
-    val order: List<String>,
-    val rawOrder: List<String>
-)
-
-@Suppress("UnsafeOptInUsageError")
-@Serializable
-data class SearchResponseResults(
-    val albums: Albums? = null,
-    val artists: Artists? = null,
-    val playlists: Playlists? = null,
-    val songs: Songs? = null,
-)
+    val `data`: Data
+) {
+    @Serializable
+    data class Data(
+        val results: Results,
+    ) {
+        @Serializable
+        data class Results(
+            val albums: SearchResult<Albums>? = null,
+            val artists: SearchResult<Artists>? = null,
+            val playlists: SearchResult<Playlists>? = null,
+            val songs: SearchResult<Songs>? = null,
+        ) {
+            @Serializable
+            data class SearchResult<T>(
+                val next: String? = null,
+                val href: String? = null,
+                val data: List<T>,
+            )
+        }
+    }
+}

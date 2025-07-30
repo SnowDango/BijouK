@@ -5,12 +5,12 @@ import com.snowdango.bijouk.domain.api.entity.AlbumData
 import com.snowdango.bijouk.domain.api.entity.ArtistsData
 import com.snowdango.bijouk.domain.api.entity.PlaylistData
 import com.snowdango.bijouk.domain.api.entity.SongData
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Songs
 import com.snowdango.bijouk.domain.api.music.CiderApi
-import com.snowdango.bijouk.domain.api.music.response.ArtistFullAlbumResponse
-import com.snowdango.bijouk.domain.api.music.response.ArtistSingleResponse
 import com.snowdango.bijouk.domain.api.music.response.ArtistsResponse
-import com.snowdango.bijouk.domain.api.music.response.ArtistsTopSongResponse
 import com.snowdango.bijouk.domain.api.music.response.LibraryResponse
+import com.snowdango.bijouk.domain.api.music.response.RelationshipViewResponse
 import com.snowdango.bijouk.domain.api.music.response.SearchInLibraryResponse
 import com.snowdango.bijouk.domain.api.music.response.SearchResponse
 
@@ -106,7 +106,7 @@ class CiderRepository(
         artistId: String,
         limit: Int,
         offset: Int
-    ): ArtistsTopSongResponse {
+    ): RelationshipViewResponse<Songs> {
         return ciderApi.getArtistTopSongs(artistId, limit, offset)
     }
 
@@ -114,7 +114,7 @@ class CiderRepository(
         artistId: String,
         limit: Int,
         offset: Int,
-    ): ArtistFullAlbumResponse {
+    ): RelationshipViewResponse<Albums> {
         return ciderApi.getArtistFullAlbums(artistId, limit, offset)
     }
 
@@ -122,7 +122,7 @@ class CiderRepository(
         artistId: String,
         limit: Int,
         offset: Int,
-    ): ArtistSingleResponse {
+    ): RelationshipViewResponse<Albums> {
         return ciderApi.getArtistSingles(artistId, limit, offset)
     }
 }
