@@ -10,9 +10,9 @@ fun ArtistsTopSongResponse.convert(): List<Song>? {
         Song(
             id = song.id,
             name = song.attributes.name,
-            album = song.attributes.albumName,
-            artist = song.attributes.artistName,
-            artwork = song.attributes.artwork.convert() ?: "",
+            album = song.attributes.albumName.orEmpty(),
+            artist = song.attributes.artistName.orEmpty(),
+            artwork = song.attributes.artwork?.convert().orEmpty(),
             href = song.href,
             genres = song.attributes.genreNames,
             hasLyrics = song.attributes.hasLyrics,

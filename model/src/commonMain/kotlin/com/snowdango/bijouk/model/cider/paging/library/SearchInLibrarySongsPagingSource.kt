@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.model.cider.paging
+package com.snowdango.bijouk.model.cider.paging.library
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -7,7 +7,7 @@ import com.snowdango.bijouk.model.cider.mapper.converter.convertSearch
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import kotlin.coroutines.cancellation.CancellationException
 
-class SearchSongsPagingSource(
+class SearchInLibrarySongsPagingSource(
     private val query: String,
     private val repository: CiderRepository,
 ) : PagingSource<Int, SearchSong>() {
@@ -29,7 +29,7 @@ class SearchSongsPagingSource(
                 )
             } else {
                 val position = params.key ?: 0
-                val response = repository.searchSongs(
+                val response = repository.searchInLibrarySongs(
                     query = query,
                     limit = params.loadSize,
                     offset = position * params.loadSize

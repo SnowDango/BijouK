@@ -1,7 +1,10 @@
 package com.snowdango.bijouk.domain.api.request
 
+import kotlinx.serialization.Serializable
 import net.thauvin.erik.urlencoder.UrlEncoderUtil
 
+@Suppress("UnsafeOptInUsageError")
+@Serializable
 data class SearchPlaylistRequestBody(
     val path: String,
 ) {

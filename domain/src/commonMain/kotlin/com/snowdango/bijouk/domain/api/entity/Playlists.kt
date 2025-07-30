@@ -24,17 +24,17 @@ data class PlaylistData(
 data class PlaylistAttributes(
     val artwork: Artwork? = null,
     val audioTraits: List<String>? = null,
-    val curatorName: String,
+    val curatorName: String? = null,
     val description: PlaylistDescription? = null,
     val editorialNotes: EditorialNotes? = null,
     val hasCollaboration: Boolean,
-    val isChart: Boolean,
+    val isChart: Boolean? = null,
     val lastModifiedDate: String,
     val name: String,
     val playParams: PlayParams,
-    val playlistType: String,
-    val supportsSing: Boolean,
-    val url: String
+    val playlistType: String? = null,
+    val supportsSing: Boolean? = null,
+    val url: String? = null,
 )
 
 @Suppress("UnsafeOptInUsageError")

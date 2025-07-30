@@ -10,10 +10,18 @@ import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.model.cider.data.entity.Song
 import com.snowdango.bijouk.model.cider.mapper.api.convert
 import com.snowdango.bijouk.model.cider.mapper.event.convert
-import com.snowdango.bijouk.model.cider.paging.SearchAlbumsPagingSource
-import com.snowdango.bijouk.model.cider.paging.SearchArtistsPagingSource
-import com.snowdango.bijouk.model.cider.paging.SearchPlaylistsPagingSource
-import com.snowdango.bijouk.model.cider.paging.SearchSongsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.LibraryAllAlbumsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.LibraryAllArtistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.LibraryAllPlaylistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.LibraryAllSongsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryAlbumsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryArtistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryPlaylistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.SearchInLibrarySongsPagingSource
+import com.snowdango.bijouk.model.cider.paging.search.SearchAlbumsPagingSource
+import com.snowdango.bijouk.model.cider.paging.search.SearchArtistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.search.SearchPlaylistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.search.SearchSongsPagingSource
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -140,6 +148,46 @@ class CiderModel(
         query: String,
     ): SearchPlaylistsPagingSource {
         return SearchPlaylistsPagingSource(query, repository)
+    }
+
+    fun getSearchInLibrarySongsPagingSource(
+        query: String,
+    ): SearchInLibrarySongsPagingSource {
+        return SearchInLibrarySongsPagingSource(query, repository)
+    }
+
+    fun getSearchInLibraryAlbumsPagingSource(
+        query: String,
+    ): SearchInLibraryAlbumsPagingSource {
+        return SearchInLibraryAlbumsPagingSource(query, repository)
+    }
+
+    fun getSearchInLibraryArtistsPagingSource(
+        query: String,
+    ): SearchInLibraryArtistsPagingSource {
+        return SearchInLibraryArtistsPagingSource(query, repository)
+    }
+
+    fun getSearchInLibraryPlaylistsPagingSource(
+        query: String,
+    ): SearchInLibraryPlaylistsPagingSource {
+        return SearchInLibraryPlaylistsPagingSource(query, repository)
+    }
+
+    fun getLibraryAllSongsPagingSource(): LibraryAllSongsPagingSource {
+        return LibraryAllSongsPagingSource(repository)
+    }
+
+    fun getLibraryAllAlbumsPagingSource(): LibraryAllAlbumsPagingSource {
+        return LibraryAllAlbumsPagingSource(repository)
+    }
+
+    fun getLibraryAllArtistsPagingSource(): LibraryAllArtistsPagingSource {
+        return LibraryAllArtistsPagingSource(repository)
+    }
+
+    fun getLibraryAllPlaylistsPagingSource(): LibraryAllPlaylistsPagingSource {
+        return LibraryAllPlaylistsPagingSource(repository)
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistDetailData? {

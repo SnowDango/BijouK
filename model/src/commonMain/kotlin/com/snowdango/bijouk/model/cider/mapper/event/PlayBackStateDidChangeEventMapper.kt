@@ -20,7 +20,7 @@ fun Attributes.convertNowPlayData(): NowPlayData {
         name = name,
         artistName = artistName,
         albumName = albumName,
-        artwork = artwork.convert(),
+        artwork = artwork?.convert().orEmpty(),
         hasLyrics = hasLyrics,
     )
 }

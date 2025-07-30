@@ -8,14 +8,16 @@ data class InLibrarySearchRequestBody(
     companion object {
         fun create(
             search: String,
-            searchTypes: List<InLibrarySearchType> = InLibrarySearchType.entries.toList(),
+            searchTypes: List<InLibrarySearchType>,
             limit: Int = 20,
+            offset: Int = 20,
         ): SearchRequestBody {
             return SearchRequestBody(
                 path = "/v1/me/library/search?" +
                         "term=${UrlEncoderUtil.encode(search)}" +
                         "&types=${searchTypes.joinToString(",") { it.type }}" +
-                        "&limit=$limit"
+                        "&limit=$limit" +
+                        "&offset=$offset"
             )
         }
     }

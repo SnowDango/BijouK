@@ -8,7 +8,7 @@ import kotlinx.serialization.Serializable
 data class Songs(
     val `data`: List<SongData>,
     val href: String,
-    val next: String
+    val next: String? = null,
 )
 
 @Suppress("UnsafeOptInUsageError")
@@ -17,35 +17,35 @@ data class SongData(
     val attributes: SongAttributes,
     val href: String,
     val id: String,
-    val meta: SongMeta,
+    val meta: SongMeta? = null,
     val type: String
 )
 
 @Suppress("UnsafeOptInUsageError")
 @Serializable
 data class SongAttributes(
-    val albumName: String,
-    val artistName: String,
-    val artwork: Artwork,
+    val albumName: String? = null,
+    val artistName: String? = null,
+    val artwork: Artwork? = null,
     val attribution: String? = null,
-    val audioLocale: String,
-    val audioTraits: List<String>,
+    val audioLocale: String? = null,
+    val audioTraits: List<String>? = null,
     val composerName: String? = null,
     val discNumber: Int,
     val durationInMillis: Int,
     val genreNames: List<String>,
     val hasLyrics: Boolean,
-    val hasTimeSyncedLyrics: Boolean,
-    val isAppleDigitalMaster: Boolean,
-    val isMasteredForItunes: Boolean,
-    val isVocalAttenuationAllowed: Boolean,
-    val isrc: String,
+    val hasTimeSyncedLyrics: Boolean? = null,
+    val isAppleDigitalMaster: Boolean? = null,
+    val isMasteredForItunes: Boolean? = null,
+    val isVocalAttenuationAllowed: Boolean? = null,
+    val isrc: String? = null,
     val name: String,
     val playParams: PlayParams,
-    val previews: List<Preview>,
-    val releaseDate: String,
+    val previews: List<Preview>? = null,
+    val releaseDate: String? = null,
     val trackNumber: Int,
-    val url: String
+    val url: String? = null,
 )
 
 @Suppress("UnsafeOptInUsageError")

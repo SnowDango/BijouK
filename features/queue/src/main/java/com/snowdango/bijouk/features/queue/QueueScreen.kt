@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.LibraryMusic
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -47,6 +48,7 @@ fun QueueScreen(
     token: String,
     sheetMinSize: Dp,
     onNavigateSearch: () -> Unit,
+    onNavigateLibrary: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: QueueViewModel = koinViewModel<QueueViewModel> {
         parametersOf(baseUrl, token)
@@ -83,6 +85,16 @@ fun QueueScreen(
                     containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
                 ),
                 actions = {
+                    IconButton(
+                        onClick = {
+                            onNavigateLibrary.invoke()
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.LibraryMusic,
+                            contentDescription = null
+                        )
+                    }
                     IconButton(
                         onClick = {
                             onNavigateSearch.invoke()
@@ -168,6 +180,7 @@ private fun QueueScreenPreview() {
             token = "example_token",
             sheetMinSize = 100.dp,
             onNavigateSearch = {},
+            onNavigateLibrary = {},
             modifier = Modifier.fillMaxSize(),
             viewModel = QueueViewModel("", "")
         )

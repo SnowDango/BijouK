@@ -9,10 +9,10 @@ fun ArtistsResponse.convert(): ArtistDetailData? {
     return ArtistDetailData(
         id = data.id,
         href = data.href,
-        genres = data.attributes.genreNames,
+        genres = data.attributes.genreNames.orEmpty(),
         name = data.attributes.name,
-        artwork = data.attributes.artwork?.convert() ?: "",
-        url = data.attributes.url,
-        stations = data.relationships.stations?.convert() ?: emptyList(),
+        artwork = data.attributes.artwork?.convert().orEmpty(),
+        url = data.attributes.url.orEmpty(),
+        stations = data.relationships?.stations?.convert().orEmpty(),
     )
 }

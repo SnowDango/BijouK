@@ -16,7 +16,7 @@ data class ArtistsData(
     val attributes: ArtistAttributes,
     val href: String,
     val id: String,
-    val relationships: ArtistRelationships,
+    val relationships: ArtistRelationships? = null,
     val type: String,
 )
 
@@ -25,9 +25,9 @@ data class ArtistsData(
 data class ArtistAttributes(
     val artwork: Artwork? = null,
     val classicalUrl: String? = null,
-    val genreNames: List<String>,
+    val genreNames: List<String>? = null,
     val name: String,
-    val url: String
+    val url: String? = null,
 )
 
 @Suppress("UnsafeOptInUsageError")
