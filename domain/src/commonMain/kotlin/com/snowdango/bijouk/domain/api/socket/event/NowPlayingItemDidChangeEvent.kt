@@ -1,8 +1,8 @@
 package com.snowdango.bijouk.domain.api.socket.event
 
-import com.snowdango.bijouk.domain.api.entity.Artwork
-import com.snowdango.bijouk.domain.api.entity.PlayParams
-import com.snowdango.bijouk.domain.api.entity.Preview
+import com.snowdango.bijouk.domain.api.entity.rpc.RPCArtwork
+import com.snowdango.bijouk.domain.api.entity.rpc.RPCPlayParameters
+import com.snowdango.bijouk.domain.api.entity.rpc.RPCPreview
 import kotlinx.serialization.Serializable
 
 @Suppress("UnsafeOptInUsageError")
@@ -17,7 +17,7 @@ data class NowPlayingItemDidChangeEvent(
 data class NowPlayingItemDidChangeEventData(
     val albumName: String,
     val artistName: String,
-    val artwork: Artwork,
+    val artwork: RPCArtwork,
     val audioLocale: String? = null,
     val audioTraits: List<String>? = null,
     val composerName: String? = null,
@@ -31,8 +31,8 @@ data class NowPlayingItemDidChangeEventData(
     val isVocalAttenuationAllowed: Boolean? = null,
     val isrc: String? = null,
     val name: String,
-    val playParams: PlayParams,
-    val previews: List<Preview>,
+    val playParams: RPCPlayParameters,
+    val previews: List<RPCPreview>,
     val releaseDate: String? = null,
     val trackNumber: Int,
     val currentPlaybackTime: Double? = null,

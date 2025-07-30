@@ -1,11 +1,10 @@
-package com.snowdango.bijouk.domain.api.entity
-
+package com.snowdango.bijouk.domain.api.entity.rpc
 
 import kotlinx.serialization.Serializable
 
-@Suppress("UnsafeOptInUsageError")
+
 @Serializable
-data class PlayParams(
+data class RPCPlayParameters(
     val id: String,
     val kind: String,
     val isLibrary: Boolean? = null,

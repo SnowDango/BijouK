@@ -1,9 +1,9 @@
 package com.snowdango.bijouk.domain.api.rpc.response
 
 
-import com.snowdango.bijouk.domain.api.entity.Artwork
-import com.snowdango.bijouk.domain.api.entity.PlayParams
-import com.snowdango.bijouk.domain.api.entity.Preview
+import com.snowdango.bijouk.domain.api.entity.rpc.RPCArtwork
+import com.snowdango.bijouk.domain.api.entity.rpc.RPCPlayParams
+import com.snowdango.bijouk.domain.api.entity.rpc.RPCPreview
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -55,7 +55,7 @@ data class QueueChunks(
 data class QueueAttributes(
     val albumName: String,
     val artistName: String? = null,
-    val artwork: Artwork? = null,
+    val artwork: RPCArtwork? = null,
     val audioLocale: String? = null,
     val audioTraits: List<String>? = null,
     val composerName: String? = null,
@@ -70,8 +70,8 @@ data class QueueAttributes(
     val isVocalAttenuationAllowed: Boolean? = null,
     val isrc: String? = null,
     val name: String,
-    val playParams: PlayParams,
-    val previews: List<Preview>? = null,
+    val playParams: RPCPlayParams,
+    val previews: List<RPCPreview>? = null,
     val releaseDate: String? = null,
     val remainingTime: Double? = null,
     val trackNumber: Int,

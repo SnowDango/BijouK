@@ -1,10 +1,9 @@
-package com.snowdango.bijouk.domain.api.entity
+package com.snowdango.bijouk.domain.api.entity.rpc
 
 import kotlinx.serialization.Serializable
 
-@Suppress("UnsafeOptInUsageError")
 @Serializable
-data class Artwork(
+data class RPCArtwork(
     val height: Int,
     val url: String,
     val width: Int,
@@ -15,4 +14,7 @@ data class Artwork(
     val textColor3: String? = null,
     val textColor4: String? = null,
     val gradient: Gradient? = null,
-)
+) {
+    @Serializable
+    data object Gradient
+}
