@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.infla.SharedEventStore
 import com.snowdango.bijouk.model.cider.CiderModel
+import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
@@ -26,6 +27,7 @@ class SecondViewModel(
     val sharedEventStore: SharedEventStore by inject()
 
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
+    private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
 
     private val _connectionStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val connectionStateFlow = _connectionStateFlow.stateIn(
@@ -113,7 +115,7 @@ class SecondViewModel(
 
     private fun nowPlayLoad() = viewModelScope.launch(Dispatchers.IO) {
         try {
-            val data = ciderModel.getNowPlay()
+            val data = ciderRPCModel.getNowPlay()
             _nowPlayFlow.emit(data.first)
             _playbackTimeFlow.emit(data.second)
             _nowPlayingStatusFlow.emit(data.third)
@@ -128,7 +130,7 @@ class SecondViewModel(
 
     fun playPause() = viewModelScope.launch(Dispatchers.IO) {
         try {
-            ciderModel.playPause()
+            ciderRPCModel.playPause()
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -138,7 +140,7 @@ class SecondViewModel(
 
     fun next() = viewModelScope.launch(Dispatchers.IO) {
         try {
-            ciderModel.next()
+            ciderRPCModel.next()
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -148,7 +150,7 @@ class SecondViewModel(
 
     fun prev() = viewModelScope.launch(Dispatchers.IO) {
         try {
-            ciderModel.prev()
+            ciderRPCModel.prev()
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -159,7 +161,7 @@ class SecondViewModel(
     fun seekTo(time: Float) = viewModelScope.launch(Dispatchers.IO) {
         _isChangeableSeekFlow.emit(false)
         try {
-            ciderModel.seekTo(time)
+            ciderRPCModel.seekTo(time)
             _isChangeableSeekFlow.emit(true)
         } catch (ce: CancellationException) {
             throw ce

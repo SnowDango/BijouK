@@ -4,7 +4,6 @@ import com.snowdango.bijouk.model.cider.data.ArtistDetailData
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
-import com.snowdango.bijouk.model.cider.data.QueueDataList
 import com.snowdango.bijouk.model.cider.data.SearchData
 import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.model.cider.data.entity.Song
@@ -39,87 +38,6 @@ class CiderModel(
         )
     }
 
-    suspend fun isActive(): Boolean {
-        return try {
-            val response = repository.getActive()
-            response.status == "ok"
-        } catch (_: Throwable) {
-            false
-        }
-    }
-
-    suspend fun getNowPlay(): Triple<NowPlayData, PlayBackTimeData, NowPlayingStatusData> {
-        val nowPlay = repository.getNowPlay()
-        return nowPlay.convert()
-    }
-
-    suspend fun playPause() {
-        repository.postPlayPause()
-    }
-
-    suspend fun next() {
-        repository.postNext()
-    }
-
-    suspend fun prev() {
-        repository.postPrev()
-    }
-
-    suspend fun seekTo(to: Float) {
-        repository.seekTo(to)
-    }
-
-    suspend fun moveQueue(index: Int, moveIndex: Int) {
-        repository.postMoveQueue(index, moveIndex)
-    }
-
-    suspend fun changeQueueIndex(index: Int) {
-        repository.changeQueueIndex(index)
-    }
-
-    suspend fun songPlayById(id: String) {
-        repository.songPlayById(id)
-    }
-
-    suspend fun albumPlayById(id: String) {
-        repository.albumPlayById(id)
-    }
-
-    suspend fun playlistPlayById(id: String) {
-        repository.playlistPlayById(id)
-    }
-
-    suspend fun songPlayNextById(id: String) {
-        repository.songPlayNextById(id)
-    }
-
-    suspend fun albumPlayNextById(id: String) {
-        repository.albumPlayNextById(id)
-    }
-
-    suspend fun playlistPlayNextById(id: String) {
-        repository.playlistPlayNextById(id)
-    }
-
-    suspend fun songPlayLaterById(id: String) {
-        repository.songPlayLaterById(id)
-    }
-
-    suspend fun albumPlayLaterById(id: String) {
-        repository.albumPlayLaterById(id)
-    }
-
-    suspend fun playlistPlayLaterById(id: String) {
-        repository.playlistPlayLaterById(id)
-    }
-
-    suspend fun getQueue(): QueueDataList {
-        val queues = repository.getQueue()
-        val currentIndex = queues.indexOfLast { it.attributes.currentPlaybackTime != null }
-        return QueueDataList(
-            list = queues.mapIndexed { index, data -> data.convert(index, currentIndex) },
-        )
-    }
 
     suspend fun searchAll(query: String): SearchData {
         val result = repository.searchAll(query)
@@ -216,10 +134,6 @@ class CiderModel(
     ): List<Album>? {
         val response = repository.getArtistSingles(artistId, limit, offset)
         return response.convert()
-    }
-
-    suspend fun stationPlayById(stationId: String) {
-        repository.stationPlayById(stationId)
     }
 
     fun connect(

@@ -1,6 +1,7 @@
 package com.snowdango.bijouk.domain
 
 import com.snowdango.bijouk.domain.api.CiderApi
+import com.snowdango.bijouk.domain.api.CiderRPCApi
 import com.snowdango.bijouk.domain.api.CiderSocket
 import com.snowdango.bijouk.domain.db.DevicesDatabase
 import com.snowdango.bijouk.domain.db.getDevicesDatabase
@@ -11,6 +12,7 @@ actual object DomainModule {
     actual val module: Module = module {
         single<DevicesDatabase> { getDevicesDatabase(get()) }
         single<CiderSocket> { param -> CiderSocket(param.get()) }
-        factory<CiderApi> { param -> CiderApi(baseUrl = param.get<String>(0), token = param.get<String>(1)) }
+        factory<CiderApi> { param -> CiderApi(baseUrl = param.get(), token = param.get()) }
+        factory<CiderRPCApi> { param -> CiderRPCApi(baseUrl = param.get(), token = param.get()) }
     }
 }

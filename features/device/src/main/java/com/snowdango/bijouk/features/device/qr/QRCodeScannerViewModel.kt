@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.features.device.R
 import com.snowdango.bijouk.features.device.qr.entity.QRCodeInfo
-import com.snowdango.bijouk.model.cider.CiderModel
+import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.devices.DevicesModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
@@ -25,14 +25,16 @@ class QRCodeScannerViewModel : ViewModel(), KoinComponent {
     private val context: Context by inject()
     private val devicesModel: DevicesModel by inject()
 
-    private val _testActiveFlow: MutableStateFlow<TestState> = MutableStateFlow(value = TestState.None)
+    private val _testActiveFlow: MutableStateFlow<TestState> =
+        MutableStateFlow(value = TestState.None)
     val testActiveFlow = _testActiveFlow.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         _testActiveFlow.value,
     )
 
-    private val _saveStateFlow: MutableStateFlow<SaveState> = MutableStateFlow(value = SaveState.None)
+    private val _saveStateFlow: MutableStateFlow<SaveState> =
+        MutableStateFlow(value = SaveState.None)
     val saveStateFlow = _saveStateFlow.stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
@@ -56,9 +58,9 @@ class QRCodeScannerViewModel : ViewModel(), KoinComponent {
                 R.string.url_not_ssl,
                 "$address:$port"
             )
-            val ciderModel = get<CiderModel> { parametersOf(baseUrl, token) }
+            val ciderRPCModel = get<CiderRPCModel> { parametersOf(baseUrl, token) }
             try {
-                val action = ciderModel.isActive()
+                val action = ciderRPCModel.isActive()
                 if (action) {
                     _testActiveFlow.emit(TestState.Success(address, token))
                 } else {

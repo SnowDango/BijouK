@@ -15,89 +15,14 @@ import com.snowdango.bijouk.domain.api.response.ArtistFullAlbumResponse
 import com.snowdango.bijouk.domain.api.response.ArtistSingleResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
-import com.snowdango.bijouk.domain.api.response.BasicResponse
 import com.snowdango.bijouk.domain.api.response.LibraryResponse
-import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.response.SearchInLibraryResponse
 import com.snowdango.bijouk.domain.api.response.SearchResponse
-import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
 
 class CiderRepository(
     private val ciderApi: CiderApi,
     private val ciderSocket: CiderSocket,
 ) {
-
-    suspend fun getActive(): BasicResponse {
-        return ciderApi.active()
-    }
-
-    suspend fun getNowPlay(): NowPlayingResponse {
-        return ciderApi.nowPlaying()
-    }
-
-    suspend fun getQueue(): List<QueueResponseData> {
-        return ciderApi.getQueue()
-    }
-
-    suspend fun postPlayPause(): BasicResponse {
-        return ciderApi.playPause()
-    }
-
-    suspend fun postNext(): BasicResponse {
-        return ciderApi.next()
-    }
-
-    suspend fun postPrev(): BasicResponse {
-        return ciderApi.previous()
-    }
-
-    suspend fun seekTo(to: Float): BasicResponse {
-        return ciderApi.seekTo(to)
-    }
-
-    suspend fun postMoveQueue(index: Int, moveIndex: Int): BasicResponse {
-        return ciderApi.moveQueue(index, moveIndex)
-    }
-
-    suspend fun changeQueueIndex(index: Int): BasicResponse {
-        return ciderApi.changeQueueIndex(index)
-    }
-
-    suspend fun songPlayById(id: String): BasicResponse {
-        return ciderApi.songPlayById(id)
-    }
-
-    suspend fun albumPlayById(id: String): BasicResponse {
-        return ciderApi.albumPlayById(id)
-    }
-
-    suspend fun playlistPlayById(id: String): BasicResponse {
-        return ciderApi.playlistPlayById(id)
-    }
-
-    suspend fun songPlayNextById(id: String): BasicResponse {
-        return ciderApi.songPlayNextById(id)
-    }
-
-    suspend fun albumPlayNextById(id: String): BasicResponse {
-        return ciderApi.albumPlayNextById(id)
-    }
-
-    suspend fun playlistPlayNextById(id: String): BasicResponse {
-        return ciderApi.playlistPlayNextById(id)
-    }
-
-    suspend fun songPlayLaterById(id: String): BasicResponse {
-        return ciderApi.songPlayLaterById(id)
-    }
-
-    suspend fun albumPlayLaterById(id: String): BasicResponse {
-        return ciderApi.albumPlayLaterById(id)
-    }
-
-    suspend fun playlistPlayLaterById(id: String): BasicResponse {
-        return ciderApi.playlistPlayLaterById(id)
-    }
 
     suspend fun searchAll(query: String): SearchResponse {
         return ciderApi.searchAll(query)
@@ -205,10 +130,6 @@ class CiderRepository(
         offset: Int,
     ): ArtistSingleResponse {
         return ciderApi.getArtistSingles(artistId, limit, offset)
-    }
-
-    suspend fun stationPlayById(stationId: String): BasicResponse {
-        return ciderApi.stationPlayById(stationId)
     }
 
     fun connect(

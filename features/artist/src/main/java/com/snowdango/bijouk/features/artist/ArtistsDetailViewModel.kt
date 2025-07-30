@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.model.cider.CiderModel
+import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.ArtistDetailData
 import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.model.cider.data.entity.Song
@@ -24,6 +25,7 @@ class ArtistsDetailViewModel(
 ) : ViewModel(), KoinComponent {
 
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
+    private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
 
     private val _artistDetailDataFlow: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val artistDetailDataFlow = _artistDetailDataFlow.stateIn(
@@ -116,7 +118,7 @@ class ArtistsDetailViewModel(
 
     fun stationPlayById(stationId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            ciderModel.stationPlayById(stationId)
+            ciderRPCModel.stationPlayById(stationId)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {

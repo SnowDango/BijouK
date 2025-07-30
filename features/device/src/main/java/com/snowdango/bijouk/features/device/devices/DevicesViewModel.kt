@@ -5,8 +5,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.features.device.R
-import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderMultiModel
+import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.devices.DeviceData
 import com.snowdango.bijouk.model.devices.DevicesModel
 import kotlinx.coroutines.CancellationException
@@ -110,9 +110,9 @@ class DevicesViewModel : ViewModel(), KoinComponent {
                     "$host:$port"
                 }
             )
-            val ciderModel = get<CiderModel> { parametersOf(baseUrl, token) }
+            val ciderRPCModel = get<CiderRPCModel> { parametersOf(baseUrl, token) }
             try {
-                val active = ciderModel.isActive()
+                val active = ciderRPCModel.isActive()
                 _testActiveFlow.emit(active)
             } catch (ce: CancellationException) {
                 throw ce
