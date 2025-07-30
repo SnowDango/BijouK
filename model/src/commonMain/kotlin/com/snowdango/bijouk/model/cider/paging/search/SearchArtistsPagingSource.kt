@@ -2,24 +2,24 @@ package com.snowdango.bijouk.model.cider.paging.search
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.snowdango.bijouk.model.cider.data.SearchArtist
-import com.snowdango.bijouk.model.cider.mapper.converter.convertSearch
+import com.snowdango.bijouk.model.cider.data.entity.ArtistData
+import com.snowdango.bijouk.model.cider.mapper.converter.convert
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import kotlin.coroutines.cancellation.CancellationException
 
 class SearchArtistsPagingSource(
     private val query: String,
     private val repository: CiderRepository,
-) : PagingSource<Int, SearchArtist>() {
+) : PagingSource<Int, ArtistData>() {
 
-    override fun getRefreshKey(state: PagingState<Int, SearchArtist>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, ArtistData>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchArtist> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ArtistData> {
         try {
             return if (query.isBlank()) {
                 LoadResult.Page(
@@ -34,7 +34,7 @@ class SearchArtistsPagingSource(
                     limit = params.loadSize,
                     offset = position * params.loadSize
                 )
-                val artists = response.data.results.artists?.convertSearch() ?: emptyList()
+                val artists = response.data.results.artists?.data?.map { it.convert() }.orEmpty()
                 LoadResult.Page(
                     data = artists,
                     prevKey = if (position == 0) null else position - 1,

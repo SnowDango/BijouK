@@ -2,24 +2,24 @@ package com.snowdango.bijouk.model.cider.paging.library
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.snowdango.bijouk.model.cider.data.SearchPlaylist
-import com.snowdango.bijouk.model.cider.mapper.converter.convertSearch
+import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
+import com.snowdango.bijouk.model.cider.mapper.converter.convert
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import kotlin.coroutines.cancellation.CancellationException
 
 class SearchInLibraryPlaylistsPagingSource(
     private val query: String,
     private val repository: CiderRepository,
-) : PagingSource<Int, SearchPlaylist>() {
+) : PagingSource<Int, PlaylistData>() {
 
-    override fun getRefreshKey(state: PagingState<Int, SearchPlaylist>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, PlaylistData>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchPlaylist> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, PlaylistData> {
         try {
             return if (query.isBlank()) {
                 LoadResult.Page(
@@ -34,7 +34,8 @@ class SearchInLibraryPlaylistsPagingSource(
                     limit = params.loadSize,
                     offset = position * params.loadSize
                 )
-                val playlists = response.data.results.playlists?.convertSearch() ?: emptyList()
+                val playlists =
+                    response.data.results.playlists?.data?.map { it.convert() }.orEmpty()
                 LoadResult.Page(
                     data = playlists,
                     prevKey = if (position == 0) null else position - 1,

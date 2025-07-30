@@ -2,7 +2,7 @@ package com.snowdango.bijouk.domain.api.rpc.response
 
 
 import com.snowdango.bijouk.domain.api.entity.rpc.RPCArtwork
-import com.snowdango.bijouk.domain.api.entity.rpc.RPCPlayParams
+import com.snowdango.bijouk.domain.api.entity.rpc.RPCPlayParameters
 import com.snowdango.bijouk.domain.api.entity.rpc.RPCPreview
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -70,7 +70,7 @@ data class QueueAttributes(
     val isVocalAttenuationAllowed: Boolean? = null,
     val isrc: String? = null,
     val name: String,
-    val playParams: RPCPlayParams,
+    val playParams: RPCPlayParameters? = null,
     val previews: List<RPCPreview>? = null,
     val releaseDate: String? = null,
     val remainingTime: Double? = null,

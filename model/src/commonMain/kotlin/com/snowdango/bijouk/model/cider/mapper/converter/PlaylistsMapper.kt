@@ -1,22 +1,27 @@
 package com.snowdango.bijouk.model.cider.mapper.converter
 
-import com.snowdango.bijouk.domain.api.entity.PlaylistData
-import com.snowdango.bijouk.domain.api.entity.Playlists
-import com.snowdango.bijouk.model.cider.data.SearchPlaylist
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Playlists
+import com.snowdango.bijouk.domain.api.entity.music.library.LibraryPlaylists
+import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
 
-fun Playlists.convertSearch(): List<SearchPlaylist> {
-    return data.map {
-        it.convert()
-    }
+fun Playlists.convert(): PlaylistData {
+    return PlaylistData(
+        id = id,
+        name = attributes?.name.orEmpty(),
+        curatorName = attributes?.curatorName ?: "",
+        description = attributes?.description?.standard,
+        artwork = attributes?.artwork?.convert(),
+        href = href,
+    )
 }
 
-fun PlaylistData.convert(): SearchPlaylist {
-    return SearchPlaylist(
+fun LibraryPlaylists.convert(): PlaylistData {
+    return PlaylistData(
         id = id,
-        name = attributes.name,
-        curatorName = attributes.curatorName ?: "",
-        description = attributes.description?.standard,
-        artwork = attributes.artwork?.convert(),
+        name = attributes?.name.orEmpty(),
+        curatorName = "",
+        description = attributes?.description?.standard,
+        artwork = attributes?.artwork?.convert(),
         href = href,
     )
 }

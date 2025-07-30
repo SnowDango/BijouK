@@ -26,7 +26,7 @@ data class Artists(
     @Serializable
     data class Relationships(
         @SerialName("default-playable-content")
-        val stations: Stations? = null,
+        val stations: List<Stations>? = null,
     )
 
     @Serializable

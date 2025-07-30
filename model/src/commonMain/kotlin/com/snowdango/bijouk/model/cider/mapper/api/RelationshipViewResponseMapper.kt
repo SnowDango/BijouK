@@ -1,0 +1,21 @@
+package com.snowdango.bijouk.model.cider.mapper.api
+
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Songs
+import com.snowdango.bijouk.domain.api.music.response.RelationshipViewResponse
+import com.snowdango.bijouk.model.cider.data.entity.AlbumData
+import com.snowdango.bijouk.model.cider.data.entity.SongData
+import com.snowdango.bijouk.model.cider.mapper.converter.convert
+
+
+fun RelationshipViewResponse<Albums>.convert(): List<AlbumData> {
+    return this.data.map {
+        it.convert()
+    }
+}
+
+fun RelationshipViewResponse<Songs>.convert(): List<SongData> {
+    return this.data.map {
+        it.convert()
+    }
+}

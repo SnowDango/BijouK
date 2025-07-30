@@ -1,14 +1,9 @@
 package com.snowdango.bijouk.model.cider
 
 import com.snowdango.bijouk.model.cider.data.ArtistDetailData
-import com.snowdango.bijouk.model.cider.data.SearchData
-import com.snowdango.bijouk.model.cider.data.entity.Album
-import com.snowdango.bijouk.model.cider.data.entity.Song
+import com.snowdango.bijouk.model.cider.data.entity.AlbumData
+import com.snowdango.bijouk.model.cider.data.entity.SongData
 import com.snowdango.bijouk.model.cider.mapper.api.convert
-import com.snowdango.bijouk.model.cider.paging.library.LibraryAllAlbumsPagingSource
-import com.snowdango.bijouk.model.cider.paging.library.LibraryAllArtistsPagingSource
-import com.snowdango.bijouk.model.cider.paging.library.LibraryAllPlaylistsPagingSource
-import com.snowdango.bijouk.model.cider.paging.library.LibraryAllSongsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryAlbumsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryArtistsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryPlaylistsPagingSource
@@ -32,11 +27,6 @@ class CiderModel(
             baseUrl,
             token
         )
-    }
-
-    suspend fun searchAll(query: String): SearchData {
-        val result = repository.searchAll(query)
-        return result.convert()
     }
 
     fun getSearchSongsPagingSource(
@@ -87,28 +77,16 @@ class CiderModel(
         return SearchInLibraryPlaylistsPagingSource(query, repository)
     }
 
-    fun getLibraryAllSongsPagingSource(): LibraryAllSongsPagingSource {
-        return LibraryAllSongsPagingSource(repository)
-    }
-
-    fun getLibraryAllAlbumsPagingSource(): LibraryAllAlbumsPagingSource {
-        return LibraryAllAlbumsPagingSource(repository)
-    }
-
-    fun getLibraryAllArtistsPagingSource(): LibraryAllArtistsPagingSource {
-        return LibraryAllArtistsPagingSource(repository)
-    }
-
-    fun getLibraryAllPlaylistsPagingSource(): LibraryAllPlaylistsPagingSource {
-        return LibraryAllPlaylistsPagingSource(repository)
-    }
-
     suspend fun getArtistDetails(artistId: String): ArtistDetailData? {
         val response = repository.getArtistDetails(artistId)
         return response.convert()
     }
 
-    suspend fun getArtistTopSongs(artistId: String, limit: Int = 20, offset: Int = 0): List<Song>? {
+    suspend fun getArtistTopSongs(
+        artistId: String,
+        limit: Int = 20,
+        offset: Int = 0
+    ): List<SongData>? {
         val response = repository.getArtistTopSongs(artistId, limit, offset)
         return response.convert()
     }
@@ -117,7 +95,7 @@ class CiderModel(
         artistId: String,
         limit: Int = 20,
         offset: Int = 0
-    ): List<Album>? {
+    ): List<AlbumData>? {
         val response = repository.getArtistFullAlbums(artistId, limit, offset)
         return response.convert()
     }
@@ -126,7 +104,7 @@ class CiderModel(
         artistId: String,
         limit: Int = 20,
         offset: Int = 0
-    ): List<Album>? {
+    ): List<AlbumData>? {
         val response = repository.getArtistSingles(artistId, limit, offset)
         return response.convert()
     }

@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.domain.api.rpc.response
 
 import com.snowdango.bijouk.domain.api.entity.rpc.RPCArtwork
-import com.snowdango.bijouk.domain.api.entity.rpc.RPCPlayParams
+import com.snowdango.bijouk.domain.api.entity.rpc.RPCPlayParameters
 import com.snowdango.bijouk.domain.api.entity.rpc.RPCPreview
 import kotlinx.serialization.Serializable
 
@@ -34,7 +34,7 @@ data class NowPlayingResponseData(
     val isVocalAttenuationAllowed: Boolean? = null,
     val isrc: String? = null,
     val name: String,
-    val playParams: RPCPlayParams?,
+    val playParams: RPCPlayParameters?,
     val previews: List<RPCPreview>?,
     val releaseDate: String? = null,
     val remainingTime: Double,

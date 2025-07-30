@@ -1,6 +1,7 @@
 package com.snowdango.bijouk.model.cider.data
 
-import com.snowdango.bijouk.model.cider.data.entity.Station
+
+import com.snowdango.bijouk.model.cider.data.entity.StationData
 
 data class ArtistDetailData(
     val id: String,
@@ -9,5 +10,5 @@ data class ArtistDetailData(
     val name: String,
     val artwork: String,
     val url: String,
-    val stations: List<Station>,
+    val stations: List<StationData>,
 )

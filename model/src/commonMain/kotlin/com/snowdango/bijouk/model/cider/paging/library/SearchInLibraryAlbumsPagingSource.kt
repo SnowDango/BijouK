@@ -2,24 +2,24 @@ package com.snowdango.bijouk.model.cider.paging.library
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
-import com.snowdango.bijouk.model.cider.data.SearchAlbum
-import com.snowdango.bijouk.model.cider.mapper.converter.convertSearch
+import com.snowdango.bijouk.model.cider.data.entity.AlbumData
+import com.snowdango.bijouk.model.cider.mapper.converter.convert
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import kotlin.coroutines.cancellation.CancellationException
 
 class SearchInLibraryAlbumsPagingSource(
     private val query: String,
     private val repository: CiderRepository,
-) : PagingSource<Int, SearchAlbum>() {
+) : PagingSource<Int, AlbumData>() {
 
-    override fun getRefreshKey(state: PagingState<Int, SearchAlbum>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, AlbumData>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)
             anchorPage?.prevKey?.plus(1) ?: anchorPage?.nextKey?.minus(1)
         }
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, SearchAlbum> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, AlbumData> {
         try {
             return if (query.isBlank()) {
                 LoadResult.Page(
@@ -29,12 +29,20 @@ class SearchInLibraryAlbumsPagingSource(
                 )
             } else {
                 val position = params.key ?: 0
-                val response = repository.searchInLibraryAlbums(
-                    query = query,
-                    limit = params.loadSize,
-                    offset = position * params.loadSize
-                )
-                val albums = response.data.results.albums?.convertSearch() ?: emptyList()
+                val albums = if (query.isNotEmpty()) {
+                    val response = repository.searchInLibraryAlbums(
+                        query = query,
+                        limit = params.loadSize,
+                        offset = position * params.loadSize
+                    )
+                    response.data.results.albums?.data?.map { it.convert() }.orEmpty()
+                } else {
+                    val response = repository.libraryAllAlbums(
+                        limit = params.loadSize,
+                        offset = position * params.loadSize
+                    )
+                    response.data.data?.map { it.convert() }.orEmpty()
+                }
                 LoadResult.Page(
                     data = albums,
                     prevKey = if (position == 0) null else position - 1,
