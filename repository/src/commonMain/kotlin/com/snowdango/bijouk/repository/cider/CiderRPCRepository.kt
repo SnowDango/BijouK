@@ -1,10 +1,10 @@
 package com.snowdango.bijouk.repository.cider
 
-import com.snowdango.bijouk.domain.api.request.PlayRequestBody
-import com.snowdango.bijouk.domain.api.response.BasicResponse
-import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
-import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
 import com.snowdango.bijouk.domain.api.rpc.CiderRPCApi
+import com.snowdango.bijouk.domain.api.rpc.request.PlayRequestBody
+import com.snowdango.bijouk.domain.api.rpc.response.BasicResponse
+import com.snowdango.bijouk.domain.api.rpc.response.NowPlayingResponse
+import com.snowdango.bijouk.domain.api.rpc.response.QueueResponseData
 
 class CiderRPCRepository(
     private val ciderRPCApi: CiderRPCApi,

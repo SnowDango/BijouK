@@ -1,6 +1,6 @@
 package com.snowdango.bijouk.model.cider.mapper.api
 
-import com.snowdango.bijouk.domain.api.response.SearchResponse
+import com.snowdango.bijouk.domain.api.music.response.SearchResponse
 import com.snowdango.bijouk.model.cider.data.SearchData
 import com.snowdango.bijouk.model.cider.mapper.converter.convertSearch
 

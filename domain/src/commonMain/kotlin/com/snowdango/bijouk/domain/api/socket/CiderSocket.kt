@@ -3,10 +3,10 @@ package com.snowdango.bijouk.domain.api.socket
 import com.piasy.kmp.socketio.socketio.IO
 import com.piasy.kmp.socketio.socketio.Socket
 import com.snowdango.bijouk.domain.Logger
-import com.snowdango.bijouk.domain.api.event.NowPlayingItemDidChangeEvent
-import com.snowdango.bijouk.domain.api.event.NowPlayingStatusDidChange
-import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
-import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
+import com.snowdango.bijouk.domain.api.socket.event.NowPlayingItemDidChangeEvent
+import com.snowdango.bijouk.domain.api.socket.event.NowPlayingStatusDidChange
+import com.snowdango.bijouk.domain.api.socket.event.PlayBackStateDidChangeEvent
+import com.snowdango.bijouk.domain.api.socket.event.PlayBackTimeDidChangeEvent
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 

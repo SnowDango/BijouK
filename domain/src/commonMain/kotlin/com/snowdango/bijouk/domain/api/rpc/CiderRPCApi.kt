@@ -1,13 +1,13 @@
 package com.snowdango.bijouk.domain.api.rpc
 
 import com.snowdango.bijouk.domain.api.getCiderHttpClient
-import com.snowdango.bijouk.domain.api.request.ChangeQueueIndexRequestBody
-import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
-import com.snowdango.bijouk.domain.api.request.MoveSeekRequestBody
-import com.snowdango.bijouk.domain.api.request.PlayRequestBody
-import com.snowdango.bijouk.domain.api.response.BasicResponse
-import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
-import com.snowdango.bijouk.domain.api.response.data.QueueResponseData
+import com.snowdango.bijouk.domain.api.rpc.request.ChangeQueueIndexRequestBody
+import com.snowdango.bijouk.domain.api.rpc.request.MoveQueueRequestBody
+import com.snowdango.bijouk.domain.api.rpc.request.MoveSeekRequestBody
+import com.snowdango.bijouk.domain.api.rpc.request.PlayRequestBody
+import com.snowdango.bijouk.domain.api.rpc.response.BasicResponse
+import com.snowdango.bijouk.domain.api.rpc.response.NowPlayingResponse
+import com.snowdango.bijouk.domain.api.rpc.response.QueueResponseData
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

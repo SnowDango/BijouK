@@ -6,13 +6,13 @@ import com.snowdango.bijouk.domain.api.entity.ArtistsData
 import com.snowdango.bijouk.domain.api.entity.PlaylistData
 import com.snowdango.bijouk.domain.api.entity.SongData
 import com.snowdango.bijouk.domain.api.music.CiderApi
-import com.snowdango.bijouk.domain.api.response.ArtistFullAlbumResponse
-import com.snowdango.bijouk.domain.api.response.ArtistSingleResponse
-import com.snowdango.bijouk.domain.api.response.ArtistsResponse
-import com.snowdango.bijouk.domain.api.response.ArtistsTopSongResponse
-import com.snowdango.bijouk.domain.api.response.LibraryResponse
-import com.snowdango.bijouk.domain.api.response.SearchInLibraryResponse
-import com.snowdango.bijouk.domain.api.response.SearchResponse
+import com.snowdango.bijouk.domain.api.music.response.ArtistFullAlbumResponse
+import com.snowdango.bijouk.domain.api.music.response.ArtistSingleResponse
+import com.snowdango.bijouk.domain.api.music.response.ArtistsResponse
+import com.snowdango.bijouk.domain.api.music.response.ArtistsTopSongResponse
+import com.snowdango.bijouk.domain.api.music.response.LibraryResponse
+import com.snowdango.bijouk.domain.api.music.response.SearchInLibraryResponse
+import com.snowdango.bijouk.domain.api.music.response.SearchResponse
 
 class CiderRepository(
     private val ciderApi: CiderApi,

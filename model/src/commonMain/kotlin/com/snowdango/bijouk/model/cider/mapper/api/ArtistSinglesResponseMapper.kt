@@ -1,6 +1,6 @@
 package com.snowdango.bijouk.model.cider.mapper.api
 
-import com.snowdango.bijouk.domain.api.response.ArtistSingleResponse
+import com.snowdango.bijouk.domain.api.music.response.ArtistSingleResponse
 import com.snowdango.bijouk.model.cider.data.entity.Album
 import com.snowdango.bijouk.model.cider.mapper.converter.convert
 

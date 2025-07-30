@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.model.cider.mapper.event
 
-import com.snowdango.bijouk.domain.api.event.Attributes
-import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
+import com.snowdango.bijouk.domain.api.socket.event.Attributes
+import com.snowdango.bijouk.domain.api.socket.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.model.cider.mapper.converter.PlaybackTimeMapper
