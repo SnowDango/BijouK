@@ -1,17 +1,17 @@
 package com.snowdango.bijouk.repository.cider
 
 
-import com.snowdango.bijouk.domain.api.entity.AlbumData
-import com.snowdango.bijouk.domain.api.entity.ArtistsData
-import com.snowdango.bijouk.domain.api.entity.PlaylistData
-import com.snowdango.bijouk.domain.api.entity.SongData
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Songs
+import com.snowdango.bijouk.domain.api.entity.music.library.LibraryAlbums
+import com.snowdango.bijouk.domain.api.entity.music.library.LibraryArtists
+import com.snowdango.bijouk.domain.api.entity.music.library.LibraryPlaylists
+import com.snowdango.bijouk.domain.api.entity.music.library.LibrarySongs
 import com.snowdango.bijouk.domain.api.music.CiderApi
 import com.snowdango.bijouk.domain.api.music.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.music.response.LibraryResponse
+import com.snowdango.bijouk.domain.api.music.response.LibrarySearchResponse
 import com.snowdango.bijouk.domain.api.music.response.RelationshipViewResponse
-import com.snowdango.bijouk.domain.api.music.response.SearchInLibraryResponse
 import com.snowdango.bijouk.domain.api.music.response.SearchResponse
 
 class CiderRepository(
@@ -42,7 +42,7 @@ class CiderRepository(
         query: String,
         offset: Int,
         limit: Int
-    ): SearchInLibraryResponse {
+    ): LibrarySearchResponse {
         return ciderApi.searchInLibrarySongs(query, offset, limit)
     }
 
@@ -50,7 +50,7 @@ class CiderRepository(
         query: String,
         offset: Int,
         limit: Int
-    ): SearchInLibraryResponse {
+    ): LibrarySearchResponse {
         return ciderApi.searchInLibraryAlbums(query, offset, limit)
     }
 
@@ -58,7 +58,7 @@ class CiderRepository(
         query: String,
         offset: Int,
         limit: Int
-    ): SearchInLibraryResponse {
+    ): LibrarySearchResponse {
         return ciderApi.searchInLibraryArtists(query, offset, limit)
     }
 
@@ -66,35 +66,35 @@ class CiderRepository(
         query: String,
         offset: Int,
         limit: Int
-    ): SearchInLibraryResponse {
+    ): LibrarySearchResponse {
         return ciderApi.searchInLibraryPlaylists(query, offset, limit)
     }
 
     suspend fun libraryAllSongs(
         limit: Int,
         offset: Int
-    ): LibraryResponse<SongData> {
+    ): LibraryResponse<LibrarySongs> {
         return ciderApi.libraryAllSongs(limit, offset)
     }
 
     suspend fun libraryAllAlbums(
         limit: Int,
         offset: Int
-    ): LibraryResponse<AlbumData> {
+    ): LibraryResponse<LibraryAlbums> {
         return ciderApi.libraryAllAlbums(limit, offset)
     }
 
     suspend fun libraryAllArtists(
         limit: Int,
         offset: Int
-    ): LibraryResponse<ArtistsData> {
+    ): LibraryResponse<LibraryArtists> {
         return ciderApi.libraryAllArtists(limit, offset)
     }
 
     suspend fun libraryAllPlaylists(
         limit: Int,
         offset: Int
-    ): LibraryResponse<PlaylistData> {
+    ): LibraryResponse<LibraryPlaylists> {
         return ciderApi.libraryAllPlaylists(limit, offset)
     }
 
