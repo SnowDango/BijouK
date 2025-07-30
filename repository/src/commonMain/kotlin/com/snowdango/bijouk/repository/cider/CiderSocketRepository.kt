@@ -1,10 +1,10 @@
 package com.snowdango.bijouk.repository.cider
 
-import com.snowdango.bijouk.domain.api.CiderSocket
 import com.snowdango.bijouk.domain.api.event.NowPlayingItemDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.NowPlayingStatusDidChange
 import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
+import com.snowdango.bijouk.domain.api.socket.CiderSocket
 
 class CiderSocketRepository(
     private val ciderSocket: CiderSocket

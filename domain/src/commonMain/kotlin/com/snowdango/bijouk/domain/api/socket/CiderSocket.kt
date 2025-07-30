@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.domain.api
+package com.snowdango.bijouk.domain.api.socket
 
 import com.piasy.kmp.socketio.socketio.IO
 import com.piasy.kmp.socketio.socketio.Socket
@@ -9,7 +9,6 @@ import com.snowdango.bijouk.domain.api.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.domain.api.event.PlayBackTimeDidChangeEvent
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
-
 
 class CiderSocket(
     private val baseUrl: String,
@@ -36,7 +35,10 @@ class CiderSocket(
             }
         ) { socket ->
             socket.on("API:Playback") { param ->
-                val json = Json.decodeFromString(JsonObject.serializer(), param[0].toString())
+                val json = Json.Default.decodeFromString(
+                    JsonObject.Companion.serializer(),
+                    param[0].toString()
+                )
                 logger.d(null, json.toString())
                 val type =
                     EventType.entries.find {
@@ -45,7 +47,7 @@ class CiderSocket(
                 when (type) {
                     EventType.PlayBackTimeDidChange -> { // time change
                         val data =
-                            Json.decodeFromString<PlayBackTimeDidChangeEvent>(
+                            Json.Default.decodeFromString<PlayBackTimeDidChangeEvent>(
                                 param[0].toString()
                             )
                         logger.d(null, data.toString())
@@ -54,7 +56,7 @@ class CiderSocket(
 
                     EventType.PlayBackStateDidChange -> { // song change
                         val data =
-                            Json.decodeFromString<PlayBackStateDidChangeEvent>(
+                            Json.Default.decodeFromString<PlayBackStateDidChangeEvent>(
                                 param[0].toString()
                             )
                         logger.d(null, data.toString())
@@ -63,7 +65,7 @@ class CiderSocket(
 
                     EventType.NowPlayingItemDidChange -> { // fav and lib state change
                         val data =
-                            Json.decodeFromString<NowPlayingItemDidChangeEvent>(
+                            Json.Default.decodeFromString<NowPlayingItemDidChangeEvent>(
                                 param[0].toString()
                             )
                         logger.d(null, data.toString())
@@ -72,14 +74,17 @@ class CiderSocket(
 
                     EventType.NowPlayingStatusDidChange -> { // metadata change
                         val data =
-                            Json.decodeFromString<NowPlayingStatusDidChange>(
+                            Json.Default.decodeFromString<NowPlayingStatusDidChange>(
                                 param[0].toString()
                             )
                         logger.d(null, data.toString())
                         onNowPlayingStatusChangeEvent.invoke(data)
                     }
 
-                    else -> logger.w(null, "UnknownTypeError: ${Json.encodeToString(json["type"])}")
+                    else -> logger.w(
+                        null,
+                        "UnknownTypeError: ${Json.Default.encodeToString(json["type"])}"
+                    )
                 }
             }.on("connect") {
                 logger.d(null, "connection")

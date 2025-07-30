@@ -1,8 +1,8 @@
 package com.snowdango.bijouk.domain
 
-import com.snowdango.bijouk.domain.api.CiderApi
-import com.snowdango.bijouk.domain.api.CiderRPCApi
-import com.snowdango.bijouk.domain.api.CiderSocket
+import com.snowdango.bijouk.domain.api.music.CiderApi
+import com.snowdango.bijouk.domain.api.rpc.CiderRPCApi
+import com.snowdango.bijouk.domain.api.socket.CiderSocket
 import com.snowdango.bijouk.domain.db.DevicesDatabase
 import com.snowdango.bijouk.domain.db.getDevicesDatabase
 import org.koin.core.module.Module

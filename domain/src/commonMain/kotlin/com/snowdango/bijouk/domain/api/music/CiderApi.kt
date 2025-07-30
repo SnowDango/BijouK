@@ -1,9 +1,10 @@
-package com.snowdango.bijouk.domain.api
+package com.snowdango.bijouk.domain.api.music
 
 import com.snowdango.bijouk.domain.api.entity.AlbumData
 import com.snowdango.bijouk.domain.api.entity.ArtistsData
 import com.snowdango.bijouk.domain.api.entity.PlaylistData
 import com.snowdango.bijouk.domain.api.entity.SongData
+import com.snowdango.bijouk.domain.api.getCiderHttpClient
 import com.snowdango.bijouk.domain.api.request.InLibrarySearchRequestBody
 import com.snowdango.bijouk.domain.api.request.LibraryRequestBody
 import com.snowdango.bijouk.domain.api.request.SearchPlaylistRequestBody
@@ -36,7 +37,7 @@ class CiderApi(
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
-            setBody(SearchRequestBody.create(search = query))
+            setBody(SearchRequestBody.Companion.create(search = query))
         }
         return response.body<SearchResponse>()
     }
@@ -46,7 +47,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                SearchRequestBody.create(
+                SearchRequestBody.Companion.create(
                     search = query,
                     searchTypes = listOf(SearchRequestBody.SearchType.Songs),
                     limit = limit,
@@ -62,7 +63,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                SearchRequestBody.create(
+                SearchRequestBody.Companion.create(
                     search = query,
                     searchTypes = listOf(SearchRequestBody.SearchType.Albums),
                     limit = limit,
@@ -78,7 +79,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                SearchRequestBody.create(
+                SearchRequestBody.Companion.create(
                     search = query,
                     searchTypes = listOf(SearchRequestBody.SearchType.Artists),
                     limit = limit,
@@ -94,7 +95,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                SearchPlaylistRequestBody.create(
+                SearchPlaylistRequestBody.Companion.create(
                     search = query,
                     limit = limit,
                     offset = offset,
@@ -113,7 +114,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                InLibrarySearchRequestBody.create(
+                InLibrarySearchRequestBody.Companion.create(
                     search = query,
                     searchTypes = listOf(InLibrarySearchRequestBody.InLibrarySearchType.Songs),
                     limit = limit,
@@ -133,7 +134,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                InLibrarySearchRequestBody.create(
+                InLibrarySearchRequestBody.Companion.create(
                     search = query,
                     searchTypes = listOf(InLibrarySearchRequestBody.InLibrarySearchType.Albums),
                     limit = limit,
@@ -153,7 +154,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                InLibrarySearchRequestBody.create(
+                InLibrarySearchRequestBody.Companion.create(
                     search = query,
                     searchTypes = listOf(InLibrarySearchRequestBody.InLibrarySearchType.Artists),
                     limit = limit,
@@ -173,7 +174,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                InLibrarySearchRequestBody.create(
+                InLibrarySearchRequestBody.Companion.create(
                     search = query,
                     searchTypes = listOf(InLibrarySearchRequestBody.InLibrarySearchType.Playlists),
                     limit = limit,
@@ -192,7 +193,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                LibraryRequestBody.create(
+                LibraryRequestBody.Companion.create(
                     type = LibraryRequestBody.LibraryType.SONGS,
                     limit = limit,
                     offset = offset,
@@ -210,7 +211,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                LibraryRequestBody.create(
+                LibraryRequestBody.Companion.create(
                     type = LibraryRequestBody.LibraryType.ALBUMS,
                     limit = limit,
                     offset = offset,
@@ -228,7 +229,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                LibraryRequestBody.create(
+                LibraryRequestBody.Companion.create(
                     type = LibraryRequestBody.LibraryType.ARTISTS,
                     limit = limit,
                     offset = offset,
@@ -246,7 +247,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                LibraryRequestBody.create(
+                LibraryRequestBody.Companion.create(
                     type = LibraryRequestBody.LibraryType.PLAYLISTS,
                     limit = limit,
                     offset = offset,
@@ -261,7 +262,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                ArtistDetailsRequestBody.create(
+                ArtistDetailsRequestBody.Companion.create(
                     artistId,
                 )
             )
@@ -278,7 +279,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                ArtistViewsRequestBody.create(
+                ArtistViewsRequestBody.Companion.create(
                     artistId = artistId,
                     viewType = ArtistViewsRequestBody.ViewType.TopSongs,
                     limit = limit,
@@ -298,7 +299,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                ArtistViewsRequestBody.create(
+                ArtistViewsRequestBody.Companion.create(
                     artistId = artistId,
                     viewType = ArtistViewsRequestBody.ViewType.FullAlbums,
                     limit = limit,
@@ -318,7 +319,7 @@ class CiderApi(
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
-                ArtistViewsRequestBody.create(
+                ArtistViewsRequestBody.Companion.create(
                     artistId = artistId,
                     viewType = ArtistViewsRequestBody.ViewType.Singles,
                     limit = limit,

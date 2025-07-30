@@ -1,5 +1,6 @@
-package com.snowdango.bijouk.domain.api
+package com.snowdango.bijouk.domain.api.rpc
 
+import com.snowdango.bijouk.domain.api.getCiderHttpClient
 import com.snowdango.bijouk.domain.api.request.ChangeQueueIndexRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveQueueRequestBody
 import com.snowdango.bijouk.domain.api.request.MoveSeekRequestBody
@@ -102,7 +103,7 @@ class CiderRPCApi(
         val response = client.post {
             url("/api/v1/playback/play-item")
             contentType(ContentType.Application.Json)
-            setBody(PlayRequestBody.create(type, id))
+            setBody(PlayRequestBody.Companion.create(type, id))
         }
         return response.body<BasicResponse>()
     }
@@ -111,7 +112,7 @@ class CiderRPCApi(
         val response = client.post {
             url("/api/v1/playback/play-next")
             contentType(ContentType.Application.Json)
-            setBody(PlayRequestBody.create(type, id))
+            setBody(PlayRequestBody.Companion.create(type, id))
         }
         return response.body<BasicResponse>()
     }
@@ -120,7 +121,7 @@ class CiderRPCApi(
         val response = client.post {
             url("/api/v1/playback/play-later")
             contentType(ContentType.Application.Json)
-            setBody(PlayRequestBody.create(type, id))
+            setBody(PlayRequestBody.Companion.create(type, id))
         }
         return response.body<BasicResponse>()
     }

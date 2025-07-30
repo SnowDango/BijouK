@@ -1,11 +1,11 @@
 package com.snowdango.bijouk.repository.cider
 
 
-import com.snowdango.bijouk.domain.api.CiderApi
 import com.snowdango.bijouk.domain.api.entity.AlbumData
 import com.snowdango.bijouk.domain.api.entity.ArtistsData
 import com.snowdango.bijouk.domain.api.entity.PlaylistData
 import com.snowdango.bijouk.domain.api.entity.SongData
+import com.snowdango.bijouk.domain.api.music.CiderApi
 import com.snowdango.bijouk.domain.api.response.ArtistFullAlbumResponse
 import com.snowdango.bijouk.domain.api.response.ArtistSingleResponse
 import com.snowdango.bijouk.domain.api.response.ArtistsResponse
