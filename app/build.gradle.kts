@@ -42,6 +42,23 @@ android {
             buildConfigField("String", "VERSION_NAME", "\"$versionNameBase-debug\"")
         }
     }
+
+    signingConfigs {
+        val properties = readProperties(file("../local.properties"))
+        create("release") {
+            storeFile = file("../release.keystore")
+            storePassword = properties.getProperty("release.storepass")
+            keyAlias = "snowdango"
+            keyPassword = properties.getProperty("release.keypass")
+        }
+        getByName("debug") {
+            storeFile = file("../debug.keystore")
+            storePassword = properties.getProperty("debug.storepass")
+            keyAlias = "snowdango"
+            keyPassword = properties.getProperty("debug.keypass")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
