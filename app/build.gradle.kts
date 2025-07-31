@@ -51,6 +51,12 @@ android {
             keyAlias = "snowdango"
             keyPassword = properties.getProperty("release.keypass")
         }
+        getByName("debug") {
+            storeFile = file("../debug.keystore")
+            storePassword = properties.getProperty("debug.storepass")
+            keyAlias = "snowdango"
+            keyPassword = properties.getProperty("debug.keypass")
+        }
     }
 
     compileOptions {
