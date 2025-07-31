@@ -1,27 +1,23 @@
 package com.snowdango.bijouk.model.cider.mapper.converter
 
-import com.snowdango.bijouk.domain.api.entity.Artists
-import com.snowdango.bijouk.domain.api.entity.ArtistsData
-import com.snowdango.bijouk.model.cider.data.SearchArtist
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Artists
+import com.snowdango.bijouk.domain.api.entity.music.library.LibraryArtists
+import com.snowdango.bijouk.model.cider.data.entity.ArtistData
 
-fun Artists.convertSearch(): List<SearchArtist> {
-    return data.map {
-        SearchArtist(
-            id = it.id,
-            name = it.attributes.name,
-            href = it.href,
-            albums = it.relationships?.albums?.convertSearch().orEmpty(),
-            artwork = it.attributes.artwork?.convert().orEmpty(),
-        )
-    }
+fun Artists.convert(): ArtistData {
+    return ArtistData(
+        id = id,
+        name = attributes?.name.orEmpty(),
+        artwork = attributes?.artwork?.convert().orEmpty(),
+        href = href,
+    )
 }
 
-fun ArtistsData.convert(): SearchArtist {
-    return SearchArtist(
+fun LibraryArtists.convert(): ArtistData {
+    return ArtistData(
         id = id,
-        name = attributes.name,
+        name = attributes?.name.orEmpty(),
+        artwork = "",
         href = href,
-        albums = relationships?.albums?.convertSearch().orEmpty(),
-        artwork = attributes.artwork?.convert().orEmpty(),
     )
 }

@@ -1,6 +1,6 @@
 package com.snowdango.bijouk.model.cider.mapper.event
 
-import com.snowdango.bijouk.domain.api.event.NowPlayingStatusDidChange
+import com.snowdango.bijouk.domain.api.socket.event.NowPlayingStatusDidChange
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 
 fun NowPlayingStatusDidChange.convert(): NowPlayingStatusData {

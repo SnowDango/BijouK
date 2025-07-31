@@ -28,8 +28,8 @@ import com.snowdango.bijouk.features.artist.component.ArtistSingles
 import com.snowdango.bijouk.features.artist.component.ArtistTopSongs
 import com.snowdango.bijouk.features.artist.component.ArtistsDetailTopBar
 import com.snowdango.bijouk.model.cider.data.ArtistDetailData
-import com.snowdango.bijouk.model.cider.data.entity.Album
-import com.snowdango.bijouk.model.cider.data.entity.Song
+import com.snowdango.bijouk.model.cider.data.entity.AlbumData
+import com.snowdango.bijouk.model.cider.data.entity.SongData
 import com.snowdango.bijouk.ui.component.ProgressContent
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -100,9 +100,9 @@ fun ArtistsDetailScreen(
 @Composable
 fun ArtistsDetailContent(
     detailData: ArtistDetailData,
-    artistTopSongs: List<Song>?,
-    artistFullAlbums: List<Album>?,
-    artistSingles: List<Album>?,
+    artistTopSongs: List<SongData>?,
+    artistFullAlbums: List<AlbumData>?,
+    artistSingles: List<AlbumData>?,
     sheetMinSize: Dp,
     onNavigationBack: () -> Unit,
     onPlayStation: (stationId: String) -> Unit,

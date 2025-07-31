@@ -1,8 +1,11 @@
 package com.snowdango.bijouk.repository
 
-import com.snowdango.bijouk.domain.api.CiderApi
-import com.snowdango.bijouk.domain.api.CiderSocket
+import com.snowdango.bijouk.domain.api.music.CiderApi
+import com.snowdango.bijouk.domain.api.rpc.CiderRPCApi
+import com.snowdango.bijouk.domain.api.socket.CiderSocket
+import com.snowdango.bijouk.repository.cider.CiderRPCRepository
 import com.snowdango.bijouk.repository.cider.CiderRepository
+import com.snowdango.bijouk.repository.cider.CiderSocketRepository
 import com.snowdango.bijouk.repository.device.DevicesRepository
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
@@ -13,8 +16,17 @@ object RepositoryModule {
         factory { param ->
             val baseUrl = param.get<String>()
             CiderRepository(
-                get<CiderApi> { parametersOf(baseUrl, param.get()) },
-                get<CiderSocket> { parametersOf(baseUrl) },
+                get<CiderApi> { parametersOf(baseUrl, param.get()) }
+            )
+        }
+        factory { param ->
+            CiderRPCRepository(
+                get<CiderRPCApi> { parametersOf(param.get(), param.get()) },
+            )
+        }
+        factory { param ->
+            CiderSocketRepository(
+                get<CiderSocket> { parametersOf(param.get()) },
             )
         }
     }

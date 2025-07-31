@@ -53,7 +53,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
 import coil3.compose.AsyncImage
 import com.snowdango.bijouk.features.artist.R
-import com.snowdango.bijouk.model.cider.data.entity.Station
+import com.snowdango.bijouk.model.cider.data.entity.StationData
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
@@ -67,7 +67,7 @@ fun ArtistsDetailTopBar(
     onNavigationBack: () -> Unit,
     onPlayStation: (stationId: String) -> Unit,
     modifier: Modifier = Modifier,
-    station: Station? = null,
+    station: StationData? = null,
 ) {
     val density = LocalDensity.current
     val systemBarHeight = WindowInsets.systemBars.asPaddingValues().calculateTopPadding()
@@ -227,13 +227,6 @@ val constraintSet = ConstraintSet {
         end.linkTo(artworkRef.end)
         bottom.linkTo(parent.bottom)
     }
-    /*if (hasStation) {
-        val stationRef = createRefFor("station")
-        constrain(stationRef) {
-            end.linkTo(parent.end, margin = 32.dp)
-            bottom.linkTo(parent.bottom, margin = 16.dp)
-        }
-    }*/
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -248,7 +241,7 @@ private fun PreviewArtistsDetailHeader() {
             scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
             onNavigationBack = {},
             onPlayStation = {},
-            station = Station(
+            station = StationData(
                 id = "station1",
                 name = "Station Name",
                 artwork = "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/5e/e1/5e" +

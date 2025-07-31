@@ -1,6 +1,6 @@
 package com.snowdango.bijouk.model.cider.mapper.event
 
-import com.snowdango.bijouk.domain.api.event.NowPlayingItemDidChangeEvent
+import com.snowdango.bijouk.domain.api.socket.event.NowPlayingItemDidChangeEvent
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.mapper.converter.convert
 

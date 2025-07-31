@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.infla.SharedEventStore
 import com.snowdango.bijouk.model.cider.CiderModel
+import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
 import kotlinx.coroutines.CancellationException
@@ -26,6 +27,7 @@ class QueueViewModel(
 
     val sharedEventStore: SharedEventStore by inject()
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
+    private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
 
     private val _queueViewDataFlow: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val queueViewDataFlow = _queueViewDataFlow.stateIn(
@@ -72,7 +74,7 @@ class QueueViewModel(
 
     private fun queueLoad() = viewModelScope.launch(Dispatchers.IO) {
         try {
-            val data = ciderModel.getQueue()
+            val data = ciderRPCModel.getQueue()
             _isRefreshFlow.emit(false)
             _queueViewDataFlow.emit(UiState.Success(data))
         } catch (ce: CancellationException) {
@@ -90,7 +92,7 @@ class QueueViewModel(
                 if (uiState !is UiState.Success) return@launch
                 val nextIndex = uiState.queueDataList.list
                     .indexOfFirst { it.state == QueueData.State.Current } + 1
-                ciderModel.moveQueue(index, nextIndex)
+                ciderRPCModel.moveQueue(index, nextIndex)
                 val queueDataList = uiState.queueDataList.copy(
                     list = uiState.queueDataList.list.toMutableList().also {
                         val data = it[index]
@@ -110,7 +112,7 @@ class QueueViewModel(
 
     fun skipQueue(index: Int) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            ciderModel.changeQueueIndex(index)
+            ciderRPCModel.changeQueueIndex(index)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {

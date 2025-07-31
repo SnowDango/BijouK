@@ -12,7 +12,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.snowdango.bijouk.features.search.album.component.SearchAlbumCard
-import com.snowdango.bijouk.model.cider.data.SearchAlbum
+import com.snowdango.bijouk.model.cider.data.entity.AlbumData
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -21,7 +21,7 @@ fun SearchAlbumsScreen(
     baseUrl: String,
     token: String,
     sheetMinSize: Dp,
-    searchAlbums: LazyPagingItems<SearchAlbum>,
+    searchAlbums: LazyPagingItems<AlbumData>,
     modifier: Modifier = Modifier,
     viewModel: SearchAlbumsViewModel = koinViewModel<SearchAlbumsViewModel>(
         parameters = { parametersOf(baseUrl, token) }

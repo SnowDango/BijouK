@@ -17,13 +17,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.features.search.R
-import com.snowdango.bijouk.model.cider.data.SearchAlbum
+import com.snowdango.bijouk.model.cider.data.entity.AlbumData
 import com.snowdango.bijouk.ui.component.AlbumCard
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun SearchAlbumCard(
-    searchAlbum: SearchAlbum,
+    searchAlbum: AlbumData,
     onClickPlay: (id: String) -> Unit,
     onClickPlayNext: (id: String) -> Unit,
     modifier: Modifier = Modifier,

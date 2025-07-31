@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.model.cider.mapper.api
 
-import com.snowdango.bijouk.domain.api.response.NowPlayingResponse
-import com.snowdango.bijouk.domain.api.response.data.NowPlayingResponseData
+import com.snowdango.bijouk.domain.api.rpc.response.NowPlayingResponse
+import com.snowdango.bijouk.domain.api.rpc.response.NowPlayingResponseData
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData

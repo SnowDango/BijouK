@@ -16,12 +16,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.features.search.R
-import com.snowdango.bijouk.model.cider.data.SearchPlaylist
+import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
 import com.snowdango.bijouk.ui.component.PlaylistCard
 
 @Composable
 fun SearchPlaylistCard(
-    searchPlaylist: SearchPlaylist,
+    searchPlaylist: PlaylistData,
     onClickPlay: (String) -> Unit,
     onClickPlayNext: (id: String) -> Unit,
     onClickPlayLater: (id: String) -> Unit,

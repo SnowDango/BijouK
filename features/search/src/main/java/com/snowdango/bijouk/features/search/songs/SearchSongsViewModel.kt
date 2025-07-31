@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.infla.SharedEventStore
-import com.snowdango.bijouk.model.cider.CiderModel
+import com.snowdango.bijouk.model.cider.CiderRPCModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -18,11 +18,11 @@ class SearchSongsViewModel(
 ) : ViewModel(), KoinComponent {
 
     private val sharedEventStore: SharedEventStore by inject()
-    private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
+    private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
 
     fun searchSongPlay(songId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            ciderModel.songPlayById(songId)
+            ciderRPCModel.songPlayById(songId)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -32,7 +32,7 @@ class SearchSongsViewModel(
 
     fun searchSongPlayNext(songId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            ciderModel.songPlayNextById(songId)
+            ciderRPCModel.songPlayNextById(songId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
@@ -43,7 +43,7 @@ class SearchSongsViewModel(
 
     fun searchSongPlayLater(songId: String) = viewModelScope.launch(Dispatchers.IO) {
         try {
-            ciderModel.songPlayLaterById(songId)
+            ciderRPCModel.songPlayLaterById(songId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce

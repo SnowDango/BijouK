@@ -1,16 +1,14 @@
 package com.snowdango.bijouk.model.cider.mapper.converter
 
-import com.snowdango.bijouk.domain.api.entity.Stations
-import com.snowdango.bijouk.model.cider.data.entity.Station
 
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Stations
+import com.snowdango.bijouk.model.cider.data.entity.StationData
 
-fun Stations.convert(): List<Station> {
-    return data.map {
-        Station(
-            id = it.id,
-            name = it.attributes.name,
-            href = it.href,
-            artwork = it.attributes.artwork?.convert() ?: "",
-        )
-    }
+fun Stations.convert(): StationData {
+    return StationData(
+        id = this.id,
+        name = attributes.name,
+        artwork = attributes.artwork.convert().orEmpty(),
+        href = href,
+    )
 }
