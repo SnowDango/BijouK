@@ -6,6 +6,7 @@ import com.snowdango.bijouk.model.cider.data.entity.SongData
 import com.snowdango.bijouk.model.cider.mapper.api.convert
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryAlbumsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryArtistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryPlaylistFoldersPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryPlaylistsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibrarySongsPagingSource
 import com.snowdango.bijouk.model.cider.paging.search.SearchAlbumsPagingSource
@@ -75,6 +76,12 @@ class CiderModel(
         query: String,
     ): SearchInLibraryPlaylistsPagingSource {
         return SearchInLibraryPlaylistsPagingSource(query, repository)
+    }
+
+    fun getLibraryPlaylistFoldersPagingSource(
+        query: String,
+    ): SearchInLibraryPlaylistFoldersPagingSource {
+        return SearchInLibraryPlaylistFoldersPagingSource(query, repository)
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistDetailData? {

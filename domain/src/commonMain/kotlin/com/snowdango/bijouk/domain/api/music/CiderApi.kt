@@ -4,6 +4,7 @@ import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Songs
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryAlbums
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryArtists
+import com.snowdango.bijouk.domain.api.entity.music.library.LibraryPlaylistFolders
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryPlaylists
 import com.snowdango.bijouk.domain.api.entity.music.library.LibrarySongs
 import com.snowdango.bijouk.domain.api.getCiderHttpClient
@@ -256,6 +257,25 @@ class CiderApi(
         }
         return response.body<LibraryResponse<LibraryPlaylists>>()
     }
+
+    suspend fun libraryAllPlaylistFolders(
+        limit: Int,
+        offset: Int
+    ): LibraryResponse<LibraryPlaylistFolders> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                LibraryRequestBody.Companion.create(
+                    type = LibraryRequestBody.LibraryType.PLAYLIST_FOLDERS,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<LibraryResponse<LibraryPlaylistFolders>>()
+    }
+
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
         val response = client.post {

@@ -12,4 +12,7 @@
     <string name="search_dropdown_menu_play_next">次に再生</string>
     <string name="search_dropdown_menu_play_later">最後に再生</string>
 
+    <string name="search_library_category_folders">Folders</string>
+    <string name="search_library_category_playlists">Playlists</string>
+
 </resources>

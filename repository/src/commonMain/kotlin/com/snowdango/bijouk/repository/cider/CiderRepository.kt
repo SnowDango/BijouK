@@ -5,6 +5,7 @@ import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Songs
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryAlbums
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryArtists
+import com.snowdango.bijouk.domain.api.entity.music.library.LibraryPlaylistFolders
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryPlaylists
 import com.snowdango.bijouk.domain.api.entity.music.library.LibrarySongs
 import com.snowdango.bijouk.domain.api.music.CiderApi
@@ -97,6 +98,14 @@ class CiderRepository(
     ): LibraryResponse<LibraryPlaylists> {
         return ciderApi.libraryAllPlaylists(limit, offset)
     }
+
+    suspend fun libraryAllPlaylistFolders(
+        limit: Int,
+        offset: Int
+    ): LibraryResponse<LibraryPlaylistFolders> {
+        return ciderApi.libraryAllPlaylistFolders(limit, offset)
+    }
+
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
         return ciderApi.getArtistDetails(artistId)

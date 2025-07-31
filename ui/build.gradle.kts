@@ -44,6 +44,7 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.android.compose)
     implementation(libs.material.kolor)
+    implementation(libs.material.icon)
     implementation(libs.bundles.koin)
     implementation(libs.coil.compose)
     implementation(libs.aboutlibraries.core)

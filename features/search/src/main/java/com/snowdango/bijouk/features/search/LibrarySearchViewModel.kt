@@ -10,6 +10,7 @@ import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.data.entity.AlbumData
 import com.snowdango.bijouk.model.cider.data.entity.ArtistData
 import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
+import com.snowdango.bijouk.model.cider.data.entity.PlaylistFoldersData
 import com.snowdango.bijouk.model.cider.data.entity.SongData
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.component.KoinComponent
@@ -56,6 +57,15 @@ class LibrarySearchViewModel(
         )
     ) {
         ciderModel.getSearchInLibraryPlaylistsPagingSource(query)
+    }.flow.cachedIn(viewModelScope)
+
+    val searchPlaylistFoldersFlow: Flow<PagingData<PlaylistFoldersData>> = Pager(
+        config = PagingConfig(
+            pageSize = 25,
+            initialLoadSize = 25,
+        )
+    ) {
+        ciderModel.getLibraryPlaylistFoldersPagingSource(query)
     }.flow.cachedIn(viewModelScope)
 
     fun setQuery(query: String) {
