@@ -27,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
 import coil3.compose.SubcomposeAsyncImage
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
@@ -62,7 +61,6 @@ fun PlaylistCard(
                         .aspectRatio(1.0f)
                         .clip(RoundedCornerShape(8.dp))
                 ) {
-
                     SubcomposeAsyncImage(
                         model = cacheableImageRequest(
                             context = LocalContext.current,
@@ -103,7 +101,7 @@ fun PlaylistCard(
                         .fillMaxWidth(fraction = 0.7f)
                         .basicMarquee()
                 )
-                if(isLibrary.not()) {
+                if (isLibrary.not()) {
                     Text(
                         text = editor,
                         style = MaterialTheme.typography.bodyMedium,
@@ -136,8 +134,7 @@ private fun PreviewAlbumCard(
     }
 }
 
-private class AlbumThumbPreviewParameters: PreviewParameterProvider<String?> {
+private class AlbumThumbPreviewParameters : PreviewParameterProvider<String?> {
     override val values: Sequence<String?>
         get() = sequenceOf(null, "")
-
 }

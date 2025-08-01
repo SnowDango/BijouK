@@ -55,7 +55,6 @@ fun ArtistCard(
                         .fillMaxWidth(fraction = 0.7f)
                         .aspectRatio(1.0f)
                 ) {
-
                     SubcomposeAsyncImage(
                         model = cacheableImageRequest(
                             context = LocalContext.current,

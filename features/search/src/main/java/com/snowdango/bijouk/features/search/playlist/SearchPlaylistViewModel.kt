@@ -99,5 +99,4 @@ class SearchPlaylistViewModel(
             Log.e("SearchPlaylistViewModel", th.toString())
         }
     }
-
 }
