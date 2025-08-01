@@ -55,6 +55,9 @@ kotlin {
 
                 // coroutines
                 implementation(libs.kotlinx.coroutine.core)
+
+                // kmlogger
+                implementation(libs.kmlogger)
             }
         }
 

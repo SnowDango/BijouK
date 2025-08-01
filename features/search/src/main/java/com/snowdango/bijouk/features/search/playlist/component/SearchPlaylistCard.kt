@@ -37,6 +37,7 @@ fun SearchPlaylistCard(
             name = searchPlaylist.name,
             editor = searchPlaylist.curatorName,
             thumbnail = searchPlaylist.artwork,
+            trackThumbs = null,
             modifier = Modifier
                 .combinedClickable(
                     onLongClick = {

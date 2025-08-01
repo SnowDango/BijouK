@@ -114,6 +114,14 @@ class CiderRepository(
         return ciderApi.libraryPlaylistFolderChildren(folderId, limit, offset)
     }
 
+    suspend fun getLibraryPlaylistTracks(
+        playlistId: String,
+        limit: Int,
+        offset: Int = 0,
+    ): LibraryResponse<LibrarySongs> {
+        return ciderApi.getLibraryPlaylistTracks(playlistId, limit, offset)
+    }
+
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
         return ciderApi.getArtistDetails(artistId)
     }
