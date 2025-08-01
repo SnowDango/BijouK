@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.infla.SharedEventStore
-import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
@@ -26,7 +25,6 @@ class QueueViewModel(
 ) : ViewModel(), KoinComponent {
 
     val sharedEventStore: SharedEventStore by inject()
-    private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
 
     private val _queueViewDataFlow: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)

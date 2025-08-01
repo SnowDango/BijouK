@@ -5,6 +5,7 @@ import com.snowdango.bijouk.domain.api.rpc.request.PlayRequestBody
 import com.snowdango.bijouk.domain.api.rpc.response.BasicResponse
 import com.snowdango.bijouk.domain.api.rpc.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.rpc.response.QueueResponseData
+import com.snowdango.bijouk.domain.api.rpc.response.ShuffleResponse
 
 class CiderRPCRepository(
     private val ciderRPCApi: CiderRPCApi,
@@ -84,6 +85,14 @@ class CiderRPCRepository(
 
     suspend fun stationPlayById(stationId: String): BasicResponse {
         return ciderRPCApi.playById(stationId, PlayRequestBody.PlayType.Stations)
+    }
+
+    suspend fun getShuffleMode(): ShuffleResponse {
+        return ciderRPCApi.getShuffleMode()
+    }
+
+    suspend fun toggleShuffleMode(): BasicResponse {
+        return ciderRPCApi.toggleShuffleMode()
     }
 
 }

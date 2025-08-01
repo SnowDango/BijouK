@@ -17,7 +17,7 @@ data class NowPlayingItemDidChangeEvent(
 data class NowPlayingItemDidChangeEventData(
     val albumName: String,
     val artistName: String,
-    val artwork: RPCArtwork,
+    val artwork: RPCArtwork? = null,
     val audioLocale: String? = null,
     val audioTraits: List<String>? = null,
     val composerName: String? = null,

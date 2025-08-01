@@ -7,6 +7,7 @@ import com.snowdango.bijouk.domain.api.socket.event.NowPlayingItemDidChangeEvent
 import com.snowdango.bijouk.domain.api.socket.event.NowPlayingStatusDidChange
 import com.snowdango.bijouk.domain.api.socket.event.PlayBackStateDidChangeEvent
 import com.snowdango.bijouk.domain.api.socket.event.PlayBackTimeDidChangeEvent
+import com.snowdango.bijouk.domain.api.socket.event.ShuffleModeDidChangeEvent
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonObject
 
@@ -23,7 +24,8 @@ class CiderSocket(
         onTimeChangeEvent: (PlayBackTimeDidChangeEvent) -> Unit,
         onStateChangeEvent: (PlayBackStateDidChangeEvent) -> Unit,
         onNowPlayingItemChangeEvent: (NowPlayingItemDidChangeEvent) -> Unit,
-        onNowPlayingStatusChangeEvent: (NowPlayingStatusDidChange) -> Unit
+        onNowPlayingStatusChangeEvent: (NowPlayingStatusDidChange) -> Unit,
+        onShuffleModeChangeEvent: (Boolean) -> Unit,
     ) {
         logger.d(null, "startSocket")
         IO.socket(
@@ -81,6 +83,14 @@ class CiderSocket(
                         onNowPlayingStatusChangeEvent.invoke(data)
                     }
 
+                    EventType.ShuffleModeDidChange -> {
+                        val data = Json.Default.decodeFromString<ShuffleModeDidChangeEvent>(
+                            param[0].toString()
+                        )
+                        logger.d(null, data.toString())
+                        onShuffleModeChangeEvent.invoke(data.data == 1)
+                    }
+
                     else -> logger.w(
                         null,
                         "UnknownTypeError: ${Json.Default.encodeToString(json["type"])}"
@@ -105,6 +115,7 @@ class CiderSocket(
         PlayBackTimeDidChange("playbackStatus.playbackTimeDidChange"),
         PlayBackStateDidChange("playbackStatus.playbackStateDidChange"),
         NowPlayingStatusDidChange("playbackStatus.nowPlayingStatusDidChange"),
-        NowPlayingItemDidChange("playbackStatus.nowPlayingItemDidChange")
+        NowPlayingItemDidChange("playbackStatus.nowPlayingItemDidChange"),
+        ShuffleModeDidChange("playerStatus.shuffleModeDidChange"),
     }
 }

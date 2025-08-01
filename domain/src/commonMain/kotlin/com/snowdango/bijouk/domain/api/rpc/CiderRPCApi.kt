@@ -8,6 +8,7 @@ import com.snowdango.bijouk.domain.api.rpc.request.PlayRequestBody
 import com.snowdango.bijouk.domain.api.rpc.response.BasicResponse
 import com.snowdango.bijouk.domain.api.rpc.response.NowPlayingResponse
 import com.snowdango.bijouk.domain.api.rpc.response.QueueResponseData
+import com.snowdango.bijouk.domain.api.rpc.response.ShuffleResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
@@ -122,6 +123,23 @@ class CiderRPCApi(
             url("/api/v1/playback/play-later")
             contentType(ContentType.Application.Json)
             setBody(PlayRequestBody.Companion.create(type, id))
+        }
+        return response.body<BasicResponse>()
+    }
+
+    suspend fun getShuffleMode(): ShuffleResponse {
+        val response = client.get {
+            url("/api/v1/playback/shuffle-mode")
+            contentType(ContentType.Application.Json)
+        }
+        return response.body<ShuffleResponse>()
+    }
+
+    suspend fun toggleShuffleMode(): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/toggle-shuffle")
+            contentType(ContentType.Application.Json)
+            setBody("{}")
         }
         return response.body<BasicResponse>()
     }

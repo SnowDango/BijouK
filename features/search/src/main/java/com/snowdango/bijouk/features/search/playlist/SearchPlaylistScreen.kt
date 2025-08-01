@@ -10,7 +10,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -39,7 +38,6 @@ fun SearchPlaylistScreen(
         parametersOf(baseUrl, token)
     },
 ) {
-    val scrollState = rememberScrollState()
     BoxWithConstraints(
         modifier = modifier.fillMaxSize()
     ) {
@@ -66,6 +64,9 @@ fun SearchPlaylistScreen(
                     PlaylistFolderContent(
                         searchPlaylistFolders = searchPlaylistFolders,
                         cardWidthSize = (this@BoxWithConstraints.maxWidth - 16.dp) / 3,
+                        onClickPlay = viewModel::playPlaylistFolder,
+                        onClickPlayNext = viewModel::searchPlaylistPlayNext,
+                        onClickPlayLater = viewModel::searchPlaylistPlayLater,
                         modifier = Modifier
                             .fillMaxWidth()
                     )
@@ -97,6 +98,9 @@ fun SearchPlaylistScreen(
 fun PlaylistFolderContent(
     searchPlaylistFolders: LazyPagingItems<PlaylistFoldersData>,
     cardWidthSize: Dp,
+    onClickPlay: (String) -> Unit,
+    onClickPlayNext: (id: String) -> Unit,
+    onClickPlayLater: (id: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
@@ -112,9 +116,9 @@ fun PlaylistFolderContent(
             playlistFolder?.let {
                 SearchPlaylistFolderCard(
                     playlistFoldersData = it,
-                    onClickPlay = {},
-                    onClickPlayNext = {},
-                    onClickPlayLater = {},
+                    onClickPlay = onClickPlay,
+                    onClickPlayNext = onClickPlayNext,
+                    onClickPlayLater = onClickPlayLater,
                     modifier = Modifier
                         .width(cardWidthSize)
                 )

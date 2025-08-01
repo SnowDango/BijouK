@@ -41,6 +41,9 @@ class CiderSocketModel(
             onNowPlayingStatusChangeEvent = {
                 playBackEventListener.onNowPlayingStatusChangeEvent(it.convert())
             },
+            onShuffleModeChangeEvent = {
+                playBackEventListener.onShuffleModeChangeEvent(it)
+            }
         )
     }
 
@@ -53,6 +56,7 @@ class CiderSocketModel(
         fun onStateChangeEvent(nowPlayData: NowPlayData?, playBackTimeData: PlayBackTimeData?)
         fun onNowPlayingItemChangeEvent(nowPlayData: NowPlayData)
         fun onNowPlayingStatusChangeEvent(nowPlayingStatusData: NowPlayingStatusData)
+        fun onShuffleModeChangeEvent(isShuffle: Boolean)
     }
 
     interface SocketConnectionEventListener {
