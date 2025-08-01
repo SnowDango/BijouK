@@ -1,5 +1,6 @@
 package com.snowdango.bijouk.ui.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,6 +8,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,7 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
@@ -40,12 +43,29 @@ fun SongCard(
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            AsyncImage(
+            SubcomposeAsyncImage(
                 model = cacheableImageRequest(
                     context = LocalContext.current,
                     data = artwork
                 ).build(),
                 contentDescription = null,
+                loading = {
+                    LoadingThumbnail()
+                },
+                success = {
+                    Image(
+                        painter = it.painter,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .size(48.dp)
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                },
+                error = {
+                    EmptyThumbnail(
+                        imageVector = Icons.Default.MusicNote,
+                    )
+                },
                 modifier = Modifier
                     .size(48.dp)
                     .clip(RoundedCornerShape(8.dp)),

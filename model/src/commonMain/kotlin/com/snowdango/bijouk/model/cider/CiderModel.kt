@@ -1,11 +1,15 @@
 package com.snowdango.bijouk.model.cider
 
+import androidx.compose.ui.Modifier
 import com.snowdango.bijouk.model.cider.data.ArtistDetailData
 import com.snowdango.bijouk.model.cider.data.entity.AlbumData
+import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
 import com.snowdango.bijouk.model.cider.data.entity.SongData
 import com.snowdango.bijouk.model.cider.mapper.api.convert
+import com.snowdango.bijouk.model.cider.mapper.converter.convert
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryAlbumsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryArtistsPagingSource
+import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryPlaylistFoldersPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryPlaylistsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibrarySongsPagingSource
 import com.snowdango.bijouk.model.cider.paging.search.SearchAlbumsPagingSource
@@ -75,6 +79,30 @@ class CiderModel(
         query: String,
     ): SearchInLibraryPlaylistsPagingSource {
         return SearchInLibraryPlaylistsPagingSource(query, repository)
+    }
+
+    fun getLibraryPlaylistFoldersPagingSource(
+        query: String,
+    ): SearchInLibraryPlaylistFoldersPagingSource {
+        return SearchInLibraryPlaylistFoldersPagingSource(query, repository)
+    }
+
+    suspend fun getAllPlaylistFolderChildren(
+        folderId: String,
+    ): List<PlaylistData> {
+        val playlists: MutableList<PlaylistData> = mutableListOf()
+        var hasNext: Boolean = true
+        while (hasNext) {
+            val response = repository.libraryPlaylistFolderChildren(
+                folderId = folderId,
+                limit = 100,
+                offset = playlists.size
+            )
+            val children = response.data.data?.map { it.convert() }
+            children?.let { playlists.addAll(it) }
+            hasNext = response.data.next != null
+        }
+        return playlists
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistDetailData? {

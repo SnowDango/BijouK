@@ -58,6 +58,7 @@ fun LibrarySearchScreen(
     val searchAlbums = viewModel.searchAlbumsFlow.collectAsLazyPagingItems()
     val searchArtists = viewModel.searchArtistsFlow.collectAsLazyPagingItems()
     val searchPlaylists = viewModel.searchPlaylistsFlow.collectAsLazyPagingItems()
+    val searchPlaylistFolders = viewModel.searchPlaylistFoldersFlow.collectAsLazyPagingItems()
 
     val keyboardController = LocalSoftwareKeyboardController.current
     var inputString by remember { mutableStateOf("") }
@@ -77,6 +78,7 @@ fun LibrarySearchScreen(
                             searchAlbums.refresh()
                             searchArtists.refresh()
                             searchPlaylists.refresh()
+                            searchPlaylistFolders.refresh()
                         },
                         expanded = false,
                         onExpandedChange = { },
@@ -160,6 +162,7 @@ fun LibrarySearchScreen(
                             baseUrl = baseUrl,
                             token = token,
                             sheetMinSize = sheetMinSize,
+                            searchPlaylistFolders = searchPlaylistFolders,
                             searchPlaylist = searchPlaylists,
                             modifier = Modifier.fillMaxSize(),
                         )

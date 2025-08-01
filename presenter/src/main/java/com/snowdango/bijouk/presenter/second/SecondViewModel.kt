@@ -91,6 +91,10 @@ class SecondViewModel(
                 sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueUpdated)
             }
         }
+
+        override fun onShuffleModeChangeEvent(isShuffle: Boolean) {
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.ShuffleModeUpdated(isShuffle))
+        }
     }
 
     private val socketConnectionEventListener =
@@ -100,6 +104,7 @@ class SecondViewModel(
                     _connectionStateFlow.emit(true)
                 }
                 nowPlayLoad()
+                shuffleModeLoad()
             }
 
             override fun onDisConnect() {
@@ -111,7 +116,19 @@ class SecondViewModel(
 
     init {
         nowPlayLoad()
+        shuffleModeLoad()
         ciderSocketModel.connect(socketConnectionEventListener, playBackEventListener)
+    }
+
+    private fun shuffleModeLoad() = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val isShuffle = ciderRPCModel.getShuffleMode()
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.ShuffleModeUpdated(isShuffle))
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
+        }
     }
 
     private fun nowPlayLoad() = viewModelScope.launch(Dispatchers.IO) {

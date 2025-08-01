@@ -22,5 +22,6 @@ data class LibraryRequestBody(
         ALBUMS("albums"),
         PLAYLISTS("playlists"),
         ARTISTS("artists"),
+        PLAYLIST_FOLDERS("playlist-folders"),
     }
 }

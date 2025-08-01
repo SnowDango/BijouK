@@ -108,4 +108,29 @@ class CiderRPCModel(
         repository.playlistPlayLaterById(id)
     }
 
+    suspend fun playlistFolderPlayById(ids: List<String>) {
+        ids.forEachIndexed { index, playlistId ->
+           repository.playlistPlayNextById(playlistId)
+        }
+    }
+
+    suspend fun getShuffleMode(): Boolean {
+        val response = repository.getShuffleMode()
+        return response.value == 1
+    }
+
+    suspend fun toggleShuffleMode() {
+        repository.toggleShuffleMode()
+    }
+
+    suspend fun setShuffleMode(shuffle: Boolean, currentMode: Boolean) {
+        if (currentMode == shuffle) {
+            repeat(2) {
+                toggleShuffleMode()
+            }
+        }else {
+            toggleShuffleMode()
+        }
+    }
+
 }

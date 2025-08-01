@@ -16,7 +16,8 @@ class CiderSocketRepository(
         onTimeChangeEvent: (PlayBackTimeDidChangeEvent) -> Unit,
         onStateChangeEvent: (PlayBackStateDidChangeEvent) -> Unit,
         onNowPlayingItemChangeEvent: (NowPlayingItemDidChangeEvent) -> Unit,
-        onNowPlayingStatusChangeEvent: (NowPlayingStatusDidChange) -> Unit
+        onNowPlayingStatusChangeEvent: (NowPlayingStatusDidChange) -> Unit,
+        onShuffleModeChangeEvent: (Boolean) -> Unit,
     ) {
         ciderSocket.startSocket(
             onConnect,
@@ -24,7 +25,8 @@ class CiderSocketRepository(
             onTimeChangeEvent,
             onStateChangeEvent,
             onNowPlayingItemChangeEvent,
-            onNowPlayingStatusChangeEvent
+            onNowPlayingStatusChangeEvent,
+            onShuffleModeChangeEvent,
         )
     }
 

@@ -10,7 +10,7 @@ fun NowPlayingItemDidChangeEvent.convert(): NowPlayData {
         name = data.name,
         artistName = data.artistName,
         albumName = data.albumName,
-        artwork = data.artwork.convert(),
+        artwork = data.artwork?.convert().orEmpty(),
         hasLyrics = data.hasLyrics,
     )
 }

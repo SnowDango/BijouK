@@ -84,7 +84,7 @@ data class QueueMetadata(
     val artistId: String? = null,
     val artistName: String,
     val bitRate: Int,
-    val compilation: Boolean,
+    val compilation: Boolean? = null,
     val composerId: String? = null,
     val composerName: String? = null,
     val copyright: String? = null,

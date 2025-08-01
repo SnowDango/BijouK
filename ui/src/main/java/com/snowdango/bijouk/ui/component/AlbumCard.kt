@@ -1,5 +1,6 @@
 package com.snowdango.bijouk.ui.component
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -9,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Album
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -22,7 +25,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
@@ -55,13 +58,30 @@ fun AlbumCard(
                         .aspectRatio(1.0f)
                         .clip(RoundedCornerShape(8.dp))
                 ) {
-                    AsyncImage(
+                    SubcomposeAsyncImage(
                         model = cacheableImageRequest(
                             context = LocalContext.current,
                             data = artwork,
                         ).build(),
                         contentScale = ContentScale.Inside,
                         contentDescription = null,
+                        loading = {
+                            LoadingThumbnail()
+                        },
+                        success = {
+                            Image(
+                                painter = it.painter,
+                                contentDescription = null,
+                                contentScale = ContentScale.Inside,
+                                modifier = Modifier
+                                    .fillMaxSize()
+                            )
+                        },
+                        error = {
+                            EmptyThumbnail(
+                                imageVector = Icons.Default.Album,
+                            )
+                        },
                         modifier = Modifier
                             .fillMaxSize()
                     )
