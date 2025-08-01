@@ -12,7 +12,8 @@ data class LibraryRequestBody(
             return SearchRequestBody(
                 path = "/v1/me/library/${type.type}?" +
                         "&limit=$limit" +
-                        "&offset=$offset"
+                        "&offset=$offset" +
+                        "&include=catalog"
             )
         }
     }

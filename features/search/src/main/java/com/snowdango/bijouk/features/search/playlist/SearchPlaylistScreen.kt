@@ -6,10 +6,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.GridItemSpan
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +29,7 @@ fun SearchPlaylistScreen(
     baseUrl: String,
     token: String,
     sheetMinSize: Dp,
+    isLibrary: Boolean,
     searchPlaylistFolders: LazyPagingItems<PlaylistFoldersData>?,
     searchPlaylist: LazyPagingItems<PlaylistData>,
     modifier: Modifier = Modifier,
@@ -41,26 +40,23 @@ fun SearchPlaylistScreen(
     BoxWithConstraints(
         modifier = modifier.fillMaxSize()
     ) {
-        val cellCount = if (maxWidth < 600.dp) 2 else 3
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(cellCount),
+        LazyColumn(
             modifier = Modifier
                 .padding(horizontal = 8.dp)
                 .fillMaxSize(),
             contentPadding = PaddingValues(
-                top = 16.dp,
-                bottom = sheetMinSize,
-            ),
+                bottom = sheetMinSize
+            )
         ) {
             if (searchPlaylistFolders != null && searchPlaylistFolders.itemCount > 0) {
-                item(span = { GridItemSpan(maxLineSpan) }) {
+                item {
                     Text(
                         text = stringResource(R.string.search_library_category_folders),
                         style = MaterialTheme.typography.titleLarge,
                         maxLines = 1,
                     )
                 }
-                item(span = { GridItemSpan(maxLineSpan) }) {
+                item {
                     PlaylistFolderContent(
                         searchPlaylistFolders = searchPlaylistFolders,
                         cardWidthSize = (this@BoxWithConstraints.maxWidth - 16.dp) / 3,
@@ -71,7 +67,7 @@ fun SearchPlaylistScreen(
                             .fillMaxWidth()
                     )
                 }
-                item(span = { GridItemSpan(maxLineSpan) }) {
+                item {
                     Text(
                         text = stringResource(R.string.search_library_category_playlists),
                         style = MaterialTheme.typography.titleLarge,
@@ -84,6 +80,7 @@ fun SearchPlaylistScreen(
                 playlist?.let {
                     SearchPlaylistCard(
                         searchPlaylist = it,
+                        isLibrary,
                         onClickPlay = viewModel::searchPlaylistPlay,
                         onClickPlayNext = viewModel::searchPlaylistPlayNext,
                         onClickPlayLater = viewModel::searchPlaylistPlayLater,

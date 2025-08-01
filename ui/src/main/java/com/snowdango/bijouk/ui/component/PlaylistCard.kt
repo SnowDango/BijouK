@@ -1,19 +1,16 @@
 package com.snowdango.bijouk.ui.component
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.basicMarquee
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.QueueMusic
@@ -21,13 +18,13 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment.Companion.CenterHorizontally
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -49,94 +46,84 @@ fun PlaylistCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .wrapContentHeight(),
     ) {
-        Box(
+        Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight()
+                .padding(horizontal = 32.dp, vertical = 16.dp)
+                .fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
         ) {
-            Column(
-                modifier = Modifier
-                    .padding(12.dp)
-                    .fillMaxWidth(),
-                horizontalAlignment = CenterHorizontally,
-            ) {
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth(fraction = 0.7f)
-                        .aspectRatio(1.0f)
-                        .clip(RoundedCornerShape(8.dp))
-                ) {
-                    SubcomposeAsyncImage(
-                        model = cacheableImageRequest(
-                            context = LocalContext.current,
-                            data = thumbnail,
-                        ).build(),
-                        loading = {
-                            LoadingThumbnail()
-                        },
-                        success = {
-                            Image(
-                                painter = it.painter,
-                                contentDescription = null,
-                                contentScale = ContentScale.Inside,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                            )
-                        },
-                        error = {
-                            if (trackThumbs.isNullOrEmpty()) {
-                                EmptyThumbnail(
-                                    imageVector = Icons.AutoMirrored.Default.QueueMusic,
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                )
-                            } else if (trackThumbs.size >= 4) {
-                                PlaylistTracksGridThumb(
-                                    trackThumbs = trackThumbs,
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                )
-                            } else {
-                                AsyncImage(
-                                    model = cacheableImageRequest(
-                                        context = LocalContext.current,
-                                        data = trackThumbs.firstOrNull(),
-                                    ).build(),
-                                    contentDescription = null,
-                                    modifier = Modifier
-                                        .fillMaxSize()
-                                )
-                            }
-                        },
-                        contentScale = ContentScale.Crop,
+            SubcomposeAsyncImage(
+                model = cacheableImageRequest(
+                    context = LocalContext.current,
+                    data = thumbnail,
+                ).build(),
+                loading = {
+                    LoadingThumbnail()
+                },
+                success = {
+                    Image(
+                        painter = it.painter,
                         contentDescription = null,
+                        contentScale = ContentScale.Inside,
                         modifier = Modifier
                             .fillMaxSize()
                     )
-                }
+                },
+                error = {
+                    if (trackThumbs.isNullOrEmpty()) {
+                        EmptyThumbnail(
+                            imageVector = Icons.AutoMirrored.Default.QueueMusic,
+                            modifier = Modifier
+                                .fillMaxSize()
+                        )
+                    } else if (trackThumbs.size >= 4) {
+                        PlaylistTracksGridThumb(
+                            trackThumbs = trackThumbs,
+                            modifier = Modifier
+                                .fillMaxSize()
+                        )
+                    } else {
+                        AsyncImage(
+                            model = cacheableImageRequest(
+                                context = LocalContext.current,
+                                data = trackThumbs.firstOrNull(),
+                            ).build(),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxSize()
+                        )
+                    }
+                },
+                contentScale = ContentScale.Crop,
+                contentDescription = null,
+                modifier = Modifier
+                    .size(48.dp)
+                    .clip(RoundedCornerShape(8.dp))
+            )
+            Column(
+                modifier = Modifier
+                    .padding(start = 8.dp)
+                    .fillMaxWidth()
+                    .weight(1f),
+                verticalArrangement = Arrangement.Center,
+            ) {
                 Text(
                     text = name,
-                    style = MaterialTheme.typography.bodyMedium,
-                    maxLines = 1,
-                    textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .padding(top = 8.dp)
-                        .fillMaxWidth(fraction = 0.7f)
-                        .basicMarquee()
+                        .padding(bottom = 4.dp),
+                    maxLines = if (isLibrary) 2 else 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.bodyMedium,
                 )
-                if (isLibrary.not()) {
+                if (!isLibrary) {
                     Text(
                         text = editor,
-                        style = MaterialTheme.typography.bodyMedium,
-                        maxLines = 1,
-                        textAlign = TextAlign.Center,
                         modifier = Modifier
-                            .padding(top = 4.dp)
-                            .alpha(0.5f)
-                            .fillMaxWidth(fraction = 0.7f)
-                            .basicMarquee()
+                            .alpha(alpha = 0.5f),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                        style = MaterialTheme.typography.bodyMedium,
                     )
                 }
             }

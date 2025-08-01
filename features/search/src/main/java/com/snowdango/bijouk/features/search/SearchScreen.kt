@@ -160,6 +160,7 @@ fun SearchScreen(
                             baseUrl = baseUrl,
                             token = token,
                             sheetMinSize = sheetMinSize,
+                            isLibrary = false,
                             searchPlaylistFolders = null,
                             searchPlaylist = searchPlaylists,
                             modifier = Modifier.fillMaxSize(),

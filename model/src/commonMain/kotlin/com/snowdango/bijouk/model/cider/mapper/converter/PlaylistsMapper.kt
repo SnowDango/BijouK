@@ -21,7 +21,10 @@ fun LibraryPlaylists.convert(): PlaylistData {
         name = attributes?.name.orEmpty(),
         curatorName = "",
         description = attributes?.description?.standard,
-        artwork = attributes?.artwork?.convert(),
+        artwork = attributes?.artwork?.convert()
+            ?: relationships?.catalog?.data?.map {
+                it.attributes?.artwork?.convert()
+            }?.firstOrNull { !it.isNullOrEmpty() },
         href = href,
     )
 }

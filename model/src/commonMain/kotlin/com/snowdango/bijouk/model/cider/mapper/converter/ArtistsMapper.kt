@@ -17,7 +17,9 @@ fun LibraryArtists.convert(): ArtistData {
     return ArtistData(
         id = id,
         name = attributes?.name.orEmpty(),
-        artwork = "",
+        artwork = relationships?.catalog?.data?.map {
+            it.attributes?.artwork?.convert()
+        }?.firstOrNull { !it.isNullOrBlank() } ?: "",
         href = href,
     )
 }
