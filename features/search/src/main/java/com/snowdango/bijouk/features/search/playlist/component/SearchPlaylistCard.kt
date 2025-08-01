@@ -22,6 +22,7 @@ import com.snowdango.bijouk.ui.component.PlaylistCard
 @Composable
 fun SearchPlaylistCard(
     searchPlaylist: PlaylistData,
+    isLibrary: Boolean,
     onClickPlay: (String) -> Unit,
     onClickPlayNext: (id: String) -> Unit,
     onClickPlayLater: (id: String) -> Unit,
@@ -37,6 +38,8 @@ fun SearchPlaylistCard(
             name = searchPlaylist.name,
             editor = searchPlaylist.curatorName,
             thumbnail = searchPlaylist.artwork,
+            trackThumbs = null,
+            isLibrary = isLibrary,
             modifier = Modifier
                 .combinedClickable(
                     onLongClick = {

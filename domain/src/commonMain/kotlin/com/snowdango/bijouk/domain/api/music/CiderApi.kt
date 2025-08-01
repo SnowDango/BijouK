@@ -12,6 +12,7 @@ import com.snowdango.bijouk.domain.api.music.request.ArtistDetailsRequestBody
 import com.snowdango.bijouk.domain.api.music.request.ArtistViewsRequestBody
 import com.snowdango.bijouk.domain.api.music.request.InLibrarySearchRequestBody
 import com.snowdango.bijouk.domain.api.music.request.LibraryPlaylistFolderRequestBody
+import com.snowdango.bijouk.domain.api.music.request.LibraryPlaylistTracksRequestBody
 import com.snowdango.bijouk.domain.api.music.request.LibraryRequestBody
 import com.snowdango.bijouk.domain.api.music.request.SearchPlaylistRequestBody
 import com.snowdango.bijouk.domain.api.music.request.SearchRequestBody
@@ -296,6 +297,24 @@ class CiderApi(
         return response.body<LibraryResponse<LibraryPlaylists>>()
     }
 
+    suspend fun getLibraryPlaylistTracks(
+        playlistId: String,
+        limit: Int = 20,
+        offset: Int = 0,
+    ): LibraryResponse<LibrarySongs> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                LibraryPlaylistTracksRequestBody.create(
+                    playlistId = playlistId,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<LibraryResponse<LibrarySongs>>()
+    }
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
         val response = client.post {
