@@ -24,7 +24,7 @@ import java.io.InputStream
 fun AppInfoScreen(
     modifier: Modifier = Modifier,
 ) {
-    val imageUri = assetImageCacheUri(LocalContext.current, "app_icon.png")
+    val imageUri = assetImageCacheUri(LocalContext.current, "app-icon.png")
     Scaffold(
         topBar = {
             TitleTopBar(

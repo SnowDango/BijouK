@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.features.device.R
 import com.snowdango.bijouk.features.device.qr.entity.QRCodeInfo
+import com.snowdango.bijouk.infla.SharedEventStore
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.devices.DevicesModel
 import kotlinx.coroutines.CancellationException
@@ -24,6 +25,7 @@ class QRCodeScannerViewModel : ViewModel(), KoinComponent {
 
     private val context: Context by inject()
     private val devicesModel: DevicesModel by inject()
+    private val sharedEventStore: SharedEventStore by inject()
 
     private val _testActiveFlow: MutableStateFlow<TestState> =
         MutableStateFlow(value = TestState.None)
@@ -88,17 +90,13 @@ class QRCodeScannerViewModel : ViewModel(), KoinComponent {
                 token = token,
             )
             _saveStateFlow.emit(SaveState.Success)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.DeviceListUpdated)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
             Log.e("DevicesViewModel", th.toString())
             _saveStateFlow.emit(SaveState.Error)
         }
-    }
-
-    sealed class QRCodeParseError {
-        data object None : QRCodeParseError()
-        data object Error : QRCodeParseError()
     }
 
     sealed class TestState {

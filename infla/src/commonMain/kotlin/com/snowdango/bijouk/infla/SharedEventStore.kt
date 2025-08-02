@@ -26,6 +26,7 @@ class SharedEventStore(
         data object QueueUpdated : SharedEvent()
         data object QueueDelayUpdated : SharedEvent()
         data class ShuffleModeUpdated(val isShuffle: Boolean) : SharedEvent()
+        data object DeviceListUpdated : SharedEvent()
     }
 
 }

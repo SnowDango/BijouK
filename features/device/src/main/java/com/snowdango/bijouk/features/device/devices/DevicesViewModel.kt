@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.features.device.R
+import com.snowdango.bijouk.infla.SharedEventStore
 import com.snowdango.bijouk.model.cider.CiderMultiModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.devices.DeviceData
@@ -30,6 +31,7 @@ class DevicesViewModel : ViewModel(), KoinComponent {
     private val devicesModel: DevicesModel by inject()
     private var ciderMultiModel: CiderMultiModel =
         get<CiderMultiModel> { parametersOf(listOf<DeviceData>()) }
+    private val sharedEventStore: SharedEventStore by inject()
 
     private val _devicesFlow: MutableStateFlow<List<DeviceData>> =
         MutableStateFlow(value = listOf())
@@ -58,7 +60,22 @@ class DevicesViewModel : ViewModel(), KoinComponent {
     )
 
     init {
+        setEventListener()
         load()
+    }
+
+    private fun setEventListener() = viewModelScope.launch(Dispatchers.IO) {
+        sharedEventStore.events.collect { event ->
+            when (event) {
+                is SharedEventStore.SharedEvent.DeviceListUpdated -> {
+                    refresh()
+                }
+
+                else -> {
+                    // No action needed for other events
+                }
+            }
+        }
     }
 
     fun load() {

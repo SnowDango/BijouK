@@ -8,6 +8,8 @@
     <string name="toast_save_device_success">Deviceを保存しました</string>
 
     <string name="toast_qr_code_parse_error">Failed to read QR code</string>
+    <string name="toast_qr_code_device_connect_error">Failed to connect device.\nCheck your network.</string>
+    <string name="toast_qr_code_save_device_error">Failed to save device.</string>
 
     <string name="url_not_ssl">http://%s</string>
     <string name="url_ssl">https://%s</string>
