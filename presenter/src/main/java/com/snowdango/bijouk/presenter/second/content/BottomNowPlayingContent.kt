@@ -1,5 +1,6 @@
 package com.snowdango.bijouk.presenter.second.content
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.clickable
@@ -15,6 +16,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.MusicNote
 import androidx.compose.material.icons.filled.Pause
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,12 +30,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import coil3.compose.AsyncImage
+import coil3.compose.SubcomposeAsyncImage
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
@@ -41,6 +42,8 @@ import com.snowdango.bijouk.presenter.second.component.NowPlaySongTitleComponent
 import com.snowdango.bijouk.presenter.second.component.PlayBackStateButtonsComponent
 import com.snowdango.bijouk.presenter.second.component.PlayPauseControllerComponent
 import com.snowdango.bijouk.presenter.second.component.SeekBarComponent
+import com.snowdango.bijouk.ui.component.EmptyThumbnail
+import com.snowdango.bijouk.ui.component.LoadingThumbnail
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -91,17 +94,35 @@ fun BottomNowPlayingContent(
                             .height(imageSize),
                         contentAlignment = Alignment.Center,
                     ) {
-                        AsyncImage(
+                        SubcomposeAsyncImage(
                             model = cacheableImageRequest(
                                 context = LocalContext.current,
                                 data = nowPlayData?.artwork,
                             ).build(),
                             contentDescription = null,
+                            loading = {
+                                LoadingThumbnail()
+                            },
+                            success = {
+                                Image(
+                                    painter = it.painter,
+                                    contentDescription = null,
+                                    modifier = Modifier
+                                        .size(48.dp)
+                                        .clip(RoundedCornerShape(8.dp))
+                                )
+                            },
+                            error = {
+                                if (nowPlayData != null) {
+                                    EmptyThumbnail(
+                                        imageVector = Icons.Default.MusicNote,
+                                    )
+                                }
+                            },
                             modifier = Modifier
                                 .size(imageSize)
                                 .clip(shape = RoundedCornerShape(8.dp))
                                 .background(MaterialTheme.colorScheme.surfaceContainerHigh),
-                            contentScale = ContentScale.FillBounds,
                         )
                     }
                     if (sheetState.currentValue == sheetState.targetValue &&
