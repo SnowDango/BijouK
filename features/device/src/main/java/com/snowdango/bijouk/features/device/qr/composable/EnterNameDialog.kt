@@ -13,7 +13,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.snowdango.bijouk.features.device.R
 import com.snowdango.bijouk.ui.BijouKTheme
 
 @Composable
@@ -32,12 +34,12 @@ fun EnterNameDialog(
                 tint = Color.Green
             )
         },
-        title = { Text("Enter Name") },
+        title = { Text(stringResource(R.string.qr_name_dialog_title)) },
         text = {
             TextField(
                 value = name,
                 onValueChange = { name = it },
-                label = { Text("Name") }
+                label = { Text(stringResource(R.string.qr_name_dialog_name_label)) }
             )
         },
         confirmButton = {
@@ -48,7 +50,7 @@ fun EnterNameDialog(
                     onDismissRequest()
                 }
             ) {
-                Text("Confirm")
+                Text(stringResource(R.string.qr_name_dialog_button_confirm))
             }
         },
         dismissButton = {
@@ -58,7 +60,7 @@ fun EnterNameDialog(
                     onDismissRequest()
                 }
             ) {
-                Text("Cancel")
+                Text(stringResource(R.string.qr_name_dialog_button_cancel))
             }
         }
     )

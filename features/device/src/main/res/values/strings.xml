@@ -14,4 +14,36 @@
     <string name="url_not_ssl">http://%s</string>
     <string name="url_ssl">https://%s</string>
 
+    <string name="device_add_menu_qr">QR Scan</string>
+    <string name="device_add_menu_create">Create</string>
+
+    <string name="add_device_dialog_title">Add Device</string>
+
+    <string name="add_device_dialog_name_label">Name</string>
+    <string name="add_device_dialog_name_placeholder">Bijou</string>
+    <string name="add_device_dialog_host_label">Host</string>
+    <string name="add_device_dialog_host_placeholder">ex.) 192.168.1.1</string>
+    <string name="add_device_dialog_port_label">Port</string>
+    <string name="add_device_dialog_port_placeholder">10767</string>
+    <string name="add_device_dialog_token_label">Token</string>
+    <string name="add_device_dialog_token_placeholder">Generate Cider</string>
+
+    <string name="add_device_dialog_use_ssl">Use SSL</string>
+
+    <string name="add_device_dialog_test_success">Success connected</string>
+    <string name="add_device_dialog_test_failed">Failed connected</string>
+
+    <string name="add_device_dialog_button_add">Save</string>
+    <string name="add_device_dialog_button_test">Test</string>
+    <string name="add_device_dialog_button_cancel">Cancel</string>
+
+    <string name="add_device_dialog_validate_error_name">Name not specified.</string>
+    <string name="add_device_dialog_validate_error_host">Host not specified.</string>
+    <string name="add_device_dialog_validate_error_token">Token not specified.</string>
+
+    <string name="qr_name_dialog_title">Enter Name</string>
+    <string name="qr_name_dialog_name_label">Name</string>
+    <string name="qr_name_dialog_button_confirm">Confirm</string>
+    <string name="qr_name_dialog_button_cancel">Cancel</string>
+
 </resources>
