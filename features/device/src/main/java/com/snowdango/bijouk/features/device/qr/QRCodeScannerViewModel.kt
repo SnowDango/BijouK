@@ -96,11 +96,6 @@ class QRCodeScannerViewModel : ViewModel(), KoinComponent {
         }
     }
 
-    sealed class QRCodeParseError {
-        data object None : QRCodeParseError()
-        data object Error : QRCodeParseError()
-    }
-
     sealed class TestState {
         data object None : TestState()
         data class Success(val host: String, val token: String) : TestState()
