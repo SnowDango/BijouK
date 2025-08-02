@@ -68,49 +68,49 @@ class CiderRPCModel(
         repository.changeQueueIndex(index)
     }
 
-    suspend fun songPlayById(id: String) {
-        repository.songPlayById(id)
+    suspend fun playSongById(id: String) {
+        repository.playSongById(id)
     }
 
-    suspend fun albumPlayById(id: String) {
-        repository.albumPlayById(id)
+    suspend fun playAlbumById(id: String) {
+        repository.playAlbumById(id)
     }
 
-    suspend fun playlistPlayById(id: String) {
-        repository.playlistPlayById(id)
+    suspend fun playPlaylistById(id: String) {
+        repository.playPlaylistById(id)
     }
 
-    suspend fun stationPlayById(stationId: String) {
-        repository.stationPlayById(stationId)
+    suspend fun playStationById(stationId: String) {
+        repository.playStationById(stationId)
     }
 
-    suspend fun songPlayNextById(id: String) {
-        repository.songPlayNextById(id)
+    suspend fun playNextSongById(id: String) {
+        repository.playNextSongById(id)
     }
 
-    suspend fun albumPlayNextById(id: String) {
-        repository.albumPlayNextById(id)
+    suspend fun playNextAlbumById(id: String) {
+        repository.playNextAlbumById(id)
     }
 
-    suspend fun playlistPlayNextById(id: String) {
-        repository.playlistPlayNextById(id)
+    suspend fun playNextPlaylistById(id: String) {
+        repository.playNextPlaylistById(id)
     }
 
-    suspend fun songPlayLaterById(id: String) {
-        repository.songPlayLaterById(id)
+    suspend fun playLaterSongById(id: String) {
+        repository.playLaterSongById(id)
     }
 
-    suspend fun albumPlayLaterById(id: String) {
-        repository.albumPlayLaterById(id)
+    suspend fun playLaterAlbumById(id: String) {
+        repository.playLaterAlbumById(id)
     }
 
-    suspend fun playlistPlayLaterById(id: String) {
-        repository.playlistPlayLaterById(id)
+    suspend fun playLaterPlaylistById(id: String) {
+        repository.playLaterPlaylistById(id)
     }
 
-    suspend fun playlistFolderPlayById(ids: List<String>) {
+    suspend fun playPlaylistFolderById(ids: List<String>) {
         ids.forEachIndexed { index, playlistId ->
-           repository.playlistPlayNextById(playlistId)
+           repository.playNextPlaylistById(playlistId)
         }
     }
 

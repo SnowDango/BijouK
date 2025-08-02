@@ -120,7 +120,7 @@ class ArtistsDetailViewModel(
 
     fun stationPlayById(stationId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.stationPlayById(stationId)
+            ciderRPCModel.playStationById(stationId)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {

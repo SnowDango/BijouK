@@ -47,43 +47,43 @@ class CiderRPCRepository(
         return ciderRPCApi.changeQueueIndex(index)
     }
 
-    suspend fun songPlayById(id: String): BasicResponse {
+    suspend fun playSongById(id: String): BasicResponse {
         return ciderRPCApi.playById(id, PlayRequestBody.PlayType.Songs)
     }
 
-    suspend fun albumPlayById(id: String): BasicResponse {
+    suspend fun playAlbumById(id: String): BasicResponse {
         return ciderRPCApi.playById(id, PlayRequestBody.PlayType.Albums)
     }
 
-    suspend fun playlistPlayById(id: String): BasicResponse {
+    suspend fun playPlaylistById(id: String): BasicResponse {
         return ciderRPCApi.playById(id, PlayRequestBody.PlayType.Playlists)
     }
 
-    suspend fun songPlayNextById(id: String): BasicResponse {
+    suspend fun playNextSongById(id: String): BasicResponse {
         return ciderRPCApi.playNextById(id, PlayRequestBody.PlayType.Songs)
     }
 
-    suspend fun albumPlayNextById(id: String): BasicResponse {
+    suspend fun playNextAlbumById(id: String): BasicResponse {
         return ciderRPCApi.playNextById(id, PlayRequestBody.PlayType.Albums)
     }
 
-    suspend fun playlistPlayNextById(id: String): BasicResponse {
+    suspend fun playNextPlaylistById(id: String): BasicResponse {
         return ciderRPCApi.playNextById(id, PlayRequestBody.PlayType.Playlists)
     }
 
-    suspend fun songPlayLaterById(id: String): BasicResponse {
+    suspend fun playLaterSongById(id: String): BasicResponse {
         return ciderRPCApi.playLaterById(id, PlayRequestBody.PlayType.Songs)
     }
 
-    suspend fun albumPlayLaterById(id: String): BasicResponse {
+    suspend fun playLaterAlbumById(id: String): BasicResponse {
         return ciderRPCApi.playLaterById(id, PlayRequestBody.PlayType.Albums)
     }
 
-    suspend fun playlistPlayLaterById(id: String): BasicResponse {
+    suspend fun playLaterPlaylistById(id: String): BasicResponse {
         return ciderRPCApi.playLaterById(id, PlayRequestBody.PlayType.Playlists)
     }
 
-    suspend fun stationPlayById(stationId: String): BasicResponse {
+    suspend fun playStationById(stationId: String): BasicResponse {
         return ciderRPCApi.playById(stationId, PlayRequestBody.PlayType.Stations)
     }
 

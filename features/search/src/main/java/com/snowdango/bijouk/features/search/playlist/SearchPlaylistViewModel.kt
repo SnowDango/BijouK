@@ -48,7 +48,7 @@ class SearchPlaylistViewModel(
 
     fun searchPlaylistPlay(playlistId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.playlistPlayById(playlistId)
+            ciderRPCModel.playPlaylistById(playlistId)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -58,7 +58,7 @@ class SearchPlaylistViewModel(
 
     fun searchPlaylistPlayNext(playlistId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.playlistPlayNextById(playlistId)
+            ciderRPCModel.playNextPlaylistById(playlistId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
@@ -69,7 +69,7 @@ class SearchPlaylistViewModel(
 
     fun searchPlaylistPlayLater(playlistId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.playlistPlayLaterById(playlistId)
+            ciderRPCModel.playLaterPlaylistById(playlistId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
@@ -91,7 +91,7 @@ class SearchPlaylistViewModel(
     fun playPlaylistFolder(playlistFolderId: String) = applicationScope.launch {
         try {
             val children = ciderModel.getAllPlaylistFolderChildren(playlistFolderId)
-            ciderRPCModel.playlistFolderPlayById(children.map { it.id })
+            ciderRPCModel.playPlaylistFolderById(children.map { it.id })
             delay(1_000)
             ciderRPCModel.setShuffleMode(true, isShuffleMode)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)

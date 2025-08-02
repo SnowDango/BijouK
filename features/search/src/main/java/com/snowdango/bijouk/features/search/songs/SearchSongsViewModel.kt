@@ -22,7 +22,7 @@ class SearchSongsViewModel(
 
     fun searchSongPlay(songId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.songPlayById(songId)
+            ciderRPCModel.playSongById(songId)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -32,7 +32,7 @@ class SearchSongsViewModel(
 
     fun searchSongPlayNext(songId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.songPlayNextById(songId)
+            ciderRPCModel.playNextSongById(songId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
@@ -43,7 +43,7 @@ class SearchSongsViewModel(
 
     fun searchSongPlayLater(songId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.songPlayLaterById(songId)
+            ciderRPCModel.playLaterSongById(songId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
