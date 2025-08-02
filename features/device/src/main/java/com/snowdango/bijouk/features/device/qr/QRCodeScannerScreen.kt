@@ -37,7 +37,7 @@ fun QRCodeScannerScreen(
     LaunchedEffect(testActionState.value) {
         if (testActionState.value is QRCodeScannerViewModel.TestState.Success) {
             isDialogOpen = testActionState.value as QRCodeScannerViewModel.TestState.Success
-        } else if(testActionState.value is QRCodeScannerViewModel.TestState.Error) {
+        } else if (testActionState.value is QRCodeScannerViewModel.TestState.Error) {
             Toast.makeText(
                 context,
                 context.getString(R.string.toast_qr_code_device_connect_error),
@@ -50,7 +50,7 @@ fun QRCodeScannerScreen(
     LaunchedEffect(saveState.value) {
         if (saveState.value is QRCodeScannerViewModel.SaveState.Success) {
             onNavigationBack.invoke()
-        }else if(saveState.value is QRCodeScannerViewModel.SaveState.Error) {
+        } else if (saveState.value is QRCodeScannerViewModel.SaveState.Error) {
             Toast.makeText(
                 context,
                 context.getString(R.string.toast_qr_code_save_device_error),
