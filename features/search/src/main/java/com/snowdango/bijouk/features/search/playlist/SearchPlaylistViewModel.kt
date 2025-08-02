@@ -7,6 +7,7 @@ import com.snowdango.bijouk.infla.SharedEventStore
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -22,6 +23,7 @@ class SearchPlaylistViewModel(
     private val sharedEventStore: SharedEventStore by inject()
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
+    private val applicationScope: CoroutineScope by inject()
 
     private var isShuffleMode: Boolean = false
 
@@ -44,7 +46,7 @@ class SearchPlaylistViewModel(
         }
     }
 
-    fun searchPlaylistPlay(playlistId: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun searchPlaylistPlay(playlistId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playlistPlayById(playlistId)
         } catch (ce: CancellationException) {
@@ -54,7 +56,7 @@ class SearchPlaylistViewModel(
         }
     }
 
-    fun searchPlaylistPlayNext(playlistId: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun searchPlaylistPlayNext(playlistId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playlistPlayNextById(playlistId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
@@ -65,7 +67,7 @@ class SearchPlaylistViewModel(
         }
     }
 
-    fun searchPlaylistPlayLater(playlistId: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun searchPlaylistPlayLater(playlistId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playlistPlayLaterById(playlistId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
@@ -76,7 +78,7 @@ class SearchPlaylistViewModel(
         }
     }
 
-    private fun shuffleModeLoad() = viewModelScope.launch(Dispatchers.IO) {
+    private fun shuffleModeLoad() = applicationScope.launch {
         try {
             isShuffleMode = ciderRPCModel.getShuffleMode()
         } catch (ce: CancellationException) {
@@ -86,7 +88,7 @@ class SearchPlaylistViewModel(
         }
     }
 
-    fun playPlaylistFolder(playlistFolderId: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun playPlaylistFolder(playlistFolderId: String) = applicationScope.launch {
         try {
             val children = ciderModel.getAllPlaylistFolderChildren(playlistFolderId)
             ciderRPCModel.playlistFolderPlayById(children.map { it.id })

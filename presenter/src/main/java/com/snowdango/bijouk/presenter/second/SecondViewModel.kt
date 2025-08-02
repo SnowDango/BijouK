@@ -10,6 +10,7 @@ import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -28,6 +29,7 @@ class SecondViewModel(
 
     private val ciderSocketModel: CiderSocketModel by inject { parametersOf(baseUrl) }
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
+    private val applicationScope: CoroutineScope by inject()
 
     private val _connectionStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val connectionStateFlow = _connectionStateFlow.stateIn(
@@ -146,7 +148,7 @@ class SecondViewModel(
         }
     }
 
-    fun playPause() = viewModelScope.launch(Dispatchers.IO) {
+    fun playPause() = applicationScope.launch {
         try {
             ciderRPCModel.playPause()
         } catch (ce: CancellationException) {
@@ -156,7 +158,7 @@ class SecondViewModel(
         }
     }
 
-    fun next() = viewModelScope.launch(Dispatchers.IO) {
+    fun next() = applicationScope.launch {
         try {
             ciderRPCModel.next()
         } catch (ce: CancellationException) {
@@ -166,7 +168,7 @@ class SecondViewModel(
         }
     }
 
-    fun prev() = viewModelScope.launch(Dispatchers.IO) {
+    fun prev() = applicationScope.launch {
         try {
             ciderRPCModel.prev()
         } catch (ce: CancellationException) {
@@ -176,7 +178,7 @@ class SecondViewModel(
         }
     }
 
-    fun seekTo(time: Float) = viewModelScope.launch(Dispatchers.IO) {
+    fun seekTo(time: Float) = applicationScope.launch {
         _isChangeableSeekFlow.emit(false)
         try {
             ciderRPCModel.seekTo(time)
