@@ -60,6 +60,10 @@ class CiderRPCModel(
         repository.seekTo(to)
     }
 
+    suspend fun clearQueue() {
+        repository.clearQueue()
+    }
+
     suspend fun moveQueue(index: Int, moveIndex: Int) {
         repository.postMoveQueue(index, moveIndex)
     }

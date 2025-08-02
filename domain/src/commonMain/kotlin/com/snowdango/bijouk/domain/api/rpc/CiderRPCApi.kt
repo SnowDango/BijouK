@@ -82,6 +82,15 @@ class CiderRPCApi(
         return response.body<BasicResponse>()
     }
 
+    suspend fun clearQueue(): BasicResponse {
+        val response = client.post {
+            url("/api/v1/playback/queue/clear-queue")
+            contentType(ContentType.Application.Json)
+            setBody("{}")
+        }
+        return response.body<BasicResponse>()
+    }
+
     suspend fun moveQueue(index: Int, moveIndex: Int): BasicResponse {
         val response = client.post {
             url("/api/v1/playback/queue/move-to-position")

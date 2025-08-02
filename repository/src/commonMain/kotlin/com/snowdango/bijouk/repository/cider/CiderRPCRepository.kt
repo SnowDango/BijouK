@@ -39,6 +39,10 @@ class CiderRPCRepository(
         return ciderRPCApi.seekTo(to)
     }
 
+    suspend fun clearQueue(): BasicResponse {
+        return ciderRPCApi.clearQueue()
+    }
+
     suspend fun postMoveQueue(index: Int, moveIndex: Int): BasicResponse {
         return ciderRPCApi.moveQueue(index, moveIndex)
     }

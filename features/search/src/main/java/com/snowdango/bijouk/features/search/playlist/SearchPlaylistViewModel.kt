@@ -4,12 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.infla.SharedEventStore
-import com.snowdango.bijouk.model.cider.CiderModel
+import com.snowdango.bijouk.model.cider.CiderBridgeModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -22,7 +21,7 @@ class SearchPlaylistViewModel(
 
     private val sharedEventStore: SharedEventStore by inject()
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
-    private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
+    private val ciderBridgeModel: CiderBridgeModel by inject { parametersOf(baseUrl, token) }
     private val applicationScope: CoroutineScope by inject()
 
     private var isShuffleMode: Boolean = false
@@ -90,10 +89,18 @@ class SearchPlaylistViewModel(
 
     fun playPlaylistFolder(playlistFolderId: String) = applicationScope.launch {
         try {
-            val children = ciderModel.getAllPlaylistFolderChildren(playlistFolderId)
-            ciderRPCModel.playPlaylistFolderById(children.map { it.id })
-            delay(1_000)
-            ciderRPCModel.setShuffleMode(true, isShuffleMode)
+            ciderBridgeModel.playPlaylistFolderById(playlistFolderId)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("SearchPlaylistViewModel", th.toString())
+        }
+    }
+
+    fun playPlaylistFolderShuffled(playlistFolderId: String) = applicationScope.launch {
+        try {
+            ciderBridgeModel.playPlaylistFolderByIdShuffled(playlistFolderId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce

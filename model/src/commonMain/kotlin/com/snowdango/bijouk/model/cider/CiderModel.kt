@@ -91,7 +91,7 @@ class CiderModel(
         folderId: String,
     ): List<PlaylistData> {
         val playlists: MutableList<PlaylistData> = mutableListOf()
-        var hasNext: Boolean = true
+        var hasNext = true
         while (hasNext) {
             val response = repository.libraryPlaylistFolderChildren(
                 folderId = folderId,

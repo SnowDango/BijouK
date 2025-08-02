@@ -61,6 +61,7 @@ fun SearchPlaylistScreen(
                         searchPlaylistFolders = searchPlaylistFolders,
                         cardWidthSize = (this@BoxWithConstraints.maxWidth - 16.dp) / 3,
                         onClickPlay = viewModel::playPlaylistFolder,
+                        onClickShufflePlay = viewModel::playPlaylistFolderShuffled,
                         modifier = Modifier
                             .fillMaxWidth()
                     )
@@ -94,6 +95,7 @@ fun PlaylistFolderContent(
     searchPlaylistFolders: LazyPagingItems<PlaylistFoldersData>,
     cardWidthSize: Dp,
     onClickPlay: (String) -> Unit,
+    onClickShufflePlay: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
@@ -110,6 +112,7 @@ fun PlaylistFolderContent(
                 SearchPlaylistFolderCard(
                     playlistFoldersData = it,
                     onClickPlay = onClickPlay,
+                    onClickShufflePlay = onClickShufflePlay,
                     modifier = Modifier
                         .width(cardWidthSize)
                 )

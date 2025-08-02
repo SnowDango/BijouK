@@ -1,5 +1,6 @@
 package com.snowdango.bijouk.model
 
+import com.snowdango.bijouk.model.cider.CiderBridgeModel
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderMultiModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
@@ -15,6 +16,7 @@ object ModelModule {
         factory { param -> CiderModel(param.get(), param.get()) }
         factory { param -> CiderRPCModel(param.get(), param.get()) }
         factory { param -> CiderSocketModel(param.get()) }
+        factory { param -> CiderBridgeModel(param.get(), param.get()) }
     }
 
 }
