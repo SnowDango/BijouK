@@ -61,8 +61,6 @@ fun SearchPlaylistScreen(
                         searchPlaylistFolders = searchPlaylistFolders,
                         cardWidthSize = (this@BoxWithConstraints.maxWidth - 16.dp) / 3,
                         onClickPlay = viewModel::playPlaylistFolder,
-                        onClickPlayNext = viewModel::searchPlaylistPlayNext,
-                        onClickPlayLater = viewModel::searchPlaylistPlayLater,
                         modifier = Modifier
                             .fillMaxWidth()
                     )
@@ -96,8 +94,6 @@ fun PlaylistFolderContent(
     searchPlaylistFolders: LazyPagingItems<PlaylistFoldersData>,
     cardWidthSize: Dp,
     onClickPlay: (String) -> Unit,
-    onClickPlayNext: (id: String) -> Unit,
-    onClickPlayLater: (id: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyRow(
@@ -114,8 +110,6 @@ fun PlaylistFolderContent(
                 SearchPlaylistFolderCard(
                     playlistFoldersData = it,
                     onClickPlay = onClickPlay,
-                    onClickPlayNext = onClickPlayNext,
-                    onClickPlayLater = onClickPlayLater,
                     modifier = Modifier
                         .width(cardWidthSize)
                 )

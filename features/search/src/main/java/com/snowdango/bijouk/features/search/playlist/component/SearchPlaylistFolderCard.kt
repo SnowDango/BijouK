@@ -23,8 +23,6 @@ import com.snowdango.bijouk.ui.component.PlaylistFolderCard
 fun SearchPlaylistFolderCard(
     playlistFoldersData: PlaylistFoldersData,
     onClickPlay: (String) -> Unit,
-    onClickPlayNext: (id: String) -> Unit,
-    onClickPlayLater: (id: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
@@ -51,20 +49,6 @@ fun SearchPlaylistFolderCard(
                 text = { Text(text = stringResource(R.string.search_dropdown_menu_play)) },
                 onClick = {
                     onClickPlay.invoke(playlistFoldersData.id)
-                    expanded = false
-                }
-            )
-            DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_play_next)) },
-                onClick = {
-                    onClickPlayNext.invoke(playlistFoldersData.id)
-                    expanded = false
-                }
-            )
-            DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_play_later)) },
-                onClick = {
-                    onClickPlayLater.invoke(playlistFoldersData.id)
                     expanded = false
                 }
             )
