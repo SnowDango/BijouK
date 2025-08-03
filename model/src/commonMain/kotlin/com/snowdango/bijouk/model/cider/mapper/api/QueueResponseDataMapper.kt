@@ -21,14 +21,20 @@ fun QueueAttributes.convert(
         artist = artistName.orEmpty(),
         album = albumName,
         artwork = artwork?.convert().orEmpty(),
-        state = if (isFinish) {
-            QueueData.State.Before
-        } else if (index < currentIndex) {
-            QueueData.State.Before
-        } else if (index == currentIndex) {
-            QueueData.State.Current
+        state = if (currentIndex != -1) {
+            if (index < currentIndex) {
+                QueueData.State.Before
+            } else if (index == currentIndex) {
+                QueueData.State.Current
+            } else {
+                QueueData.State.Waiting
+            }
         } else {
-            QueueData.State.Waiting
+            if (isFinish) {
+                QueueData.State.Before
+            } else {
+                QueueData.State.Waiting
+            }
         }
     )
 }
