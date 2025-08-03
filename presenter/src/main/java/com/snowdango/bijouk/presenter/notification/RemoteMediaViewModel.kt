@@ -54,6 +54,7 @@ class RemoteMediaViewModel(
 
             override fun onDisConnect() {
                 mediaSession.isActive = false
+                callback.onFinish()
             }
         }
 
@@ -146,5 +147,6 @@ class RemoteMediaViewModel(
 
     interface Callback {
         fun onMetadataUpdated()
+        fun onFinish()
     }
 }

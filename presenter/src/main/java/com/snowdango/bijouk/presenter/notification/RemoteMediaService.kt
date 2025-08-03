@@ -37,6 +37,11 @@ class RemoteMediaService : Service() {
                 override fun onMetadataUpdated() {
                     updateNotification()
                 }
+
+                override fun onFinish() {
+                    stopForeground(STOP_FOREGROUND_REMOVE)
+                    stopSelf()
+                }
             }
         )
         createNotificationManager()
