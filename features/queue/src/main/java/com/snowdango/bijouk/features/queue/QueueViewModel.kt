@@ -25,6 +25,8 @@ class QueueViewModel(
     private val token: String,
 ) : ViewModel(), KoinComponent {
 
+    var currentSongId: String? = null
+
     private val sharedEventStore: SharedEventStore by inject()
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
     private val applicationScope: CoroutineScope by inject()
@@ -53,6 +55,10 @@ class QueueViewModel(
                 when (event) {
                     is SharedEventStore.SharedEvent.QueueUpdated -> queueRefresh()
                     is SharedEventStore.SharedEvent.QueueDelayUpdated -> queueDelayRefresh()
+                    is SharedEventStore.SharedEvent.ChangeNowPlayingSong -> {
+                        currentSongId = event.songId
+                    }
+
                     else -> {
                         // 他のイベントは無視
                     }
@@ -74,7 +80,7 @@ class QueueViewModel(
 
     private fun queueLoad() = viewModelScope.launch(Dispatchers.IO) {
         try {
-            val data = ciderRPCModel.getQueue()
+            val data = ciderRPCModel.getQueue(currentSongId)
             _isRefreshFlow.emit(false)
             _queueViewDataFlow.emit(UiState.Success(data))
         } catch (ce: CancellationException) {

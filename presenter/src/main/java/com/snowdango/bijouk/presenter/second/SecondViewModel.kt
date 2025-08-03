@@ -83,6 +83,11 @@ class SecondViewModel(
             viewModelScope.launch(Dispatchers.IO) {
                 nowPlayData?.let { _nowPlayFlow.emit(it) }
                 playBackTimeData?.let { _playbackTimeFlow.emit(it) }
+                sharedEventStore.setEvent(
+                    SharedEventStore.SharedEvent.ChangeNowPlayingSong(
+                        nowPlayData?.id
+                    )
+                )
             }
         }
 
@@ -90,6 +95,11 @@ class SecondViewModel(
             viewModelScope.launch(Dispatchers.IO) {
                 _nowPlayFlow.emit(nowPlayData)
                 sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueUpdated)
+                sharedEventStore.setEvent(
+                    SharedEventStore.SharedEvent.ChangeNowPlayingSong(
+                        nowPlayData.id
+                    )
+                )
             }
         }
 
@@ -150,12 +160,14 @@ class SecondViewModel(
             _nowPlayFlow.emit(data.first)
             _playbackTimeFlow.emit(data.second)
             _nowPlayingStatusFlow.emit(data.third)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.ChangeNowPlayingSong(data.first.id))
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
             Log.e("NowPlayViewModel", th.toString())
             _nowPlayFlow.emit(null)
             _playbackTimeFlow.emit(null)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.ChangeNowPlayingSong(null))
         }
     }
 

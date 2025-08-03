@@ -36,9 +36,10 @@ class CiderRPCModel(
         return nowPlay.convert()
     }
 
-    suspend fun getQueue(): QueueDataList {
+    suspend fun getQueue(songId: String?): QueueDataList {
         val queues = repository.getQueue()
-        val currentIndex = queues.indexOfLast { it.attributes.currentPlaybackTime != null }
+        val currentIndex =
+            queues.filter { it.playbackType == 3 }.indexOfLast { it.songId == songId }
         return QueueDataList(
             list = queues.mapIndexed { index, data -> data.convert(index, currentIndex) },
         )
