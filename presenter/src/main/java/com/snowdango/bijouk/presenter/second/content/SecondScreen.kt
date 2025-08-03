@@ -56,10 +56,12 @@ fun SecondScreen(
     nowPlayData: NowPlayData?,
     playBackTimeData: PlayBackTimeData?,
     nowPlayingStatusData: NowPlayingStatusData,
+    isShuffled: Boolean,
     onPlayPause: () -> Unit,
     onSeekTo: (Float) -> Unit,
     onNext: () -> Unit,
     onPrevious: () -> Unit,
+    onClickShuffle: () -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable (Dp) -> Unit,
 ) {
@@ -70,10 +72,12 @@ fun SecondScreen(
             nowPlayData = nowPlayData,
             playBackTimeData = playBackTimeData,
             nowPlayingStatusData = nowPlayingStatusData,
+            isShuffled = isShuffled,
             onPlayPause = onPlayPause,
             onSeekTo = onSeekTo,
             onNext = onNext,
             onPrevious = onPrevious,
+            onClickShuffle = onClickShuffle,
             modifier = modifier,
             content = content,
         )
@@ -84,10 +88,12 @@ fun SecondScreen(
             nowPlayData = nowPlayData,
             playBackTimeData = playBackTimeData,
             nowPlayingStatusData = nowPlayingStatusData,
+            isShuffled = isShuffled,
             onPlayPause = onPlayPause,
             onSeekTo = onSeekTo,
             onNext = onNext,
             onPrevious = onPrevious,
+            onClickShuffle = onClickShuffle,
             modifier = modifier,
             content = content,
         )
@@ -102,10 +108,12 @@ fun SingleSecondScreen(
     nowPlayData: NowPlayData?,
     playBackTimeData: PlayBackTimeData?,
     nowPlayingStatusData: NowPlayingStatusData,
+    isShuffled: Boolean,
     onPlayPause: () -> Unit,
     onSeekTo: (Float) -> Unit,
     onNext: () -> Unit,
     onPrevious: () -> Unit,
+    onClickShuffle: () -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable (Dp) -> Unit,
 ) {
@@ -181,6 +189,7 @@ fun SingleSecondScreen(
                     nowPlayData = nowPlayData,
                     playBackTimeData = playBackTimeData,
                     nowPlayingStatusData = nowPlayingStatusData,
+                    isShuffled = isShuffled,
                     sheetMaxHeight = sheetMaxHeight,
                     sheetHeight = sheetHeight,
                     imageSize = imageSize,
@@ -188,6 +197,7 @@ fun SingleSecondScreen(
                     onSeekTo = onSeekTo,
                     onNext = onNext,
                     onPrevious = onPrevious,
+                    onClickShuffle = onClickShuffle,
                 )
             },
         ) {
@@ -217,10 +227,12 @@ fun SeparateSecondScreen(
     nowPlayData: NowPlayData?,
     playBackTimeData: PlayBackTimeData?,
     nowPlayingStatusData: NowPlayingStatusData,
+    isShuffled: Boolean,
     onPlayPause: () -> Unit,
     onSeekTo: (Float) -> Unit,
     onNext: () -> Unit,
     onPrevious: () -> Unit,
+    onClickShuffle: () -> Unit,
     modifier: Modifier = Modifier,
     content: @Composable (Dp) -> Unit,
 ) {
@@ -239,10 +251,12 @@ fun SeparateSecondScreen(
                 nowPlayData = nowPlayData,
                 playBackTimeData = playBackTimeData,
                 nowPlayingStatusData = nowPlayingStatusData,
+                isShuffled = isShuffled,
                 onPlayPause = onPlayPause,
                 onSeekTo = onSeekTo,
                 onNext = onNext,
                 onPrevious = onPrevious,
+                onClickShuffle = onClickShuffle,
             )
         }
         Box(
@@ -283,10 +297,12 @@ private fun PreviewSecondScreen(
             nowPlayData = null,
             playBackTimeData = null,
             nowPlayingStatusData = NowPlayingStatusData(isFav = false, isInLib = false),
+            isShuffled = true,
             onPlayPause = {},
             onSeekTo = {},
             onNext = {},
             onPrevious = {},
+            onClickShuffle = {},
         ) {
             Box(
                 modifier = Modifier

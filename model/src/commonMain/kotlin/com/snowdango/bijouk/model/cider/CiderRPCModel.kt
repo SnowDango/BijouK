@@ -114,7 +114,7 @@ class CiderRPCModel(
 
     suspend fun playPlaylistFolderById(ids: List<String>) {
         ids.forEachIndexed { index, playlistId ->
-           repository.playNextPlaylistById(playlistId)
+            repository.playNextPlaylistById(playlistId)
         }
     }
 
@@ -132,7 +132,7 @@ class CiderRPCModel(
             repeat(2) {
                 toggleShuffleMode()
             }
-        }else {
+        } else {
             toggleShuffleMode()
         }
     }

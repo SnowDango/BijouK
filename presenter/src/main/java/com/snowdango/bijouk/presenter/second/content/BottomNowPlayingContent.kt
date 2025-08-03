@@ -54,6 +54,7 @@ fun BottomNowPlayingContent(
     nowPlayData: NowPlayData?,
     playBackTimeData: PlayBackTimeData?,
     nowPlayingStatusData: NowPlayingStatusData,
+    isShuffled: Boolean,
     sheetMaxHeight: Dp,
     sheetHeight: Dp,
     imageSize: Dp,
@@ -61,6 +62,7 @@ fun BottomNowPlayingContent(
     onSeekTo: (Float) -> Unit,
     onNext: () -> Unit,
     onPrevious: () -> Unit,
+    onClickShuffle: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Box(
@@ -183,6 +185,8 @@ fun BottomNowPlayingContent(
                     )
                     PlayBackStateButtonsComponent(
                         nowPlayingStatusData = nowPlayingStatusData,
+                        isShuffled = isShuffled,
+                        onClickShuffle = onClickShuffle,
                         modifier = Modifier.padding(top = 12.dp)
                     )
                     SeekBarComponent(
