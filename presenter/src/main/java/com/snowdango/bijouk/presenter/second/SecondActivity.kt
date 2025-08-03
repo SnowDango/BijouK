@@ -21,6 +21,7 @@ import com.snowdango.bijouk.features.artist.ArtistsDetailScreen
 import com.snowdango.bijouk.features.queue.QueueScreen
 import com.snowdango.bijouk.features.search.LibrarySearchScreen
 import com.snowdango.bijouk.features.search.SearchScreen
+import com.snowdango.bijouk.presenter.notification.RemoteMediaService
 import com.snowdango.bijouk.presenter.second.content.SecondScreen
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.extend.ScreenType
@@ -137,6 +138,15 @@ class SecondActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        RemoteMediaService.startService(
+            applicationContext,
+            secondActivityData.baseUrl,
+            secondActivityData.token
+        )
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
