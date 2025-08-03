@@ -71,7 +71,7 @@ class QRCodeScannerViewModel : ViewModel(), KoinComponent {
             } catch (ce: CancellationException) {
                 throw ce
             } catch (th: Throwable) {
-                Log.e("DevicesVieModel", th.toString())
+                Log.e("QRCodeScannerViewModel", th.toString())
                 _testActiveFlow.emit(TestState.Error)
             }
         }
@@ -94,7 +94,7 @@ class QRCodeScannerViewModel : ViewModel(), KoinComponent {
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
-            Log.e("DevicesViewModel", th.toString())
+            Log.e("QRCodeScannerViewModel", th.toString())
             _saveStateFlow.emit(SaveState.Error)
         }
     }

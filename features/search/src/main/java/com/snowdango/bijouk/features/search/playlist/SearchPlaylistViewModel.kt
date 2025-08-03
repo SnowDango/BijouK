@@ -4,11 +4,11 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.snowdango.bijouk.infla.SharedEventStore
-import com.snowdango.bijouk.model.cider.CiderModel
+import com.snowdango.bijouk.model.cider.CiderBridgeModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
@@ -21,7 +21,8 @@ class SearchPlaylistViewModel(
 
     private val sharedEventStore: SharedEventStore by inject()
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
-    private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
+    private val ciderBridgeModel: CiderBridgeModel by inject { parametersOf(baseUrl, token) }
+    private val applicationScope: CoroutineScope by inject()
 
     private var isShuffleMode: Boolean = false
 
@@ -44,9 +45,9 @@ class SearchPlaylistViewModel(
         }
     }
 
-    fun searchPlaylistPlay(playlistId: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun searchPlaylistPlay(playlistId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.playlistPlayById(playlistId)
+            ciderRPCModel.playPlaylistById(playlistId)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -54,9 +55,9 @@ class SearchPlaylistViewModel(
         }
     }
 
-    fun searchPlaylistPlayNext(playlistId: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun searchPlaylistPlayNext(playlistId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.playlistPlayNextById(playlistId)
+            ciderRPCModel.playNextPlaylistById(playlistId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
@@ -65,9 +66,9 @@ class SearchPlaylistViewModel(
         }
     }
 
-    fun searchPlaylistPlayLater(playlistId: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun searchPlaylistPlayLater(playlistId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.playlistPlayLaterById(playlistId)
+            ciderRPCModel.playLaterPlaylistById(playlistId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
@@ -76,7 +77,7 @@ class SearchPlaylistViewModel(
         }
     }
 
-    private fun shuffleModeLoad() = viewModelScope.launch(Dispatchers.IO) {
+    private fun shuffleModeLoad() = applicationScope.launch {
         try {
             isShuffleMode = ciderRPCModel.getShuffleMode()
         } catch (ce: CancellationException) {
@@ -86,12 +87,20 @@ class SearchPlaylistViewModel(
         }
     }
 
-    fun playPlaylistFolder(playlistFolderId: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun playPlaylistFolder(playlistFolderId: String) = applicationScope.launch {
         try {
-            val children = ciderModel.getAllPlaylistFolderChildren(playlistFolderId)
-            ciderRPCModel.playlistFolderPlayById(children.map { it.id })
-            delay(1_000)
-            ciderRPCModel.setShuffleMode(true, isShuffleMode)
+            ciderBridgeModel.playPlaylistFolderById(playlistFolderId)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("SearchPlaylistViewModel", th.toString())
+        }
+    }
+
+    fun playPlaylistFolderShuffled(playlistFolderId: String) = applicationScope.launch {
+        try {
+            ciderBridgeModel.playPlaylistFolderByIdShuffled(playlistFolderId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce

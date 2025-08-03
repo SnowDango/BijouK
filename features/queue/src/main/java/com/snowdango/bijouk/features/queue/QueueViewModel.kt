@@ -8,6 +8,7 @@ import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.model.cider.data.QueueDataList
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -24,8 +25,11 @@ class QueueViewModel(
     private val token: String,
 ) : ViewModel(), KoinComponent {
 
-    val sharedEventStore: SharedEventStore by inject()
+    var currentSongId: String? = null
+
+    private val sharedEventStore: SharedEventStore by inject()
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
+    private val applicationScope: CoroutineScope by inject()
 
     private val _queueViewDataFlow: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val queueViewDataFlow = _queueViewDataFlow.stateIn(
@@ -51,6 +55,10 @@ class QueueViewModel(
                 when (event) {
                     is SharedEventStore.SharedEvent.QueueUpdated -> queueRefresh()
                     is SharedEventStore.SharedEvent.QueueDelayUpdated -> queueDelayRefresh()
+                    is SharedEventStore.SharedEvent.ChangeNowPlayingSong -> {
+                        currentSongId = event.songId
+                    }
+
                     else -> {
                         // 他のイベントは無視
                     }
@@ -72,7 +80,7 @@ class QueueViewModel(
 
     private fun queueLoad() = viewModelScope.launch(Dispatchers.IO) {
         try {
-            val data = ciderRPCModel.getQueue()
+            val data = ciderRPCModel.getQueue(currentSongId)
             _isRefreshFlow.emit(false)
             _queueViewDataFlow.emit(UiState.Success(data))
         } catch (ce: CancellationException) {
@@ -84,7 +92,7 @@ class QueueViewModel(
         }
     }
 
-    fun moveQueueNext(index: Int) = viewModelScope.launch(Dispatchers.IO) {
+    fun moveQueueNext(index: Int) = applicationScope.launch {
         _queueViewDataFlow.value.let { uiState ->
             try {
                 if (uiState !is UiState.Success) return@launch
@@ -108,7 +116,7 @@ class QueueViewModel(
         }
     }
 
-    fun skipQueue(index: Int) = viewModelScope.launch(Dispatchers.IO) {
+    fun skipQueue(index: Int) = applicationScope.launch {
         try {
             ciderRPCModel.changeQueueIndex(index)
         } catch (ce: CancellationException) {

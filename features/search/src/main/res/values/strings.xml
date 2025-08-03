@@ -8,9 +8,10 @@
     <string name="content_page_tab_album">Album</string>
     <string name="content_page_tab_artist">Artist</string>
 
-    <string name="search_dropdown_menu_play">今すぐ再生</string>
-    <string name="search_dropdown_menu_play_next">次に再生</string>
-    <string name="search_dropdown_menu_play_later">最後に再生</string>
+    <string name="search_dropdown_menu_play">Play and Clear</string>
+    <string name="search_dropdown_menu_shuffle">Shuffle Play</string>
+    <string name="search_dropdown_menu_play_next">Play Next</string>
+    <string name="search_dropdown_menu_play_later">Play Later</string>
 
     <string name="search_library_category_folders">Folders</string>
     <string name="search_library_category_playlists">Playlists</string>

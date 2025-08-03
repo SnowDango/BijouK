@@ -40,10 +40,12 @@ fun SeparateNowPlayingContent(
     nowPlayData: NowPlayData?,
     playBackTimeData: PlayBackTimeData?,
     nowPlayingStatusData: NowPlayingStatusData,
+    isShuffled: Boolean,
     onPlayPause: () -> Unit,
     onSeekTo: (Float) -> Unit,
     onNext: () -> Unit,
     onPrevious: () -> Unit,
+    onClickShuffle: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Scaffold(
@@ -94,6 +96,8 @@ fun SeparateNowPlayingContent(
 
             PlayBackStateButtonsComponent(
                 nowPlayingStatusData = nowPlayingStatusData,
+                isShuffled = isShuffled,
+                onClickShuffle = onClickShuffle,
                 modifier = Modifier.padding(top = 12.dp)
             )
             SeekBarComponent(
@@ -133,10 +137,12 @@ private fun PreviewSeparateNowPlayingContent() {
             nowPlayData = null,
             playBackTimeData = null,
             nowPlayingStatusData = NowPlayingStatusData(isFav = false, isInLib = false),
+            isShuffled = true,
             onPlayPause = {},
             onSeekTo = {},
             onNext = {},
             onPrevious = {},
+            onClickShuffle = {},
         )
     }
 }

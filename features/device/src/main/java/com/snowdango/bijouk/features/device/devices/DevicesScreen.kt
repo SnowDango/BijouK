@@ -89,7 +89,7 @@ fun DeviceScreen(
                 horizontalAlignment = Alignment.End,
             ) {
                 FloatingActionButtonMenuItem(
-                    text = { Text(text = "QR Scan") },
+                    text = { Text(text = stringResource(R.string.device_add_menu_qr)) },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.QrCode,
@@ -102,7 +102,7 @@ fun DeviceScreen(
                     }
                 )
                 FloatingActionButtonMenuItem(
-                    text = { Text(text = "Create") },
+                    text = { Text(text = stringResource(R.string.device_add_menu_create)) },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Create,

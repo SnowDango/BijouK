@@ -25,10 +25,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.text.isDigitsOnly
+import com.snowdango.bijouk.features.device.R
 import com.snowdango.bijouk.ui.BijouKTheme
 
 @Composable
@@ -39,6 +42,7 @@ fun AddDeviceDialog(
     onClickTest: (host: String, port: Int?, token: String, isUseSsl: Boolean) -> Unit,
     onClickAdd: (name: String, host: String, port: Int?, token: String, isUseSsl: Boolean) -> Unit,
 ) {
+    val context = LocalContext.current
     var isValidateError: String? by remember { mutableStateOf(null) }
 
     var name by remember { mutableStateOf("") }
@@ -53,7 +57,7 @@ fun AddDeviceDialog(
             TextButton(
                 onClick = onDismissRequest,
             ) {
-                Text(text = "キャンセル")
+                Text(text = stringResource(R.string.add_device_dialog_button_cancel))
             }
         },
         confirmButton = {
@@ -63,16 +67,16 @@ fun AddDeviceDialog(
                         onClickTest.invoke(host, port.toIntOrNull(), token, isUseSsl)
                     }
                 ) {
-                    Text(text = "Test")
+                    Text(text = stringResource(R.string.add_device_dialog_button_test))
                 }
                 TextButton(
                     onClick = {
                         if (name.isBlank()) {
-                            isValidateError = "Nameが指定されていません"
+                            isValidateError = context.getString(R.string.add_device_dialog_validate_error_name)
                         } else if (host.isBlank()) {
-                            isValidateError = "Hostが指定されていません"
+                            isValidateError = context.getString(R.string.add_device_dialog_validate_error_host)
                         } else if (token.isBlank()) {
-                            isValidateError = "Tokenが指定されていません"
+                            isValidateError = context.getString(R.string.add_device_dialog_validate_error_token)
                         } else {
                             isValidateError = null
                             onClickAdd.invoke(name, host, port.toIntOrNull(), token, isUseSsl)
@@ -80,12 +84,12 @@ fun AddDeviceDialog(
                         }
                     }
                 ) {
-                    Text(text = "追加")
+                    Text(text = stringResource(R.string.add_device_dialog_button_add))
                 }
             }
         },
         title = {
-            Text(text = "デバイスを追加")
+            Text(text = stringResource(R.string.add_device_dialog_title))
         },
         text = {
             Column {
@@ -95,10 +99,10 @@ fun AddDeviceDialog(
                         name = it
                     },
                     label = {
-                        Text(text = "Name")
+                        Text(text = stringResource(R.string.add_device_dialog_name_label))
                     },
                     placeholder = {
-                        Text(text = "Bijou")
+                        Text(text = stringResource(R.string.add_device_dialog_name_placeholder))
                     }
                 )
                 OutlinedTextField(
@@ -108,10 +112,10 @@ fun AddDeviceDialog(
                         onChange.invoke()
                     },
                     label = {
-                        Text(text = "Host")
+                        Text(text = stringResource(R.string.add_device_dialog_host_label))
                     },
                     placeholder = {
-                        Text(text = "ex.) 192.168.1.1")
+                        Text(text = stringResource(R.string.add_device_dialog_host_placeholder))
                     }
                 )
                 OutlinedTextField(
@@ -123,10 +127,10 @@ fun AddDeviceDialog(
                         }
                     },
                     label = {
-                        Text(text = "Port")
+                        Text(text = stringResource(R.string.add_device_dialog_port_label))
                     },
                     placeholder = {
-                        Text(text = "10767")
+                        Text(text = stringResource(R.string.add_device_dialog_port_placeholder))
                     },
                     keyboardOptions = KeyboardOptions(
                         keyboardType = KeyboardType.Number,
@@ -139,10 +143,10 @@ fun AddDeviceDialog(
                         onChange.invoke()
                     },
                     label = {
-                        Text(text = "Token")
+                        Text(text = stringResource(R.string.add_device_dialog_token_label))
                     },
                     placeholder = {
-                        Text(text = "generate Cider")
+                        Text(text = stringResource(R.string.add_device_dialog_token_placeholder))
                     },
                 )
                 Row(
@@ -152,7 +156,7 @@ fun AddDeviceDialog(
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Text(
-                        text = "Use SSL",
+                        text = stringResource(R.string.add_device_dialog_use_ssl),
                         modifier = Modifier
                             .fillMaxWidth()
                             .weight(1f),
@@ -168,7 +172,7 @@ fun AddDeviceDialog(
                 isTestActive?.let {
                     Row(
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .width(OutlinedTextFieldDefaults.MinWidth),
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Icon(
@@ -188,9 +192,9 @@ fun AddDeviceDialog(
                         )
                         Text(
                             text = if (isTestActive) {
-                                "Success connected"
+                                stringResource(R.string.add_device_dialog_test_success)
                             } else {
-                                "Failed connected"
+                                stringResource(R.string.add_device_dialog_test_failed)
                             },
                             color = if (isTestActive) {
                                 Color.Green

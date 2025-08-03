@@ -66,6 +66,7 @@ class CiderSocket(
                     }
 
                     EventType.NowPlayingItemDidChange -> { // fav and lib state change
+                        logger.d(null, param.toString())
                         val data =
                             Json.Default.decodeFromString<NowPlayingItemDidChangeEvent>(
                                 param[0].toString()

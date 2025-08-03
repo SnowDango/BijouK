@@ -9,6 +9,7 @@ import com.snowdango.bijouk.model.cider.data.ArtistDetailData
 import com.snowdango.bijouk.model.cider.data.entity.AlbumData
 import com.snowdango.bijouk.model.cider.data.entity.SongData
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -26,6 +27,7 @@ class ArtistsDetailViewModel(
 
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
+    private val applicationScope: CoroutineScope by inject()
 
     private val _artistDetailDataFlow: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val artistDetailDataFlow = _artistDetailDataFlow.stateIn(
@@ -116,9 +118,9 @@ class ArtistsDetailViewModel(
         }
     }
 
-    fun stationPlayById(stationId: String) = viewModelScope.launch(Dispatchers.IO) {
+    fun stationPlayById(stationId: String) = applicationScope.launch {
         try {
-            ciderRPCModel.stationPlayById(stationId)
+            ciderRPCModel.playStationById(stationId)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {

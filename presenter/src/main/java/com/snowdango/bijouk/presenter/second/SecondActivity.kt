@@ -55,20 +55,23 @@ class SecondActivity : ComponentActivity() {
             val nowPlayData = viewModel.nowPlayFlow.collectAsStateWithLifecycle()
             val playbackTimeData = viewModel.playBackTimeData.collectAsStateWithLifecycle()
             val nowPlayingStatusData = viewModel.nowPlayingStatusFlow.collectAsStateWithLifecycle()
+            val isShuffled = viewModel.isShuffledFlow.collectAsStateWithLifecycle()
 
             BijouKTheme {
                 SecondScreen(
                     screenType = screenType,
                     name = secondActivityData.name,
-                    connectionState.value,
-                    isEnableChange.value,
-                    nowPlayData.value,
-                    playbackTimeData.value,
-                    nowPlayingStatusData.value,
+                    connectionState = connectionState.value,
+                    isEnableChange = isEnableChange.value,
+                    nowPlayData = nowPlayData.value,
+                    playBackTimeData = playbackTimeData.value,
+                    nowPlayingStatusData = nowPlayingStatusData.value,
+                    isShuffled = isShuffled.value,
                     onPlayPause = viewModel::playPause,
                     onSeekTo = viewModel::seekTo,
                     onNext = viewModel::next,
                     onPrevious = viewModel::prev,
+                    onClickShuffle = viewModel::onShuffleToggle,
                     modifier = Modifier.fillMaxSize()
                 ) { sheetMinHeight ->
                     val navController = rememberNavController()

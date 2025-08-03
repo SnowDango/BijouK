@@ -23,10 +23,12 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.snowdango.bijouk.features.artist.R
 import com.snowdango.bijouk.model.cider.data.entity.AlbumData
 import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
@@ -50,7 +52,7 @@ fun ArtistFullAlbums(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = "Albums",
+                text = stringResource(R.string.artist_detail_category_albums),
                 style = MaterialTheme.typography.titleLarge,
                 maxLines = 1,
             )

@@ -10,6 +10,7 @@ import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -28,6 +29,7 @@ class SecondViewModel(
 
     private val ciderSocketModel: CiderSocketModel by inject { parametersOf(baseUrl) }
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
+    private val applicationScope: CoroutineScope by inject()
 
     private val _connectionStateFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
     val connectionStateFlow = _connectionStateFlow.stateIn(
@@ -60,6 +62,12 @@ class SecondViewModel(
         SharingStarted.WhileSubscribed(5_000),
         _isChangeableSeekFlow.value,
     )
+    private val _isShuffledFlow: MutableStateFlow<Boolean> = MutableStateFlow(false)
+    val isShuffledFlow = _isShuffledFlow.stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        _isShuffledFlow.value,
+    )
 
     private val playBackEventListener = object : CiderSocketModel.PlayBackStatusEventListener {
         override fun onTimeChangeEvent(playBackTimeData: PlayBackTimeData) {
@@ -75,6 +83,11 @@ class SecondViewModel(
             viewModelScope.launch(Dispatchers.IO) {
                 nowPlayData?.let { _nowPlayFlow.emit(it) }
                 playBackTimeData?.let { _playbackTimeFlow.emit(it) }
+                sharedEventStore.setEvent(
+                    SharedEventStore.SharedEvent.ChangeNowPlayingSong(
+                        nowPlayData?.id
+                    )
+                )
             }
         }
 
@@ -82,6 +95,11 @@ class SecondViewModel(
             viewModelScope.launch(Dispatchers.IO) {
                 _nowPlayFlow.emit(nowPlayData)
                 sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueUpdated)
+                sharedEventStore.setEvent(
+                    SharedEventStore.SharedEvent.ChangeNowPlayingSong(
+                        nowPlayData.id
+                    )
+                )
             }
         }
 
@@ -93,7 +111,11 @@ class SecondViewModel(
         }
 
         override fun onShuffleModeChangeEvent(isShuffle: Boolean) {
-            sharedEventStore.setEvent(SharedEventStore.SharedEvent.ShuffleModeUpdated(isShuffle))
+            viewModelScope.launch(Dispatchers.IO) {
+                _isShuffledFlow.emit(isShuffle)
+                sharedEventStore.setEvent(SharedEventStore.SharedEvent.ShuffleModeUpdated(isShuffle))
+                sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+            }
         }
     }
 
@@ -123,6 +145,7 @@ class SecondViewModel(
     private fun shuffleModeLoad() = viewModelScope.launch(Dispatchers.IO) {
         try {
             val isShuffle = ciderRPCModel.getShuffleMode()
+            _isShuffledFlow.emit(isShuffle)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.ShuffleModeUpdated(isShuffle))
         } catch (ce: CancellationException) {
             throw ce
@@ -137,16 +160,18 @@ class SecondViewModel(
             _nowPlayFlow.emit(data.first)
             _playbackTimeFlow.emit(data.second)
             _nowPlayingStatusFlow.emit(data.third)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.ChangeNowPlayingSong(data.first.id))
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
             Log.e("NowPlayViewModel", th.toString())
             _nowPlayFlow.emit(null)
             _playbackTimeFlow.emit(null)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.ChangeNowPlayingSong(null))
         }
     }
 
-    fun playPause() = viewModelScope.launch(Dispatchers.IO) {
+    fun playPause() = applicationScope.launch {
         try {
             ciderRPCModel.playPause()
         } catch (ce: CancellationException) {
@@ -156,7 +181,7 @@ class SecondViewModel(
         }
     }
 
-    fun next() = viewModelScope.launch(Dispatchers.IO) {
+    fun next() = applicationScope.launch {
         try {
             ciderRPCModel.next()
         } catch (ce: CancellationException) {
@@ -166,7 +191,7 @@ class SecondViewModel(
         }
     }
 
-    fun prev() = viewModelScope.launch(Dispatchers.IO) {
+    fun prev() = applicationScope.launch {
         try {
             ciderRPCModel.prev()
         } catch (ce: CancellationException) {
@@ -176,7 +201,7 @@ class SecondViewModel(
         }
     }
 
-    fun seekTo(time: Float) = viewModelScope.launch(Dispatchers.IO) {
+    fun seekTo(time: Float) = applicationScope.launch {
         _isChangeableSeekFlow.emit(false)
         try {
             ciderRPCModel.seekTo(time)
@@ -186,6 +211,16 @@ class SecondViewModel(
         } catch (th: Throwable) {
             Log.e("NowPlayViewModel", th.toString())
             _isChangeableSeekFlow.emit(true)
+        }
+    }
+
+    fun onShuffleToggle() = applicationScope.launch {
+        try {
+            ciderRPCModel.toggleShuffleMode()
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("NowPlayViewModel", th.toString())
         }
     }
 
