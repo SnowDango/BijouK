@@ -57,6 +57,7 @@ class QueueViewModel(
                     is SharedEventStore.SharedEvent.QueueDelayUpdated -> queueDelayRefresh()
                     is SharedEventStore.SharedEvent.ChangeNowPlayingSong -> {
                         currentSongId = event.songId
+                        queueRefresh()
                     }
 
                     else -> {
