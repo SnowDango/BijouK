@@ -39,7 +39,7 @@ class CiderRPCModel(
     suspend fun getQueue(songId: String?): QueueDataList {
         val queues = repository.getQueue()
         val currentIndex =
-            queues.filter { it.playbackType == 3 }.indexOfLast { it.songId == songId }
+            queues.filter { it.playbackType != 0 }.indexOfLast { it.songId == songId }
         val isFinished = queues.none { it.playbackType == 0 }
         return QueueDataList(
             list = queues.mapIndexed { index, data ->
