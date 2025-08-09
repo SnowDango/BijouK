@@ -19,6 +19,7 @@ material3 = "1.4.0-alpha18"
 navigation = "2.9.2"
 splash = "1.0.1"
 window = "1.4.0"
+media = "1.7.0"
 paging = "3.3.6"
 room = "2.7.2"
 sqlite-bundled = "2.5.2"
@@ -47,6 +48,7 @@ firebase-crashlytics = "3.0.5"
 deploygate = "2.9.0"
 qrscanner = "0.4.0"
 core = "1.6.1"
+media3Session = "1.8.0"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -80,6 +82,9 @@ androidx-constraint = { group = "androidx.constraintlayout", name = "constraintl
 
 # window
 androidx-window = { group = "androidx.window", name = "window", version.ref = "window" }
+
+# media
+androidx-media = { group = "androidx.media", name = "media", version.ref = "media" }
 
 # settings
 composeSettings-ui = { group = "com.github.alorma.compose-settings", name = "ui-tiles", version.ref = "compose-settings" }
@@ -162,6 +167,8 @@ firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.r
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
 androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
+androidx-media3-common = { group = "androidx.media3", name = "media3-common", version.ref = "media3Session" }
+androidx-media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "media3Session" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
