@@ -9,10 +9,11 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
 import android.os.Build
 import android.os.IBinder
 import android.support.v4.media.session.PlaybackStateCompat
+import android.util.Log
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.startForegroundService
@@ -42,6 +43,8 @@ class RemoteMediaService : Service() {
                 }
 
                 override fun onFinish() {
+                    Log.d("RemoteMediaService", "onFinish called, stopping service")
+                    notificationManager.cancelAll()
                     stopForeground(STOP_FOREGROUND_REMOVE)
                     stopSelf()
                 }
@@ -77,6 +80,10 @@ class RemoteMediaService : Service() {
 
             ACTION_PREVIOUS -> {
                 viewModel.prev()
+            }
+
+            ACTION_DELETE -> {
+                updateNotification()
             }
 
             else -> {
@@ -115,13 +122,13 @@ class RemoteMediaService : Service() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
             startForeground(notifyId, notification)
         } else {
-            startForeground(notifyId, notification, FOREGROUND_SERVICE_TYPE_DATA_SYNC)
+            startForeground(notifyId, notification, FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK)
         }
     }
 
     private fun updateNotification(): Notification {
         val notificationBuilder = NotificationCompat.Builder(applicationContext, channelId)
-            .setCategory(Notification.CATEGORY_SOCIAL)
+            .setCategory(Notification.CATEGORY_SERVICE)
             .setStyle(mediaStyle.setMediaSession(viewModel.mediaSession.sessionToken))
             .setSmallIcon(R.drawable.ic_launcher)
             .setOngoing(false)
@@ -161,6 +168,7 @@ class RemoteMediaService : Service() {
                 )
             }
             .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+            .setDeleteIntent(actionIntent(ACTION_DELETE))
 
         val notification = notificationBuilder.build()
         notificationManager.notify(notifyId, notification)
@@ -181,6 +189,7 @@ class RemoteMediaService : Service() {
         const val ACTION_PLAY_PAUSE = "ACTION_PLAY_PAUSE"
         const val ACTION_NEXT = "ACTION_NEXT"
         const val ACTION_PREVIOUS = "ACTION_PREVIOUS"
+        const val ACTION_DELETE = "ACTION_DELETE"
 
         const val BASE_URL_KEY = "baseUrl"
         const val TOKEN_KEY = "token"

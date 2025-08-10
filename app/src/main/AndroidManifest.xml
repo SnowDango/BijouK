@@ -51,7 +51,7 @@
             android:name=".presenter.notification.RemoteMediaService"
             android:exported="true"
             android:permission="android.permission.FOREGROUND_SERVICE"
-            android:foregroundServiceType="dataSync">
+            android:foregroundServiceType="mediaPlayback">
 
         </service>
     </application>
