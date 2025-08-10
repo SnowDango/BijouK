@@ -28,6 +28,8 @@ class RemoteMediaService : Service() {
     private val channelId = "cider_remote_media_service"
     private lateinit var notificationChannel: NotificationChannel
     private lateinit var notificationManager: NotificationManager
+    private val mediaStyle = MediaNotificationCompat.DecoratedMediaCustomViewStyle()
+        .setShowActionsInCompactView(1)
 
     @RequiresPermission(Manifest.permission.MEDIA_CONTENT_CONTROL)
     override fun onCreate() {
@@ -78,6 +80,8 @@ class RemoteMediaService : Service() {
             NotificationManager.IMPORTANCE_DEFAULT,
         )
         notificationChannel.description = "Notification channel for Cider Remote Media Service"
+        notificationChannel.enableVibration(false)
+        notificationChannel.setSound(null, null)
         notificationManager =
             applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(notificationChannel)
@@ -98,9 +102,7 @@ class RemoteMediaService : Service() {
         val notificationBuilder = NotificationCompat.Builder(applicationContext, channelId)
             .setCategory(Notification.CATEGORY_SOCIAL)
             .setStyle(
-                MediaNotificationCompat.DecoratedMediaCustomViewStyle()
-                    .setMediaSession(viewModel.mediaSession.sessionToken)
-                    .setShowActionsInCompactView(1)
+                mediaStyle.setMediaSession(viewModel.mediaSession.sessionToken)
             )
             .setSmallIcon(R.drawable.ic_launcher)
             .setOngoing(true)

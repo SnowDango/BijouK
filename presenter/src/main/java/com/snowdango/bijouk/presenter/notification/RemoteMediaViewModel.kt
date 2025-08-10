@@ -3,6 +3,7 @@ package com.snowdango.bijouk.presenter.notification
 import android.content.Context
 import android.support.v4.media.MediaMetadataCompat
 import android.support.v4.media.session.MediaSessionCompat
+import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import coil3.ImageLoader
 import coil3.request.ErrorResult
@@ -41,6 +42,9 @@ class RemoteMediaViewModel(
     var currentMetadata: MediaMetadataCompat = MediaMetadataCompat.Builder()
         .putText(MediaMetadataCompat.METADATA_KEY_TITLE, "No song playing")
         .build()
+    var currentPlaybackState: PlaybackStateCompat = PlaybackStateCompat.Builder()
+        .setState(PlaybackStateCompat.STATE_NONE, 0L, 0f)
+        .build()
     val mediaSession = MediaSessionCompat(context, mediaSessionTag).apply {
         isActive = false
     }
@@ -60,6 +64,7 @@ class RemoteMediaViewModel(
 
     private val playBackEventListener = object : CiderSocketModel.PlayBackStatusEventListener {
         override fun onTimeChangeEvent(playBackTimeData: PlayBackTimeData) {
+            updatePlaybackState(playBackTimeData)
             // TODO seek bar
         }
 
@@ -67,11 +72,11 @@ class RemoteMediaViewModel(
             nowPlayData: NowPlayData?,
             playBackTimeData: PlayBackTimeData?
         ) {
-            updateMetadata(nowPlayData)
+            updateMetadata(nowPlayData, playBackTimeData)
         }
 
         override fun onNowPlayingItemChangeEvent(nowPlayData: NowPlayData) {
-            updateMetadata(nowPlayData)
+            updateMetadata(nowPlayData, null)
         }
 
         override fun onNowPlayingStatusChangeEvent(nowPlayingStatusData: NowPlayingStatusData) {
@@ -97,16 +102,17 @@ class RemoteMediaViewModel(
         coroutineScope.launch(Dispatchers.IO) {
             try {
                 val data = ciderRPCModel?.getNowPlay()
-                updateMetadata(data?.first)
+                updateMetadata(data?.first, data?.second)
             } catch (e: Exception) {
                 Log.e("RemoteMediaViewModel", "Error initializing metadata: ${e.message}")
-                updateMetadata(null)
+                updateMetadata(null, null)
             }
         }
     }
 
     private fun updateMetadata(
-        nowPlayData: NowPlayData?
+        nowPlayData: NowPlayData?,
+        playBackTimeData: PlayBackTimeData?,
     ) {
         coroutineScope.launch(Dispatchers.IO) {
             mutex.withLock {
@@ -121,13 +127,56 @@ class RemoteMediaViewModel(
                         .putText(MediaMetadataCompat.METADATA_KEY_TITLE, nowPlayData.name)
                         .putText(MediaMetadataCompat.METADATA_KEY_ARTIST, nowPlayData.artistName)
                         .putText(MediaMetadataCompat.METADATA_KEY_ALBUM, nowPlayData.albumName)
+                        .putLong(
+                            MediaMetadataCompat.METADATA_KEY_DURATION,
+                            playBackTimeData?.duration?.toLong()?.times(1000L) ?: 0L
+                        )
                         .build()
                     mediaSession.setMetadata(currentMetadata)
                     callback.onMetadataUpdated()
                     getBitmapFromUrl(nowPlayData.artwork)
                 }
             }
+            updatePlaybackState(playBackTimeData)
             Log.d("RemoteMediaViewModel", "Metadata updated: $currentMetadata")
+        }
+    }
+
+    private fun updatePlaybackState(
+        playBackTimeData: PlayBackTimeData?,
+    ) {
+        coroutineScope.launch(Dispatchers.IO) {
+            mutex.withLock {
+                if (playBackTimeData != null) {
+                    if (currentMetadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION) == 0L) { // not set duration
+                        currentMetadata = MediaMetadataCompat.Builder(currentMetadata)
+                            .putLong(
+                                MediaMetadataCompat.METADATA_KEY_DURATION,
+                                playBackTimeData.duration.toLong() * 1000L
+                            )
+                            .build()
+                        mediaSession.setMetadata(currentMetadata)
+                        callback.onMetadataUpdated()
+                    }
+                    currentPlaybackState = PlaybackStateCompat.Builder()
+                        .setState(
+                            if (playBackTimeData.isPlaying) {
+                                PlaybackStateCompat.STATE_PLAYING
+                            } else {
+                                PlaybackStateCompat.STATE_PAUSED
+                            },
+                            playBackTimeData.currentTime.toLong().times(1000L),
+                            0f
+                        )
+                        .build()
+                    mediaSession.setPlaybackState(currentPlaybackState)
+                } else {
+                    currentPlaybackState = PlaybackStateCompat.Builder()
+                        .setState(PlaybackStateCompat.STATE_NONE, 0L, 0f)
+                        .build()
+                    mediaSession.setPlaybackState(currentPlaybackState)
+                }
+            }
         }
     }
 
