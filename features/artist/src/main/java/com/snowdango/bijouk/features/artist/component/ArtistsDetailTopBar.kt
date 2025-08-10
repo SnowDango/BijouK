@@ -201,7 +201,7 @@ fun ArtistsDetailTopBar(
                         )
                     }
                 },
-                colors = TopAppBarDefaults.largeTopAppBarColors(
+                colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent,
                 ),
                 expandedHeight = width - systemBarHeight,

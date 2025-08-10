@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -27,6 +28,8 @@ import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.extend.ScreenType
 import com.snowdango.bijouk.ui.extend.SetOrientation
 import com.snowdango.bijouk.ui.extend.screenType
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
@@ -46,7 +49,7 @@ class SecondActivity : ComponentActivity() {
         } else {
             intent.extras?.getParcelable(KEY_DEVICE_DATA)
         } ?: throw IllegalArgumentException("Device data is required")
-
+        onStartService()
         setContent {
             SetOrientation()
             val screenType = screenType()
@@ -140,13 +143,18 @@ class SecondActivity : ComponentActivity() {
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        RemoteMediaService.startService(
-            applicationContext,
-            secondActivityData.baseUrl,
-            secondActivityData.token
-        )
+    fun onStartService() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            viewModel.connectionStateFlow.collect {
+                if (it) {
+                    RemoteMediaService.startService(
+                        applicationContext,
+                        secondActivityData.baseUrl,
+                        secondActivityData.token
+                    )
+                }
+            }
+        }
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {

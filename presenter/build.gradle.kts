@@ -63,8 +63,6 @@ dependencies {
     implementation(libs.bundles.coil)
     implementation(libs.bundles.aboutlibraries)
     implementation(libs.kotlinx.serialization)
-    implementation(libs.androidx.media3.session)
-    implementation(libs.androidx.media3.common)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

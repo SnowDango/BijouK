@@ -1,9 +1,9 @@
 package com.snowdango.bijouk.presenter.notification
 
 import android.content.Context
-import android.support.v4.media.MediaMetadataCompat
-import android.support.v4.media.session.MediaSessionCompat
-import android.support.v4.media.session.PlaybackStateCompat
+import android.media.MediaMetadata
+import android.media.session.MediaSession
+import android.media.session.PlaybackState
 import android.util.Log
 import coil3.ImageLoader
 import coil3.request.ErrorResult
@@ -39,13 +39,14 @@ class RemoteMediaViewModel(
     private var ciderSocketModel: CiderSocketModel? = null
     private val mutex: Mutex = Mutex()
 
-    var currentMetadata: MediaMetadataCompat = MediaMetadataCompat.Builder()
-        .putText(MediaMetadataCompat.METADATA_KEY_TITLE, "No song playing")
+    var currentMetadata: MediaMetadata = MediaMetadata.Builder()
+        .putText(MediaMetadata.METADATA_KEY_TITLE, "No song playing")
+        .putLong(MediaMetadata.METADATA_KEY_DURATION, 0L)
         .build()
-    var currentPlaybackState: PlaybackStateCompat = PlaybackStateCompat.Builder()
-        .setState(PlaybackStateCompat.STATE_NONE, 0L, 0f)
+    var currentPlaybackState: PlaybackState = PlaybackState.Builder()
+        .setState(PlaybackState.STATE_NONE, 0L, 0f)
         .build()
-    val mediaSession = MediaSessionCompat(context, mediaSessionTag).apply {
+    val mediaSession: MediaSession = MediaSession(context, mediaSessionTag).apply {
         isActive = false
     }
 
@@ -117,18 +118,18 @@ class RemoteMediaViewModel(
         coroutineScope.launch(Dispatchers.IO) {
             mutex.withLock {
                 if (nowPlayData == null) {
-                    currentMetadata = MediaMetadataCompat.Builder()
-                        .putText(MediaMetadataCompat.METADATA_KEY_TITLE, "No song playing")
+                    currentMetadata = MediaMetadata.Builder()
+                        .putText(MediaMetadata.METADATA_KEY_TITLE, "No song playing")
                         .build()
                     mediaSession.setMetadata(currentMetadata)
                     callback.onMetadataUpdated()
                 } else {
-                    currentMetadata = MediaMetadataCompat.Builder()
-                        .putText(MediaMetadataCompat.METADATA_KEY_TITLE, nowPlayData.name)
-                        .putText(MediaMetadataCompat.METADATA_KEY_ARTIST, nowPlayData.artistName)
-                        .putText(MediaMetadataCompat.METADATA_KEY_ALBUM, nowPlayData.albumName)
+                    currentMetadata = MediaMetadata.Builder()
+                        .putText(MediaMetadata.METADATA_KEY_TITLE, nowPlayData.name)
+                        .putText(MediaMetadata.METADATA_KEY_ARTIST, nowPlayData.artistName)
+                        .putText(MediaMetadata.METADATA_KEY_ALBUM, nowPlayData.albumName)
                         .putLong(
-                            MediaMetadataCompat.METADATA_KEY_DURATION,
+                            MediaMetadata.METADATA_KEY_DURATION,
                             playBackTimeData?.duration?.toLong()?.times(1000L) ?: 0L
                         )
                         .build()
@@ -148,10 +149,10 @@ class RemoteMediaViewModel(
         coroutineScope.launch(Dispatchers.IO) {
             mutex.withLock {
                 if (playBackTimeData != null) {
-                    if (currentMetadata.getLong(MediaMetadataCompat.METADATA_KEY_DURATION) == 0L) { // not set duration
-                        currentMetadata = MediaMetadataCompat.Builder(currentMetadata)
+                    if (currentMetadata.getLong(MediaMetadata.METADATA_KEY_DURATION) == 0L) { // not set duration
+                        currentMetadata = MediaMetadata.Builder(currentMetadata)
                             .putLong(
-                                MediaMetadataCompat.METADATA_KEY_DURATION,
+                                MediaMetadata.METADATA_KEY_DURATION,
                                 playBackTimeData.duration.toLong() * 1000L
                             )
                             .build()
@@ -159,12 +160,12 @@ class RemoteMediaViewModel(
                         callback.onMetadataUpdated()
                     }
                     val currentState = currentPlaybackState.state
-                    currentPlaybackState = PlaybackStateCompat.Builder()
+                    currentPlaybackState = PlaybackState.Builder()
                         .setState(
                             if (playBackTimeData.isPlaying) {
-                                PlaybackStateCompat.STATE_PLAYING
+                                PlaybackState.STATE_PLAYING
                             } else {
-                                PlaybackStateCompat.STATE_PAUSED
+                                PlaybackState.STATE_PAUSED
                             },
                             playBackTimeData.currentTime.toLong().times(1000L),
                             0f
@@ -175,8 +176,8 @@ class RemoteMediaViewModel(
                         callback.onMetadataUpdated()
                     }
                 } else {
-                    currentPlaybackState = PlaybackStateCompat.Builder()
-                        .setState(PlaybackStateCompat.STATE_NONE, 0L, 0f)
+                    currentPlaybackState = PlaybackState.Builder()
+                        .setState(PlaybackState.STATE_NONE, 0L, 0f)
                         .build()
                     mediaSession.setPlaybackState(currentPlaybackState)
                     callback.onMetadataUpdated()
@@ -194,8 +195,8 @@ class RemoteMediaViewModel(
         val result = loader.execute(request)
         if (result is SuccessResult) {
             result.image.toBitmap()
-            currentMetadata = MediaMetadataCompat.Builder(currentMetadata)
-                .putBitmap(MediaMetadataCompat.METADATA_KEY_ALBUM_ART, result.image.toBitmap())
+            currentMetadata = MediaMetadata.Builder(currentMetadata)
+                .putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, result.image.toBitmap())
                 .build()
             mediaSession.setMetadata(currentMetadata)
             callback.onMetadataUpdated()
