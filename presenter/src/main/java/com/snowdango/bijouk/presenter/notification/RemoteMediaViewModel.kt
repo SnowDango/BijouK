@@ -27,7 +27,6 @@ import org.koin.core.component.get
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
 
-
 class RemoteMediaViewModel(
     private val callback: Callback,
 ) : KoinComponent {
@@ -50,7 +49,6 @@ class RemoteMediaViewModel(
     val mediaSession: MediaSession = MediaSession(context, mediaSessionTag).apply {
         isActive = false
     }
-
 
     private val socketConnectionEventListener =
         object : CiderSocketModel.SocketConnectionEventListener {
