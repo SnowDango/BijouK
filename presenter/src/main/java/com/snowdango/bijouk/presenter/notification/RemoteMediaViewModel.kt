@@ -16,6 +16,7 @@ import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -158,6 +159,7 @@ class RemoteMediaViewModel(
                         mediaSession.setMetadata(currentMetadata)
                         callback.onMetadataUpdated()
                     }
+                    val currentState = currentPlaybackState.state
                     currentPlaybackState = PlaybackStateCompat.Builder()
                         .setState(
                             if (playBackTimeData.isPlaying) {
@@ -170,11 +172,15 @@ class RemoteMediaViewModel(
                         )
                         .build()
                     mediaSession.setPlaybackState(currentPlaybackState)
+                    if (currentState != currentPlaybackState.state) {
+                        callback.onMetadataUpdated()
+                    }
                 } else {
                     currentPlaybackState = PlaybackStateCompat.Builder()
                         .setState(PlaybackStateCompat.STATE_NONE, 0L, 0f)
                         .build()
                     mediaSession.setPlaybackState(currentPlaybackState)
+                    callback.onMetadataUpdated()
                 }
             }
         }
@@ -196,6 +202,36 @@ class RemoteMediaViewModel(
             callback.onMetadataUpdated()
         } else if (result is ErrorResult) {
             Log.d("RemoteMediaViewModel", "Error loading image: ${result.throwable.message}")
+        }
+    }
+
+    fun playPause() = coroutineScope.launch {
+        try {
+            ciderRPCModel?.playPause()
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("RemoteMediaViewModel", th.toString())
+        }
+    }
+
+    fun next() = coroutineScope.launch {
+        try {
+            ciderRPCModel?.next()
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("RemoteMediaViewModel", th.toString())
+        }
+    }
+
+    fun prev() = coroutineScope.launch {
+        try {
+            ciderRPCModel?.prev()
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("RemoteMediaViewModel", th.toString())
         }
     }
 
