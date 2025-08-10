@@ -95,8 +95,13 @@ class RemoteMediaViewModel(
 
     private fun initMetadata() {
         coroutineScope.launch(Dispatchers.IO) {
-            val data = ciderRPCModel?.getNowPlay()
-            updateMetadata(data?.first)
+            try {
+                val data = ciderRPCModel?.getNowPlay()
+                updateMetadata(data?.first)
+            } catch (e: Exception) {
+                Log.e("RemoteMediaViewModel", "Error initializing metadata: ${e.message}")
+                updateMetadata(null)
+            }
         }
     }
 
