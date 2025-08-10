@@ -19,7 +19,6 @@ import androidx.core.content.ContextCompat.startForegroundService
 import com.snowdango.bijouk.presenter.R
 import androidx.media.app.NotificationCompat as MediaNotificationCompat
 
-
 class RemoteMediaService : Service() {
 
     private var baseUrl: String? = null
@@ -147,8 +146,8 @@ class RemoteMediaService : Service() {
                         }
                     },
                     "Play/Pause",
-                    if (viewModel.currentPlaybackState.state == PlaybackStateCompat.STATE_PLAYING
-                        || viewModel.currentPlaybackState.state == PlaybackStateCompat.STATE_PAUSED
+                    if (viewModel.currentPlaybackState.state == PlaybackStateCompat.STATE_PLAYING ||
+                        viewModel.currentPlaybackState.state == PlaybackStateCompat.STATE_PAUSED
                     ) {
                         actionIntent(ACTION_PLAY_PAUSE)
                     } else {
@@ -183,7 +182,6 @@ class RemoteMediaService : Service() {
         const val ACTION_NEXT = "ACTION_NEXT"
         const val ACTION_PREVIOUS = "ACTION_PREVIOUS"
 
-
         const val BASE_URL_KEY = "baseUrl"
         const val TOKEN_KEY = "token"
 
@@ -199,5 +197,4 @@ class RemoteMediaService : Service() {
             startForegroundService(context, intent)
         }
     }
-
 }
