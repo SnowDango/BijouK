@@ -47,7 +47,7 @@ firebase-bom = "34.0.0"
 firebase-crashlytics = "3.0.5"
 deploygate = "2.9.0"
 qrscanner = "0.4.0"
-core = "1.6.1"
+core = "1.7.0"
 media3Session = "1.8.0"
 
 [libraries]

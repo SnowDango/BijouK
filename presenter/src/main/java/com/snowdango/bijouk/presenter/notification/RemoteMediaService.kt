@@ -10,15 +10,15 @@ import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK
+import android.graphics.drawable.Icon
+import android.media.MediaMetadata
+import android.media.session.PlaybackState
 import android.os.Build
 import android.os.IBinder
-import android.support.v4.media.session.PlaybackStateCompat
 import android.util.Log
 import androidx.annotation.RequiresPermission
-import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat.startForegroundService
 import com.snowdango.bijouk.presenter.R
-import androidx.media.app.NotificationCompat as MediaNotificationCompat
 
 class RemoteMediaService : Service() {
 
@@ -30,7 +30,7 @@ class RemoteMediaService : Service() {
     private val channelId = "cider_remote_media_service"
     private lateinit var notificationChannel: NotificationChannel
     private lateinit var notificationManager: NotificationManager
-    private val mediaStyle = MediaNotificationCompat.DecoratedMediaCustomViewStyle()
+    private val mediaStyle = Notification.DecoratedMediaCustomViewStyle()
         .setShowActionsInCompactView(1)
 
     @RequiresPermission(Manifest.permission.MEDIA_CONTENT_CONTROL)
@@ -127,49 +127,50 @@ class RemoteMediaService : Service() {
     }
 
     private fun updateNotification(): Notification {
-        val notificationBuilder = NotificationCompat.Builder(applicationContext, channelId)
+        val notificationBuilder = Notification.Builder(applicationContext, channelId)
             .setCategory(Notification.CATEGORY_SERVICE)
-            .setStyle(mediaStyle.setMediaSession(viewModel.mediaSession.sessionToken))
+            .setStyle(
+                mediaStyle.setMediaSession(viewModel.mediaSession.sessionToken)
+            )
             .setSmallIcon(R.drawable.ic_launcher)
-            .setOngoing(false)
-            .also {
-                it.addAction(
-                    R.drawable.ic_previous,
+            .setOngoing(true)
+            .setActions(
+                Notification.Action.Builder(
+                    Icon.createWithResource(applicationContext, R.drawable.ic_previous),
                     "Previous",
                     actionIntent(ACTION_PREVIOUS)
-                )
-                it.addAction(
-                    when (viewModel.currentPlaybackState.state) {
-                        PlaybackStateCompat.STATE_PLAYING -> {
-                            R.drawable.ic_pause
+                ).build(),
+                Notification.Action.Builder(
+                    Icon.createWithResource(
+                        applicationContext,
+                        when (viewModel.currentPlaybackState.state) {
+                            PlaybackState.STATE_PLAYING -> R.drawable.ic_pause
+                            PlaybackState.STATE_PAUSED -> R.drawable.ic_play
+                            else -> R.drawable.ic_play_disable
                         }
-
-                        PlaybackStateCompat.STATE_PAUSED -> {
-                            R.drawable.ic_play
-                        }
-
-                        else -> {
-                            R.drawable.ic_play_disable
-                        }
-                    },
+                    ),
                     "Play/Pause",
-                    if (viewModel.currentPlaybackState.state == PlaybackStateCompat.STATE_PLAYING ||
-                        viewModel.currentPlaybackState.state == PlaybackStateCompat.STATE_PAUSED
+                    if (viewModel.currentPlaybackState.state == PlaybackState.STATE_PLAYING ||
+                        viewModel.currentPlaybackState.state == PlaybackState.STATE_PAUSED
                     ) {
                         actionIntent(ACTION_PLAY_PAUSE)
                     } else {
                         null
                     }
-                )
-                it.addAction(
-                    R.drawable.ic_skip,
+                ).build(),
+                Notification.Action.Builder(
+                    Icon.createWithResource(applicationContext, R.drawable.ic_skip),
                     "Next",
                     actionIntent(ACTION_NEXT)
-                )
-            }
-            .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                ).build(),
+            )
+            .setVisibility(Notification.VISIBILITY_PUBLIC)
             .setDeleteIntent(actionIntent(ACTION_DELETE))
-
+            .also {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                    it.setShortCriticalText(viewModel.currentMetadata.getString(MediaMetadata.METADATA_KEY_TITLE))
+                }
+            }
         val notification = notificationBuilder.build()
         notificationManager.notify(notifyId, notification)
         return notification
