@@ -7,16 +7,16 @@ agp = "8.11.1"
 kotlin = "2.2.0"
 ksp = "2.2.0-2.0.2"
 coreKtx = "1.16.0"
-testRunner = " 1.6.2"
+testRunner = "1.7.0"
 junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
+junitVersion = "1.3.0"
+espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.9.2"
 activityCompose = "1.10.1"
 composeBom = "2025.07.00"
 constraint = "1.1.1"
 material3 = "1.4.0-alpha18"
-navigation = "2.9.2"
+navigation = "2.9.3"
 splash = "1.0.1"
 window = "1.4.0"
 media = "1.7.0"
@@ -25,16 +25,16 @@ room = "2.7.2"
 sqlite-bundled = "2.5.2"
 koin = "4.1.0"
 coroutine = "1.10.2"
-ktor = "3.2.2"
+ktor = "3.2.3"
 serialization = "1.9.0"
-kolor = "3.0.0"
+kolor = "3.0.1"
 appcompat = "1.7.1"
 materialVersion = "1.12.0"
-coil = "3.2.0"
+coil = "3.3.0"
 kmp-socket = "1.3.2"
 ktlint = "13.0.0"
 detekt = "1.23.8"
-detekt-compose = "0.4.23"
+detekt-compose = "0.4.27"
 dokka = "2.0.0"
 immutable = "0.4.0"
 compose-settings = "2.13.0"
@@ -43,12 +43,10 @@ markdown = "0.5.7"
 kmlogger = "2.0.3"
 url-encoder = "1.6.0"
 google-services = "4.4.3"
-firebase-bom = "34.0.0"
-firebase-crashlytics = "3.0.5"
+firebase-bom = "34.1.0"
+firebase-crashlytics = "3.0.6"
 deploygate = "2.9.0"
 qrscanner = "0.4.0"
-core = "1.7.0"
-media3Session = "1.8.0"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -166,9 +164,6 @@ kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.re
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
-androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
-androidx-media3-common = { group = "androidx.media3", name = "media3-common", version.ref = "media3Session" }
-androidx-media3-session = { group = "androidx.media3", name = "media3-session", version.ref = "media3Session" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
