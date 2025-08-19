@@ -5,12 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.QueueMusic
@@ -139,7 +137,7 @@ fun PlaylistTracksGridThumb(
     BoxWithConstraints(
         modifier = modifier
     ) {
-        val imageSize = (maxWidth - 1.dp) / 2
+        val imageSize = maxWidth / 2
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -151,17 +149,16 @@ fun PlaylistTracksGridThumb(
                     model = cacheableImageRequest(
                         context = LocalContext.current,
                         data = trackThumbs.getOrNull(0),
-                    ),
+                    ).build(),
                     contentDescription = null,
                     modifier = Modifier
                         .size(imageSize)
                 )
-                Spacer(modifier = Modifier.width(1.dp))
                 AsyncImage(
                     model = cacheableImageRequest(
                         context = LocalContext.current,
                         data = trackThumbs.getOrNull(1),
-                    ),
+                    ).build(),
                     contentDescription = null,
                     modifier = Modifier
                         .size(imageSize)
@@ -174,17 +171,16 @@ fun PlaylistTracksGridThumb(
                     model = cacheableImageRequest(
                         context = LocalContext.current,
                         data = trackThumbs.getOrNull(2),
-                    ),
+                    ).build(),
                     contentDescription = null,
                     modifier = Modifier
                         .size(imageSize)
                 )
-                Spacer(modifier = Modifier.width(1.dp))
                 AsyncImage(
                     model = cacheableImageRequest(
                         context = LocalContext.current,
                         data = trackThumbs.getOrNull(3),
-                    ),
+                    ).build(),
                     contentDescription = null,
                     modifier = Modifier
                         .size(imageSize)
