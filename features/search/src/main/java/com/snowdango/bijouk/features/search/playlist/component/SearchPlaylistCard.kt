@@ -23,6 +23,7 @@ import com.snowdango.bijouk.ui.component.PlaylistCard
 fun SearchPlaylistCard(
     searchPlaylist: PlaylistData,
     isLibrary: Boolean,
+    onClickPlaylist: (String) -> Unit,
     onClickPlay: (String) -> Unit,
     onClickPlayNext: (id: String) -> Unit,
     onClickPlayLater: (id: String) -> Unit,
@@ -45,7 +46,9 @@ fun SearchPlaylistCard(
                     onLongClick = {
                         expanded = true
                     },
-                    onClick = {},
+                    onClick = {
+                        onClickPlaylist.invoke(searchPlaylist.id)
+                    },
                 ),
         )
         DropdownMenu(

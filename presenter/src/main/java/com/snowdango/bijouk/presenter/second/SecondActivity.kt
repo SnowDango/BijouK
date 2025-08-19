@@ -18,6 +18,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.snowdango.bijouk.features.artist.ArtistsDetailScreen
+import com.snowdango.bijouk.features.playlist.PlaylistScreen
 import com.snowdango.bijouk.features.queue.QueueScreen
 import com.snowdango.bijouk.features.search.LibrarySearchScreen
 import com.snowdango.bijouk.features.search.SearchScreen
@@ -107,6 +108,14 @@ class SecondActivity : ComponentActivity() {
                                 onNavigateArtist = {
                                     navController.navigate(SecondRoute.ARTIST(artistId = it))
                                 },
+                                onNavigatePlaylist = {
+                                    navController.navigate(
+                                        SecondRoute.PLAYLIST(
+                                            playlistId = it,
+                                            isLibrary = false
+                                        )
+                                    )
+                                },
                                 modifier = Modifier.fillMaxSize(),
                             )
                         }
@@ -119,6 +128,14 @@ class SecondActivity : ComponentActivity() {
                                 onNavigateArtist = {
                                     navController.navigate(SecondRoute.ARTIST(artistId = it))
                                 },
+                                onNavigatePlaylist = {
+                                    navController.navigate(
+                                        SecondRoute.PLAYLIST(
+                                            playlistId = it,
+                                            isLibrary = true
+                                        )
+                                    )
+                                }
                             )
                         }
                         composable<SecondRoute.ARTIST> { backStackEntry ->
@@ -127,6 +144,20 @@ class SecondActivity : ComponentActivity() {
                                 baseUrl = secondActivityData.baseUrl,
                                 token = secondActivityData.token,
                                 artistId = artist.artistId,
+                                sheetMinSize = sheetMinHeight,
+                                onNavigationBack = {
+                                    navController.popBackStack()
+                                },
+                                modifier = Modifier.fillMaxSize(),
+                            )
+                        }
+                        composable<SecondRoute.PLAYLIST> { backStackEntry ->
+                            val playlist = backStackEntry.toRoute<SecondRoute.PLAYLIST>()
+                            PlaylistScreen(
+                                baseUrl = secondActivityData.baseUrl,
+                                token = secondActivityData.token,
+                                playlistId = playlist.playlistId,
+                                isLibrary = playlist.isLibrary,
                                 sheetMinSize = sheetMinHeight,
                                 onNavigationBack = {
                                     navController.popBackStack()

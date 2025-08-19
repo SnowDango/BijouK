@@ -13,6 +13,6 @@ fun ArtistsResponse.convert(): ArtistDetailData? {
         name = data.attributes?.name.orEmpty(),
         artwork = data.attributes?.artwork?.convert().orEmpty(),
         url = data.attributes?.url.orEmpty(),
-        stations = data.relationships?.stations?.map { it.convert() }.orEmpty(),
+        stations = data.relationships?.stations?.data?.map { it.convert() }.orEmpty(),
     )
 }

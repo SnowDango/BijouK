@@ -2,6 +2,7 @@ package com.snowdango.bijouk.repository.cider
 
 
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Playlists
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Songs
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryAlbums
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryArtists
@@ -12,6 +13,7 @@ import com.snowdango.bijouk.domain.api.music.CiderApi
 import com.snowdango.bijouk.domain.api.music.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.music.response.LibraryResponse
 import com.snowdango.bijouk.domain.api.music.response.LibrarySearchResponse
+import com.snowdango.bijouk.domain.api.music.response.PlaylistResponse
 import com.snowdango.bijouk.domain.api.music.response.RelationshipViewResponse
 import com.snowdango.bijouk.domain.api.music.response.SearchResponse
 
@@ -114,16 +116,36 @@ class CiderRepository(
         return ciderApi.libraryPlaylistFolderChildren(folderId, limit, offset)
     }
 
+    suspend fun getArtistDetails(artistId: String): ArtistsResponse {
+        return ciderApi.getArtistDetails(artistId)
+    }
+
+    suspend fun getPlaylistDetails(
+        playlistId: String
+    ): PlaylistResponse<Playlists> {
+        return ciderApi.getPlaylistDetails(playlistId)
+    }
+
+    suspend fun getLibraryPlaylistDetails(
+        playlistId: String
+    ): PlaylistResponse<LibraryPlaylists> {
+        return ciderApi.getLibraryPlaylistDetails(playlistId)
+    }
+
+    suspend fun getPlaylistTracks(
+        playlistId: String,
+        limit: Int,
+        offset: Int = 0,
+    ): LibraryResponse<Songs> {
+        return ciderApi.getPlaylistTracks(playlistId, limit, offset)
+    }
+
     suspend fun getLibraryPlaylistTracks(
         playlistId: String,
         limit: Int,
         offset: Int = 0,
     ): LibraryResponse<LibrarySongs> {
         return ciderApi.getLibraryPlaylistTracks(playlistId, limit, offset)
-    }
-
-    suspend fun getArtistDetails(artistId: String): ArtistsResponse {
-        return ciderApi.getArtistDetails(artistId)
     }
 
     suspend fun getArtistTopSongs(

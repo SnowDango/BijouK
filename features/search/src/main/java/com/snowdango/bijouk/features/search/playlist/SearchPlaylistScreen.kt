@@ -32,6 +32,7 @@ fun SearchPlaylistScreen(
     isLibrary: Boolean,
     searchPlaylistFolders: LazyPagingItems<PlaylistFoldersData>?,
     searchPlaylist: LazyPagingItems<PlaylistData>,
+    onClickPlaylist: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchPlaylistViewModel = koinViewModel<SearchPlaylistViewModel> {
         parametersOf(baseUrl, token)
@@ -80,6 +81,7 @@ fun SearchPlaylistScreen(
                     SearchPlaylistCard(
                         searchPlaylist = it,
                         isLibrary,
+                        onClickPlaylist = onClickPlaylist,
                         onClickPlay = viewModel::searchPlaylistPlay,
                         onClickPlayNext = viewModel::searchPlaylistPlayNext,
                         onClickPlayLater = viewModel::searchPlaylistPlayLater,

@@ -2,19 +2,15 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.aboutLibraries)
-    alias(libs.plugins.kotlin.serialization)
-    alias(libs.plugins.kotlin.parcelize)
 }
 
 android {
-    namespace = "com.snowdango.bijouk.presenter"
+    namespace = "com.snowdango.bijouk.features.playlist"
     compileSdk = libs.versions.sdk.target.get().toInt()
     version = libs.versions.version
 
     defaultConfig {
         minSdk = libs.versions.sdk.min.get().toInt()
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -44,28 +40,19 @@ android {
 }
 
 dependencies {
-    implementation(project(":features:device"))
-    implementation(project(":features:setting"))
-    implementation(project(":features:search"))
-    implementation(project(":features:queue"))
-    implementation(project(":features:artist"))
-    implementation(project(":features:playlist"))
     implementation(project(":ui"))
     implementation(project(":model"))
-    implementation(project(":infla"))
+    implementation(libs.kotlinx.collections.immutable)
     implementation(libs.bundles.android.base)
-    implementation(libs.androidx.splash)
-    implementation(libs.androidx.media)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.android.compose)
+    implementation(libs.androidx.constraint)
     implementation(libs.material.icon)
+    implementation(libs.aboutlibraries.core)
+    implementation(libs.bundles.coil)
     implementation(libs.bundles.coroutine)
     implementation(libs.bundles.koin)
-    implementation(libs.bundles.coil)
-    implementation(libs.bundles.aboutlibraries)
-    implementation(libs.kotlinx.serialization)
-    implementation(libs.androidx.media3.session)
-    implementation(libs.androidx.media3.common)
+    implementation(libs.bundles.paging)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

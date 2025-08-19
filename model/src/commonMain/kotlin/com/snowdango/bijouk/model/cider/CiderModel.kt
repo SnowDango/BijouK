@@ -1,12 +1,12 @@
 package com.snowdango.bijouk.model.cider
 
-import androidx.compose.ui.Modifier
 import com.snowdango.bijouk.model.cider.data.ArtistDetailData
 import com.snowdango.bijouk.model.cider.data.entity.AlbumData
 import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
 import com.snowdango.bijouk.model.cider.data.entity.SongData
 import com.snowdango.bijouk.model.cider.mapper.api.convert
 import com.snowdango.bijouk.model.cider.mapper.converter.convert
+import com.snowdango.bijouk.model.cider.paging.PlaylistSongsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryAlbumsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryArtistsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryPlaylistFoldersPagingSource
@@ -108,6 +108,30 @@ class CiderModel(
     suspend fun getArtistDetails(artistId: String): ArtistDetailData? {
         val response = repository.getArtistDetails(artistId)
         return response.convert()
+    }
+
+    suspend fun getPlaylistDetails(
+        isLibrary: Boolean,
+        playlistId: String
+    ): PlaylistData? {
+        return if (isLibrary) {
+            val response = repository.getLibraryPlaylistDetails(playlistId)
+            response.data.data.firstOrNull()?.convert()
+        } else {
+            val response = repository.getPlaylistDetails(playlistId)
+            response.data.data.firstOrNull()?.convert()
+        }
+    }
+
+    fun getPlaylistSongsPagingSource(
+        isLibrary: Boolean,
+        playlistId: String,
+    ): PlaylistSongsPagingSource {
+        return PlaylistSongsPagingSource(
+            isLibrary = isLibrary,
+            playlistId = playlistId,
+            repository = repository
+        )
     }
 
     suspend fun getArtistTopSongs(

@@ -46,6 +46,7 @@ fun SearchScreen(
     token: String,
     sheetMinSize: Dp,
     onNavigateArtist: (String) -> Unit,
+    onNavigatePlaylist: (String) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchViewModel = koinViewModel<SearchViewModel> {
         parametersOf(baseUrl, token)
@@ -163,6 +164,7 @@ fun SearchScreen(
                             isLibrary = false,
                             searchPlaylistFolders = null,
                             searchPlaylist = searchPlaylists,
+                            onClickPlaylist = onNavigatePlaylist,
                             modifier = Modifier.fillMaxSize(),
                         )
                     }
