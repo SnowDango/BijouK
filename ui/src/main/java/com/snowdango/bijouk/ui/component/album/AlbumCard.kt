@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.ui.component
+package com.snowdango.bijouk.ui.component.album
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.basicMarquee
@@ -27,6 +27,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.component.EmptyThumbnail
+import com.snowdango.bijouk.ui.component.LoadingThumbnail
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 
 @Composable

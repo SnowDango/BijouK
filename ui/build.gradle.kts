@@ -40,6 +40,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":model"))
     implementation(libs.bundles.android.base)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.android.compose)

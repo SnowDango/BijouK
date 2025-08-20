@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.ui.component
+package com.snowdango.bijouk.ui.component.playlist
 
 import androidx.compose.foundation.basicMarquee
 import androidx.compose.foundation.layout.Box
@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.component.EmptyThumbnail
 
 @Composable
 fun PlaylistFolderCard(

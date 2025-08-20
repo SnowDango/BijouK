@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="play_dropdown_menu_play">Play and Clear</string>
+    <string name="play_dropdown_menu_shuffle">Shuffle Play</string>
+    <string name="play_dropdown_menu_play_next">Play Next</string>
+    <string name="play_dropdown_menu_play_later">Play Later</string>
+
+</resources>

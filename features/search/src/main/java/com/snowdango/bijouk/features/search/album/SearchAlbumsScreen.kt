@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import com.snowdango.bijouk.features.search.album.component.SearchAlbumCard
 import com.snowdango.bijouk.model.cider.data.entity.AlbumData
+import com.snowdango.bijouk.ui.component.album.PlayableAlbumCard
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -45,8 +45,8 @@ fun SearchAlbumsScreen(
             items(count = searchAlbums.itemCount) { index ->
                 val album = searchAlbums[index]
                 album?.let {
-                    SearchAlbumCard(
-                        searchAlbum = it,
+                    PlayableAlbumCard(
+                        album = it,
                         onClickPlay = viewModel::searchAlbumPlay,
                         onClickPlayNext = viewModel::searchAlbumPlayNext,
                         onClickPlayLater = viewModel::searchAlbumPlayLater,

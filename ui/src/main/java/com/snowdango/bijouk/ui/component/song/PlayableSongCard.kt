@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.search.playlist.component
+package com.snowdango.bijouk.ui.component.song
 
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
@@ -15,26 +15,29 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.snowdango.bijouk.features.search.R
-import com.snowdango.bijouk.model.cider.data.entity.PlaylistFoldersData
-import com.snowdango.bijouk.ui.component.PlaylistFolderCard
+import com.snowdango.bijouk.model.cider.data.entity.SongData
+import com.snowdango.bijouk.ui.R
 
 @Composable
-fun SearchPlaylistFolderCard(
-    playlistFoldersData: PlaylistFoldersData,
-    onClickPlay: (String) -> Unit,
-    onClickShufflePlay: (String) -> Unit,
+fun PlayableSongCard(
+    song: SongData,
+    onClickPlay: (id: String) -> Unit,
+    onClickPlayNext: (id: String) -> Unit,
     modifier: Modifier = Modifier,
+    onClickPlayLater: (id: String) -> Unit,
 ) {
     var expanded by remember { mutableStateOf(false) }
     Box(
         modifier = modifier
-            .padding(all = 8.dp)
+            .padding(horizontal = 16.dp, vertical = 4.dp)
             .fillMaxWidth()
     ) {
-        PlaylistFolderCard(
-            name = playlistFoldersData.name,
+        SongCard(
+            artwork = song.artwork,
+            title = song.name,
+            artist = song.artist,
             modifier = Modifier
+                .fillMaxWidth()
                 .combinedClickable(
                     onLongClick = {
                         expanded = true
@@ -47,16 +50,23 @@ fun SearchPlaylistFolderCard(
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_play)) },
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_play)) },
                 onClick = {
-                    onClickPlay.invoke(playlistFoldersData.id)
+                    onClickPlay.invoke(song.id)
                     expanded = false
                 }
             )
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_shuffle)) },
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_play_next)) },
                 onClick = {
-                    onClickShufflePlay.invoke(playlistFoldersData.id)
+                    onClickPlayNext.invoke(song.id)
+                    expanded = false
+                }
+            )
+            DropdownMenuItem(
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_play_later)) },
+                onClick = {
+                    onClickPlayLater.invoke(song.id)
                     expanded = false
                 }
             )
