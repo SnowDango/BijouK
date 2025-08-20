@@ -23,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -41,6 +42,7 @@ import com.snowdango.bijouk.ui.component.LoadingThumbnail
 import com.snowdango.bijouk.ui.component.ProgressContent
 import com.snowdango.bijouk.ui.component.TitleTopBar
 import com.snowdango.bijouk.ui.component.playlist.PlaylistTracksGridThumb
+import com.snowdango.bijouk.ui.component.song.PlayableSongCard
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -109,6 +111,7 @@ fun PlaylistDetailContent(
     onNavigationBack: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+
     val lazyListState = rememberLazyListState()
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -168,10 +171,43 @@ fun PlaylistDetailContent(
                 )
             }
 
+            item {
+                Text(
+                    text = "Songs",
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Start,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
+                )
+            }
+
             items(count = playlistSongs.itemCount) { index ->
                 val song = playlistSongs[index]
                 song?.let {
-                    // TODO: Implement song item UI
+                    PlayableSongCard(
+                        song = it,
+                        onClickPlay = {},
+                        onClickPlayNext = {},
+                        onClickPlayLater = {},
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    )
+                }
+            }
+
+            if (playlistSongs.loadState.append.endOfPaginationReached) {
+                item {
+                    Text(
+                        text = "${playlistSongs.itemCount} songs",
+                        style = MaterialTheme.typography.titleSmall,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        textAlign = TextAlign.End,
+                        modifier = Modifier
+                            .alpha(0.5f)
+                            .fillMaxWidth()
+                            .padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
+                    )
                 }
             }
 
