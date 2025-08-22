@@ -63,7 +63,7 @@ class ArtistsDetailViewModel(
         getArtistDetail()
         if (isLibrary) {
             getLibraryArtistAlbums()
-        }else {
+        } else {
             getArtistTopSongs()
             getArtistFullAlbums()
             getArtistSingles()
@@ -90,7 +90,6 @@ class ArtistsDetailViewModel(
             _artistDetailDataFlow.emit(UiState.Error)
         }
     }
-
 
     private fun getArtistTopSongs() = viewModelScope.launch(Dispatchers.IO) {
         try {
