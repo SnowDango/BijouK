@@ -74,7 +74,6 @@ fun PlaylistScreen(
     Box(
         modifier = modifier.fillMaxSize(),
     ) {
-
         when (uiState.value) {
             is PlaylistViewModel.UiState.Loading -> {
                 ProgressContent(
@@ -102,7 +101,6 @@ fun PlaylistScreen(
                 onNavigationBack.invoke()
             }
         }
-
     }
 }
 
@@ -117,7 +115,6 @@ fun PlaylistDetailContent(
     onSongPlayLater: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     val lazyListState = rememberLazyListState()
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -139,7 +136,6 @@ fun PlaylistDetailContent(
                 .fillMaxSize()
                 .padding(paddingValues),
         ) {
-
             item {
                 @Suppress("MagicNumber")
                 PlaylistThumbnail(

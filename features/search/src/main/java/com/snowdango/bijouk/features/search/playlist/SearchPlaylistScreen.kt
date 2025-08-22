@@ -32,7 +32,7 @@ fun SearchPlaylistScreen(
     isLibrary: Boolean,
     searchPlaylistFolders: LazyPagingItems<PlaylistFoldersData>?,
     searchPlaylist: LazyPagingItems<PlaylistData>,
-    onClickPlaylist: (String) -> Unit,
+    onClickPlaylist: (PlaylistData) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchPlaylistViewModel = koinViewModel<SearchPlaylistViewModel> {
         parametersOf(baseUrl, token)

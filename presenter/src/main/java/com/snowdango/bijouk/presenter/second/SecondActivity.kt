@@ -106,7 +106,9 @@ class SecondActivity : ComponentActivity() {
                                 token = secondActivityData.token,
                                 sheetMinSize = sheetMinHeight,
                                 onNavigateArtist = {
-                                    navController.navigate(SecondRoute.ARTIST(artistId = it))
+                                    navController.navigate(
+                                        SecondRoute.ARTIST(artistId = it, isLibrary = false)
+                                    )
                                 },
                                 onNavigatePlaylist = {
                                     navController.navigate(
@@ -125,14 +127,19 @@ class SecondActivity : ComponentActivity() {
                                 token = secondActivityData.token,
                                 sheetMinSize = sheetMinHeight,
                                 modifier = Modifier.fillMaxSize(),
-                                onNavigateArtist = {
-                                    navController.navigate(SecondRoute.ARTIST(artistId = it))
+                                onNavigateArtist = { artistId, isLibrary ->
+                                    navController.navigate(
+                                        SecondRoute.ARTIST(
+                                            artistId = artistId,
+                                            isLibrary = isLibrary
+                                        )
+                                    )
                                 },
-                                onNavigatePlaylist = {
+                                onNavigatePlaylist = { playlistId, isLibrary ->
                                     navController.navigate(
                                         SecondRoute.PLAYLIST(
-                                            playlistId = it,
-                                            isLibrary = true
+                                            playlistId = playlistId,
+                                            isLibrary = isLibrary,
                                         )
                                     )
                                 }
@@ -144,6 +151,7 @@ class SecondActivity : ComponentActivity() {
                                 baseUrl = secondActivityData.baseUrl,
                                 token = secondActivityData.token,
                                 artistId = artist.artistId,
+                                isLibrary = artist.isLibrary,
                                 sheetMinSize = sheetMinHeight,
                                 onNavigationBack = {
                                     navController.popBackStack()

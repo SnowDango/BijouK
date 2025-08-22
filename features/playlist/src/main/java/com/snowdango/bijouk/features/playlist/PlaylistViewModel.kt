@@ -75,7 +75,7 @@ class PlaylistViewModel(
     fun songPlay(songId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playSongById(songId)
-        } catch (ce: kotlinx.coroutines.CancellationException) {
+        } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
             Log.e("PlaylistViewModel", th.toString())
@@ -86,7 +86,7 @@ class PlaylistViewModel(
         try {
             ciderRPCModel.playNextSongById(songId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
-        } catch (ce: kotlinx.coroutines.CancellationException) {
+        } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
             Log.e("PlaylistViewModel", th.toString())
@@ -97,7 +97,7 @@ class PlaylistViewModel(
         try {
             ciderRPCModel.playLaterSongById(songId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
-        } catch (ce: kotlinx.coroutines.CancellationException) {
+        } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
             Log.e("PlaylistViewModel", th.toString())
@@ -109,5 +109,4 @@ class PlaylistViewModel(
         data class Success(val playlistData: PlaylistData) : UiState()
         data object Error : UiState()
     }
-
 }

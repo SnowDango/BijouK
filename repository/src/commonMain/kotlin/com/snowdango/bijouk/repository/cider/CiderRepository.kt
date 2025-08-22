@@ -2,6 +2,7 @@ package com.snowdango.bijouk.repository.cider
 
 
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Artists
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Playlists
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Songs
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryAlbums
@@ -116,8 +117,12 @@ class CiderRepository(
         return ciderApi.libraryPlaylistFolderChildren(folderId, limit, offset)
     }
 
-    suspend fun getArtistDetails(artistId: String): ArtistsResponse {
+    suspend fun getArtistDetails(artistId: String): ArtistsResponse<Artists> {
         return ciderApi.getArtistDetails(artistId)
+    }
+
+    suspend fun getLibraryArtistDetails(artistId: String): ArtistsResponse<LibraryArtists> {
+        return ciderApi.getLibraryArtistDetails(artistId)
     }
 
     suspend fun getPlaylistDetails(
@@ -170,5 +175,13 @@ class CiderRepository(
         offset: Int,
     ): RelationshipViewResponse<Albums> {
         return ciderApi.getArtistSingles(artistId, limit, offset)
+    }
+
+    suspend fun getLibraryArtistAlbums(
+        artistId: String,
+        limit: Int,
+        offset: Int,
+    ): RelationshipViewResponse<LibraryAlbums> {
+        return ciderApi.getLibraryArtistAlbums(artistId, limit, offset)
     }
 }

@@ -10,4 +10,5 @@ data class AlbumData(
     val copyRight: String? = null,
     val trackCount: Int,
     val releaseYear: String,
+    val catalog: AlbumData?,
 )

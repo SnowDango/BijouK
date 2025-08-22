@@ -10,6 +10,7 @@ fun Artists.convert(): ArtistData {
         name = attributes?.name.orEmpty(),
         artwork = attributes?.artwork?.convert().orEmpty(),
         href = href,
+        catalog = null,
     )
 }
 
@@ -21,5 +22,6 @@ fun LibraryArtists.convert(): ArtistData {
             it.attributes?.artwork?.convert()
         }?.firstOrNull { !it.isNullOrBlank() } ?: "",
         href = href,
+        catalog = relationships?.catalog?.data?.firstOrNull()?.convert(),
     )
 }

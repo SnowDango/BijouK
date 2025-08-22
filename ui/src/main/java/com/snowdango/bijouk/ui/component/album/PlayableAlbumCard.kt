@@ -19,7 +19,6 @@ import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.model.cider.data.entity.AlbumData
 import com.snowdango.bijouk.ui.R
 
-
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun PlayableAlbumCard(

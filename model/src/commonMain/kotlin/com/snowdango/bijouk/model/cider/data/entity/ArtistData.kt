@@ -5,4 +5,5 @@ data class ArtistData(
     val name: String,
     val artwork: String,
     val href: String,
+    val catalog: ArtistData?,
 )

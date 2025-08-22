@@ -1,6 +1,7 @@
 package com.snowdango.bijouk.domain.api.music
 
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Artists
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Playlists
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Songs
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryAlbums
@@ -12,6 +13,7 @@ import com.snowdango.bijouk.domain.api.getCiderHttpClient
 import com.snowdango.bijouk.domain.api.music.request.ArtistDetailsRequestBody
 import com.snowdango.bijouk.domain.api.music.request.ArtistViewsRequestBody
 import com.snowdango.bijouk.domain.api.music.request.InLibrarySearchRequestBody
+import com.snowdango.bijouk.domain.api.music.request.LibraryArtistRelationshipRequestBody
 import com.snowdango.bijouk.domain.api.music.request.LibraryPlaylistFolderRequestBody
 import com.snowdango.bijouk.domain.api.music.request.LibraryRequestBody
 import com.snowdango.bijouk.domain.api.music.request.PlaylistDetailsRequestBody
@@ -300,17 +302,32 @@ class CiderApi(
         return response.body<LibraryResponse<LibraryPlaylists>>()
     }
 
-    suspend fun getArtistDetails(artistId: String): ArtistsResponse {
+    suspend fun getArtistDetails(artistId: String): ArtistsResponse<Artists> {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
             contentType(ContentType.Application.Json)
             setBody(
                 ArtistDetailsRequestBody.Companion.create(
-                    artistId,
+                    isLibrary = false,
+                    artistId = artistId,
                 )
             )
         }
-        return response.body<ArtistsResponse>()
+        return response.body<ArtistsResponse<Artists>>()
+    }
+
+    suspend fun getLibraryArtistDetails(artistId: String): ArtistsResponse<LibraryArtists> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                ArtistDetailsRequestBody.Companion.create(
+                    isLibrary = true,
+                    artistId = artistId,
+                )
+            )
+        }
+        return response.body<ArtistsResponse<LibraryArtists>>()
     }
 
     suspend fun getPlaylistDetails(
@@ -443,5 +460,25 @@ class CiderApi(
             )
         }
         return response.body<RelationshipViewResponse<Albums>>()
+    }
+
+    suspend fun getLibraryArtistAlbums(
+        artistId: String,
+        limit: Int = 20,
+        offset: Int = 0
+    ): RelationshipViewResponse<LibraryAlbums> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                LibraryArtistRelationshipRequestBody.create(
+                    artistId = artistId,
+                    viewType = LibraryArtistRelationshipRequestBody.ViewType.ALBUMS,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<RelationshipViewResponse<LibraryAlbums>>()
     }
 }

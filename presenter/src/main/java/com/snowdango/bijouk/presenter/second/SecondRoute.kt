@@ -25,6 +25,7 @@ sealed class SecondRoute {
     @Serializable
     data class ARTIST(
         val artistId: String,
+        val isLibrary: Boolean,
     ) : SecondRoute()
 
     companion object {

@@ -45,8 +45,8 @@ fun LibrarySearchScreen(
     baseUrl: String,
     token: String,
     sheetMinSize: Dp,
-    onNavigateArtist: (String) -> Unit,
-    onNavigatePlaylist: (String) -> Unit,
+    onNavigateArtist: (String, Boolean) -> Unit,
+    onNavigatePlaylist: (String, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: LibrarySearchViewModel = koinViewModel<LibrarySearchViewModel> {
         parametersOf(baseUrl, token)
@@ -154,7 +154,13 @@ fun LibrarySearchScreen(
                             sheetMinSize = sheetMinSize,
                             modifier = Modifier.fillMaxSize(),
                             searchArtists = searchArtists,
-                            onClickArtist = onNavigateArtist,
+                            onClickArtist = { artist ->
+                                if (artist.catalog != null) {
+                                    onNavigateArtist.invoke(artist.catalog!!.id, false)
+                                } else {
+                                    onNavigateArtist.invoke(artist.id, true)
+                                }
+                            },
                         )
                     }
 
@@ -166,7 +172,13 @@ fun LibrarySearchScreen(
                             isLibrary = true,
                             searchPlaylistFolders = searchPlaylistFolders,
                             searchPlaylist = searchPlaylists,
-                            onClickPlaylist = onNavigatePlaylist,
+                            onClickPlaylist = { playlist ->
+                                if (playlist.catalog != null) {
+                                    onNavigatePlaylist.invoke(playlist.catalog!!.id, false)
+                                } else {
+                                    onNavigatePlaylist.invoke(playlist.id, true)
+                                }
+                            },
                             modifier = Modifier.fillMaxSize(),
                         )
                     }

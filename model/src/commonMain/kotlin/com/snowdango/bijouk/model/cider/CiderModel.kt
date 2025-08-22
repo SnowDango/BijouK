@@ -110,6 +110,11 @@ class CiderModel(
         return response.convert()
     }
 
+    suspend fun getLibraryArtistDetails(artistId: String): ArtistDetailData? {
+        val response = repository.getLibraryArtistDetails(artistId)
+        return response.convert()
+    }
+
     suspend fun getPlaylistDetails(
         isLibrary: Boolean,
         playlistId: String
@@ -158,6 +163,15 @@ class CiderModel(
         offset: Int = 0
     ): List<AlbumData>? {
         val response = repository.getArtistSingles(artistId, limit, offset)
+        return response.convert()
+    }
+
+    suspend fun getLibraryArtistAlbums(
+        artistId: String,
+        limit: Int = 20,
+        offset: Int = 0
+    ): List<AlbumData>? {
+        val response = repository.getLibraryArtistAlbums(artistId, limit, offset)
         return response.convert()
     }
 }

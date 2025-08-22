@@ -152,7 +152,9 @@ fun SearchScreen(
                             sheetMinSize = sheetMinSize,
                             modifier = Modifier.fillMaxSize(),
                             searchArtists = searchArtists,
-                            onClickArtist = onNavigateArtist,
+                            onClickArtist = { artist ->
+                                onNavigateArtist.invoke(artist.id)
+                            }
                         )
                     }
 
@@ -164,7 +166,9 @@ fun SearchScreen(
                             isLibrary = false,
                             searchPlaylistFolders = null,
                             searchPlaylist = searchPlaylists,
-                            onClickPlaylist = onNavigatePlaylist,
+                            onClickPlaylist = { playlist ->
+                                onNavigatePlaylist.invoke(playlist.id)
+                            },
                             modifier = Modifier.fillMaxSize(),
                         )
                     }

@@ -17,7 +17,8 @@ data class InLibrarySearchRequestBody(
                         "term=${UrlEncoderUtil.encode(search)}" +
                         "&types=${searchTypes.joinToString(",") { it.type }}" +
                         "&limit=$limit" +
-                        "&offset=$offset"
+                        "&offset=$offset" +
+                        "&include=catalog"
             )
         }
     }

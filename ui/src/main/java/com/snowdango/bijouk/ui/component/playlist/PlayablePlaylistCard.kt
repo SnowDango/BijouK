@@ -22,7 +22,7 @@ import com.snowdango.bijouk.ui.R
 fun PlayablePlaylistCard(
     playlist: PlaylistData,
     isLibrary: Boolean,
-    onClickPlaylist: (String) -> Unit,
+    onClickPlaylist: (PlaylistData) -> Unit,
     onClickPlay: (String) -> Unit,
     onClickPlayNext: (id: String) -> Unit,
     onClickPlayLater: (id: String) -> Unit,
@@ -46,7 +46,7 @@ fun PlayablePlaylistCard(
                         expanded = true
                     },
                     onClick = {
-                        onClickPlaylist.invoke(playlist.id)
+                        onClickPlaylist.invoke(playlist)
                     },
                 ),
         )

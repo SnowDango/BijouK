@@ -22,7 +22,7 @@ fun SearchArtistsScreen(
     sheetMinSize: Dp,
     searchArtists: LazyPagingItems<ArtistData>,
     modifier: Modifier = Modifier,
-    onClickArtist: (artistId: String) -> Unit,
+    onClickArtist: (artist: ArtistData) -> Unit,
 ) {
     BoxWithConstraints(
         modifier = modifier.fillMaxSize()
@@ -53,7 +53,7 @@ fun SearchArtistsScreen(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable {
-                                    onClickArtist.invoke(it.id)
+                                    onClickArtist.invoke(it)
                                 }
                         )
                     }
