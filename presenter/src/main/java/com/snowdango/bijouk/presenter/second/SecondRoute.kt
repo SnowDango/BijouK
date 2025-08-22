@@ -17,8 +17,15 @@ sealed class SecondRoute {
     data object LIBRARY : SecondRoute()
 
     @Serializable
+    data class PLAYLIST(
+        val isLibrary: Boolean,
+        val playlistId: String,
+    ) : SecondRoute()
+
+    @Serializable
     data class ARTIST(
         val artistId: String,
+        val isLibrary: Boolean,
     ) : SecondRoute()
 
     companion object {
@@ -40,6 +47,10 @@ sealed class SecondRoute {
 
                 in LIBRARY.serializer().descriptor.serialName -> {
                     navBackStackEntry.toRoute<LIBRARY>()
+                }
+
+                in PLAYLIST.serializer().descriptor.serialName -> {
+                    navBackStackEntry.toRoute<PLAYLIST>()
                 }
 
                 else -> null

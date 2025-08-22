@@ -16,6 +16,7 @@ fun Albums.convert(): AlbumData {
         copyRight = attributes.copyright,
         trackCount = attributes.trackCount,
         releaseYear = attributes.releaseDate?.split("-")?.firstOrNull().orEmpty(),
+        catalog = null,
     )
 }
 
@@ -29,6 +30,7 @@ fun LibraryAlbums.convert(): AlbumData {
         genres = attributes?.genreNames.orEmpty(),
         copyRight = null,
         trackCount = this.attributes?.trackCount ?: 0,
-        releaseYear = this.attributes?.releaseDate?.split("-")?.firstOrNull().orEmpty()
+        releaseYear = this.attributes?.releaseDate?.split("-")?.firstOrNull().orEmpty(),
+        catalog = this.relationships?.catalog?.data?.firstOrNull()?.convert(),
     )
 }

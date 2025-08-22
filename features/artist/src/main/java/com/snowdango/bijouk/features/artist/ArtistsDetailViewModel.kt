@@ -23,6 +23,7 @@ class ArtistsDetailViewModel(
     private val baseUrl: String,
     private val token: String,
     private val artistId: String,
+    private val isLibrary: Boolean,
 ) : ViewModel(), KoinComponent {
 
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
@@ -60,15 +61,23 @@ class ArtistsDetailViewModel(
 
     private fun load() = viewModelScope.launch(Dispatchers.IO) {
         getArtistDetail()
-        getArtistTopSongs()
-        getArtistFullAlbums()
-        getArtistSingles()
+        if (isLibrary) {
+            getLibraryArtistAlbums()
+        } else {
+            getArtistTopSongs()
+            getArtistFullAlbums()
+            getArtistSingles()
+        }
     }
 
     private fun getArtistDetail() = viewModelScope.launch(Dispatchers.IO) {
         _artistDetailDataFlow.emit(UiState.Loading)
         try {
-            val artistDetail = ciderModel.getArtistDetails(artistId)
+            val artistDetail = if (isLibrary) {
+                ciderModel.getLibraryArtistDetails(artistId)
+            } else {
+                ciderModel.getArtistDetails(artistId)
+            }
             if (artistDetail != null) {
                 _artistDetailDataFlow.emit(UiState.Success(artistDetail))
             } else {
@@ -115,6 +124,18 @@ class ArtistsDetailViewModel(
         } catch (th: Throwable) {
             Log.e("ArtistsDetailViewModel", th.toString())
             _artistSinglesFlow.emit(null)
+        }
+    }
+
+    private fun getLibraryArtistAlbums() = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            val albums = ciderModel.getLibraryArtistAlbums(artistId = artistId, limit = 20, offset = 0)
+            _artistFullAlbumsFlow.emit(albums)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("ArtistsDetailViewModel", th.toString())
+            _artistFullAlbumsFlow.emit(null)
         }
     }
 

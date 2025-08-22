@@ -10,10 +10,14 @@ data class ArtistDetailsRequestBody(
     companion object {
         fun create(
             artistId: String,
+            isLibrary: Boolean,
         ): ArtistDetailsRequestBody {
             return ArtistDetailsRequestBody(
-                path = "/v1/catalog/jp/artists/${artistId}?" +
-                        "include=default-playable-content"
+                path = if (isLibrary) {
+                    "/v1/me/library/artists/"
+                } else {
+                    "/v1/catalog/jp/artists/"
+                } + "${artistId}?include=default-playable-content"
             )
         }
     }

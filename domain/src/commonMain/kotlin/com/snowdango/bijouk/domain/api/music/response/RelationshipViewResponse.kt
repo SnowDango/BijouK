@@ -2,17 +2,23 @@ package com.snowdango.bijouk.domain.api.music.response
 
 import kotlinx.serialization.Serializable
 
+
 @Serializable
 data class RelationshipViewResponse<T>(
-    val attributes: Attributes,
-    val data: List<T>,
-    val meta: Meta? = null,
-    val next: String? = null,
+    val `data`: Data<T>,
 ) {
-
     @Serializable
-    data object Attributes
+    data class Data<T>(
+        val attributes: Attributes? = null,
+        val `data`: List<T>,
+        val meta: Meta? = null,
+        val next: String? = null,
+    ) {
 
-    @Serializable
-    data object Meta
+        @Serializable
+        data object Attributes
+
+        @Serializable
+        data object Meta
+    }
 }

@@ -1,6 +1,5 @@
-package com.snowdango.bijouk.features.search.songs.component
+package com.snowdango.bijouk.ui.component.playlist
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,36 +15,39 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.snowdango.bijouk.features.search.R
-import com.snowdango.bijouk.model.cider.data.entity.SongData
-import com.snowdango.bijouk.ui.component.SongCard
+import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
+import com.snowdango.bijouk.ui.R
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SearchSongCard(
-    searchSong: SongData,
-    onClickPlay: (id: String) -> Unit,
+fun PlayablePlaylistCard(
+    playlist: PlaylistData,
+    isLibrary: Boolean,
+    onClickPlaylist: (PlaylistData) -> Unit,
+    onClickPlay: (String) -> Unit,
     onClickPlayNext: (id: String) -> Unit,
-    modifier: Modifier = Modifier,
     onClickPlayLater: (id: String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var expanded by remember { mutableStateOf(false) }
     Box(
         modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 4.dp)
+            .padding(all = 8.dp)
             .fillMaxWidth()
     ) {
-        SongCard(
-            artwork = searchSong.artwork,
-            title = searchSong.name,
-            artist = searchSong.artist,
+        PlaylistCard(
+            name = playlist.name,
+            editor = playlist.curatorName,
+            thumbnail = playlist.artwork,
+            trackThumbs = null,
+            isLibrary = isLibrary,
             modifier = Modifier
-                .fillMaxWidth()
                 .combinedClickable(
                     onLongClick = {
                         expanded = true
                     },
-                    onClick = {},
+                    onClick = {
+                        onClickPlaylist.invoke(playlist)
+                    },
                 ),
         )
         DropdownMenu(
@@ -53,23 +55,23 @@ fun SearchSongCard(
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_play)) },
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_play)) },
                 onClick = {
-                    onClickPlay.invoke(searchSong.id)
+                    onClickPlay.invoke(playlist.id)
                     expanded = false
                 }
             )
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_play_next)) },
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_play_next)) },
                 onClick = {
-                    onClickPlayNext.invoke(searchSong.id)
+                    onClickPlayNext.invoke(playlist.id)
                     expanded = false
                 }
             )
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_play_later)) },
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_play_later)) },
                 onClick = {
-                    onClickPlayLater.invoke(searchSong.id)
+                    onClickPlayLater.invoke(playlist.id)
                     expanded = false
                 }
             )

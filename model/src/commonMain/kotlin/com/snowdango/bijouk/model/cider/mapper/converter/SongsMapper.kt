@@ -16,6 +16,7 @@ fun Songs.convert(): SongData {
         genres = attributes.genreNames,
         hasLyrics = attributes.hasLyrics,
         composerName = attributes.composerName,
+        catalog = null,
     )
 }
 
@@ -30,5 +31,6 @@ fun LibrarySongs.convert(): SongData {
         genres = attributes?.genreNames ?: emptyList(),
         hasLyrics = attributes?.hasLyrics ?: false,
         composerName = null,
+        catalog = relationships?.catalog?.data?.firstOrNull()?.convert()
     )
 }

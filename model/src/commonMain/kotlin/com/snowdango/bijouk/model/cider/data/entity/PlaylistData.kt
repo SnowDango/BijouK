@@ -7,4 +7,5 @@ data class PlaylistData(
     val description: String?,
     val artwork: String?,
     val href: String,
+    val catalog: PlaylistData?,
 )

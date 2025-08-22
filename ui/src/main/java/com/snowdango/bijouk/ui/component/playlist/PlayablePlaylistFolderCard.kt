@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.search.playlist.component
+package com.snowdango.bijouk.ui.component.playlist
 
 import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
@@ -15,12 +15,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.snowdango.bijouk.features.search.R
 import com.snowdango.bijouk.model.cider.data.entity.PlaylistFoldersData
-import com.snowdango.bijouk.ui.component.PlaylistFolderCard
+import com.snowdango.bijouk.ui.R
 
 @Composable
-fun SearchPlaylistFolderCard(
+fun PlayablePlaylistFolderCard(
     playlistFoldersData: PlaylistFoldersData,
     onClickPlay: (String) -> Unit,
     onClickShufflePlay: (String) -> Unit,
@@ -47,14 +46,14 @@ fun SearchPlaylistFolderCard(
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_play)) },
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_play)) },
                 onClick = {
                     onClickPlay.invoke(playlistFoldersData.id)
                     expanded = false
                 }
             )
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_shuffle)) },
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_shuffle)) },
                 onClick = {
                     onClickShufflePlay.invoke(playlistFoldersData.id)
                     expanded = false

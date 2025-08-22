@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
-import com.snowdango.bijouk.features.search.songs.component.SearchSongCard
 import com.snowdango.bijouk.model.cider.data.entity.SongData
+import com.snowdango.bijouk.ui.component.song.PlayableSongCard
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -39,8 +39,8 @@ fun SearchSongsScreen(
             items(count = searchSongs.itemCount) { index ->
                 val song = searchSongs[index]
                 song?.let {
-                    SearchSongCard(
-                        searchSong = song,
+                    PlayableSongCard(
+                        song = song,
                         onClickPlay = viewModel::searchSongPlay,
                         onClickPlayNext = viewModel::searchSongPlayNext,
                         onClickPlayLater = viewModel::searchSongPlayLater,

@@ -12,6 +12,7 @@ fun Playlists.convert(): PlaylistData {
         description = attributes?.description?.standard,
         artwork = attributes?.artwork?.convert(),
         href = href,
+        catalog = null,
     )
 }
 
@@ -26,5 +27,6 @@ fun LibraryPlaylists.convert(): PlaylistData {
                 it.attributes?.artwork?.convert()
             }?.firstOrNull { !it.isNullOrEmpty() },
         href = href,
+        catalog = relationships?.catalog?.data?.firstOrNull()?.convert(),
     )
 }

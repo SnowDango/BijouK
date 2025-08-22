@@ -6,6 +6,13 @@ import org.koin.dsl.module
 object ArtistModule {
 
     val module = module {
-        viewModel { param -> ArtistsDetailViewModel(param.get(), param.get(), param.get()) }
+        viewModel { param ->
+            ArtistsDetailViewModel(
+                param.get(),
+                param.get(),
+                param.get(),
+                param.get()
+            )
+        }
     }
 }

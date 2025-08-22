@@ -173,6 +173,7 @@ private fun PreviewTopSong() {
                 genres = listOf("Pops"),
                 hasLyrics = true,
                 composerName = "Composer Name",
+                catalog = null,
             ),
             modifier = Modifier.fillMaxWidth()
         )
@@ -195,6 +196,7 @@ private fun PreviewArtistTopSongs() {
                     genres = listOf("Pops"),
                     hasLyrics = true,
                     composerName = "Composer Name",
+                    catalog = null,
                 ),
                 SongData(
                     id = "2",
@@ -206,6 +208,7 @@ private fun PreviewArtistTopSongs() {
                     genres = listOf("Rock"),
                     hasLyrics = true,
                     composerName = "Composer Name",
+                    catalog = null,
                 )
             ),
             modifier = Modifier.fillMaxWidth()

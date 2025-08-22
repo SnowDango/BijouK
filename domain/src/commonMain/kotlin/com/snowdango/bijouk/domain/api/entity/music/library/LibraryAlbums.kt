@@ -1,6 +1,7 @@
 package com.snowdango.bijouk.domain.api.entity.music.library
 
 import com.snowdango.bijouk.domain.api.entity.music.PlayParameters
+import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -26,5 +27,13 @@ data class LibraryAlbums(
     )
 
     @Serializable
-    data object Relationships
+    data class Relationships(
+        val catalog: Catalog,
+    ) {
+        @Serializable
+        data class Catalog(
+            val href: String? = null,
+            val data: List<Albums>,
+        )
+    }
 }

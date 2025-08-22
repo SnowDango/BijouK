@@ -10,4 +10,5 @@ data class SongData(
     val genres: List<String>? = null,
     val hasLyrics: Boolean,
     val composerName: String? = null,
+    val catalog: SongData?,
 )

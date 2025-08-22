@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 import com.snowdango.bijouk.features.queue.R
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.ui.BijouKTheme
-import com.snowdango.bijouk.ui.component.SongCard
+import com.snowdango.bijouk.ui.component.song.SongCard
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable

@@ -17,10 +17,10 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.snowdango.bijouk.features.search.R
-import com.snowdango.bijouk.features.search.playlist.component.SearchPlaylistCard
-import com.snowdango.bijouk.features.search.playlist.component.SearchPlaylistFolderCard
 import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
 import com.snowdango.bijouk.model.cider.data.entity.PlaylistFoldersData
+import com.snowdango.bijouk.ui.component.playlist.PlayablePlaylistCard
+import com.snowdango.bijouk.ui.component.playlist.PlayablePlaylistFolderCard
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -32,6 +32,7 @@ fun SearchPlaylistScreen(
     isLibrary: Boolean,
     searchPlaylistFolders: LazyPagingItems<PlaylistFoldersData>?,
     searchPlaylist: LazyPagingItems<PlaylistData>,
+    onClickPlaylist: (PlaylistData) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchPlaylistViewModel = koinViewModel<SearchPlaylistViewModel> {
         parametersOf(baseUrl, token)
@@ -77,9 +78,10 @@ fun SearchPlaylistScreen(
             items(count = searchPlaylist.itemCount) { index ->
                 val playlist = searchPlaylist[index]
                 playlist?.let {
-                    SearchPlaylistCard(
-                        searchPlaylist = it,
+                    PlayablePlaylistCard(
+                        playlist = it,
                         isLibrary,
+                        onClickPlaylist = onClickPlaylist,
                         onClickPlay = viewModel::searchPlaylistPlay,
                         onClickPlayNext = viewModel::searchPlaylistPlayNext,
                         onClickPlayLater = viewModel::searchPlaylistPlayLater,
@@ -109,7 +111,7 @@ fun PlaylistFolderContent(
         items(count = searchPlaylistFolders.itemCount) { index ->
             val playlistFolder = searchPlaylistFolders[index]
             playlistFolder?.let {
-                SearchPlaylistFolderCard(
+                PlayablePlaylistFolderCard(
                     playlistFoldersData = it,
                     onClickPlay = onClickPlay,
                     onClickShufflePlay = onClickShufflePlay,

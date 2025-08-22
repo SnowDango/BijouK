@@ -1,4 +1,4 @@
-package com.snowdango.bijouk.features.search.album.component
+package com.snowdango.bijouk.ui.component.album
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.combinedClickable
@@ -16,14 +16,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.snowdango.bijouk.features.search.R
 import com.snowdango.bijouk.model.cider.data.entity.AlbumData
-import com.snowdango.bijouk.ui.component.AlbumCard
+import com.snowdango.bijouk.ui.R
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun SearchAlbumCard(
-    searchAlbum: AlbumData,
+fun PlayableAlbumCard(
+    album: AlbumData,
     onClickPlay: (id: String) -> Unit,
     onClickPlayNext: (id: String) -> Unit,
     modifier: Modifier = Modifier,
@@ -36,9 +35,9 @@ fun SearchAlbumCard(
             .fillMaxWidth()
     ) {
         AlbumCard(
-            album = searchAlbum.name,
-            artist = searchAlbum.artist,
-            artwork = searchAlbum.artwork,
+            album = album.name,
+            artist = album.artist,
+            artwork = album.artwork,
             modifier = Modifier
                 .combinedClickable(
                     onLongClick = {
@@ -52,23 +51,23 @@ fun SearchAlbumCard(
             onDismissRequest = { expanded = false }
         ) {
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_play)) },
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_play)) },
                 onClick = {
-                    onClickPlay.invoke(searchAlbum.id)
+                    onClickPlay.invoke(album.id)
                     expanded = false
                 }
             )
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_play_next)) },
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_play_next)) },
                 onClick = {
-                    onClickPlayNext.invoke(searchAlbum.id)
+                    onClickPlayNext.invoke(album.id)
                     expanded = false
                 }
             )
             DropdownMenuItem(
-                text = { Text(text = stringResource(R.string.search_dropdown_menu_play_later)) },
+                text = { Text(text = stringResource(R.string.play_dropdown_menu_play_later)) },
                 onClick = {
-                    onClickPlayLater.invoke(searchAlbum.id)
+                    onClickPlayLater.invoke(album.id)
                     expanded = false
                 }
             )

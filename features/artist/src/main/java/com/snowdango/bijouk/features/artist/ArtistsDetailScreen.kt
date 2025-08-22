@@ -40,6 +40,7 @@ fun ArtistsDetailScreen(
     baseUrl: String,
     token: String,
     artistId: String,
+    isLibrary: Boolean,
     sheetMinSize: Dp,
     onNavigationBack: () -> Unit,
     modifier: Modifier = Modifier,
@@ -48,6 +49,7 @@ fun ArtistsDetailScreen(
             baseUrl,
             token,
             artistId,
+            isLibrary,
         )
     },
 ) {

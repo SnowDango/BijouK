@@ -19,6 +19,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.snowdango.bijouk.features.artist.ArtistsDetailScreen
+import com.snowdango.bijouk.features.playlist.PlaylistScreen
 import com.snowdango.bijouk.features.queue.QueueScreen
 import com.snowdango.bijouk.features.search.LibrarySearchScreen
 import com.snowdango.bijouk.features.search.SearchScreen
@@ -108,7 +109,17 @@ class SecondActivity : ComponentActivity() {
                                 token = secondActivityData.token,
                                 sheetMinSize = sheetMinHeight,
                                 onNavigateArtist = {
-                                    navController.navigate(SecondRoute.ARTIST(artistId = it))
+                                    navController.navigate(
+                                        SecondRoute.ARTIST(artistId = it, isLibrary = false)
+                                    )
+                                },
+                                onNavigatePlaylist = {
+                                    navController.navigate(
+                                        SecondRoute.PLAYLIST(
+                                            playlistId = it,
+                                            isLibrary = false
+                                        )
+                                    )
                                 },
                                 modifier = Modifier.fillMaxSize(),
                             )
@@ -119,9 +130,22 @@ class SecondActivity : ComponentActivity() {
                                 token = secondActivityData.token,
                                 sheetMinSize = sheetMinHeight,
                                 modifier = Modifier.fillMaxSize(),
-                                onNavigateArtist = {
-                                    navController.navigate(SecondRoute.ARTIST(artistId = it))
+                                onNavigateArtist = { artistId, isLibrary ->
+                                    navController.navigate(
+                                        SecondRoute.ARTIST(
+                                            artistId = artistId,
+                                            isLibrary = isLibrary
+                                        )
+                                    )
                                 },
+                                onNavigatePlaylist = { playlistId, isLibrary ->
+                                    navController.navigate(
+                                        SecondRoute.PLAYLIST(
+                                            playlistId = playlistId,
+                                            isLibrary = isLibrary,
+                                        )
+                                    )
+                                }
                             )
                         }
                         composable<SecondRoute.ARTIST> { backStackEntry ->
@@ -130,6 +154,21 @@ class SecondActivity : ComponentActivity() {
                                 baseUrl = secondActivityData.baseUrl,
                                 token = secondActivityData.token,
                                 artistId = artist.artistId,
+                                isLibrary = artist.isLibrary,
+                                sheetMinSize = sheetMinHeight,
+                                onNavigationBack = {
+                                    navController.popBackStack()
+                                },
+                                modifier = Modifier.fillMaxSize(),
+                            )
+                        }
+                        composable<SecondRoute.PLAYLIST> { backStackEntry ->
+                            val playlist = backStackEntry.toRoute<SecondRoute.PLAYLIST>()
+                            PlaylistScreen(
+                                baseUrl = secondActivityData.baseUrl,
+                                token = secondActivityData.token,
+                                playlistId = playlist.playlistId,
+                                isLibrary = playlist.isLibrary,
                                 sheetMinSize = sheetMinHeight,
                                 onNavigationBack = {
                                     navController.popBackStack()
