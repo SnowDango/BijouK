@@ -91,6 +91,9 @@ fun PlaylistScreen(
                     playlistSongs = playlistSongs,
                     sheetMinSize = sheetMinSize,
                     onNavigationBack = onNavigationBack,
+                    onSongPlay = viewModel::songPlay,
+                    onSongPlayNext = viewModel::songPlayNext,
+                    onSongPlayLater = viewModel::songPlayLater,
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -109,6 +112,9 @@ fun PlaylistDetailContent(
     playlistSongs: LazyPagingItems<SongData>,
     sheetMinSize: Dp,
     onNavigationBack: () -> Unit,
+    onSongPlay: (String) -> Unit,
+    onSongPlayNext: (String) -> Unit,
+    onSongPlayLater: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
 
@@ -187,9 +193,9 @@ fun PlaylistDetailContent(
                 song?.let {
                     PlayableSongCard(
                         song = it,
-                        onClickPlay = {},
-                        onClickPlayNext = {},
-                        onClickPlayLater = {},
+                        onClickPlay = onSongPlay,
+                        onClickPlayNext = onSongPlayNext,
+                        onClickPlayLater = onSongPlayLater,
                         modifier = Modifier
                             .fillMaxWidth()
                     )

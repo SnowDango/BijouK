@@ -7,9 +7,12 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.snowdango.bijouk.infla.SharedEventStore
 import com.snowdango.bijouk.model.cider.CiderModel
+import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
 import com.snowdango.bijouk.model.cider.data.entity.SongData
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,7 +31,10 @@ class PlaylistViewModel(
     private val isLibrary: Boolean
 ) : ViewModel(), KoinComponent {
 
+    private val applicationScope: CoroutineScope by inject()
+    private val sharedEventStore: SharedEventStore by inject()
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
+    private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
 
     private val _playlistDetailState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val playlistDetailState = _playlistDetailState.stateIn(
@@ -61,11 +67,42 @@ class PlaylistViewModel(
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
-            Log.d("PlaylistViewModel", th.toString())
+            Log.e("PlaylistViewModel", th.toString())
             _playlistDetailState.emit(UiState.Error)
         }
     }
 
+    fun songPlay(songId: String) = applicationScope.launch {
+        try {
+            ciderRPCModel.playSongById(songId)
+        } catch (ce: kotlinx.coroutines.CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("PlaylistViewModel", th.toString())
+        }
+    }
+
+    fun songPlayNext(songId: String) = applicationScope.launch {
+        try {
+            ciderRPCModel.playNextSongById(songId)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+        } catch (ce: kotlinx.coroutines.CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("PlaylistViewModel", th.toString())
+        }
+    }
+
+    fun songPlayLater(songId: String) = applicationScope.launch {
+        try {
+            ciderRPCModel.playLaterSongById(songId)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+        } catch (ce: kotlinx.coroutines.CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("PlaylistViewModel", th.toString())
+        }
+    }
 
     sealed class UiState {
         data object Loading : UiState()
