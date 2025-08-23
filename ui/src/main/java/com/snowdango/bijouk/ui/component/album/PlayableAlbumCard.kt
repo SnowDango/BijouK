@@ -23,6 +23,7 @@ import com.snowdango.bijouk.ui.R
 @Composable
 fun PlayableAlbumCard(
     album: AlbumData,
+    onClickAlbum: (AlbumData) -> Unit,
     onClickPlay: (id: String) -> Unit,
     onClickPlayNext: (id: String) -> Unit,
     modifier: Modifier = Modifier,
@@ -43,7 +44,9 @@ fun PlayableAlbumCard(
                     onLongClick = {
                         expanded = true
                     },
-                    onClick = {},
+                    onClick = {
+                        onClickAlbum.invoke(album)
+                    },
                 ),
         )
         DropdownMenu(

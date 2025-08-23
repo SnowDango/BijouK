@@ -1,28 +1,28 @@
 package com.snowdango.bijouk.domain.api.music.request
 
-
 import kotlinx.serialization.Serializable
 
+
 @Serializable
-data class LibraryArtistRelationshipRequestBody(
+data class AlbumRelationshipRequestBody(
     val path: String,
 ) {
     companion object {
         fun create(
-            artistId: String,
+            albumId: String,
             viewType: ViewType,
             limit: Int,
             offset: Int,
-        ): LibraryArtistRelationshipRequestBody {
-            return LibraryArtistRelationshipRequestBody(
-                path = "/v1/me/library/artists/${artistId}/${viewType.value}?include=catalog" +
+        ): AlbumRelationshipRequestBody {
+            return AlbumRelationshipRequestBody(
+                path = "/v1/catalog/jp/albums/${albumId}/${viewType.value}?" +
                         "limit=${limit}" +
-                        "&offset=${offset}"
+                        "&offset=${offset}",
             )
         }
     }
 
     enum class ViewType(val value: String) {
-        ALBUMS("albums"),
+        TRACKS("tracks"),
     }
 }

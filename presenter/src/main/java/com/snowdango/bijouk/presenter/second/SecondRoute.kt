@@ -17,6 +17,12 @@ sealed class SecondRoute {
     data object LIBRARY : SecondRoute()
 
     @Serializable
+    data class ALBUM(
+        val albumId: String,
+        val isLibrary: Boolean,
+    ) : SecondRoute()
+
+    @Serializable
     data class PLAYLIST(
         val isLibrary: Boolean,
         val playlistId: String,
@@ -43,6 +49,10 @@ sealed class SecondRoute {
 
                 in ARTIST.serializer().descriptor.serialName -> {
                     navBackStackEntry.toRoute<ARTIST>()
+                }
+
+                in ALBUM.serializer().descriptor.serialName -> {
+                    navBackStackEntry.toRoute<ALBUM>()
                 }
 
                 in LIBRARY.serializer().descriptor.serialName -> {

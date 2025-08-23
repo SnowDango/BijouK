@@ -1,11 +1,13 @@
 package com.snowdango.bijouk.model.cider
 
+import com.snowdango.bijouk.model.cider.data.AlbumDetailData
 import com.snowdango.bijouk.model.cider.data.ArtistDetailData
 import com.snowdango.bijouk.model.cider.data.entity.AlbumData
 import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
 import com.snowdango.bijouk.model.cider.data.entity.SongData
 import com.snowdango.bijouk.model.cider.mapper.api.convert
 import com.snowdango.bijouk.model.cider.mapper.converter.convert
+import com.snowdango.bijouk.model.cider.paging.AlbumSongsPagingSource
 import com.snowdango.bijouk.model.cider.paging.PlaylistSongsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryAlbumsPagingSource
 import com.snowdango.bijouk.model.cider.paging.library.SearchInLibraryArtistsPagingSource
@@ -103,6 +105,27 @@ class CiderModel(
             hasNext = response.data.next != null
         }
         return playlists
+    }
+
+    suspend fun getAlbumDetails(albumId: String): AlbumDetailData? {
+        val response = repository.getAlbumDetails(albumId)
+        return response.convert()
+    }
+
+    suspend fun getLibraryAlbumDetails(albumId: String): AlbumDetailData? {
+        val response = repository.getLibraryAlbumDetails(albumId)
+        return response.convert()
+    }
+
+    fun getAlbumSongsPagingSource(
+        isLibrary: Boolean,
+        albumId: String,
+    ): AlbumSongsPagingSource {
+        return AlbumSongsPagingSource(
+            isLibrary = isLibrary,
+            albumId = albumId,
+            repository = repository,
+        )
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistDetailData? {

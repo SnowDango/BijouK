@@ -45,6 +45,7 @@ fun SearchScreen(
     baseUrl: String,
     token: String,
     sheetMinSize: Dp,
+    onNavigateAlbum: (String) -> Unit,
     onNavigateArtist: (String) -> Unit,
     onNavigatePlaylist: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -144,6 +145,9 @@ fun SearchScreen(
                             sheetMinSize = sheetMinSize,
                             modifier = Modifier.fillMaxSize(),
                             searchAlbums = searchAlbums,
+                            onClickAlbum = { album ->
+                                onNavigateAlbum.invoke(album.id)
+                            }
                         )
                     }
 

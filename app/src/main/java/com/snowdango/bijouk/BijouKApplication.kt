@@ -31,6 +31,7 @@ class BijouKApplication : Application() {
                 PresenterModule.artistModule,
                 PresenterModule.deviceModule,
                 PresenterModule.playlistModule,
+                PresenterModule.albumModule,
                 PresenterModule.settingModule(BuildConfig.VERSION_NAME),
             )
         }

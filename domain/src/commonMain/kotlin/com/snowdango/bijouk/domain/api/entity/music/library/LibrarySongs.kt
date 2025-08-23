@@ -32,7 +32,7 @@ data class LibrarySongs(
 
     @Serializable
     data class Relationships(
-        val catalog: Catalog,
+        val catalog: Catalog? = null,
     ) {
         @Serializable
         data class Catalog(

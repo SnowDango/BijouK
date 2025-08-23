@@ -10,9 +10,12 @@ import com.snowdango.bijouk.domain.api.entity.music.library.LibraryPlaylistFolde
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryPlaylists
 import com.snowdango.bijouk.domain.api.entity.music.library.LibrarySongs
 import com.snowdango.bijouk.domain.api.getCiderHttpClient
+import com.snowdango.bijouk.domain.api.music.request.AlbumDetailsRequestBody
+import com.snowdango.bijouk.domain.api.music.request.AlbumRelationshipRequestBody
 import com.snowdango.bijouk.domain.api.music.request.ArtistDetailsRequestBody
 import com.snowdango.bijouk.domain.api.music.request.ArtistViewsRequestBody
 import com.snowdango.bijouk.domain.api.music.request.InLibrarySearchRequestBody
+import com.snowdango.bijouk.domain.api.music.request.LibraryAlbumRelationshipRequestBody
 import com.snowdango.bijouk.domain.api.music.request.LibraryArtistRelationshipRequestBody
 import com.snowdango.bijouk.domain.api.music.request.LibraryPlaylistFolderRequestBody
 import com.snowdango.bijouk.domain.api.music.request.LibraryRequestBody
@@ -20,6 +23,7 @@ import com.snowdango.bijouk.domain.api.music.request.PlaylistDetailsRequestBody
 import com.snowdango.bijouk.domain.api.music.request.PlaylistTracksRequestBody
 import com.snowdango.bijouk.domain.api.music.request.SearchPlaylistRequestBody
 import com.snowdango.bijouk.domain.api.music.request.SearchRequestBody
+import com.snowdango.bijouk.domain.api.music.response.AlbumsResponse
 import com.snowdango.bijouk.domain.api.music.response.ArtistsResponse
 import com.snowdango.bijouk.domain.api.music.response.LibraryResponse
 import com.snowdango.bijouk.domain.api.music.response.LibrarySearchResponse
@@ -302,6 +306,34 @@ class CiderApi(
         return response.body<LibraryResponse<LibraryPlaylists>>()
     }
 
+    suspend fun getAlbumDetails(albumId: String): AlbumsResponse<Albums> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                AlbumDetailsRequestBody.create(
+                    albumId = albumId,
+                    isLibrary = false,
+                )
+            )
+        }
+        return response.body<AlbumsResponse<Albums>>()
+    }
+
+    suspend fun getLibraryAlbumDetails(albumId: String): AlbumsResponse<LibraryAlbums> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                AlbumDetailsRequestBody.create(
+                    albumId = albumId,
+                    isLibrary = true,
+                )
+            )
+        }
+        return response.body<AlbumsResponse<LibraryAlbums>>()
+    }
+
     suspend fun getArtistDetails(artistId: String): ArtistsResponse<Artists> {
         val response = client.post {
             url("/api/v1/amapi/run-v3")
@@ -400,6 +432,46 @@ class CiderApi(
             )
         }
         return response.body<LibraryResponse<LibrarySongs>>()
+    }
+
+    suspend fun getAlbumTracks(
+        albumId: String,
+        limit: Int = 20,
+        offset: Int = 0,
+    ): RelationshipViewResponse<Songs> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                AlbumRelationshipRequestBody.create(
+                    albumId = albumId,
+                    viewType = AlbumRelationshipRequestBody.ViewType.TRACKS,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<RelationshipViewResponse<Songs>>()
+    }
+
+    suspend fun getLibraryAlbumTracks(
+        albumId: String,
+        limit: Int = 20,
+        offset: Int = 0,
+    ): RelationshipViewResponse<LibrarySongs> {
+        val response = client.post {
+            url("/api/v1/amapi/run-v3")
+            contentType(ContentType.Application.Json)
+            setBody(
+                LibraryAlbumRelationshipRequestBody.create(
+                    albumId = albumId,
+                    viewType = LibraryAlbumRelationshipRequestBody.ViewType.TRACKS,
+                    limit = limit,
+                    offset = offset,
+                )
+            )
+        }
+        return response.body<RelationshipViewResponse<LibrarySongs>>()
     }
 
     suspend fun getArtistTopSongs(
