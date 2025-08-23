@@ -61,7 +61,7 @@ fun SongCard(
                     modifier = Modifier
                         .width(indexTextWidth)
                 )
-            }else {
+            } else {
                 Spacer(
                     modifier = Modifier
                         .width(32.dp)

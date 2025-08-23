@@ -43,7 +43,6 @@ import com.snowdango.bijouk.ui.image.cacheableImageRequest
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
-
 @Composable
 fun AlbumDetailScreen(
     baseUrl: String,
@@ -105,7 +104,6 @@ fun AlbumDetailScreen(
             }
         }
     }
-
 }
 
 @Composable
@@ -119,7 +117,6 @@ fun AlbumDetailContent(
     onSongPlayLater: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-
     Scaffold(
         modifier = modifier.fillMaxSize(),
         topBar = {
@@ -139,7 +136,6 @@ fun AlbumDetailContent(
                 .fillMaxSize()
                 .padding(paddingValues)
         ) {
-
             item {
                 AlbumDetailThumbnail(
                     artwork = albumDetailData.artwork,
@@ -209,7 +205,6 @@ fun AlbumDetailContent(
         }
     }
 }
-
 
 @Composable
 fun AlbumDetailThumbnail(

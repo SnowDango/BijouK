@@ -78,7 +78,6 @@ class AlbumDetailViewModel(
         }
     }
 
-
     sealed class UiState {
         data object Loading : UiState()
         data class Success(val albumDetailData: AlbumDetailData) : UiState()

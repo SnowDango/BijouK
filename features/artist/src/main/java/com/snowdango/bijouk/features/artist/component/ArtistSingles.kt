@@ -158,7 +158,7 @@ private fun PreviewFullAlbums() {
                 releaseYear = "2023",
                 catalog = null,
 
-                ),
+            ),
             onClickAlbum = {},
             modifier = Modifier.fillMaxWidth(
                 fraction = 0.5f
