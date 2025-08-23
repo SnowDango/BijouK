@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -60,6 +61,11 @@ fun SongCard(
                     modifier = Modifier
                         .width(indexTextWidth)
                 )
+            }else {
+                Spacer(
+                    modifier = Modifier
+                        .width(32.dp)
+                )
             }
             SubcomposeAsyncImage(
                 model = cacheableImageRequest(
@@ -112,11 +118,16 @@ fun SongCard(
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
+            Spacer(
+                modifier = Modifier
+                    .width(32.dp)
+            )
         }
         HorizontalDivider(
             modifier = Modifier
                 .padding(
-                    start = 48.dp + if (index != null) indexTextWidth else 0.dp
+                    start = 48.dp + if (index != null) indexTextWidth else 32.dp,
+                    end = 32.dp
                 )
         )
     }
