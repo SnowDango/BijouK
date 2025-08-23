@@ -21,6 +21,7 @@ import com.snowdango.bijouk.ui.R
 @Composable
 fun PlayableSongCard(
     song: SongData,
+    index: Int? = null,
     onClickPlay: (id: String) -> Unit,
     onClickPlayNext: (id: String) -> Unit,
     modifier: Modifier = Modifier,
@@ -36,6 +37,7 @@ fun PlayableSongCard(
             artwork = song.artwork,
             title = song.name,
             artist = song.artist,
+            index = index,
             modifier = Modifier
                 .fillMaxWidth()
                 .combinedClickable(

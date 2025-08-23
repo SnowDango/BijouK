@@ -189,6 +189,7 @@ fun AlbumDetailContent(
                 song?.let {
                     PlayableSongCard(
                         song = it,
+                        index = index + 1,
                         onClickPlay = onSongPlay,
                         onClickPlayNext = onSongPlayNext,
                         onClickPlayLater = onSongPlayLater,
