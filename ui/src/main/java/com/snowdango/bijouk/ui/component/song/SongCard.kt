@@ -25,6 +25,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import com.snowdango.bijouk.ui.BijouKTheme
@@ -38,11 +39,13 @@ fun SongCard(
     title: String,
     artist: String,
     index: Int? = null,
+    isShowArtwork: Boolean = true,
+    sideMargin: Dp = 48.dp,
     modifier: Modifier = Modifier,
 ) {
     val density = LocalDensity.current
-    val indexTextSize = with(density) { (48.dp / 3).toSp() }
-    val indexTextWidth = with(density) { (indexTextSize * 3).toDp() }
+    val indexTextWidth = 48.dp
+    val indexTextSize = with(density) { (indexTextWidth / 3).toSp() }
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -64,36 +67,38 @@ fun SongCard(
             } else {
                 Spacer(
                     modifier = Modifier
-                        .width(32.dp)
+                        .width(sideMargin)
                 )
             }
-            SubcomposeAsyncImage(
-                model = cacheableImageRequest(
-                    context = LocalContext.current,
-                    data = artwork
-                ).build(),
-                contentDescription = null,
-                loading = {
-                    LoadingThumbnail()
-                },
-                success = {
-                    Image(
-                        painter = it.painter,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                    )
-                },
-                error = {
-                    EmptyThumbnail(
-                        imageVector = Icons.Default.MusicNote,
-                    )
-                },
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-            )
+            if (isShowArtwork) {
+                SubcomposeAsyncImage(
+                    model = cacheableImageRequest(
+                        context = LocalContext.current,
+                        data = artwork
+                    ).build(),
+                    contentDescription = null,
+                    loading = {
+                        LoadingThumbnail()
+                    },
+                    success = {
+                        Image(
+                            painter = it.painter,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(48.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                        )
+                    },
+                    error = {
+                        EmptyThumbnail(
+                            imageVector = Icons.Default.MusicNote,
+                        )
+                    },
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(RoundedCornerShape(8.dp)),
+                )
+            }
             Column(
                 modifier = Modifier
                     .padding(start = 8.dp)
@@ -120,14 +125,14 @@ fun SongCard(
             }
             Spacer(
                 modifier = Modifier
-                    .width(32.dp)
+                    .width(sideMargin)
             )
         }
         HorizontalDivider(
             modifier = Modifier
                 .padding(
-                    start = 48.dp + if (index != null) indexTextWidth else 32.dp,
-                    end = 32.dp
+                    start = 8.dp + sideMargin + if (isShowArtwork) 48.dp else 0.dp,
+                    end = sideMargin
                 )
         )
     }
@@ -141,6 +146,7 @@ private fun PreviewSongCard() {
             artwork = "",
             title = "Song Title",
             artist = "Artist Name",
+            isShowArtwork = false,
             index = 1,
             modifier = Modifier.padding(16.dp)
         )

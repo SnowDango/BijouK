@@ -22,6 +22,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -42,6 +43,7 @@ import com.snowdango.bijouk.ui.component.song.PlayableSongCard
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
+import com.snowdango.bijouk.ui.R as UiRes
 
 @Composable
 fun AlbumDetailScreen(
@@ -59,10 +61,47 @@ fun AlbumDetailScreen(
     val context = LocalContext.current
     val uiState = viewModel.albumDetailDataFlow.collectAsStateWithLifecycle()
     val albumSongs = viewModel.albumSongsFlow.collectAsLazyPagingItems()
+    val actionResult = viewModel.actionResultFlow.collectAsStateWithLifecycle(
+        initialValue = AlbumDetailViewModel.SongAction.None,
+    )
 
     LaunchedEffect(uiState.value) {
         if (uiState.value is AlbumDetailViewModel.UiState.Error) {
             Toast.makeText(context, R.string.album_loading_error_toast, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    LaunchedEffect(actionResult.value) {
+        when (actionResult.value) {
+            AlbumDetailViewModel.SongAction.Play -> {
+                Toast.makeText(context, UiRes.string.song_action_toast_play, Toast.LENGTH_SHORT)
+                    .show()
+                viewModel.clearActionResult()
+            }
+
+            AlbumDetailViewModel.SongAction.PlayNext -> {
+                Toast.makeText(
+                    context,
+                    UiRes.string.song_action_toast_play_next,
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                viewModel.clearActionResult()
+            }
+
+            AlbumDetailViewModel.SongAction.PlayLater -> {
+                Toast.makeText(
+                    context,
+                    UiRes.string.song_action_toast_play_later,
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                viewModel.clearActionResult()
+            }
+
+            AlbumDetailViewModel.SongAction.None -> {
+                // No action
+            }
         }
     }
 
@@ -84,15 +123,14 @@ fun AlbumDetailScreen(
                     albumDetailData = albumDetailData,
                     albumSongs = albumSongs,
                     sheetMinSize = sheetMinSize,
-                    onNavigationBack = onNavigationBack,
                     onSongPlay = { songId ->
-                        // viewModel.playSong(songId)
+                        viewModel.songPlay(songId)
                     },
                     onSongPlayNext = { songId ->
-                        // viewModel.playNextSong(songId)
+                        viewModel.songPlayNext(songId)
                     },
                     onSongPlayLater = { songId ->
-                        // viewModel.playLaterSong(songId)
+                        viewModel.songPlayLater(songId)
                     },
                     modifier = Modifier
                         .fillMaxSize()
@@ -111,7 +149,6 @@ fun AlbumDetailContent(
     albumDetailData: AlbumDetailData,
     albumSongs: LazyPagingItems<SongData>,
     sheetMinSize: Dp,
-    onNavigationBack: () -> Unit,
     onSongPlay: (String) -> Unit,
     onSongPlayNext: (String) -> Unit,
     onSongPlayLater: (String) -> Unit,
@@ -128,8 +165,6 @@ fun AlbumDetailContent(
         LazyColumn(
             contentPadding = PaddingValues(
                 top = 32.dp,
-                start = 16.dp,
-                end = 16.dp,
             ),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
@@ -141,7 +176,11 @@ fun AlbumDetailContent(
                     artwork = albumDetailData.artwork,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .padding(bottom = 28.dp)
+                        .padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            bottom = 28.dp
+                        )
                 )
             }
 
@@ -152,7 +191,11 @@ fun AlbumDetailContent(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth(fraction = 0.7f)
-                        .padding(bottom = 8.dp)
+                        .padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            bottom = 8.dp,
+                        )
                         .basicMarquee(),
                 )
             }
@@ -164,28 +207,37 @@ fun AlbumDetailContent(
                     textAlign = TextAlign.Center,
                     modifier = Modifier
                         .fillMaxWidth(fraction = 0.7f)
-                        .padding(bottom = 48.dp)
+                        .padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            bottom = 8.dp,
+                        )
                         .basicMarquee(),
                 )
             }
 
             item {
                 Text(
-                    text = "Songs",
-                    style = MaterialTheme.typography.titleLarge,
-                    textAlign = TextAlign.Start,
+                    text = albumDetailData.releaseDate,
+                    style = MaterialTheme.typography.titleMedium,
+                    textAlign = TextAlign.Center,
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 16.dp, end = 16.dp, bottom = 8.dp)
+                        .fillMaxWidth(fraction = 0.7f)
+                        .padding(
+                            start = 16.dp,
+                            end = 16.dp,
+                            bottom = 16.dp
+                        )
+                        .alpha(0.5f),
                 )
             }
-
             items(count = albumSongs.itemCount) { index ->
                 val song = albumSongs[index]
                 song?.let {
                     PlayableSongCard(
                         song = it,
                         index = index + 1,
+                        isShowArtwork = false,
                         onClickPlay = onSongPlay,
                         onClickPlayNext = onSongPlayNext,
                         onClickPlayLater = onSongPlayLater,

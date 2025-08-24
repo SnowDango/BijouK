@@ -7,6 +7,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.snowdango.bijouk.infla.SharedEventStore
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.AlbumDetailData
@@ -15,8 +16,10 @@ import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -30,6 +33,7 @@ class AlbumDetailViewModel(
     private val isLibrary: Boolean,
 ) : ViewModel(), KoinComponent {
 
+    private val sharedEventStore: SharedEventStore by inject()
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
     private val applicationScope: CoroutineScope by inject()
@@ -48,6 +52,11 @@ class AlbumDetailViewModel(
     ) {
         ciderModel.getAlbumSongsPagingSource(isLibrary, albumId)
     }.flow.cachedIn(viewModelScope)
+    private val _actionResultFlow: MutableSharedFlow<SongAction> = MutableSharedFlow()
+    val actionResultFlow = _actionResultFlow.shareIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+    )
 
     init {
         load()
@@ -78,9 +87,55 @@ class AlbumDetailViewModel(
         }
     }
 
+    fun songPlay(songId: String) = applicationScope.launch {
+        try {
+            ciderRPCModel.playSongById(songId)
+            _actionResultFlow.emit(SongAction.Play)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("AlbumDetailViewModel", th.toString())
+        }
+    }
+
+    fun songPlayNext(songId: String) = applicationScope.launch {
+        try {
+            ciderRPCModel.playNextSongById(songId)
+            _actionResultFlow.emit(SongAction.PlayNext)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("AlbumDetailViewModel", th.toString())
+        }
+    }
+
+    fun songPlayLater(songId: String) = applicationScope.launch {
+        try {
+            ciderRPCModel.playLaterSongById(songId)
+            _actionResultFlow.emit(SongAction.PlayLater)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("AlbumDetailViewModel", th.toString())
+        }
+    }
+
+    fun clearActionResult() = viewModelScope.launch(Dispatchers.IO) {
+        _actionResultFlow.emit(SongAction.None)
+    }
+
     sealed class UiState {
         data object Loading : UiState()
         data class Success(val albumDetailData: AlbumDetailData) : UiState()
         data object Error : UiState()
+    }
+
+    enum class SongAction {
+        Play,
+        PlayNext,
+        PlayLater,
+        None,
     }
 }
