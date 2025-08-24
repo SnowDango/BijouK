@@ -46,6 +46,7 @@ import com.snowdango.bijouk.ui.component.song.PlayableSongCard
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
+import com.snowdango.bijouk.ui.R as UiRes
 
 @Composable
 fun PlaylistScreen(
@@ -63,11 +64,48 @@ fun PlaylistScreen(
     val context = LocalContext.current
     val uiState = viewModel.playlistDetailState.collectAsStateWithLifecycle()
     val playlistSongs = viewModel.playlistSongs.collectAsLazyPagingItems()
+    val actionResult = viewModel.actionResultFlow.collectAsStateWithLifecycle(
+        initialValue = PlaylistViewModel.SongAction.None,
+    )
 
     LaunchedEffect(uiState.value) {
         if (uiState.value is PlaylistViewModel.UiState.Error) {
             Toast.makeText(context, R.string.playlist_loading_error_toast, Toast.LENGTH_SHORT)
                 .show()
+        }
+    }
+
+    LaunchedEffect(actionResult.value) {
+        when (actionResult.value) {
+            PlaylistViewModel.SongAction.Play -> {
+                Toast.makeText(context, UiRes.string.song_action_toast_play, Toast.LENGTH_SHORT)
+                    .show()
+                viewModel.clearActionResult()
+            }
+
+            PlaylistViewModel.SongAction.PlayNext -> {
+                Toast.makeText(
+                    context,
+                    UiRes.string.song_action_toast_play_next,
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                viewModel.clearActionResult()
+            }
+
+            PlaylistViewModel.SongAction.PlayLater -> {
+                Toast.makeText(
+                    context,
+                    UiRes.string.song_action_toast_play_later,
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+                viewModel.clearActionResult()
+            }
+
+            PlaylistViewModel.SongAction.None -> {
+                // No action
+            }
         }
     }
 
@@ -89,7 +127,6 @@ fun PlaylistScreen(
                     playlistDetail = playlistDetail,
                     playlistSongs = playlistSongs,
                     sheetMinSize = sheetMinSize,
-                    onNavigationBack = onNavigationBack,
                     onSongPlay = viewModel::songPlay,
                     onSongPlayNext = viewModel::songPlayNext,
                     onSongPlayLater = viewModel::songPlayLater,
@@ -109,7 +146,6 @@ fun PlaylistDetailContent(
     playlistDetail: PlaylistData,
     playlistSongs: LazyPagingItems<SongData>,
     sheetMinSize: Dp,
-    onNavigationBack: () -> Unit,
     onSongPlay: (String) -> Unit,
     onSongPlayNext: (String) -> Unit,
     onSongPlayLater: (String) -> Unit,

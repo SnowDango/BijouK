@@ -15,8 +15,10 @@ import com.snowdango.bijouk.model.cider.data.entity.SongData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
@@ -50,6 +52,11 @@ class PlaylistViewModel(
     ) {
         ciderModel.getPlaylistSongsPagingSource(isLibrary, playlistId)
     }.flow.cachedIn(viewModelScope)
+    private val _actionResultFlow: MutableSharedFlow<SongAction> = MutableSharedFlow()
+    val actionResultFlow = _actionResultFlow.shareIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+    )
 
     init {
         getPlaylistDetail()
@@ -75,6 +82,7 @@ class PlaylistViewModel(
     fun songPlay(songId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playSongById(songId)
+            _actionResultFlow.emit(SongAction.Play)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -85,6 +93,7 @@ class PlaylistViewModel(
     fun songPlayNext(songId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playNextSongById(songId)
+            _actionResultFlow.emit(SongAction.PlayNext)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
@@ -96,6 +105,7 @@ class PlaylistViewModel(
     fun songPlayLater(songId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playLaterSongById(songId)
+            _actionResultFlow.emit(SongAction.PlayLater)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
@@ -104,9 +114,20 @@ class PlaylistViewModel(
         }
     }
 
+    fun clearActionResult() = viewModelScope.launch(Dispatchers.IO) {
+        _actionResultFlow.emit(SongAction.None)
+    }
+
     sealed class UiState {
         data object Loading : UiState()
         data class Success(val playlistData: PlaylistData) : UiState()
         data object Error : UiState()
+    }
+
+    enum class SongAction {
+        Play,
+        PlayNext,
+        PlayLater,
+        None,
     }
 }
