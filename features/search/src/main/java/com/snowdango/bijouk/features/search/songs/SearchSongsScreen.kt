@@ -30,7 +30,6 @@ fun SearchSongsScreen(
         parameters = { parametersOf(baseUrl, token) }
     ),
 ) {
-
     val context = LocalContext.current
     val actionResult = viewModel.actionResultFlow.collectAsStateWithLifecycle(
         initialValue = SearchSongsViewModel.SongAction.None,
@@ -69,7 +68,6 @@ fun SearchSongsScreen(
             }
         }
     }
-
 
     Box(
         modifier = modifier.fillMaxSize()
