@@ -13,4 +13,8 @@ class DevicesRepository(
     fun loadDevices(): List<DevicesEntity> {
         return devicesDatabase.devicesDao().loadDevices()
     }
+
+    fun deleteDevice(deviceId: Long) {
+        devicesDatabase.devicesDao().deleteById(deviceId)
+    }
 }

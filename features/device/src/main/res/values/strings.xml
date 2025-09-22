@@ -6,6 +6,8 @@
     <string name="toast_get_active_status_failed">Deviceのactive状態を取得できませんでした</string>
     <string name="toast_save_device_failed">Deviceの保存に失敗しました</string>
     <string name="toast_save_device_success">Deviceを保存しました</string>
+    <string name="toast_delete_device_success">Deviceを削除しました</string>
+    <string name="toast_delete_device_failed">Deviceの削除に失敗しました</string>
 
     <string name="toast_qr_code_parse_error">Failed to read QR code</string>
     <string name="toast_qr_code_device_connect_error">Failed to connect device.\nCheck your network.</string>
@@ -16,6 +18,8 @@
 
     <string name="device_add_menu_qr">QR Scan</string>
     <string name="device_add_menu_create">Create</string>
+
+    <string name="device_edit_menu_delete">delete</string>
 
     <string name="add_device_dialog_title">Add Device</string>
 
