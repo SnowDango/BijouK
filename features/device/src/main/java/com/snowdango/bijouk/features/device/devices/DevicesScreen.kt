@@ -125,6 +125,7 @@ fun DeviceScreen(
             Content(
                 devices = deviceViewData.value.devices.toImmutableList(),
                 onClickDevice = onClickDevice,
+                onClickDelete = viewModel::deleteDevice,
             )
         }
 
@@ -164,7 +165,8 @@ fun DeviceScreen(
 fun Content(
     devices: ImmutableList<DevicesViewModel.ActiveDeviceViewData>,
     modifier: Modifier = Modifier,
-    onClickDevice: (DeviceData) -> Unit
+    onClickDevice: (DeviceData) -> Unit,
+    onClickDelete: (Long) -> Unit,
 ) {
     Box(modifier = modifier.fillMaxSize()) {
         LazyColumn(
@@ -172,9 +174,16 @@ fun Content(
             contentPadding = PaddingValues(top = 32.dp, bottom = 76.dp)
         ) {
             items(devices) {
-                DeviceCard(it.device, it.isActive) {
-                    onClickDevice.invoke(it.device)
-                }
+                DeviceCard(
+                    it.device,
+                    it.isActive,
+                    onClickDevice = {
+                        onClickDevice.invoke(it.device)
+                    },
+                    onClickDelete = {
+                        onClickDelete.invoke(it.device.id)
+                    }
+                )
             }
         }
     }
@@ -197,6 +206,7 @@ private fun PreviewContent() {
                 )
             ),
             onClickDevice = {},
+            onClickDelete = {},
         )
     }
 }
