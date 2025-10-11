@@ -46,7 +46,7 @@ google-services = "4.4.3"
 firebase-bom = "34.3.0"
 firebase-crashlytics = "3.0.6"
 deploygate = "2.9.0"
-qrscanner = "0.4.0"
+qrscanner = "0.5.0"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
