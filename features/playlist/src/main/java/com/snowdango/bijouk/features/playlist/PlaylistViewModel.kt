@@ -38,7 +38,6 @@ class PlaylistViewModel(
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
     private val ciderBridgeModel: CiderBridgeModel by inject { parametersOf(baseUrl, token) }
 
-
     private val _playlistDetailState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val playlistDetailState = _playlistDetailState.stateIn(
         scope = viewModelScope,
