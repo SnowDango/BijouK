@@ -13,15 +13,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.InlineTextContent
+import androidx.compose.foundation.text.appendInlineContent
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.QueueMusic
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material.icons.filled.Shuffle
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,10 +37,14 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.Placeholder
+import androidx.compose.ui.text.PlaceholderVerticalAlign
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
@@ -106,6 +113,8 @@ fun PlaylistScreen(
                     onSongPlay = viewModel::songPlay,
                     onSongPlayNext = viewModel::songPlayNext,
                     onSongPlayLater = viewModel::songPlayLater,
+                    onPlaylistPlay = viewModel::playlistPlay,
+                    onPlaylistPlayShuffled = viewModel::playlistPlayShuffled,
                     modifier = Modifier.fillMaxSize()
                 )
             }
@@ -126,6 +135,8 @@ fun PlaylistDetailContent(
     onSongPlay: (String) -> Unit,
     onSongPlayNext: (String) -> Unit,
     onSongPlayLater: (String) -> Unit,
+    onPlaylistPlay: (String) -> Unit,
+    onPlaylistPlayShuffled: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val lazyListState = rememberLazyListState()
@@ -190,6 +201,9 @@ fun PlaylistDetailContent(
 
             item {
                 PlaylistPlayButton(
+                    playlistId = playlistDetail.id,
+                    onPlayPlaylist = onPlaylistPlay,
+                    onPlayPlaylistShuffle = onPlaylistPlayShuffled,
                     modifier = Modifier
                         .padding(start = 16.dp, end = 16.dp, bottom = 16.dp)
                 )
@@ -311,6 +325,9 @@ fun PlaylistThumbnail(
 
 @Composable
 fun PlaylistPlayButton(
+    playlistId: String,
+    onPlayPlaylist: (String) -> Unit,
+    onPlayPlaylistShuffle: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -319,33 +336,75 @@ fun PlaylistPlayButton(
     ) {
         TextButton(
             onClick = {
-
+                onPlayPlaylist.invoke(playlistId)
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primaryContainer, shape = RoundedCornerShape(16.dp))
+                .background(
+                    MaterialTheme.colorScheme.primaryContainer,
+                    shape = RoundedCornerShape(8.dp)
+                )
                 .clip(RoundedCornerShape(8.dp))
                 .weight(1f)
         ) {
+            val playIcon = "playIcon"
             Text(
-                text = "Play",
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                text = buildAnnotatedString {
+                    appendInlineContent(playIcon)
+                    append("Play")
+                },
+                inlineContent = mapOf(
+                    playIcon to InlineTextContent(
+                        placeholder = Placeholder(
+                            width = 18.sp,
+                            height = 18.sp,
+                            placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
+                        ),
+                        children = {
+                            Icon(
+                                imageVector = Icons.Default.PlayArrow,
+                                contentDescription = null,
+                            )
+                        },
+                    ),
+                ),
             )
         }
         Spacer(modifier = Modifier.width(16.dp))
         TextButton(
             onClick = {
-
+                onPlayPlaylistShuffle.invoke(playlistId)
             },
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primaryContainer, shape = RoundedCornerShape(16.dp))
+                .background(
+                    MaterialTheme.colorScheme.primaryContainer,
+                    shape = RoundedCornerShape(8.dp)
+                )
                 .clip(RoundedCornerShape(8.dp))
                 .weight(1f)
         ) {
+            val shuffleIcon = "shuffleIcon"
             Text(
-                text = "シャッフル",
-                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                text = buildAnnotatedString {
+                    appendInlineContent(shuffleIcon)
+                    append("Shuffle")
+                },
+                inlineContent = mapOf(
+                    shuffleIcon to InlineTextContent(
+                        placeholder = Placeholder(
+                            width = 18.sp,
+                            height = 18.sp,
+                            placeholderVerticalAlign = PlaceholderVerticalAlign.TextCenter,
+                        ),
+                        children = {
+                            Icon(
+                                imageVector = Icons.Default.Shuffle,
+                                contentDescription = null,
+                            )
+                        },
+                    ),
+                ),
             )
         }
     }
@@ -365,6 +424,8 @@ fun PreviewPlaylistDetailContent() {
             onSongPlay = {},
             onSongPlayNext = {},
             onSongPlayLater = {},
+            onPlaylistPlay = {},
+            onPlaylistPlayShuffled = {},
         )
     }
 }

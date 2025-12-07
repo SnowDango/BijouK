@@ -8,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.snowdango.bijouk.infla.SharedEventStore
+import com.snowdango.bijouk.model.cider.CiderBridgeModel
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
@@ -35,6 +36,8 @@ class PlaylistViewModel(
     private val sharedEventStore: SharedEventStore by inject()
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
+    private val ciderBridgeModel: CiderBridgeModel by inject { parametersOf(baseUrl, token) }
+
 
     private val _playlistDetailState: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
     val playlistDetailState = _playlistDetailState.stateIn(
@@ -96,6 +99,28 @@ class PlaylistViewModel(
     fun songPlayLater(songId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playLaterSongById(songId)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("PlaylistViewModel", th.toString())
+        }
+    }
+
+    fun playlistPlay(playlistId: String) = applicationScope.launch {
+        try {
+            ciderRPCModel.playPlaylistById(playlistId)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("PlaylistViewModel", th.toString())
+        }
+    }
+
+    fun playlistPlayShuffled(playlistId: String) = applicationScope.launch {
+        try {
+            ciderBridgeModel.playPlaylistByIdShuffled(playlistId)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce

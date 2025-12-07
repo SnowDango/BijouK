@@ -16,6 +16,7 @@ import androidx.compose.material3.ExperimentalMaterial3ExpressiveApi
 import androidx.compose.material3.FloatingActionButtonMenu
 import androidx.compose.material3.FloatingActionButtonMenuItem
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.ToggleFloatingActionButton
@@ -70,6 +71,7 @@ fun DeviceScreen(
         topBar = {
             TitleTopBar(
                 title = stringResource(R.string.top_bar_title),
+                titleColor = MaterialTheme.colorScheme.primary,
             )
         },
         floatingActionButton = {

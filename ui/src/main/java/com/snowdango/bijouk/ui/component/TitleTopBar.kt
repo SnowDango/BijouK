@@ -2,7 +2,6 @@ package com.snowdango.bijouk.ui.component
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -12,6 +11,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import com.snowdango.bijouk.ui.BijouKTheme
@@ -20,9 +20,9 @@ import com.snowdango.bijouk.ui.BijouKTheme
 @Composable
 fun TitleTopBar(
     title: String,
+    titleColor: Color? = null,
     navigationIcon: ImageVector? = null,
     navigationOnClick: () -> Unit = {},
-
     modifier: Modifier = Modifier,
 ) {
     TopAppBar(
@@ -30,7 +30,7 @@ fun TitleTopBar(
         title = {
             Text(
                 text = title,
-                color = MaterialTheme.colorScheme.primary,
+                color = titleColor ?: Color.Unspecified,
                 style = MaterialTheme.typography.headlineMedium,
             )
         },
