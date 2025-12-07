@@ -56,12 +56,14 @@ import com.snowdango.bijouk.model.cider.data.entity.SongData
 import com.snowdango.bijouk.model.mock.mockPlaylistData
 import com.snowdango.bijouk.model.mock.mockSongData
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.component.ActionResultToast
 import com.snowdango.bijouk.ui.component.EmptyThumbnail
 import com.snowdango.bijouk.ui.component.LoadingThumbnail
 import com.snowdango.bijouk.ui.component.ProgressContent
 import com.snowdango.bijouk.ui.component.TitleTopBar
 import com.snowdango.bijouk.ui.component.playlist.PlaylistTracksGridThumb
 import com.snowdango.bijouk.ui.component.song.PlayableSongCard
+import com.snowdango.bijouk.ui.data.ActionResultType
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 import kotlinx.coroutines.flow.flowOf
 import org.koin.compose.viewmodel.koinViewModel
@@ -85,7 +87,7 @@ fun PlaylistScreen(
     val uiState = viewModel.playlistDetailState.collectAsStateWithLifecycle()
     val playlistSongs = viewModel.playlistSongs.collectAsLazyPagingItems()
     val actionResult = viewModel.actionResultFlow.collectAsStateWithLifecycle(
-        initialValue = PlaylistViewModel.SongAction.None,
+        initialValue = ActionResultType.None,
     )
 
     LaunchedEffect(uiState.value) {
@@ -95,39 +97,7 @@ fun PlaylistScreen(
         }
     }
 
-    LaunchedEffect(actionResult.value) {
-        when (actionResult.value) {
-            PlaylistViewModel.SongAction.Play -> {
-                Toast.makeText(context, UiRes.string.song_action_toast_play, Toast.LENGTH_SHORT)
-                    .show()
-                viewModel.clearActionResult()
-            }
-
-            PlaylistViewModel.SongAction.PlayNext -> {
-                Toast.makeText(
-                    context,
-                    UiRes.string.song_action_toast_play_next,
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                viewModel.clearActionResult()
-            }
-
-            PlaylistViewModel.SongAction.PlayLater -> {
-                Toast.makeText(
-                    context,
-                    UiRes.string.song_action_toast_play_later,
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                viewModel.clearActionResult()
-            }
-
-            PlaylistViewModel.SongAction.None -> {
-                // No action
-            }
-        }
-    }
+    ActionResultToast(actionResult.value, viewModel::clearActionResult)
 
     Box(
         modifier = modifier.fillMaxSize(),

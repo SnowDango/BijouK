@@ -6,8 +6,12 @@
     <string name="play_dropdown_menu_play_next">Play Next</string>
     <string name="play_dropdown_menu_play_later">Play Later</string>
 
-    <string name="song_action_toast_play">Playing this song now.</string>
-    <string name="song_action_toast_play_next">Added this song to the queue.</string>
-    <string name="song_action_toast_play_later">Added this song to the end of the queue.</string>
+    <string name="action_song_toast_play">Playing this song now.</string>
+    <string name="action_song_toast_play_next">Added this song to the queue.</string>
+    <string name="action_song_toast_play_later">Added this song to the end of the queue.</string>
+
+    <string name="action_playlist_toast_play">Playing this playlist now.</string>
+    <string name="action_playlist_toast_play_shuffled">Shuffle playing this playlist now.</string>
+
 
 </resources>

@@ -12,6 +12,7 @@ import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.AlbumDetailData
 import com.snowdango.bijouk.model.cider.data.entity.SongData
+import com.snowdango.bijouk.ui.data.ActionResultType
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -52,7 +53,7 @@ class AlbumDetailViewModel(
     ) {
         ciderModel.getAlbumSongsPagingSource(isLibrary, albumId)
     }.flow.cachedIn(viewModelScope)
-    private val _actionResultFlow: MutableSharedFlow<SongAction> = MutableSharedFlow()
+    private val _actionResultFlow: MutableSharedFlow<ActionResultType> = MutableSharedFlow()
     val actionResultFlow = _actionResultFlow.shareIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
@@ -90,7 +91,7 @@ class AlbumDetailViewModel(
     fun songPlay(songId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playSongById(songId)
-            _actionResultFlow.emit(SongAction.Play)
+            _actionResultFlow.emit(ActionResultType.SongPlay)
         } catch (ce: CancellationException) {
             throw ce
         } catch (th: Throwable) {
@@ -101,7 +102,7 @@ class AlbumDetailViewModel(
     fun songPlayNext(songId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playNextSongById(songId)
-            _actionResultFlow.emit(SongAction.PlayNext)
+            _actionResultFlow.emit(ActionResultType.SongPlayNext)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
@@ -113,7 +114,7 @@ class AlbumDetailViewModel(
     fun songPlayLater(songId: String) = applicationScope.launch {
         try {
             ciderRPCModel.playLaterSongById(songId)
-            _actionResultFlow.emit(SongAction.PlayLater)
+            _actionResultFlow.emit(ActionResultType.SongPlayLater)
             sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
         } catch (ce: CancellationException) {
             throw ce
@@ -123,7 +124,7 @@ class AlbumDetailViewModel(
     }
 
     fun clearActionResult() = viewModelScope.launch(Dispatchers.IO) {
-        _actionResultFlow.emit(SongAction.None)
+        _actionResultFlow.emit(ActionResultType.None)
     }
 
     sealed class UiState {
@@ -132,10 +133,4 @@ class AlbumDetailViewModel(
         data object Error : UiState()
     }
 
-    enum class SongAction {
-        Play,
-        PlayNext,
-        PlayLater,
-        None,
-    }
 }

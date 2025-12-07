@@ -41,16 +41,17 @@ import com.snowdango.bijouk.model.cider.data.entity.SongData
 import com.snowdango.bijouk.model.mock.mockAlbumDetailData
 import com.snowdango.bijouk.model.mock.mockSongData
 import com.snowdango.bijouk.ui.BijouKTheme
+import com.snowdango.bijouk.ui.component.ActionResultToast
 import com.snowdango.bijouk.ui.component.EmptyThumbnail
 import com.snowdango.bijouk.ui.component.LoadingThumbnail
 import com.snowdango.bijouk.ui.component.ProgressContent
 import com.snowdango.bijouk.ui.component.TitleTopBar
 import com.snowdango.bijouk.ui.component.song.PlayableSongCard
+import com.snowdango.bijouk.ui.data.ActionResultType
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
 import kotlinx.coroutines.flow.flowOf
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
-import com.snowdango.bijouk.ui.R as UiRes
 
 @Composable
 fun AlbumDetailScreen(
@@ -69,7 +70,7 @@ fun AlbumDetailScreen(
     val uiState = viewModel.albumDetailDataFlow.collectAsStateWithLifecycle()
     val albumSongs = viewModel.albumSongsFlow.collectAsLazyPagingItems()
     val actionResult = viewModel.actionResultFlow.collectAsStateWithLifecycle(
-        initialValue = AlbumDetailViewModel.SongAction.None,
+        initialValue = ActionResultType.None,
     )
 
     LaunchedEffect(uiState.value) {
@@ -78,39 +79,7 @@ fun AlbumDetailScreen(
         }
     }
 
-    LaunchedEffect(actionResult.value) {
-        when (actionResult.value) {
-            AlbumDetailViewModel.SongAction.Play -> {
-                Toast.makeText(context, UiRes.string.song_action_toast_play, Toast.LENGTH_SHORT)
-                    .show()
-                viewModel.clearActionResult()
-            }
-
-            AlbumDetailViewModel.SongAction.PlayNext -> {
-                Toast.makeText(
-                    context,
-                    UiRes.string.song_action_toast_play_next,
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                viewModel.clearActionResult()
-            }
-
-            AlbumDetailViewModel.SongAction.PlayLater -> {
-                Toast.makeText(
-                    context,
-                    UiRes.string.song_action_toast_play_later,
-                    Toast.LENGTH_SHORT
-                )
-                    .show()
-                viewModel.clearActionResult()
-            }
-
-            AlbumDetailViewModel.SongAction.None -> {
-                // No action
-            }
-        }
-    }
+    ActionResultToast(actionResult.value, viewModel::clearActionResult)
 
     Box(
         modifier = modifier.fillMaxSize(),
