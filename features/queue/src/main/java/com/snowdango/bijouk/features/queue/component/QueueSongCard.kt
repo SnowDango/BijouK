@@ -33,7 +33,7 @@ fun QueueSongCard(
     var expanded by remember { mutableStateOf(false) }
     Box(
         modifier = modifier
-            .padding(horizontal = 16.dp, vertical = 4.dp)
+            .padding(vertical = 4.dp)
             .fillMaxWidth()
     ) {
         SongCard(

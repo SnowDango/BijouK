@@ -1,6 +1,7 @@
 package com.snowdango.bijouk.features.artist.component
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -36,6 +37,7 @@ import com.snowdango.bijouk.ui.image.cacheableImageRequest
 @Composable
 fun ArtistFullAlbums(
     albums: List<AlbumData>,
+    onClickAlbum: (album: AlbumData) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -80,6 +82,7 @@ fun ArtistFullAlbums(
                 ) {
                     FullAlbums(
                         album = album,
+                        onClickAlbum = onClickAlbum,
                         modifier = Modifier
                             .fillMaxWidth()
                             .wrapContentHeight(),
@@ -93,11 +96,17 @@ fun ArtistFullAlbums(
 @Composable
 fun FullAlbums(
     album: AlbumData,
+    onClickAlbum: (album: AlbumData) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
         modifier = modifier
             .padding(top = 8.dp, end = 8.dp, bottom = 4.dp)
+            .combinedClickable(
+                onClick = {
+                    onClickAlbum.invoke(album)
+                }
+            )
     ) {
         AsyncImage(
             model = cacheableImageRequest(
@@ -150,6 +159,7 @@ private fun PreviewFullAlbums() {
                 catalog = null,
 
             ),
+            onClickAlbum = {},
             modifier = Modifier.fillMaxWidth(
                 fraction = 0.5f
             )

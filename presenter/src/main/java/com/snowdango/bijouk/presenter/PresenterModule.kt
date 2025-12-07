@@ -1,5 +1,6 @@
 package com.snowdango.bijouk.presenter
 
+import com.snowdango.bijouk.features.album.AlbumModule
 import com.snowdango.bijouk.features.artist.ArtistModule
 import com.snowdango.bijouk.features.device.DevicesModule
 import com.snowdango.bijouk.features.playlist.PlaylistModule
@@ -21,5 +22,6 @@ object PresenterModule {
     val queueModule = QueueModule.module
     val searchModule = SearchModule.module
     val playlistModule = PlaylistModule.module
+    val albumModule = AlbumModule.module
     fun settingModule(versionName: String) = SettingModule.module(versionName)
 }

@@ -50,6 +50,7 @@ dependencies {
     implementation(project(":features:queue"))
     implementation(project(":features:artist"))
     implementation(project(":features:playlist"))
+    implementation(project(":features:album"))
     implementation(project(":ui"))
     implementation(project(":model"))
     implementation(project(":infla"))

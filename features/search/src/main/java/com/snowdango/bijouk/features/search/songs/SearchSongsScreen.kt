@@ -8,9 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.LazyPagingItems
 import com.snowdango.bijouk.model.cider.data.entity.SongData
+import com.snowdango.bijouk.ui.component.ActionResultToast
 import com.snowdango.bijouk.ui.component.song.PlayableSongCard
+import com.snowdango.bijouk.ui.data.ActionResultType
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -25,6 +28,12 @@ fun SearchSongsScreen(
         parameters = { parametersOf(baseUrl, token) }
     ),
 ) {
+    val actionResult = viewModel.actionResultFlow.collectAsStateWithLifecycle(
+        initialValue = ActionResultType.None,
+    )
+
+    ActionResultToast(actionResult.value, viewModel::clearActionResult)
+
     Box(
         modifier = modifier.fillMaxSize()
     ) {

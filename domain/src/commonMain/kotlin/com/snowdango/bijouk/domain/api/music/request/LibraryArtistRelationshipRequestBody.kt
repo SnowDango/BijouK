@@ -13,8 +13,8 @@ data class LibraryArtistRelationshipRequestBody(
             viewType: ViewType,
             limit: Int,
             offset: Int,
-        ): ArtistViewsRequestBody {
-            return ArtistViewsRequestBody(
+        ): LibraryArtistRelationshipRequestBody {
+            return LibraryArtistRelationshipRequestBody(
                 path = "/v1/me/library/artists/${artistId}/${viewType.value}?include=catalog" +
                         "limit=${limit}" +
                         "&offset=${offset}"

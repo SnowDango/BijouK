@@ -22,6 +22,7 @@ fun SearchAlbumsScreen(
     token: String,
     sheetMinSize: Dp,
     searchAlbums: LazyPagingItems<AlbumData>,
+    onClickAlbum: (AlbumData) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: SearchAlbumsViewModel = koinViewModel<SearchAlbumsViewModel>(
         parameters = { parametersOf(baseUrl, token) }
@@ -47,6 +48,7 @@ fun SearchAlbumsScreen(
                 album?.let {
                     PlayableAlbumCard(
                         album = it,
+                        onClickAlbum = onClickAlbum,
                         onClickPlay = viewModel::searchAlbumPlay,
                         onClickPlayNext = viewModel::searchAlbumPlayNext,
                         onClickPlayLater = viewModel::searchAlbumPlayLater,

@@ -1,0 +1,12 @@
+package com.snowdango.bijouk.ui.data
+
+enum class ActionResultType {
+    SongPlay,
+    SongPlayNext,
+    SongPlayLater,
+    AlbumPlay,
+    AlbumPlayShuffled,
+    PlaylistPlay,
+    PlaylistPlayShuffled,
+    None,
+}

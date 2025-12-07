@@ -1,7 +1,6 @@
 package com.snowdango.bijouk.features.artist
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -43,6 +42,7 @@ fun ArtistsDetailScreen(
     isLibrary: Boolean,
     sheetMinSize: Dp,
     onNavigationBack: () -> Unit,
+    onNavigationAlbum: (String, Boolean) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: ArtistsDetailViewModel = koinViewModel<ArtistsDetailViewModel> {
         parametersOf(
@@ -86,6 +86,17 @@ fun ArtistsDetailScreen(
                     artistSingles = artistSingles.value,
                     sheetMinSize = sheetMinSize,
                     onNavigationBack = onNavigationBack,
+                    onClickAlbum = {
+                        if (isLibrary) {
+                            if (it.catalog != null) {
+                                onNavigationAlbum(it.catalog!!.id, false)
+                            } else {
+                                onNavigationAlbum.invoke(it.id, true)
+                            }
+                        } else {
+                            onNavigationAlbum(it.id, false)
+                        }
+                    },
                     onPlayStation = viewModel::stationPlayById,
                 )
             }
@@ -107,12 +118,12 @@ fun ArtistsDetailContent(
     artistSingles: List<AlbumData>?,
     sheetMinSize: Dp,
     onNavigationBack: () -> Unit,
+    onClickAlbum: (AlbumData) -> Unit,
     onPlayStation: (stationId: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val lazyListState = rememberLazyListState()
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    Log.d("ArtistsDetailContent", "stations: ${detailData.stations}")
     Scaffold(
         modifier = modifier
             .fillMaxSize()
@@ -144,12 +155,18 @@ fun ArtistsDetailContent(
             }
             if (!artistFullAlbums.isNullOrEmpty()) {
                 item {
-                    ArtistFullAlbums(artistFullAlbums)
+                    ArtistFullAlbums(
+                        albums = artistFullAlbums,
+                        onClickAlbum = onClickAlbum,
+                    )
                 }
             }
             if (!artistSingles.isNullOrEmpty()) {
                 item {
-                    ArtistSingles(artistSingles)
+                    ArtistSingles(
+                        singles = artistSingles,
+                        onClickAlbum = onClickAlbum,
+                    )
                 }
             }
             item {

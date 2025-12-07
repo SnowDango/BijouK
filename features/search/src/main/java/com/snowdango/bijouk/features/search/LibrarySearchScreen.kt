@@ -45,6 +45,7 @@ fun LibrarySearchScreen(
     baseUrl: String,
     token: String,
     sheetMinSize: Dp,
+    onNavigationAlbum: (String, Boolean) -> Unit,
     onNavigateArtist: (String, Boolean) -> Unit,
     onNavigatePlaylist: (String, Boolean) -> Unit,
     modifier: Modifier = Modifier,
@@ -146,6 +147,13 @@ fun LibrarySearchScreen(
                             sheetMinSize = sheetMinSize,
                             modifier = Modifier.fillMaxSize(),
                             searchAlbums = searchAlbums,
+                            onClickAlbum = { album ->
+                                if (album.catalog != null) {
+                                    onNavigationAlbum.invoke(album.catalog!!.id, false)
+                                } else {
+                                    onNavigationAlbum.invoke(album.id, true)
+                                }
+                            }
                         )
                     }
 

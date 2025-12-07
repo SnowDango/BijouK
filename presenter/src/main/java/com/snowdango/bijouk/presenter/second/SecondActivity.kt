@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
+import com.snowdango.bijouk.features.album.AlbumDetailScreen
 import com.snowdango.bijouk.features.artist.ArtistsDetailScreen
 import com.snowdango.bijouk.features.playlist.PlaylistScreen
 import com.snowdango.bijouk.features.queue.QueueScreen
@@ -108,6 +109,11 @@ class SecondActivity : ComponentActivity() {
                                 baseUrl = secondActivityData.baseUrl,
                                 token = secondActivityData.token,
                                 sheetMinSize = sheetMinHeight,
+                                onNavigateAlbum = {
+                                    navController.navigate(
+                                        SecondRoute.ALBUM(albumId = it, isLibrary = false)
+                                    )
+                                },
                                 onNavigateArtist = {
                                     navController.navigate(
                                         SecondRoute.ARTIST(artistId = it, isLibrary = false)
@@ -130,6 +136,14 @@ class SecondActivity : ComponentActivity() {
                                 token = secondActivityData.token,
                                 sheetMinSize = sheetMinHeight,
                                 modifier = Modifier.fillMaxSize(),
+                                onNavigationAlbum = { albumId, isLibrary ->
+                                    navController.navigate(
+                                        SecondRoute.ALBUM(
+                                            albumId = albumId,
+                                            isLibrary = isLibrary,
+                                        )
+                                    )
+                                },
                                 onNavigateArtist = { artistId, isLibrary ->
                                     navController.navigate(
                                         SecondRoute.ARTIST(
@@ -148,6 +162,21 @@ class SecondActivity : ComponentActivity() {
                                 }
                             )
                         }
+                        composable<SecondRoute.ALBUM> { backStackEntry ->
+                            val album = backStackEntry.toRoute<SecondRoute.ALBUM>()
+                            AlbumDetailScreen(
+                                baseUrl = secondActivityData.baseUrl,
+                                token = secondActivityData.token,
+                                albumId = album.albumId,
+                                isLibrary = album.isLibrary,
+                                sheetMinSize = sheetMinHeight,
+                                onNavigationBack = {
+                                    navController.popBackStack()
+                                },
+                                modifier = Modifier.fillMaxSize(),
+                            )
+                        }
+
                         composable<SecondRoute.ARTIST> { backStackEntry ->
                             val artist = backStackEntry.toRoute<SecondRoute.ARTIST>()
                             ArtistsDetailScreen(
@@ -158,6 +187,14 @@ class SecondActivity : ComponentActivity() {
                                 sheetMinSize = sheetMinHeight,
                                 onNavigationBack = {
                                     navController.popBackStack()
+                                },
+                                onNavigationAlbum = { albumId, isLibrary ->
+                                    navController.navigate(
+                                        SecondRoute.ALBUM(
+                                            albumId = albumId,
+                                            isLibrary = isLibrary,
+                                        )
+                                    )
                                 },
                                 modifier = Modifier.fillMaxSize(),
                             )

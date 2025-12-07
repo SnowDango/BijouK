@@ -4,13 +4,15 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MusicNote
-import androidx.compose.material3.Card
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,8 +21,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
 import com.snowdango.bijouk.ui.BijouKTheme
@@ -33,45 +38,67 @@ fun SongCard(
     artwork: String,
     title: String,
     artist: String,
+    index: Int? = null,
+    isShowArtwork: Boolean = true,
+    sideMargin: Dp = 48.dp,
     modifier: Modifier = Modifier,
 ) {
-    Card(
+    val density = LocalDensity.current
+    val indexTextWidth = 48.dp
+    val indexTextSize = with(density) { (indexTextWidth / 3).toSp() }
+    Column(
         modifier = modifier
             .fillMaxWidth()
     ) {
         Row(
             modifier = Modifier
-                .padding(horizontal = 32.dp, vertical = 16.dp)
+                .padding(vertical = 8.dp)
                 .fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            SubcomposeAsyncImage(
-                model = cacheableImageRequest(
-                    context = LocalContext.current,
-                    data = artwork
-                ).build(),
-                contentDescription = null,
-                loading = {
-                    LoadingThumbnail()
-                },
-                success = {
-                    Image(
-                        painter = it.painter,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .size(48.dp)
-                            .clip(RoundedCornerShape(8.dp))
-                    )
-                },
-                error = {
-                    EmptyThumbnail(
-                        imageVector = Icons.Default.MusicNote,
-                    )
-                },
-                modifier = Modifier
-                    .size(48.dp)
-                    .clip(RoundedCornerShape(8.dp)),
-            )
+            if (index != null) {
+                Text(
+                    text = index.toString(),
+                    fontSize = indexTextSize,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .width(indexTextWidth)
+                )
+            } else {
+                Spacer(
+                    modifier = Modifier
+                        .width(sideMargin)
+                )
+            }
+            if (isShowArtwork) {
+                SubcomposeAsyncImage(
+                    model = cacheableImageRequest(
+                        context = LocalContext.current,
+                        data = artwork
+                    ).build(),
+                    contentDescription = null,
+                    loading = {
+                        LoadingThumbnail()
+                    },
+                    success = {
+                        Image(
+                            painter = it.painter,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(48.dp)
+                                .clip(RoundedCornerShape(8.dp))
+                        )
+                    },
+                    error = {
+                        EmptyThumbnail(
+                            imageVector = Icons.Default.MusicNote,
+                        )
+                    },
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clip(RoundedCornerShape(8.dp)),
+                )
+            }
             Column(
                 modifier = Modifier
                     .padding(start = 8.dp)
@@ -96,7 +123,18 @@ fun SongCard(
                     style = MaterialTheme.typography.bodyMedium,
                 )
             }
+            Spacer(
+                modifier = Modifier
+                    .width(sideMargin)
+            )
         }
+        HorizontalDivider(
+            modifier = Modifier
+                .padding(
+                    start = 8.dp + sideMargin + if (isShowArtwork) 48.dp else 0.dp,
+                    end = sideMargin
+                )
+        )
     }
 }
 
@@ -108,6 +146,8 @@ private fun PreviewSongCard() {
             artwork = "",
             title = "Song Title",
             artist = "Artist Name",
+            isShowArtwork = false,
+            index = 1,
             modifier = Modifier.padding(16.dp)
         )
     }
