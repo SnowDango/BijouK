@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.filled.QueueMusic
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -27,20 +28,26 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil3.compose.SubcomposeAsyncImage
 import com.snowdango.bijouk.model.cider.data.AlbumDetailData
 import com.snowdango.bijouk.model.cider.data.entity.SongData
+import com.snowdango.bijouk.model.mock.mockAlbumDetailData
+import com.snowdango.bijouk.model.mock.mockSongData
+import com.snowdango.bijouk.ui.BijouKTheme
 import com.snowdango.bijouk.ui.component.EmptyThumbnail
 import com.snowdango.bijouk.ui.component.LoadingThumbnail
 import com.snowdango.bijouk.ui.component.ProgressContent
 import com.snowdango.bijouk.ui.component.TitleTopBar
 import com.snowdango.bijouk.ui.component.song.PlayableSongCard
 import com.snowdango.bijouk.ui.image.cacheableImageRequest
+import kotlinx.coroutines.flow.flowOf
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 import com.snowdango.bijouk.ui.R as UiRes
@@ -123,6 +130,7 @@ fun AlbumDetailScreen(
                     albumDetailData = albumDetailData,
                     albumSongs = albumSongs,
                     sheetMinSize = sheetMinSize,
+                    onNavigationBack = onNavigationBack,
                     onSongPlay = { songId ->
                         viewModel.songPlay(songId)
                     },
@@ -149,6 +157,7 @@ fun AlbumDetailContent(
     albumDetailData: AlbumDetailData,
     albumSongs: LazyPagingItems<SongData>,
     sheetMinSize: Dp,
+    onNavigationBack: () -> Unit,
     onSongPlay: (String) -> Unit,
     onSongPlayNext: (String) -> Unit,
     onSongPlayLater: (String) -> Unit,
@@ -159,6 +168,8 @@ fun AlbumDetailContent(
         topBar = {
             TitleTopBar(
                 title = albumDetailData.title,
+                navigationIcon = Icons.AutoMirrored.Filled.ArrowBack,
+                navigationOnClick = onNavigationBack,
             )
         }
     ) { paddingValues ->
@@ -298,6 +309,24 @@ fun AlbumDetailThumbnail(
                 .fillMaxWidth(fraction = 0.5f)
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(8.dp))
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewAlbumDetailContent() {
+    val albumSongs = flowOf(PagingData.from(listOf(mockSongData))).collectAsLazyPagingItems()
+
+    BijouKTheme {
+        AlbumDetailContent(
+            albumDetailData = mockAlbumDetailData,
+            albumSongs = albumSongs,
+            sheetMinSize = 0.dp,
+            onNavigationBack = {},
+            onSongPlay = {},
+            onSongPlayNext = {},
+            onSongPlayLater = {},
         )
     }
 }
