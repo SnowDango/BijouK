@@ -4,6 +4,8 @@ enum class ActionResultType {
     SongPlay,
     SongPlayNext,
     SongPlayLater,
+    AlbumPlay,
+    AlbumPlayShuffled,
     PlaylistPlay,
     PlaylistPlayShuffled,
     None,

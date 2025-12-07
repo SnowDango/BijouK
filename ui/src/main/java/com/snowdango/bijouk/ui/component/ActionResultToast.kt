@@ -14,10 +14,12 @@ fun ActionResultToast(
 ) {
     val context = LocalContext.current
     LaunchedEffect(actionResultType) {
-        val messageId = when(actionResultType){
+        val messageId = when (actionResultType) {
             ActionResultType.SongPlay -> R.string.action_song_toast_play
             ActionResultType.SongPlayNext -> R.string.action_song_toast_play_next
             ActionResultType.SongPlayLater -> R.string.action_song_toast_play_later
+            ActionResultType.AlbumPlay -> R.string.action_album_toast_play
+            ActionResultType.AlbumPlayShuffled -> R.string.action_album_toast_play_shuffled
             ActionResultType.PlaylistPlay -> R.string.action_playlist_toast_play
             ActionResultType.PlaylistPlayShuffled -> R.string.action_playlist_toast_play
             ActionResultType.None -> null

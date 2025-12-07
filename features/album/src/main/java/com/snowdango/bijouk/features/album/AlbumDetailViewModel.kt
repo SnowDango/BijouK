@@ -8,6 +8,7 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.snowdango.bijouk.infla.SharedEventStore
+import com.snowdango.bijouk.model.cider.CiderBridgeModel
 import com.snowdango.bijouk.model.cider.CiderModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.data.AlbumDetailData
@@ -37,6 +38,7 @@ class AlbumDetailViewModel(
     private val sharedEventStore: SharedEventStore by inject()
     private val ciderModel: CiderModel by inject { parametersOf(baseUrl, token) }
     private val ciderRPCModel: CiderRPCModel by inject { parametersOf(baseUrl, token) }
+    private val ciderBridgeModel: CiderBridgeModel by inject { parametersOf(baseUrl, token) }
     private val applicationScope: CoroutineScope by inject()
 
     private val _albumDetailDataFlow: MutableStateFlow<UiState> = MutableStateFlow(UiState.Loading)
@@ -122,6 +124,31 @@ class AlbumDetailViewModel(
             Log.e("AlbumDetailViewModel", th.toString())
         }
     }
+
+    fun albumPlay(albumId: String) = applicationScope.launch {
+        try {
+            ciderRPCModel.playAlbumById(albumId)
+            _actionResultFlow.emit(ActionResultType.AlbumPlay)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("AlbumDetailViewModel", th.toString())
+        }
+    }
+
+    fun albumPlayShuffled(albumId: String) = applicationScope.launch {
+        try {
+            ciderBridgeModel.playAlbumByIdShuffled(albumId)
+            _actionResultFlow.emit(ActionResultType.AlbumPlayShuffled)
+            sharedEventStore.setEvent(SharedEventStore.SharedEvent.QueueDelayUpdated)
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("AlbumDetailViewModel", th.toString())
+        }
+    }
+
 
     fun clearActionResult() = viewModelScope.launch(Dispatchers.IO) {
         _actionResultFlow.emit(ActionResultType.None)

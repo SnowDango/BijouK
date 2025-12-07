@@ -24,6 +24,18 @@ class CiderBridgeModel(
         )
     }
 
+    suspend fun playAlbumByIdShuffled(
+        albumId: String,
+    ) {
+        val shuffleState = ciderRPCModel.getShuffleMode()
+        ciderRPCModel.clearQueue()
+        ciderRPCModel.playNextAlbumById(albumId)
+        @Suppress("MagicNumber")
+        delay(1_500)
+        ciderRPCModel.setShuffleMode(true, shuffleState)
+        ciderRPCModel.next()
+    }
+
     suspend fun playPlaylistByIdShuffled(
         playlistId: String,
     ) {
