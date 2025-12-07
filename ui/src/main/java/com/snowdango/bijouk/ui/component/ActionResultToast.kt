@@ -34,5 +34,4 @@ fun ActionResultToast(
             onClearActionResult.invoke()
         }
     }
-
 }

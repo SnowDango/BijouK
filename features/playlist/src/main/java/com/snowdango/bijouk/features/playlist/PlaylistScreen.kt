@@ -68,7 +68,6 @@ import com.snowdango.bijouk.ui.image.cacheableImageRequest
 import kotlinx.coroutines.flow.flowOf
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
-import com.snowdango.bijouk.ui.R as UiRes
 
 @Composable
 fun PlaylistScreen(

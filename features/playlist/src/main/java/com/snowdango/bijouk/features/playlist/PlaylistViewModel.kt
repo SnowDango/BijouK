@@ -148,5 +148,4 @@ class PlaylistViewModel(
         data class Success(val playlistData: PlaylistData) : UiState()
         data object Error : UiState()
     }
-
 }

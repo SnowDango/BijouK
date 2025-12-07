@@ -149,7 +149,6 @@ class AlbumDetailViewModel(
         }
     }
 
-
     fun clearActionResult() = viewModelScope.launch(Dispatchers.IO) {
         _actionResultFlow.emit(ActionResultType.None)
     }
@@ -159,5 +158,4 @@ class AlbumDetailViewModel(
         data class Success(val albumDetailData: AlbumDetailData) : UiState()
         data object Error : UiState()
     }
-
 }
