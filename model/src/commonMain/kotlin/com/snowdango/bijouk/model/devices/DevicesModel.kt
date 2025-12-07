@@ -53,4 +53,10 @@ class DevicesModel : KoinComponent {
             }
         }
     }
+
+    suspend fun deleteDevice(id: Long) {
+        withContext(Dispatchers.IO) {
+            devicesRepository.deleteDevice(id)
+        }
+    }
 }

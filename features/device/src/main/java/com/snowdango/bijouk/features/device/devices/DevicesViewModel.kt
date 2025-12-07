@@ -167,6 +167,19 @@ class DevicesViewModel : ViewModel(), KoinComponent {
         }
     }
 
+    fun deleteDevice(id: Long) = viewModelScope.launch(Dispatchers.IO) {
+        try {
+            devicesModel.deleteDevice(id)
+            _toastStringFlow.emit(context.getString(R.string.toast_delete_device_success))
+            load()
+        } catch (ce: CancellationException) {
+            throw ce
+        } catch (th: Throwable) {
+            Log.e("DevicesViewModel", th.toString())
+            _toastStringFlow.emit(context.getString(R.string.toast_delete_device_failed))
+        }
+    }
+
     data class DeviceViewData(
         val devices: List<ActiveDeviceViewData>,
         val isRefreshing: Boolean,
