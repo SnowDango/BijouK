@@ -1,12 +1,9 @@
 package com.snowdango.bijouk.model.cider
 
-import com.snowdango.bijouk.repository.cider.CiderRPCRepository
-import com.snowdango.bijouk.repository.cider.CiderRepository
 import kotlinx.coroutines.delay
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import org.koin.core.parameter.parametersOf
-import kotlin.getValue
 
 class CiderBridgeModel(
     baseUrl: String,
@@ -27,11 +24,23 @@ class CiderBridgeModel(
         )
     }
 
+    suspend fun playPlaylistByIdShuffled(
+        playlistId: String,
+    ) {
+        val shuffleState = ciderRPCModel.getShuffleMode()
+        ciderRPCModel.clearQueue()
+        ciderRPCModel.playNextPlaylistById(playlistId)
+        @Suppress("MagicNumber")
+        delay(1_500)
+        ciderRPCModel.setShuffleMode(true, shuffleState)
+        ciderRPCModel.next()
+    }
+
     suspend fun playPlaylistFolderById(
         folderId: String,
     ) {
         val playlists = ciderModel.getAllPlaylistFolderChildren(folderId)
-        if(playlists.isNotEmpty()) {
+        if (playlists.isNotEmpty()) {
             ciderRPCModel.clearQueue()
             ciderRPCModel.playPlaylistFolderById(playlists.map { it.id }.reversed())
             ciderRPCModel.next()
@@ -43,7 +52,7 @@ class CiderBridgeModel(
     ) {
         val shuffleState = ciderRPCModel.getShuffleMode()
         val playlists = ciderModel.getAllPlaylistFolderChildren(folderId)
-        if(playlists.isNotEmpty()) {
+        if (playlists.isNotEmpty()) {
             ciderRPCModel.clearQueue()
             ciderRPCModel.playPlaylistFolderById(playlists.map { it.id })
             @Suppress("MagicNumber")
@@ -52,5 +61,5 @@ class CiderBridgeModel(
             ciderRPCModel.next()
         }
     }
-    
+
 }
