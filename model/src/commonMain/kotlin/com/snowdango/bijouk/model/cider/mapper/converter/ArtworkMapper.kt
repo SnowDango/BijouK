@@ -1,8 +1,8 @@
 package com.snowdango.bijouk.model.cider.mapper.converter
 
+import com.snowdango.bijouk.api.model.RPCArtwork
 import com.snowdango.bijouk.domain.api.entity.music.catalog.Artwork
 import com.snowdango.bijouk.domain.api.entity.music.library.LibraryArtwork
-import com.snowdango.bijouk.domain.api.entity.rpc.RPCArtwork
 
 fun Artwork.convert(): String {
     return url

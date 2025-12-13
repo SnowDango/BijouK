@@ -41,8 +41,8 @@ class CiderRPCModel(
 
     suspend fun getQueue(songId: String?): QueueDataList {
         val queues = repository.getQueue()
-        val currentIndex = queues.indexOfLast { it.id == songId && it.playbackType != 0 }
-        val isFinished = queues.none { it.playbackType == 0 }
+        val currentIndex = queues.indexOfLast { it.id == songId && it.playbackType != 0.toDouble() }
+        val isFinished = queues.none { it.playbackType == 0.toDouble() }
         logger.d(
             "CiderRPCModel",
             "getQueue: songId=${songId} currentIndex=$currentIndex, isFinished=$isFinished"

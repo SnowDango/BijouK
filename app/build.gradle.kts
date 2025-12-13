@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.deploygate)
+    alias(libs.plugins.openapi)
 }
 
 android {
@@ -91,6 +92,27 @@ deploygate {
             sourceFile = file("build/outputs/apk/debug/app-debug.apk")
         }
     }
+}
+
+openApiGenerate {
+    groupId = "com.snowdango.bijouk.api"
+    version = libs.versions.version.get()
+    additionalProperties
+    generatorName = "kotlin"
+    validateSpec = false
+    inputSpec = "${rootDir}/cider.json"
+    outputDir = "${rootDir}/api"
+    library = "multiplatform"
+    apiPackage = "com.snowdango.bijouk.api"
+    invokerPackage = "com.snowdango.bijouk.api.invoker"
+    modelPackage = "com.snowdango.bijouk.api.model"
+    configOptions = mapOf(
+        "dateLibrary" to "kotlinx-datetime"
+    )
+    additionalProperties = mapOf(
+        "useCoroutines" to "true",
+        "enumPropertyNaming" to "UPPERCASE"
+    )
 }
 
 dependencies {

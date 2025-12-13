@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.model.cider.mapper.api
 
-import com.snowdango.bijouk.domain.api.rpc.response.QueueAttributes
-import com.snowdango.bijouk.domain.api.rpc.response.QueueResponseData
+import com.snowdango.bijouk.api.model.QueueAttributes
+import com.snowdango.bijouk.api.model.QueueResponseData
 import com.snowdango.bijouk.model.cider.data.QueueData
 import com.snowdango.bijouk.model.cider.mapper.converter.convert
 

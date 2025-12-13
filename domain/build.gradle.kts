@@ -59,6 +59,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(project(":api"))
                 implementation(libs.kotlin.stdlib)
 
                 // koin
