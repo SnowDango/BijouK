@@ -46,7 +46,7 @@ data class QueueResponseData (
 
     @SerialName(value = "id") @Required val id: kotlin.String,
 
-    @SerialName(value = "playbackType") @Required val playbackType: kotlin.Double,
+    @SerialName(value = "playbackType") @Required val playbackType: kotlin.Int,
 
     @SerialName(value = "type") @Required val type: kotlin.String,
 

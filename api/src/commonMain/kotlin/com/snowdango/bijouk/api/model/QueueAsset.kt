@@ -50,7 +50,7 @@ data class QueueAsset (
 
     @SerialName(value = "downloadKey") val downloadKey: kotlin.String? = null,
 
-    @SerialName(value = "file-size") val fileSize: kotlin.Double? = null,
+    @SerialName(value = "file-size") val fileSize: kotlin.Int? = null,
 
     @SerialName(value = "flavor") val flavor: kotlin.String? = null
 

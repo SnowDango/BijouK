@@ -4,7 +4,7 @@
 ## Properties
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
-| **current** | **kotlin.Double** |  |  [optional] |
+| **current** | **kotlin.Int** |  |  [optional] |
 
 
 

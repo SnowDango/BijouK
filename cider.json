@@ -572,11 +572,11 @@
             "format": "double"
           },
           "discNumber": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "durationInMillis": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "genreNames": {
@@ -631,15 +631,15 @@
             "format": "double"
           },
           "repeatMode": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "shuffleMode": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "trackNumber": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "url": {
@@ -671,7 +671,7 @@
             "type": "object",
             "properties": {
               "current": {
-                "type": "number",
+                "type": "integer",
                 "format": "int32"
               }
             }
@@ -697,7 +697,7 @@
             "type": "string"
           },
           "playbackType": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "type": {
@@ -716,11 +716,11 @@
         "type": "object",
         "properties": {
           "height": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "width": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "url": {
@@ -793,7 +793,7 @@
         "type": "object",
         "properties": {
           "current": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           }
         },
@@ -829,7 +829,7 @@
             "type": "string"
           },
           "file-size": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "flavor": {
@@ -876,15 +876,15 @@
             "type": "string"
           },
           "currentPlaybackTime": {
-            "type": "number",
+            "type": "integer",
             "format": "double"
           },
           "discNumber": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "durationInMillis": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "genreNames": {
@@ -933,7 +933,7 @@
             "format": "double"
           },
           "trackNumber": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "url": {
@@ -960,7 +960,7 @@
             "type": "string"
           },
           "bitRate": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "compilation": {
@@ -976,19 +976,19 @@
             "type": "string"
           },
           "discCount": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "discNumber": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "duration": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "explicit": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "fileExtension": {
@@ -1001,7 +1001,7 @@
             "type": "string"
           },
           "genreId": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "isMasteredForItunes": {
@@ -1026,18 +1026,18 @@
             "type": "string"
           },
           "rank": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "releaseDate": {
             "type": "string"
           },
           "s": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "sampleRate": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "sort-album": {
@@ -1053,22 +1053,22 @@
             "type": "string"
           },
           "trackCount": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "trackNumber": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "vendorId": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           },
           "xid": {
             "type": "string"
           },
           "year": {
-            "type": "number",
+            "type": "integer",
             "format": "int32"
           }
         },

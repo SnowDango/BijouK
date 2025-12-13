@@ -29,7 +29,7 @@ import kotlinx.serialization.encoding.*
 
 data class QueueResponseDataState (
 
-    @SerialName(value = "current") val current: kotlin.Double? = null
+    @SerialName(value = "current") val current: kotlin.Int? = null
 
 ) {
 

@@ -4,8 +4,8 @@
 ## Properties
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
-| **height** | **kotlin.Double** |  |  [optional] |
-| **width** | **kotlin.Double** |  |  [optional] |
+| **height** | **kotlin.Int** |  |  [optional] |
+| **width** | **kotlin.Int** |  |  [optional] |
 | **url** | **kotlin.String** |  |  [optional] |
 | **hasP3** | **kotlin.Boolean** |  |  [optional] |
 | **bgColor** | **kotlin.String** |  |  [optional] |

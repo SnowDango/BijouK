@@ -5,15 +5,15 @@
 | Name | Type | Description | Notes |
 | ------------ | ------------- | ------------- | ------------- |
 | **artistName** | **kotlin.String** |  |  |
-| **bitRate** | **kotlin.Double** |  |  |
-| **discCount** | **kotlin.Double** |  |  |
-| **discNumber** | **kotlin.Double** |  |  |
-| **duration** | **kotlin.Double** |  |  |
-| **explicit** | **kotlin.Double** |  |  |
+| **bitRate** | **kotlin.Int** |  |  |
+| **discCount** | **kotlin.Int** |  |  |
+| **discNumber** | **kotlin.Int** |  |  |
+| **duration** | **kotlin.Int** |  |  |
+| **explicit** | **kotlin.Int** |  |  |
 | **fileExtension** | **kotlin.String** |  |  |
 | **gapless** | **kotlin.Boolean** |  |  |
 | **genre** | **kotlin.String** |  |  |
-| **genreId** | **kotlin.Double** |  |  |
+| **genreId** | **kotlin.Int** |  |  |
 | **itemId** | **kotlin.String** |  |  |
 | **itemName** | **kotlin.String** |  |  |
 | **kind** | **kotlin.String** |  |  |
@@ -22,9 +22,9 @@
 | **sortArtist** | **kotlin.String** |  |  |
 | **sortComposer** | **kotlin.String** |  |  |
 | **sortName** | **kotlin.String** |  |  |
-| **trackCount** | **kotlin.Double** |  |  |
-| **trackNumber** | **kotlin.Double** |  |  |
-| **year** | **kotlin.Double** |  |  |
+| **trackCount** | **kotlin.Int** |  |  |
+| **trackNumber** | **kotlin.Int** |  |  |
+| **year** | **kotlin.Int** |  |  |
 | **artistId** | **kotlin.String** |  |  [optional] |
 | **compilation** | **kotlin.Boolean** |  |  [optional] |
 | **composerId** | **kotlin.String** |  |  [optional] |
@@ -33,11 +33,11 @@
 | **isMasteredForItunes** | **kotlin.Boolean** |  |  [optional] |
 | **playlistId** | **kotlin.String** |  |  [optional] |
 | **playlistName** | **kotlin.String** |  |  [optional] |
-| **rank** | **kotlin.Double** |  |  [optional] |
+| **rank** | **kotlin.Int** |  |  [optional] |
 | **releaseDate** | **kotlin.String** |  |  [optional] |
-| **s** | **kotlin.Double** |  |  [optional] |
-| **sampleRate** | **kotlin.Double** |  |  [optional] |
-| **vendorId** | **kotlin.Double** |  |  [optional] |
+| **s** | **kotlin.Int** |  |  [optional] |
+| **sampleRate** | **kotlin.Int** |  |  [optional] |
+| **vendorId** | **kotlin.Int** |  |  [optional] |
 | **xid** | **kotlin.String** |  |  [optional] |
 
 

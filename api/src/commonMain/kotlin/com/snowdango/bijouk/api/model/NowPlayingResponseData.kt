@@ -64,7 +64,7 @@ data class NowPlayingResponseData (
 
     @SerialName(value = "currentPlaybackTime") @Required val currentPlaybackTime: kotlin.Double,
 
-    @SerialName(value = "durationInMillis") @Required val durationInMillis: kotlin.Double,
+    @SerialName(value = "durationInMillis") @Required val durationInMillis: kotlin.Int,
 
     @SerialName(value = "hasLyrics") @Required val hasLyrics: kotlin.Boolean,
 
@@ -78,9 +78,9 @@ data class NowPlayingResponseData (
 
     @SerialName(value = "remainingTime") @Required val remainingTime: kotlin.Double,
 
-    @SerialName(value = "repeatMode") @Required val repeatMode: kotlin.Double,
+    @SerialName(value = "repeatMode") @Required val repeatMode: kotlin.Int,
 
-    @SerialName(value = "shuffleMode") @Required val shuffleMode: kotlin.Double,
+    @SerialName(value = "shuffleMode") @Required val shuffleMode: kotlin.Int,
 
     @SerialName(value = "artwork") val artwork: RPCArtwork? = null,
 
@@ -90,7 +90,7 @@ data class NowPlayingResponseData (
 
     @SerialName(value = "composerName") val composerName: kotlin.String? = null,
 
-    @SerialName(value = "discNumber") val discNumber: kotlin.Double? = null,
+    @SerialName(value = "discNumber") val discNumber: kotlin.Int? = null,
 
     @SerialName(value = "genreNames") val genreNames: kotlin.collections.List<kotlin.String>? = null,
 
@@ -108,7 +108,7 @@ data class NowPlayingResponseData (
 
     @SerialName(value = "releaseDate") val releaseDate: kotlin.String? = null,
 
-    @SerialName(value = "trackNumber") val trackNumber: kotlin.Double? = null,
+    @SerialName(value = "trackNumber") val trackNumber: kotlin.Int? = null,
 
     @SerialName(value = "url") val url: kotlin.String? = null
 

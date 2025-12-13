@@ -65,15 +65,15 @@ data class QueueMetadata (
 
     @SerialName(value = "artistName") @Required val artistName: kotlin.String,
 
-    @SerialName(value = "bitRate") @Required val bitRate: kotlin.Double,
+    @SerialName(value = "bitRate") @Required val bitRate: kotlin.Int,
 
-    @SerialName(value = "discCount") @Required val discCount: kotlin.Double,
+    @SerialName(value = "discCount") @Required val discCount: kotlin.Int,
 
-    @SerialName(value = "discNumber") @Required val discNumber: kotlin.Double,
+    @SerialName(value = "discNumber") @Required val discNumber: kotlin.Int,
 
-    @SerialName(value = "duration") @Required val duration: kotlin.Double,
+    @SerialName(value = "duration") @Required val duration: kotlin.Int,
 
-    @SerialName(value = "explicit") @Required val explicit: kotlin.Double,
+    @SerialName(value = "explicit") @Required val explicit: kotlin.Int,
 
     @SerialName(value = "fileExtension") @Required val fileExtension: kotlin.String,
 
@@ -81,7 +81,7 @@ data class QueueMetadata (
 
     @SerialName(value = "genre") @Required val genre: kotlin.String,
 
-    @SerialName(value = "genreId") @Required val genreId: kotlin.Double,
+    @SerialName(value = "genreId") @Required val genreId: kotlin.Int,
 
     @SerialName(value = "itemId") @Required val itemId: kotlin.String,
 
@@ -99,11 +99,11 @@ data class QueueMetadata (
 
     @SerialName(value = "sort-name") @Required val sortName: kotlin.String,
 
-    @SerialName(value = "trackCount") @Required val trackCount: kotlin.Double,
+    @SerialName(value = "trackCount") @Required val trackCount: kotlin.Int,
 
-    @SerialName(value = "trackNumber") @Required val trackNumber: kotlin.Double,
+    @SerialName(value = "trackNumber") @Required val trackNumber: kotlin.Int,
 
-    @SerialName(value = "year") @Required val year: kotlin.Double,
+    @SerialName(value = "year") @Required val year: kotlin.Int,
 
     @SerialName(value = "artistId") val artistId: kotlin.String? = null,
 
@@ -121,15 +121,15 @@ data class QueueMetadata (
 
     @SerialName(value = "playlistName") val playlistName: kotlin.String? = null,
 
-    @SerialName(value = "rank") val rank: kotlin.Double? = null,
+    @SerialName(value = "rank") val rank: kotlin.Int? = null,
 
     @SerialName(value = "releaseDate") val releaseDate: kotlin.String? = null,
 
-    @SerialName(value = "s") val s: kotlin.Double? = null,
+    @SerialName(value = "s") val s: kotlin.Int? = null,
 
-    @SerialName(value = "sampleRate") val sampleRate: kotlin.Double? = null,
+    @SerialName(value = "sampleRate") val sampleRate: kotlin.Int? = null,
 
-    @SerialName(value = "vendorId") val vendorId: kotlin.Double? = null,
+    @SerialName(value = "vendorId") val vendorId: kotlin.Int? = null,
 
     @SerialName(value = "xid") val xid: kotlin.String? = null
 

@@ -10,7 +10,7 @@
 | **metadata** | [**QueueMetadata**](.md) |  |  |
 | **artworkURL** | **kotlin.String** |  |  [optional] |
 | **downloadKey** | **kotlin.String** |  |  [optional] |
-| **fileSize** | **kotlin.Double** |  |  [optional] |
+| **fileSize** | **kotlin.Int** |  |  [optional] |
 | **flavor** | **kotlin.String** |  |  [optional] |
 
 

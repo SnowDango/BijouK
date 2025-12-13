@@ -56,9 +56,9 @@ data class QueueAttributes (
 
     @SerialName(value = "albumName") @Required val albumName: kotlin.String,
 
-    @SerialName(value = "discNumber") @Required val discNumber: kotlin.Double,
+    @SerialName(value = "discNumber") @Required val discNumber: kotlin.Int,
 
-    @SerialName(value = "durationInMillis") @Required val durationInMillis: kotlin.Double,
+    @SerialName(value = "durationInMillis") @Required val durationInMillis: kotlin.Int,
 
     @SerialName(value = "genreNames") @Required val genreNames: kotlin.collections.List<kotlin.String>,
 
@@ -66,7 +66,7 @@ data class QueueAttributes (
 
     @SerialName(value = "name") @Required val name: kotlin.String,
 
-    @SerialName(value = "trackNumber") @Required val trackNumber: kotlin.Double,
+    @SerialName(value = "trackNumber") @Required val trackNumber: kotlin.Int,
 
     @SerialName(value = "artistName") val artistName: kotlin.String? = null,
 
@@ -78,7 +78,7 @@ data class QueueAttributes (
 
     @SerialName(value = "composerName") val composerName: kotlin.String? = null,
 
-    @SerialName(value = "currentPlaybackTime") val currentPlaybackTime: kotlin.Double? = null,
+    @SerialName(value = "currentPlaybackTime") val currentPlaybackTime: kotlin.Int? = null,
 
     @SerialName(value = "hasTimeSyncedLyrics") val hasTimeSyncedLyrics: kotlin.Boolean? = null,
 

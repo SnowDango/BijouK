@@ -38,9 +38,9 @@ import kotlinx.serialization.encoding.*
 
 data class RPCArtwork (
 
-    @SerialName(value = "height") val height: kotlin.Double? = null,
+    @SerialName(value = "height") val height: kotlin.Int? = null,
 
-    @SerialName(value = "width") val width: kotlin.Double? = null,
+    @SerialName(value = "width") val width: kotlin.Int? = null,
 
     @SerialName(value = "url") val url: kotlin.String? = null,
 
