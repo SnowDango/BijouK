@@ -652,7 +652,6 @@
           "currentPlaybackTime",
           "durationInMillis",
           "hasLyrics",
-          "isFavorites",
           "inLibrary",
           "name",
           "playParams",
@@ -697,8 +696,8 @@
             "type": "string"
           },
           "playbackType": {
-            "type": "integer",
-            "format": "int32"
+            "type": "number",
+            "format": "double"
           },
           "type": {
             "type": "string"
@@ -876,7 +875,7 @@
             "type": "string"
           },
           "currentPlaybackTime": {
-            "type": "integer",
+            "type": "number",
             "format": "double"
           },
           "discNumber": {

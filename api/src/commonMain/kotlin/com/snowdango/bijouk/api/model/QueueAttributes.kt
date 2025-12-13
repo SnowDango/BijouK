@@ -78,7 +78,7 @@ data class QueueAttributes (
 
     @SerialName(value = "composerName") val composerName: kotlin.String? = null,
 
-    @SerialName(value = "currentPlaybackTime") val currentPlaybackTime: kotlin.Int? = null,
+    @SerialName(value = "currentPlaybackTime") val currentPlaybackTime: kotlin.Double? = null,
 
     @SerialName(value = "hasTimeSyncedLyrics") val hasTimeSyncedLyrics: kotlin.Boolean? = null,
 

@@ -41,7 +41,7 @@ fun NowPlayingResponseData.convertPlayBackTimeData(): PlayBackTimeData {
 
 fun NowPlayingResponseData.convertNowPlayingStatusData(): NowPlayingStatusData {
     return NowPlayingStatusData(
-        isFav = isFavorites,
+        isFav = isFavorites ?: false,
         isInLib = inLibrary,
     )
 }

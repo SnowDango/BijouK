@@ -31,7 +31,6 @@ import kotlinx.serialization.encoding.*
  * @param currentPlaybackTime 
  * @param durationInMillis 
  * @param hasLyrics 
- * @param isFavorites 
  * @param inLibrary 
  * @param name 
  * @param playParams 
@@ -45,6 +44,7 @@ import kotlinx.serialization.encoding.*
  * @param discNumber 
  * @param genreNames 
  * @param hasTimeSyncedLyrics 
+ * @param isFavorites 
  * @param isAppleDigitalMaster 
  * @param isMasteredForItunes 
  * @param isVocalAttenuationAllowed 
@@ -67,8 +67,6 @@ data class NowPlayingResponseData (
     @SerialName(value = "durationInMillis") @Required val durationInMillis: kotlin.Int,
 
     @SerialName(value = "hasLyrics") @Required val hasLyrics: kotlin.Boolean,
-
-    @SerialName(value = "isFavorites") @Required val isFavorites: kotlin.Boolean,
 
     @SerialName(value = "inLibrary") @Required val inLibrary: kotlin.Boolean,
 
@@ -95,6 +93,8 @@ data class NowPlayingResponseData (
     @SerialName(value = "genreNames") val genreNames: kotlin.collections.List<kotlin.String>? = null,
 
     @SerialName(value = "hasTimeSyncedLyrics") val hasTimeSyncedLyrics: kotlin.Boolean? = null,
+
+    @SerialName(value = "isFavorites") val isFavorites: kotlin.Boolean? = null,
 
     @SerialName(value = "isAppleDigitalMaster") val isAppleDigitalMaster: kotlin.Boolean? = null,
 

@@ -16,7 +16,7 @@
 | **audioLocale** | **kotlin.String** |  |  [optional] |
 | **audioTraits** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional] |
 | **composerName** | **kotlin.String** |  |  [optional] |
-| **currentPlaybackTime** | **kotlin.Int** |  |  [optional] |
+| **currentPlaybackTime** | **kotlin.Double** |  |  [optional] |
 | **hasTimeSyncedLyrics** | **kotlin.Boolean** |  |  [optional] |
 | **isAppleDigitalMaster** | **kotlin.Boolean** |  |  [optional] |
 | **isMasteredForItunes** | **kotlin.Boolean** |  |  [optional] |

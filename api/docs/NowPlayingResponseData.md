@@ -9,7 +9,6 @@
 | **currentPlaybackTime** | **kotlin.Double** |  |  |
 | **durationInMillis** | **kotlin.Int** |  |  |
 | **hasLyrics** | **kotlin.Boolean** |  |  |
-| **isFavorites** | **kotlin.Boolean** |  |  |
 | **inLibrary** | **kotlin.Boolean** |  |  |
 | **name** | **kotlin.String** |  |  |
 | **playParams** | [**RPCPlayParameters**](.md) |  |  |
@@ -23,6 +22,7 @@
 | **discNumber** | **kotlin.Int** |  |  [optional] |
 | **genreNames** | **kotlin.collections.List&lt;kotlin.String&gt;** |  |  [optional] |
 | **hasTimeSyncedLyrics** | **kotlin.Boolean** |  |  [optional] |
+| **isFavorites** | **kotlin.Boolean** |  |  [optional] |
 | **isAppleDigitalMaster** | **kotlin.Boolean** |  |  [optional] |
 | **isMasteredForItunes** | **kotlin.Boolean** |  |  [optional] |
 | **isVocalAttenuationAllowed** | **kotlin.Boolean** |  |  [optional] |
