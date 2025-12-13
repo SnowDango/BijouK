@@ -27,3 +27,4 @@ gradlew.bat
 gradle/**
 gradlew
 build.gradle.kts
+src/test/**
