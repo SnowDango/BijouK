@@ -46,7 +46,7 @@ google-services = "4.4.4"
 firebase-bom = "34.5.0"
 firebase-crashlytics = "3.0.6"
 deploygate = "2.9.0"
-qrscanner = "0.5.0"
+qrscanner = "0.6.0"
 openapi = "7.17.0"
 
 [libraries]
