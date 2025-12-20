@@ -151,11 +151,11 @@ open class CiderRpcApi : ApiClient {
     /**
      * Play Item
      * 
-     * @param playRequestBody  (optional)
+     * @param playRequestBody 
      * @return BasicResponse
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun playbackPlayItemPost(playRequestBody: PlayRequestBody? = null): HttpResponse<BasicResponse> {
+    open suspend fun playbackPlayItemPost(playRequestBody: PlayRequestBody): HttpResponse<BasicResponse> {
 
         val localVariableAuthNames = listOf<String>()
 
@@ -184,11 +184,11 @@ open class CiderRpcApi : ApiClient {
     /**
      * Play Item Later
      * 
-     * @param playRequestBody  (optional)
+     * @param playRequestBody 
      * @return BasicResponse
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun playbackPlayLaterPost(playRequestBody: PlayRequestBody? = null): HttpResponse<BasicResponse> {
+    open suspend fun playbackPlayLaterPost(playRequestBody: PlayRequestBody): HttpResponse<BasicResponse> {
 
         val localVariableAuthNames = listOf<String>()
 
@@ -217,11 +217,11 @@ open class CiderRpcApi : ApiClient {
     /**
      * Play Item Next
      * 
-     * @param playRequestBody  (optional)
+     * @param playRequestBody 
      * @return BasicResponse
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun playbackPlayNextPost(playRequestBody: PlayRequestBody? = null): HttpResponse<BasicResponse> {
+    open suspend fun playbackPlayNextPost(playRequestBody: PlayRequestBody): HttpResponse<BasicResponse> {
 
         val localVariableAuthNames = listOf<String>()
 
@@ -316,11 +316,11 @@ open class CiderRpcApi : ApiClient {
     /**
      * Change Queue Index
      * 
-     * @param playbackQueueChangeToIndexPostRequest  (optional)
+     * @param playbackQueueChangeToIndexPostRequest 
      * @return BasicResponse
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun playbackQueueChangeToIndexPost(playbackQueueChangeToIndexPostRequest: PlaybackQueueChangeToIndexPostRequest? = null): HttpResponse<BasicResponse> {
+    open suspend fun playbackQueueChangeToIndexPost(playbackQueueChangeToIndexPostRequest: PlaybackQueueChangeToIndexPostRequest): HttpResponse<BasicResponse> {
 
         val localVariableAuthNames = listOf<String>()
 
@@ -424,11 +424,11 @@ open class CiderRpcApi : ApiClient {
     /**
      * Move Queue
      * 
-     * @param playbackQueueMoveToPositionPostRequest  (optional)
+     * @param playbackQueueMoveToPositionPostRequest 
      * @return BasicResponse
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun playbackQueueMoveToPositionPost(playbackQueueMoveToPositionPostRequest: PlaybackQueueMoveToPositionPostRequest? = null): HttpResponse<BasicResponse> {
+    open suspend fun playbackQueueMoveToPositionPost(playbackQueueMoveToPositionPostRequest: PlaybackQueueMoveToPositionPostRequest): HttpResponse<BasicResponse> {
 
         val localVariableAuthNames = listOf<String>()
 
@@ -457,11 +457,11 @@ open class CiderRpcApi : ApiClient {
     /**
      * Control Song seek
      * 
-     * @param playbackSeekPostRequest  (optional)
+     * @param playbackSeekPostRequest 
      * @return BasicResponse
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun playbackSeekPost(playbackSeekPostRequest: PlaybackSeekPostRequest? = null): HttpResponse<BasicResponse> {
+    open suspend fun playbackSeekPost(playbackSeekPostRequest: PlaybackSeekPostRequest): HttpResponse<BasicResponse> {
 
         val localVariableAuthNames = listOf<String>()
 

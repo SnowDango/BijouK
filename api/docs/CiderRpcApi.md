@@ -190,7 +190,7 @@ try {
 ### Parameters
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **playRequestBody** | [**PlayRequestBody**](PlayRequestBody.md)|  | [optional] |
+| **playRequestBody** | [**PlayRequestBody**](PlayRequestBody.md)|  | |
 
 ### Return type
 
@@ -236,7 +236,7 @@ try {
 ### Parameters
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **playRequestBody** | [**PlayRequestBody**](PlayRequestBody.md)|  | [optional] |
+| **playRequestBody** | [**PlayRequestBody**](PlayRequestBody.md)|  | |
 
 ### Return type
 
@@ -282,7 +282,7 @@ try {
 ### Parameters
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **playRequestBody** | [**PlayRequestBody**](PlayRequestBody.md)|  | [optional] |
+| **playRequestBody** | [**PlayRequestBody**](PlayRequestBody.md)|  | |
 
 ### Return type
 
@@ -420,7 +420,7 @@ try {
 ### Parameters
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **playbackQueueChangeToIndexPostRequest** | [**PlaybackQueueChangeToIndexPostRequest**](PlaybackQueueChangeToIndexPostRequest.md)|  | [optional] |
+| **playbackQueueChangeToIndexPostRequest** | [**PlaybackQueueChangeToIndexPostRequest**](PlaybackQueueChangeToIndexPostRequest.md)|  | |
 
 ### Return type
 
@@ -558,7 +558,7 @@ try {
 ### Parameters
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **playbackQueueMoveToPositionPostRequest** | [**PlaybackQueueMoveToPositionPostRequest**](PlaybackQueueMoveToPositionPostRequest.md)|  | [optional] |
+| **playbackQueueMoveToPositionPostRequest** | [**PlaybackQueueMoveToPositionPostRequest**](PlaybackQueueMoveToPositionPostRequest.md)|  | |
 
 ### Return type
 
@@ -604,7 +604,7 @@ try {
 ### Parameters
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **playbackSeekPostRequest** | [**PlaybackSeekPostRequest**](PlaybackSeekPostRequest.md)|  | [optional] |
+| **playbackSeekPostRequest** | [**PlaybackSeekPostRequest**](PlaybackSeekPostRequest.md)|  | |
 
 ### Return type
 
