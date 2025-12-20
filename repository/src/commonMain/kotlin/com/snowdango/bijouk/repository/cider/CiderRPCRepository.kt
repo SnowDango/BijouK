@@ -147,7 +147,7 @@ class CiderRPCRepository(
     }
 
     suspend fun playStationById(stationId: String): BasicResponse {
-        return ciderRpcApi.playbackPlayLaterPost(
+        return ciderRpcApi.playbackPlayItemPost(
             PlayRequestBody(
                 type = PlayRequestBody.Type.STATIONS,
                 id = stationId,
