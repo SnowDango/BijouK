@@ -42,6 +42,7 @@ kotlin {
     sourceSets {
         commonMain {
             dependencies {
+                implementation(project(":api"))
                 implementation(project(":domain"))
                 implementation(project(":repository"))
                 implementation(libs.kotlin.stdlib)

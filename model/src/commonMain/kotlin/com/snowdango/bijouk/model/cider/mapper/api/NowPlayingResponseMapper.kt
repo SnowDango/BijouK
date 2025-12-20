@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.model.cider.mapper.api
 
-import com.snowdango.bijouk.domain.api.rpc.response.NowPlayingResponse
-import com.snowdango.bijouk.domain.api.rpc.response.NowPlayingResponseData
+import com.snowdango.bijouk.api.model.NowPlayingResponse
+import com.snowdango.bijouk.api.model.NowPlayingResponseData
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
@@ -18,7 +18,7 @@ fun NowPlayingResponse.convert(): Triple<NowPlayData, PlayBackTimeData, NowPlayi
 
 fun NowPlayingResponseData.convertNowPlayData(): NowPlayData {
     return NowPlayData(
-        id = playParams?.id.toString(),
+        id = playParams.id,
         name = name,
         artistName = artistName,
         albumName = albumName,
@@ -30,7 +30,7 @@ fun NowPlayingResponseData.convertNowPlayData(): NowPlayData {
 @Suppress("SimpleDateFormat")
 fun NowPlayingResponseData.convertPlayBackTimeData(): PlayBackTimeData {
     return PlayBackTimeData(
-        duration = durationInMillis / 1000f,
+        duration = (durationInMillis / 1000).toFloat(),
         currentTime = currentPlaybackTime.toFloat(),
         remainingTime = remainingTime.toFloat(),
         currentTimeString = PlaybackTimeMapper.convertPlaybackTime(currentPlaybackTime),
@@ -41,7 +41,7 @@ fun NowPlayingResponseData.convertPlayBackTimeData(): PlayBackTimeData {
 
 fun NowPlayingResponseData.convertNowPlayingStatusData(): NowPlayingStatusData {
     return NowPlayingStatusData(
-        isFav = inFavorites,
+        isFav = isFavorites ?: false,
         isInLib = inLibrary,
     )
 }

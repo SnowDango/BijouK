@@ -1,8 +1,8 @@
 package com.snowdango.bijouk.domain.api.socket.event
 
-import com.snowdango.bijouk.domain.api.entity.rpc.RPCArtwork
-import com.snowdango.bijouk.domain.api.entity.rpc.RPCPlayParameters
-import com.snowdango.bijouk.domain.api.entity.rpc.RPCPreview
+import com.snowdango.bijouk.api.model.RPCArtwork
+import com.snowdango.bijouk.api.model.RPCPlayParameters
+import com.snowdango.bijouk.api.model.RPCPreview
 import kotlinx.serialization.Serializable
 
 @Suppress("UnsafeOptInUsageError")
