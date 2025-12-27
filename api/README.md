@@ -36,6 +36,7 @@ All URIs are relative to *http://localhost:8080/api/v1*
 
 | Class | Method | HTTP request | Description |
 | ------------ | ------------- | ------------- | ------------- |
+| *CiderMusicApi* | [**apiV1AmapiRunV3Post**](docs/CiderMusicApi.md#apiv1amapirunv3post) | **POST** /api/v1/amapi/run-v3 | Call Apple Music Api between Cider App |
 | *CiderRpcApi* | [**playbackActiveGet**](docs/CiderRpcApi.md#playbackactiveget) | **GET** /playback/active | server is active |
 | *CiderRpcApi* | [**playbackNextPost**](docs/CiderRpcApi.md#playbacknextpost) | **POST** /playback/next | Control Song next |
 | *CiderRpcApi* | [**playbackNowPlayingGet**](docs/CiderRpcApi.md#playbacknowplayingget) | **GET** /playback/now-playing | Get Now Playing Song |
@@ -56,14 +57,44 @@ All URIs are relative to *http://localhost:8080/api/v1*
 <a id="documentation-for-models"></a>
 ## Documentation for Models
 
+ - [com.snowdango.bijouk.api.model.Albums](docs/Albums.md)
+ - [com.snowdango.bijouk.api.model.AlbumsAttributes](docs/AlbumsAttributes.md)
+ - [com.snowdango.bijouk.api.model.ApiV1AmapiRunV3PostRequest](docs/ApiV1AmapiRunV3PostRequest.md)
+ - [com.snowdango.bijouk.api.model.Artists](docs/Artists.md)
+ - [com.snowdango.bijouk.api.model.ArtistsAttributes](docs/ArtistsAttributes.md)
+ - [com.snowdango.bijouk.api.model.ArtistsRelationships](docs/ArtistsRelationships.md)
+ - [com.snowdango.bijouk.api.model.ArtistsRelationshipsDefaultPlayableContent](docs/ArtistsRelationshipsDefaultPlayableContent.md)
+ - [com.snowdango.bijouk.api.model.Artwork](docs/Artwork.md)
  - [com.snowdango.bijouk.api.model.BasicResponse](docs/BasicResponse.md)
+ - [com.snowdango.bijouk.api.model.DescriptionAttribute](docs/DescriptionAttribute.md)
+ - [com.snowdango.bijouk.api.model.EditorialNotes](docs/EditorialNotes.md)
+ - [com.snowdango.bijouk.api.model.LibraryAlbums](docs/LibraryAlbums.md)
+ - [com.snowdango.bijouk.api.model.LibraryAlbumsAttributes](docs/LibraryAlbumsAttributes.md)
+ - [com.snowdango.bijouk.api.model.LibraryAlbumsRelationships](docs/LibraryAlbumsRelationships.md)
+ - [com.snowdango.bijouk.api.model.LibraryAlbumsRelationshipsCatalog](docs/LibraryAlbumsRelationshipsCatalog.md)
+ - [com.snowdango.bijouk.api.model.LibraryArtists](docs/LibraryArtists.md)
+ - [com.snowdango.bijouk.api.model.LibraryArtistsAttributes](docs/LibraryArtistsAttributes.md)
+ - [com.snowdango.bijouk.api.model.LibraryArtistsRelationships](docs/LibraryArtistsRelationships.md)
+ - [com.snowdango.bijouk.api.model.LibraryArtwork](docs/LibraryArtwork.md)
+ - [com.snowdango.bijouk.api.model.LibraryPlaylists](docs/LibraryPlaylists.md)
+ - [com.snowdango.bijouk.api.model.LibraryPlaylistsAttributes](docs/LibraryPlaylistsAttributes.md)
+ - [com.snowdango.bijouk.api.model.LibraryPlaylistsRelationships](docs/LibraryPlaylistsRelationships.md)
+ - [com.snowdango.bijouk.api.model.LibraryPlaylistsRelationshipsCatalog](docs/LibraryPlaylistsRelationshipsCatalog.md)
+ - [com.snowdango.bijouk.api.model.LibrarySongs](docs/LibrarySongs.md)
+ - [com.snowdango.bijouk.api.model.LibrarySongsAttributes](docs/LibrarySongsAttributes.md)
+ - [com.snowdango.bijouk.api.model.LibrarySongsRelationships](docs/LibrarySongsRelationships.md)
+ - [com.snowdango.bijouk.api.model.LibrarySongsRelationshipsCatalog](docs/LibrarySongsRelationshipsCatalog.md)
  - [com.snowdango.bijouk.api.model.NowPlayingResponse](docs/NowPlayingResponse.md)
  - [com.snowdango.bijouk.api.model.NowPlayingResponseData](docs/NowPlayingResponseData.md)
+ - [com.snowdango.bijouk.api.model.PlayParameters](docs/PlayParameters.md)
  - [com.snowdango.bijouk.api.model.PlayRequestBody](docs/PlayRequestBody.md)
  - [com.snowdango.bijouk.api.model.PlaybackQueueChangeToIndexPostRequest](docs/PlaybackQueueChangeToIndexPostRequest.md)
  - [com.snowdango.bijouk.api.model.PlaybackQueueMoveToPositionPostRequest](docs/PlaybackQueueMoveToPositionPostRequest.md)
  - [com.snowdango.bijouk.api.model.PlaybackSeekPostRequest](docs/PlaybackSeekPostRequest.md)
  - [com.snowdango.bijouk.api.model.PlaybackShuffleModeGet200Response](docs/PlaybackShuffleModeGet200Response.md)
+ - [com.snowdango.bijouk.api.model.Playlists](docs/Playlists.md)
+ - [com.snowdango.bijouk.api.model.PlaylistsAttributes](docs/PlaylistsAttributes.md)
+ - [com.snowdango.bijouk.api.model.Preview](docs/Preview.md)
  - [com.snowdango.bijouk.api.model.QueueAsset](docs/QueueAsset.md)
  - [com.snowdango.bijouk.api.model.QueueAssetChunks](docs/QueueAssetChunks.md)
  - [com.snowdango.bijouk.api.model.QueueAttributes](docs/QueueAttributes.md)
@@ -74,6 +105,17 @@ All URIs are relative to *http://localhost:8080/api/v1*
  - [com.snowdango.bijouk.api.model.RPCArtwork](docs/RPCArtwork.md)
  - [com.snowdango.bijouk.api.model.RPCPlayParameters](docs/RPCPlayParameters.md)
  - [com.snowdango.bijouk.api.model.RPCPreview](docs/RPCPreview.md)
+ - [com.snowdango.bijouk.api.model.SearchResponse](docs/SearchResponse.md)
+ - [com.snowdango.bijouk.api.model.SearchResponseData](docs/SearchResponseData.md)
+ - [com.snowdango.bijouk.api.model.SearchResponseDataResults](docs/SearchResponseDataResults.md)
+ - [com.snowdango.bijouk.api.model.SearchResponseDataResultsAlbums](docs/SearchResponseDataResultsAlbums.md)
+ - [com.snowdango.bijouk.api.model.SearchResponseDataResultsArtists](docs/SearchResponseDataResultsArtists.md)
+ - [com.snowdango.bijouk.api.model.SearchResponseDataResultsPlaylists](docs/SearchResponseDataResultsPlaylists.md)
+ - [com.snowdango.bijouk.api.model.SearchResponseDataResultsSongs](docs/SearchResponseDataResultsSongs.md)
+ - [com.snowdango.bijouk.api.model.Songs](docs/Songs.md)
+ - [com.snowdango.bijouk.api.model.SongsAttributes](docs/SongsAttributes.md)
+ - [com.snowdango.bijouk.api.model.Stations](docs/Stations.md)
+ - [com.snowdango.bijouk.api.model.StationsAttributes](docs/StationsAttributes.md)
 
 
 <a id="documentation-for-authorization"></a>
