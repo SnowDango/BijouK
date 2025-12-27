@@ -36,7 +36,7 @@ All URIs are relative to *http://localhost:8080/api/v1*
 
 | Class | Method | HTTP request | Description |
 | ------------ | ------------- | ------------- | ------------- |
-| *CiderMusicApi* | [**apiV1AmapiRunV3Post**](docs/CiderMusicApi.md#apiv1amapirunv3post) | **POST** /api/v1/amapi/run-v3 | Call Apple Music Api between Cider App |
+| *CiderMusicApi* | [**amapiRunV3Post**](docs/CiderMusicApi.md#amapirunv3post) | **POST** /amapi/run-v3 | Call Apple Music Api between Cider App |
 | *CiderRpcApi* | [**playbackActiveGet**](docs/CiderRpcApi.md#playbackactiveget) | **GET** /playback/active | server is active |
 | *CiderRpcApi* | [**playbackNextPost**](docs/CiderRpcApi.md#playbacknextpost) | **POST** /playback/next | Control Song next |
 | *CiderRpcApi* | [**playbackNowPlayingGet**](docs/CiderRpcApi.md#playbacknowplayingget) | **GET** /playback/now-playing | Get Now Playing Song |
@@ -61,8 +61,8 @@ All URIs are relative to *http://localhost:8080/api/v1*
  - [com.snowdango.bijouk.api.model.AlbumsAttributes](docs/AlbumsAttributes.md)
  - [com.snowdango.bijouk.api.model.AlbumsResponse](docs/AlbumsResponse.md)
  - [com.snowdango.bijouk.api.model.AlbumsResponseData](docs/AlbumsResponseData.md)
- - [com.snowdango.bijouk.api.model.ApiV1AmapiRunV3Post200Response](docs/ApiV1AmapiRunV3Post200Response.md)
- - [com.snowdango.bijouk.api.model.ApiV1AmapiRunV3PostRequest](docs/ApiV1AmapiRunV3PostRequest.md)
+ - [com.snowdango.bijouk.api.model.AmapiRunV3Post200Response](docs/AmapiRunV3Post200Response.md)
+ - [com.snowdango.bijouk.api.model.AmapiRunV3PostRequest](docs/AmapiRunV3PostRequest.md)
  - [com.snowdango.bijouk.api.model.Artists](docs/Artists.md)
  - [com.snowdango.bijouk.api.model.ArtistsAttributes](docs/ArtistsAttributes.md)
  - [com.snowdango.bijouk.api.model.ArtistsRelationships](docs/ArtistsRelationships.md)

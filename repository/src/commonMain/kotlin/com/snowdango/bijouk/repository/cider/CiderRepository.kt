@@ -3,7 +3,7 @@ package com.snowdango.bijouk.repository.cider
 
 import com.snowdango.bijouk.api.CiderMusicApi
 import com.snowdango.bijouk.api.model.AlbumsResponse
-import com.snowdango.bijouk.api.model.ApiV1AmapiRunV3PostRequest
+import com.snowdango.bijouk.api.model.AmapiRunV3PostRequest
 import com.snowdango.bijouk.api.model.ArtistsResponse
 import com.snowdango.bijouk.api.model.LibraryAlbumsResponse
 import com.snowdango.bijouk.api.model.LibraryArtistsResponse
@@ -24,8 +24,8 @@ class CiderRepository(
 ) {
 
     suspend fun searchAll(query: String): SearchResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/search?" +
                         "term=${UrlEncoderUtil.encode(query)}" +
                         "&types=${SearchType.entries.joinToString(",") { it.type }}" +
@@ -36,8 +36,8 @@ class CiderRepository(
     }
 
     suspend fun searchSongs(query: String, offset: Int, limit: Int): SearchResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/search?" +
                         "term=${UrlEncoderUtil.encode(query)}" +
                         "&types=${SearchType.Songs.type}" +
@@ -48,8 +48,8 @@ class CiderRepository(
     }
 
     suspend fun searchAlbums(query: String, offset: Int, limit: Int): SearchResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/search?" +
                         "term=${UrlEncoderUtil.encode(query)}" +
                         "&types=${SearchType.Albums.type}" +
@@ -60,8 +60,8 @@ class CiderRepository(
     }
 
     suspend fun searchArtists(query: String, offset: Int, limit: Int): SearchResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/search?" +
                         "term=${UrlEncoderUtil.encode(query)}" +
                         "&types=${SearchType.Artists.type}" +
@@ -72,8 +72,8 @@ class CiderRepository(
     }
 
     suspend fun searchPlaylists(query: String, offset: Int, limit: Int): SearchResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/social/jp/search?" +
                         "term=${UrlEncoderUtil.encode(query)}" +
                         "&types=playlists" +
@@ -88,8 +88,8 @@ class CiderRepository(
         offset: Int,
         limit: Int
     ): LibrarySearchResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/search?" +
                         "term=${UrlEncoderUtil.encode(query)}" +
                         "&types=${InLibrarySearchType.Songs.type}" +
@@ -105,8 +105,8 @@ class CiderRepository(
         offset: Int,
         limit: Int
     ): LibrarySearchResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/search?" +
                         "term=${UrlEncoderUtil.encode(query)}" +
                         "&types=${InLibrarySearchType.Albums.type}" +
@@ -122,8 +122,8 @@ class CiderRepository(
         offset: Int,
         limit: Int
     ): LibrarySearchResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/search?" +
                         "term=${UrlEncoderUtil.encode(query)}" +
                         "&types=${InLibrarySearchType.Artists.type}" +
@@ -139,8 +139,8 @@ class CiderRepository(
         offset: Int,
         limit: Int
     ): LibrarySearchResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/search?" +
                         "term=${UrlEncoderUtil.encode(query)}" +
                         "&types=${InLibrarySearchType.Playlists.type}" +
@@ -155,8 +155,8 @@ class CiderRepository(
         limit: Int,
         offset: Int
     ): LibrarySongsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/${SearchType.Songs.type}?" +
                         "&limit=$limit" +
                         "&offset=$offset" +
@@ -169,8 +169,8 @@ class CiderRepository(
         limit: Int,
         offset: Int
     ): LibraryAlbumsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/${SearchType.Albums.type}?" +
                         "&limit=$limit" +
                         "&offset=$offset" +
@@ -183,8 +183,8 @@ class CiderRepository(
         limit: Int,
         offset: Int
     ): LibraryArtistsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/${SearchType.Albums.type}?" +
                         "&limit=$limit" +
                         "&offset=$offset" +
@@ -197,8 +197,8 @@ class CiderRepository(
         limit: Int,
         offset: Int
     ): LibraryPlaylistsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/${SearchType.Playlists.type}?" +
                         "&limit=$limit" +
                         "&offset=$offset" +
@@ -211,8 +211,8 @@ class CiderRepository(
         limit: Int,
         offset: Int
     ): LibraryPlaylistFoldersResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/${SearchType.PlaylistFolders.type}?" +
                         "&limit=$limit" +
                         "&offset=$offset" +
@@ -226,8 +226,8 @@ class CiderRepository(
         limit: Int,
         offset: Int
     ): LibraryPlaylistsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/playlist-folders/${folderId}/children?" +
                         "limit=$limit" +
                         "&offset=$offset"
@@ -236,24 +236,24 @@ class CiderRepository(
     }
 
     suspend fun getAlbumDetails(albumId: String): AlbumsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/albums/$albumId"
             )
         ).body().actualInstance as AlbumsResponse
     }
 
     suspend fun getLibraryAlbumDetails(albumId: String): LibraryAlbumsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/albums//$albumId"
             )
         ).body().actualInstance as LibraryAlbumsResponse
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/artists/$artistId?" +
                         "include=default-playable-content"
             )
@@ -261,8 +261,8 @@ class CiderRepository(
     }
 
     suspend fun getLibraryArtistDetails(artistId: String): ArtistsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/artists/$artistId?" +
                         "include=default-playable-content"
             )
@@ -272,8 +272,8 @@ class CiderRepository(
     suspend fun getPlaylistDetails(
         playlistId: String
     ): PlaylistsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/playlists/$playlistId"
             )
         ).body().actualInstance as PlaylistsResponse
@@ -282,8 +282,8 @@ class CiderRepository(
     suspend fun getLibraryPlaylistDetails(
         playlistId: String
     ): PlaylistsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/playlists/$playlistId"
             )
         ).body().actualInstance as PlaylistsResponse
@@ -294,8 +294,8 @@ class CiderRepository(
         limit: Int,
         offset: Int = 0,
     ): SongsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/playlists/$playlistId/tracks?" +
                         "&limit=$limit" +
                         "&offset=$offset"
@@ -308,8 +308,8 @@ class CiderRepository(
         limit: Int,
         offset: Int = 0,
     ): LibrarySongsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/playlists/$playlistId/tracks?" +
                         "&limit=$limit" +
                         "&offset=$offset"
@@ -322,8 +322,8 @@ class CiderRepository(
         limit: Int,
         offset: Int = 0,
     ): RelationshipViewSongsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/albums/${albumId}/tracks?" +
                         "limit=${limit}" +
                         "&offset=${offset}"
@@ -336,8 +336,8 @@ class CiderRepository(
         limit: Int,
         offset: Int = 0,
     ): RelationshipViewLibrarySongsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/albums/${albumId}/tracks" +
                         "?include=catalog" +
                         "limit=${limit}" +
@@ -351,8 +351,8 @@ class CiderRepository(
         limit: Int,
         offset: Int
     ): RelationshipViewSongsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/artists/${artistId}/view/top-songs?" +
                         "limit=${limit}" +
                         "&offset=${offset}"
@@ -365,8 +365,8 @@ class CiderRepository(
         limit: Int,
         offset: Int,
     ): RelationshipViewAlbumsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/artists/${artistId}/view/full-albums?" +
                         "limit=${limit}" +
                         "&offset=${offset}"
@@ -379,8 +379,8 @@ class CiderRepository(
         limit: Int,
         offset: Int,
     ): RelationshipViewAlbumsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/artists/${artistId}/view/singles?" +
                         "limit=${limit}" +
                         "&offset=${offset}"
@@ -393,8 +393,8 @@ class CiderRepository(
         limit: Int,
         offset: Int,
     ): RelationshipViewAlbumsResponse {
-        return ciderMusicApi.apiV1AmapiRunV3Post(
-            ApiV1AmapiRunV3PostRequest(
+        return ciderMusicApi.amapiRunV3Post(
+            AmapiRunV3PostRequest(
                 path = "/v1/me/library/artists/${artistId}/albums?" +
                         "include=catalog" +
                         "limit=${limit}" +

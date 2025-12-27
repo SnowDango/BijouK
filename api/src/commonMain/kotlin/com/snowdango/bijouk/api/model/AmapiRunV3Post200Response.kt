@@ -41,17 +41,17 @@ import kotlinx.serialization.json.*
  * 
  *
  */
-@Serializable(with = ApiV1AmapiRunV3Post200Response.ApiV1AmapiRunV3Post200ResponseSerializer::class)
-data class ApiV1AmapiRunV3Post200Response(var actualInstance: Any? = null) {
+@Serializable(with = AmapiRunV3Post200Response.AmapiRunV3Post200ResponseSerializer::class)
+data class AmapiRunV3Post200Response(var actualInstance: Any? = null) {
 
-    object ApiV1AmapiRunV3Post200ResponseSerializer : KSerializer<ApiV1AmapiRunV3Post200Response> {
-        override val descriptor: SerialDescriptor = buildClassSerialDescriptor("ApiV1AmapiRunV3Post200Response") {
+    object AmapiRunV3Post200ResponseSerializer : KSerializer<AmapiRunV3Post200Response> {
+        override val descriptor: SerialDescriptor = buildClassSerialDescriptor("AmapiRunV3Post200Response") {
             element("type", JsonPrimitive.serializer().descriptor)
             element("actualInstance", JsonElement.serializer().descriptor)
         }
 
-        override fun serialize(encoder: Encoder, value: ApiV1AmapiRunV3Post200Response) {
-            val jsonEncoder = encoder as? JsonEncoder ?: throw SerializationException("ApiV1AmapiRunV3Post200Response can only be serialized with Json")
+        override fun serialize(encoder: Encoder, value: AmapiRunV3Post200Response) {
+            val jsonEncoder = encoder as? JsonEncoder ?: throw SerializationException("AmapiRunV3Post200Response can only be serialized with Json")
 
             when (val instance = value.actualInstance) {
                 is SearchResponse -> jsonEncoder.encodeSerializableValue(SearchResponse.serializer(), instance)
@@ -74,104 +74,104 @@ data class ApiV1AmapiRunV3Post200Response(var actualInstance: Any? = null) {
             }
         }
 
-        override fun deserialize(decoder: Decoder): ApiV1AmapiRunV3Post200Response {
-            val jsonDecoder = decoder as? JsonDecoder ?: throw SerializationException("ApiV1AmapiRunV3Post200Response can only be deserialized with Json")
+        override fun deserialize(decoder: Decoder): AmapiRunV3Post200Response {
+            val jsonDecoder = decoder as? JsonDecoder ?: throw SerializationException("AmapiRunV3Post200Response can only be deserialized with Json")
             val jsonElement = jsonDecoder.decodeJsonElement()
 
             val errorMessages = mutableListOf<String>()
 
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<SearchResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as SearchResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<SongsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as SongsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<AlbumsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as AlbumsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<ArtistsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as ArtistsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<PlaylistsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as PlaylistsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<LibrarySearchResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as LibrarySearchResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<LibrarySongsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as LibrarySongsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<LibraryAlbumsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as LibraryAlbumsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<LibraryArtistsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as LibraryArtistsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<LibraryPlaylistsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as LibraryPlaylistsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<LibraryPlaylistFoldersResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as LibraryPlaylistFoldersResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<RelationshipViewSongsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as RelationshipViewSongsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<RelationshipViewLibrarySongsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as RelationshipViewLibrarySongsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<RelationshipViewAlbumsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as RelationshipViewAlbumsResponse: ${e.message}")
             }
             try {
                 val instance = jsonDecoder.json.decodeFromJsonElement<RelationshipViewLibraryAlbumsResponse>(jsonElement)
-                return ApiV1AmapiRunV3Post200Response(actualInstance = instance)
+                return AmapiRunV3Post200Response(actualInstance = instance)
             } catch (e: Exception) {
                 errorMessages.add("Failed to deserialize as RelationshipViewLibraryAlbumsResponse: ${e.message}")
             }
 
-            throw SerializationException("Cannot deserialize ApiV1AmapiRunV3Post200Response. Tried: ${errorMessages.joinToString(", ")}")
+            throw SerializationException("Cannot deserialize AmapiRunV3Post200Response. Tried: ${errorMessages.joinToString(", ")}")
         }
     }
 }

@@ -15,8 +15,8 @@
 
 package com.snowdango.bijouk.api
 
-import com.snowdango.bijouk.api.model.ApiV1AmapiRunV3Post200Response
-import com.snowdango.bijouk.api.model.ApiV1AmapiRunV3PostRequest
+import com.snowdango.bijouk.api.model.AmapiRunV3Post200Response
+import com.snowdango.bijouk.api.model.AmapiRunV3PostRequest
 
 import org.openapitools.client.infrastructure.*
 import io.ktor.client.HttpClient
@@ -46,22 +46,22 @@ open class CiderMusicApi : ApiClient {
     /**
      * Call Apple Music Api between Cider App
      * 
-     * @param apiV1AmapiRunV3PostRequest  (optional)
-     * @return ApiV1AmapiRunV3Post200Response
+     * @param amapiRunV3PostRequest  (optional)
+     * @return AmapiRunV3Post200Response
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun apiV1AmapiRunV3Post(apiV1AmapiRunV3PostRequest: ApiV1AmapiRunV3PostRequest? = null): HttpResponse<ApiV1AmapiRunV3Post200Response> {
+    open suspend fun amapiRunV3Post(amapiRunV3PostRequest: AmapiRunV3PostRequest? = null): HttpResponse<AmapiRunV3Post200Response> {
 
         val localVariableAuthNames = listOf<String>()
 
-        val localVariableBody = apiV1AmapiRunV3PostRequest
+        val localVariableBody = amapiRunV3PostRequest
 
         val localVariableQuery = mutableMapOf<String, List<String>>()
         val localVariableHeaders = mutableMapOf<String, String>()
 
         val localVariableConfig = RequestConfig<kotlin.Any?>(
             RequestMethod.POST,
-            "/api/v1/amapi/run-v3",
+            "/amapi/run-v3",
             query = localVariableQuery,
             headers = localVariableHeaders,
             requiresAuthentication = false,

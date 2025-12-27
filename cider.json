@@ -522,7 +522,7 @@
         }
       }
     },
-    "/api/v1/amapi/run-v3": {
+    "/amapi/run-v3": {
       "post": {
         "tags": [
           "cider-music"

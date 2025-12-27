@@ -27,7 +27,7 @@ import kotlinx.serialization.encoding.*
  */
 @Serializable
 
-data class ApiV1AmapiRunV3PostRequest (
+data class AmapiRunV3PostRequest (
 
     @SerialName(value = "path") val path: kotlin.String? = null
 

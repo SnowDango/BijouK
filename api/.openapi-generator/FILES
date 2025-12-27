@@ -3,8 +3,8 @@ docs/Albums.md
 docs/AlbumsAttributes.md
 docs/AlbumsResponse.md
 docs/AlbumsResponseData.md
-docs/ApiV1AmapiRunV3Post200Response.md
-docs/ApiV1AmapiRunV3PostRequest.md
+docs/AmapiRunV3Post200Response.md
+docs/AmapiRunV3PostRequest.md
 docs/Artists.md
 docs/ArtistsAttributes.md
 docs/ArtistsRelationships.md
@@ -102,8 +102,8 @@ src/commonMain/kotlin/com/snowdango/bijouk/api/model/Albums.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/AlbumsAttributes.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/AlbumsResponse.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/AlbumsResponseData.kt
-src/commonMain/kotlin/com/snowdango/bijouk/api/model/ApiV1AmapiRunV3Post200Response.kt
-src/commonMain/kotlin/com/snowdango/bijouk/api/model/ApiV1AmapiRunV3PostRequest.kt
+src/commonMain/kotlin/com/snowdango/bijouk/api/model/AmapiRunV3Post200Response.kt
+src/commonMain/kotlin/com/snowdango/bijouk/api/model/AmapiRunV3PostRequest.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/Artists.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/ArtistsAttributes.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/ArtistsRelationships.kt
