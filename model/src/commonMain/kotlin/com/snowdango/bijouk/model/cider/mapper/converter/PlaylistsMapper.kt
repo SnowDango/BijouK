@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.model.cider.mapper.converter
 
-import com.snowdango.bijouk.domain.api.entity.music.catalog.Playlists
-import com.snowdango.bijouk.domain.api.entity.music.library.LibraryPlaylists
+import com.snowdango.bijouk.api.model.LibraryPlaylists
+import com.snowdango.bijouk.api.model.Playlists
 import com.snowdango.bijouk.model.cider.data.entity.PlaylistData
 
 fun Playlists.convert(): PlaylistData {

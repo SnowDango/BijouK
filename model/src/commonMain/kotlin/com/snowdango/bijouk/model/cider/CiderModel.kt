@@ -144,10 +144,10 @@ class CiderModel(
     ): PlaylistData? {
         return if (isLibrary) {
             val response = repository.getLibraryPlaylistDetails(playlistId)
-            response.data.data.firstOrNull()?.convert()
+            response.data.data?.firstOrNull()?.convert()
         } else {
             val response = repository.getPlaylistDetails(playlistId)
-            response.data.data.firstOrNull()?.convert()
+            response.data.data?.firstOrNull()?.convert()
         }
     }
 

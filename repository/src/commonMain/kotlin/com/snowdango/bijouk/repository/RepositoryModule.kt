@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.repository
 
+import com.snowdango.bijouk.api.CiderMusicApi
 import com.snowdango.bijouk.api.CiderRpcApi
-import com.snowdango.bijouk.domain.api.music.CiderApi
 import com.snowdango.bijouk.domain.api.socket.CiderSocket
 import com.snowdango.bijouk.repository.cider.CiderRPCRepository
 import com.snowdango.bijouk.repository.cider.CiderRepository
@@ -16,7 +16,7 @@ object RepositoryModule {
         factory { param ->
             val baseUrl = param.get<String>()
             CiderRepository(
-                get<CiderApi> { parametersOf(baseUrl, param.get()) }
+                get<CiderMusicApi> { parametersOf(baseUrl, param.get()) }
             )
         }
         factory { param ->
