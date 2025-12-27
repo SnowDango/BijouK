@@ -9,7 +9,7 @@ All URIs are relative to *http://localhost:8080/api/v1*
 
 <a id="apiV1AmapiRunV3Post"></a>
 # **apiV1AmapiRunV3Post**
-> SearchResponse apiV1AmapiRunV3Post(apiV1AmapiRunV3PostRequest)
+> ApiV1AmapiRunV3Post200Response apiV1AmapiRunV3Post(apiV1AmapiRunV3PostRequest)
 
 Call Apple Music Api between Cider App
 
@@ -24,7 +24,7 @@ Call Apple Music Api between Cider App
 val apiInstance = CiderMusicApi()
 val apiV1AmapiRunV3PostRequest : ApiV1AmapiRunV3PostRequest =  // ApiV1AmapiRunV3PostRequest | 
 try {
-    val result : SearchResponse = apiInstance.apiV1AmapiRunV3Post(apiV1AmapiRunV3PostRequest)
+    val result : ApiV1AmapiRunV3Post200Response = apiInstance.apiV1AmapiRunV3Post(apiV1AmapiRunV3PostRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling CiderMusicApi#apiV1AmapiRunV3Post")
@@ -42,7 +42,7 @@ try {
 
 ### Return type
 
-[**SearchResponse**](SearchResponse.md)
+[**ApiV1AmapiRunV3Post200Response**](ApiV1AmapiRunV3Post200Response.md)
 
 ### Authorization
 

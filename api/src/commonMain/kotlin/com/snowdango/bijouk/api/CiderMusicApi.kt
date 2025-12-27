@@ -15,8 +15,8 @@
 
 package com.snowdango.bijouk.api
 
+import com.snowdango.bijouk.api.model.ApiV1AmapiRunV3Post200Response
 import com.snowdango.bijouk.api.model.ApiV1AmapiRunV3PostRequest
-import com.snowdango.bijouk.api.model.SearchResponse
 
 import org.openapitools.client.infrastructure.*
 import io.ktor.client.HttpClient
@@ -47,10 +47,10 @@ open class CiderMusicApi : ApiClient {
      * Call Apple Music Api between Cider App
      * 
      * @param apiV1AmapiRunV3PostRequest  (optional)
-     * @return SearchResponse
+     * @return ApiV1AmapiRunV3Post200Response
      */
     @Suppress("UNCHECKED_CAST")
-    open suspend fun apiV1AmapiRunV3Post(apiV1AmapiRunV3PostRequest: ApiV1AmapiRunV3PostRequest? = null): HttpResponse<SearchResponse> {
+    open suspend fun apiV1AmapiRunV3Post(apiV1AmapiRunV3PostRequest: ApiV1AmapiRunV3PostRequest? = null): HttpResponse<ApiV1AmapiRunV3Post200Response> {
 
         val localVariableAuthNames = listOf<String>()
 

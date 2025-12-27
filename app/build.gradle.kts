@@ -111,8 +111,12 @@ openApiGenerate {
     )
     additionalProperties = mapOf(
         "useCoroutines" to "true",
-        "enumPropertyNaming" to "UPPERCASE"
+        "enumPropertyNaming" to "UPPERCASE",
+        "generateOneOfAnyOfWrappers" to "true"
     )
+}
+openApiValidate {
+    inputSpec = "${rootDir}/cider.json"
 }
 
 dependencies {
