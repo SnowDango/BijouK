@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.model.cider.mapper.converter
 
 
-import com.snowdango.bijouk.domain.api.entity.music.catalog.Stations
+import com.snowdango.bijouk.api.model.Stations
 import com.snowdango.bijouk.model.cider.data.entity.StationData
 
 fun Stations.convert(): StationData {

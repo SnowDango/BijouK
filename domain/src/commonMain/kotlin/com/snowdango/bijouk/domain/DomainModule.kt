@@ -3,5 +3,5 @@ package com.snowdango.bijouk.domain
 import org.koin.core.module.Module
 
 expect object DomainModule {
-    val module: Module
+    val actualModule: Module
 }

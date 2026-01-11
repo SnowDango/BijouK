@@ -1,8 +1,8 @@
 package com.snowdango.bijouk.model.cider.mapper.converter
 
 
-import com.snowdango.bijouk.domain.api.entity.music.catalog.Albums
-import com.snowdango.bijouk.domain.api.entity.music.library.LibraryAlbums
+import com.snowdango.bijouk.api.model.Albums
+import com.snowdango.bijouk.api.model.LibraryAlbums
 import com.snowdango.bijouk.model.cider.data.entity.AlbumData
 
 fun Albums.convert(): AlbumData {

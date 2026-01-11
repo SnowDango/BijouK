@@ -13,7 +13,6 @@
 | **fileExtension** | **kotlin.String** |  |  |
 | **gapless** | **kotlin.Boolean** |  |  |
 | **genre** | **kotlin.String** |  |  |
-| **genreId** | **kotlin.Int** |  |  |
 | **itemId** | **kotlin.String** |  |  |
 | **itemName** | **kotlin.String** |  |  |
 | **kind** | **kotlin.String** |  |  |
@@ -30,6 +29,7 @@
 | **composerId** | **kotlin.String** |  |  [optional] |
 | **composerName** | **kotlin.String** |  |  [optional] |
 | **copyright** | **kotlin.String** |  |  [optional] |
+| **genreId** | **kotlin.Int** |  |  [optional] |
 | **isMasteredForItunes** | **kotlin.Boolean** |  |  [optional] |
 | **playlistId** | **kotlin.String** |  |  [optional] |
 | **playlistName** | **kotlin.String** |  |  [optional] |

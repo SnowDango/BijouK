@@ -34,6 +34,7 @@ plugins {
     alias(libs.plugins.firebase.crashlytics) apply false
     alias(libs.plugins.detekt)
     alias(libs.plugins.aboutLibraries)
+    alias(libs.plugins.android.lint) apply false
 }
 
 val reportMerge = tasks.register<ReportMergeTask>("reportMerge") {

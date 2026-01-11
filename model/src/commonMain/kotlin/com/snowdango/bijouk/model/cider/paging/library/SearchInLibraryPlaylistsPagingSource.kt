@@ -34,7 +34,7 @@ class SearchInLibraryPlaylistsPagingSource(
                     limit = params.loadSize,
                     offset = position * params.loadSize
                 )
-                response.data.results.playlists?.data?.map { it.convert() }.orEmpty()
+                response.data.results.libraryPlaylists?.data?.map { it.convert() }.orEmpty()
             }
             return LoadResult.Page(
                 data = playlists,

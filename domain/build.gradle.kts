@@ -60,6 +60,7 @@ kotlin {
         commonMain {
             dependencies {
                 implementation(project(":api"))
+                implementation(project(":analytics"))
                 implementation(libs.kotlin.stdlib)
 
                 // koin
@@ -86,6 +87,9 @@ kotlin {
 
                 // url encoder
                 implementation(libs.url.encoder)
+
+                // datastore
+                implementation(libs.androidx.dataStorePreference)
             }
         }
 

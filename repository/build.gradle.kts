@@ -63,6 +63,9 @@ kotlin {
 
                 // room
                 implementation(libs.room.runtime)
+                
+                // url encoder
+                implementation(libs.url.encoder)
             }
         }
 
