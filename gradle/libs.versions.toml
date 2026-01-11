@@ -4,7 +4,7 @@ sdk-target = "36"
 sdk-min = "30"
 
 agp = "8.13.2"
-kotlin = "2.2.21"
+kotlin = "2.3.0"
 ksp = "2.3.3"
 coreKtx = "1.17.0"
 testRunner = "1.7.0"
