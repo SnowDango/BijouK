@@ -28,7 +28,7 @@ kotlin {
                 api("io.ktor:ktor-client-content-negotiation:$ktor_version")
                 api("io.ktor:ktor-serialization-kotlinx-json:$ktor_version")
 
-                api("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1")
+                api("org.jetbrains.kotlinx:kotlinx-datetime:0.7.1-0.6.x-compat")
             }
         }
 
