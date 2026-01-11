@@ -8,7 +8,7 @@
 | **type** | **kotlin.String** |  |  [optional] |
 | **href** | **kotlin.String** |  |  [optional] |
 | **attributes** | [**SongsAttributes**](SongsAttributes.md) |  |  [optional] |
-| **relationships** | **kotlin.String** |  |  [optional] |
+| **relationships** | [**SongsRelationships**](SongsRelationships.md) |  |  [optional] |
 
 
 

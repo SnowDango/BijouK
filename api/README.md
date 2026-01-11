@@ -152,6 +152,7 @@ All URIs are relative to *http://localhost:8080/api/v1*
  - [com.snowdango.bijouk.api.model.SearchResponseDataResultsSongs](docs/SearchResponseDataResultsSongs.md)
  - [com.snowdango.bijouk.api.model.Songs](docs/Songs.md)
  - [com.snowdango.bijouk.api.model.SongsAttributes](docs/SongsAttributes.md)
+ - [com.snowdango.bijouk.api.model.SongsRelationships](docs/SongsRelationships.md)
  - [com.snowdango.bijouk.api.model.SongsResponse](docs/SongsResponse.md)
  - [com.snowdango.bijouk.api.model.SongsResponseData](docs/SongsResponseData.md)
  - [com.snowdango.bijouk.api.model.Stations](docs/Stations.md)

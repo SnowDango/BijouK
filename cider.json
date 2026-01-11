@@ -2217,7 +2217,13 @@
           },
           "relationships": {
             "type": "object",
-            "properties": {}
+            "properties": {
+              "artists": {
+                "type": "object",
+                "$ref": "#/components/schemas/Artists",
+                "nullable": true
+              }
+            }
           }
         }
       },

@@ -96,6 +96,7 @@ docs/SearchResponseDataResultsPlaylists.md
 docs/SearchResponseDataResultsSongs.md
 docs/Songs.md
 docs/SongsAttributes.md
+docs/SongsRelationships.md
 docs/SongsResponse.md
 docs/SongsResponseData.md
 docs/Stations.md
@@ -197,6 +198,7 @@ src/commonMain/kotlin/com/snowdango/bijouk/api/model/SearchResponseDataResultsPl
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/SearchResponseDataResultsSongs.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/Songs.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/SongsAttributes.kt
+src/commonMain/kotlin/com/snowdango/bijouk/api/model/SongsRelationships.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/SongsResponse.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/SongsResponseData.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/Stations.kt
