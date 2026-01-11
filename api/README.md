@@ -140,6 +140,7 @@ All URIs are relative to *http://localhost:8080/api/v1*
  - [com.snowdango.bijouk.api.model.RelationshipViewLibraryAlbumsResponseData](docs/RelationshipViewLibraryAlbumsResponseData.md)
  - [com.snowdango.bijouk.api.model.RelationshipViewLibrarySongsResponse](docs/RelationshipViewLibrarySongsResponse.md)
  - [com.snowdango.bijouk.api.model.RelationshipViewLibrarySongsResponseData](docs/RelationshipViewLibrarySongsResponseData.md)
+ - [com.snowdango.bijouk.api.model.RelationshipViewLibrarySongsResponseDataMeta](docs/RelationshipViewLibrarySongsResponseDataMeta.md)
  - [com.snowdango.bijouk.api.model.RelationshipViewSongsResponse](docs/RelationshipViewSongsResponse.md)
  - [com.snowdango.bijouk.api.model.RelationshipViewSongsResponseData](docs/RelationshipViewSongsResponseData.md)
  - [com.snowdango.bijouk.api.model.SearchResponse](docs/SearchResponse.md)

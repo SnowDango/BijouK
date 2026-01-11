@@ -26,10 +26,10 @@ import kotlinx.serialization.encoding.*
  * 
  *
  * @param URL 
- * @param chunks 
  * @param md5 
  * @param metadata 
  * @param artworkURL 
+ * @param chunks 
  * @param downloadKey 
  * @param fileSize 
  * @param flavor 
@@ -40,13 +40,13 @@ data class QueueAsset (
 
     @SerialName(value = "URL") @Required val URL: kotlin.String,
 
-    @SerialName(value = "chunks") @Required val chunks: QueueAssetChunks,
-
     @SerialName(value = "md5") @Required val md5: kotlin.String,
 
     @SerialName(value = "metadata") @Required val metadata: QueueMetadata,
 
     @SerialName(value = "artworkURL") val artworkURL: kotlin.String? = null,
+
+    @SerialName(value = "chunks") val chunks: QueueAssetChunks? = null,
 
     @SerialName(value = "downloadKey") val downloadKey: kotlin.String? = null,
 

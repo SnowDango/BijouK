@@ -84,6 +84,7 @@ docs/RelationshipViewLibraryAlbumsResponse.md
 docs/RelationshipViewLibraryAlbumsResponseData.md
 docs/RelationshipViewLibrarySongsResponse.md
 docs/RelationshipViewLibrarySongsResponseData.md
+docs/RelationshipViewLibrarySongsResponseDataMeta.md
 docs/RelationshipViewSongsResponse.md
 docs/RelationshipViewSongsResponseData.md
 docs/SearchResponse.md
@@ -184,6 +185,7 @@ src/commonMain/kotlin/com/snowdango/bijouk/api/model/RelationshipViewLibraryAlbu
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/RelationshipViewLibraryAlbumsResponseData.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/RelationshipViewLibrarySongsResponse.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/RelationshipViewLibrarySongsResponseData.kt
+src/commonMain/kotlin/com/snowdango/bijouk/api/model/RelationshipViewLibrarySongsResponseDataMeta.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/RelationshipViewSongsResponse.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/RelationshipViewSongsResponseData.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/SearchResponse.kt

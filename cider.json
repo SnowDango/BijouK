@@ -935,7 +935,6 @@
         },
         "required": [
           "URL",
-          "chunks",
           "md5",
           "metadata"
         ]
@@ -1172,7 +1171,6 @@
           "fileExtension",
           "gapless",
           "genre",
-          "genreId",
           "itemId",
           "itemName",
           "kind",
@@ -1698,6 +1696,13 @@
               },
               "meta": {
                 "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "integer",
+                    "format": "int32",
+                    "nullable": true
+                  }
+                },
                 "nullable": true
               },
               "next": {
@@ -1732,6 +1737,13 @@
               },
               "meta": {
                 "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "integer",
+                    "format": "int32",
+                    "nullable": true
+                  }
+                },
                 "nullable": true
               },
               "next": {
@@ -1872,13 +1884,8 @@
               "artistName",
               "artwork",
               "genreNames",
-              "isCompilation",
-              "isComplete",
-              "isMasteredForItunes",
-              "isSingle",
               "name",
-              "trackCount",
-              "url"
+              "trackCount"
             ]
           },
           "relationships": {

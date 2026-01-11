@@ -16,6 +16,7 @@
 package com.snowdango.bijouk.api.model
 
 import com.snowdango.bijouk.api.model.LibrarySongs
+import com.snowdango.bijouk.api.model.RelationshipViewLibrarySongsResponseDataMeta
 
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
@@ -37,7 +38,7 @@ data class RelationshipViewLibrarySongsResponseData (
 
     @SerialName(value = "attributes") val attributes: kotlin.String? = null,
 
-    @SerialName(value = "meta") val meta: kotlin.String? = null,
+    @SerialName(value = "meta") val meta: RelationshipViewLibrarySongsResponseDataMeta? = null,
 
     @SerialName(value = "next") val next: kotlin.String? = null
 

@@ -186,7 +186,7 @@ class CiderRepository(
     ): LibraryArtistsResponse {
         return ciderMusicApi.amapiRunV3Post(
             AmapiRunV3PostRequest(
-                path = "/v1/me/library/${SearchType.Albums.type}?" +
+                path = "/v1/me/library/${SearchType.Artists.type}?" +
                         "&limit=$limit" +
                         "&offset=$offset" +
                         "&include=catalog"

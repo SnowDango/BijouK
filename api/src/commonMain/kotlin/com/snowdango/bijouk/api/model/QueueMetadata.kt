@@ -32,7 +32,6 @@ import kotlinx.serialization.encoding.*
  * @param fileExtension 
  * @param gapless 
  * @param genre 
- * @param genreId 
  * @param itemId 
  * @param itemName 
  * @param kind 
@@ -49,6 +48,7 @@ import kotlinx.serialization.encoding.*
  * @param composerId 
  * @param composerName 
  * @param copyright 
+ * @param genreId 
  * @param isMasteredForItunes 
  * @param playlistId 
  * @param playlistName 
@@ -81,8 +81,6 @@ data class QueueMetadata (
 
     @SerialName(value = "genre") @Required val genre: kotlin.String,
 
-    @SerialName(value = "genreId") @Required val genreId: kotlin.Int,
-
     @SerialName(value = "itemId") @Required val itemId: kotlin.String,
 
     @SerialName(value = "itemName") @Required val itemName: kotlin.String,
@@ -114,6 +112,8 @@ data class QueueMetadata (
     @SerialName(value = "composerName") val composerName: kotlin.String? = null,
 
     @SerialName(value = "copyright") val copyright: kotlin.String? = null,
+
+    @SerialName(value = "genreId") val genreId: kotlin.Int? = null,
 
     @SerialName(value = "isMasteredForItunes") val isMasteredForItunes: kotlin.Boolean? = null,
 

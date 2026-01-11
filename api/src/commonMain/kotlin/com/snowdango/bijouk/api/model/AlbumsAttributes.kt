@@ -29,22 +29,22 @@ import kotlinx.serialization.encoding.*
  * @param artistName 
  * @param artwork 
  * @param genreNames 
- * @param isCompilation 
- * @param isComplete 
- * @param isMasteredForItunes 
- * @param isSingle 
  * @param name 
  * @param trackCount 
- * @param url 
  * @param artistUrl 
  * @param contentRating 
  * @param copyright 
  * @param editorialVideo 
  * @param inFavorites 
+ * @param isCompilation 
+ * @param isComplete 
+ * @param isMasteredForItunes 
+ * @param isSingle 
  * @param playParams 
  * @param recordLabel 
  * @param releaseDate 
  * @param upc 
+ * @param url 
  */
 @Serializable
 
@@ -56,19 +56,9 @@ data class AlbumsAttributes (
 
     @SerialName(value = "genreNames") @Required val genreNames: kotlin.collections.List<kotlin.String>,
 
-    @SerialName(value = "isCompilation") @Required val isCompilation: kotlin.Boolean,
-
-    @SerialName(value = "isComplete") @Required val isComplete: kotlin.Boolean,
-
-    @SerialName(value = "isMasteredForItunes") @Required val isMasteredForItunes: kotlin.Boolean,
-
-    @SerialName(value = "isSingle") @Required val isSingle: kotlin.Boolean,
-
     @SerialName(value = "name") @Required val name: kotlin.String,
 
     @SerialName(value = "trackCount") @Required val trackCount: kotlin.Int,
-
-    @SerialName(value = "url") @Required val url: kotlin.String,
 
     @SerialName(value = "artistUrl") val artistUrl: kotlin.String? = null,
 
@@ -80,13 +70,23 @@ data class AlbumsAttributes (
 
     @SerialName(value = "inFavorites") val inFavorites: kotlin.Boolean? = null,
 
+    @SerialName(value = "isCompilation") val isCompilation: kotlin.Boolean? = null,
+
+    @SerialName(value = "isComplete") val isComplete: kotlin.Boolean? = null,
+
+    @SerialName(value = "isMasteredForItunes") val isMasteredForItunes: kotlin.Boolean? = null,
+
+    @SerialName(value = "isSingle") val isSingle: kotlin.Boolean? = null,
+
     @SerialName(value = "playParams") val playParams: PlayParameters? = null,
 
     @SerialName(value = "recordLabel") val recordLabel: kotlin.String? = null,
 
     @SerialName(value = "releaseDate") val releaseDate: kotlin.String? = null,
 
-    @SerialName(value = "upc") val upc: kotlin.String? = null
+    @SerialName(value = "upc") val upc: kotlin.String? = null,
+
+    @SerialName(value = "url") val url: kotlin.String? = null
 
 ) {
 
