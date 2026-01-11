@@ -17,6 +17,7 @@ class CiderSocket(
 
     private val logger: Logger = Logger("CiderSocket")
     private var client: Socket? = null
+    public var isWriteLog: Boolean = false
 
     fun startSocket(
         onConnect: () -> Unit,
@@ -27,7 +28,7 @@ class CiderSocket(
         onNowPlayingStatusChangeEvent: (NowPlayingStatusDidChange) -> Unit,
         onShuffleModeChangeEvent: (Boolean) -> Unit,
     ) {
-        logger.d(null, "startSocket")
+        if (isWriteLog) logger.d(null, "startSocket")
         IO.socket(
             uri = baseUrl,
             opt = IO.Options().apply {

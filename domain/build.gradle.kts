@@ -86,6 +86,9 @@ kotlin {
 
                 // url encoder
                 implementation(libs.url.encoder)
+
+                // datastore
+                implementation(libs.androidx.dataStorePreference)
             }
         }
 

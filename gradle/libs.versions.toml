@@ -48,6 +48,7 @@ firebase-crashlytics = "3.0.6"
 deploygate = "2.9.0"
 qrscanner = "0.5.0"
 openapi = "7.18.0"
+datastore = "1.2.0"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -79,6 +80,9 @@ androidx-material3-adaptive = { module = "androidx.compose.material3.adaptive:ad
 androidx-material3-window = { group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-material2 = { group = "androidx.compose.material", name = "material" }
 androidx-constraint = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraint" }
+
+# datastore
+androidx-dataStorePreference = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 # window
 androidx-window = { group = "androidx.window", name = "window", version.ref = "window" }

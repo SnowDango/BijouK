@@ -7,6 +7,7 @@ import com.snowdango.bijouk.repository.cider.CiderRPCRepository
 import com.snowdango.bijouk.repository.cider.CiderRepository
 import com.snowdango.bijouk.repository.cider.CiderSocketRepository
 import com.snowdango.bijouk.repository.device.DevicesRepository
+import com.snowdango.bijouk.repository.settings.DebugSettingsRepository
 import org.koin.core.parameter.parametersOf
 import org.koin.dsl.module
 
@@ -31,5 +32,7 @@ object RepositoryModule {
                 get<CiderSocket> { parametersOf(param.get()) },
             )
         }
+
+        factory { DebugSettingsRepository(get()) }
     }
 }

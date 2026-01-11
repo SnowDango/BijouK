@@ -2679,11 +2679,13 @@
           },
           "height": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "width": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "nullable": true
           },
           "textColor1": {
             "type": "string",
@@ -2702,14 +2704,10 @@
             "nullable": true
           },
           "url": {
-            "type": "string"
+            "type": "string",
+            "nullable": true
           }
-        },
-        "required": [
-          "height",
-          "width",
-          "url"
-        ]
+        }
       },
       "LibraryArtwork": {
         "type": "object",

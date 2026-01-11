@@ -17,6 +17,7 @@ import com.snowdango.bijouk.api.model.RelationshipViewLibrarySongsResponse
 import com.snowdango.bijouk.api.model.RelationshipViewSongsResponse
 import com.snowdango.bijouk.api.model.SearchResponse
 import com.snowdango.bijouk.api.model.SongsResponse
+import io.ktor.util.reflect.typeInfo
 import net.thauvin.erik.urlencoder.UrlEncoderUtil
 
 class CiderRepository(
@@ -32,7 +33,7 @@ class CiderRepository(
                         "&limit=$DEFAULT_LIMIT" +
                         "&offset=$DEFAULT_OFFSET"
             )
-        ).body().actualInstance as SearchResponse
+        ).typedBody(typeInfo<SearchResponse>())
     }
 
     suspend fun searchSongs(query: String, offset: Int, limit: Int): SearchResponse {
@@ -44,7 +45,7 @@ class CiderRepository(
                         "&limit=${limit}" +
                         "&offset=${offset}"
             )
-        ).body().actualInstance as SearchResponse
+        ).typedBody(typeInfo<SearchResponse>())
     }
 
     suspend fun searchAlbums(query: String, offset: Int, limit: Int): SearchResponse {
@@ -56,7 +57,7 @@ class CiderRepository(
                         "&limit=${limit}" +
                         "&offset=${offset}"
             )
-        ).body().actualInstance as SearchResponse
+        ).typedBody(typeInfo<SearchResponse>())
     }
 
     suspend fun searchArtists(query: String, offset: Int, limit: Int): SearchResponse {
@@ -68,7 +69,7 @@ class CiderRepository(
                         "&limit=${limit}" +
                         "&offset=${offset}"
             )
-        ).body().actualInstance as SearchResponse
+        ).typedBody(typeInfo<SearchResponse>())
     }
 
     suspend fun searchPlaylists(query: String, offset: Int, limit: Int): SearchResponse {
@@ -80,7 +81,7 @@ class CiderRepository(
                         "&limit=$limit" +
                         "&offset=$offset"
             )
-        ).body().actualInstance as SearchResponse
+        ).typedBody(typeInfo<SearchResponse>())
     }
 
     suspend fun searchInLibrarySongs(
@@ -97,7 +98,7 @@ class CiderRepository(
                         "&offset=$offset" +
                         "&include=catalog"
             )
-        ).body().actualInstance as LibrarySearchResponse
+        ).typedBody(typeInfo<LibrarySearchResponse>())
     }
 
     suspend fun searchInLibraryAlbums(
@@ -114,7 +115,7 @@ class CiderRepository(
                         "&offset=$offset" +
                         "&include=catalog"
             )
-        ).body().actualInstance as LibrarySearchResponse
+        ).typedBody(typeInfo<LibrarySearchResponse>())
     }
 
     suspend fun searchInLibraryArtists(
@@ -131,7 +132,7 @@ class CiderRepository(
                         "&offset=$offset" +
                         "&include=catalog"
             )
-        ).body().actualInstance as LibrarySearchResponse
+        ).typedBody(typeInfo<LibrarySearchResponse>())
     }
 
     suspend fun searchInLibraryPlaylists(
@@ -148,7 +149,7 @@ class CiderRepository(
                         "&offset=$offset" +
                         "&include=catalog"
             )
-        ).body().actualInstance as LibrarySearchResponse
+        ).typedBody(typeInfo<LibrarySearchResponse>())
     }
 
     suspend fun libraryAllSongs(
@@ -162,7 +163,7 @@ class CiderRepository(
                         "&offset=$offset" +
                         "&include=catalog"
             )
-        ).body().actualInstance as LibrarySongsResponse
+        ).typedBody(typeInfo<LibrarySongsResponse>())
     }
 
     suspend fun libraryAllAlbums(
@@ -176,7 +177,7 @@ class CiderRepository(
                         "&offset=$offset" +
                         "&include=catalog"
             )
-        ).body().actualInstance as LibraryAlbumsResponse
+        ).typedBody(typeInfo<LibraryAlbumsResponse>())
     }
 
     suspend fun libraryAllArtists(
@@ -190,7 +191,7 @@ class CiderRepository(
                         "&offset=$offset" +
                         "&include=catalog"
             )
-        ).body().actualInstance as LibraryArtistsResponse
+        ).typedBody(typeInfo<LibraryArtistsResponse>())
     }
 
     suspend fun libraryAllPlaylists(
@@ -204,7 +205,7 @@ class CiderRepository(
                         "&offset=$offset" +
                         "&include=catalog"
             )
-        ).body().actualInstance as LibraryPlaylistsResponse
+        ).typedBody(typeInfo<LibraryPlaylistsResponse>())
     }
 
     suspend fun libraryAllPlaylistFolders(
@@ -218,7 +219,7 @@ class CiderRepository(
                         "&offset=$offset" +
                         "&include=catalog"
             )
-        ).body().actualInstance as LibraryPlaylistFoldersResponse
+        ).typedBody(typeInfo<LibraryPlaylistFoldersResponse>())
     }
 
     suspend fun libraryPlaylistFolderChildren(
@@ -232,7 +233,7 @@ class CiderRepository(
                         "limit=$limit" +
                         "&offset=$offset"
             )
-        ).body().actualInstance as LibraryPlaylistsResponse
+        ).typedBody(typeInfo<LibraryPlaylistsResponse>())
     }
 
     suspend fun getAlbumDetails(albumId: String): AlbumsResponse {
@@ -240,15 +241,15 @@ class CiderRepository(
             AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/albums/$albumId"
             )
-        ).body().actualInstance as AlbumsResponse
+        ).typedBody(typeInfo<AlbumsResponse>())
     }
 
     suspend fun getLibraryAlbumDetails(albumId: String): LibraryAlbumsResponse {
         return ciderMusicApi.amapiRunV3Post(
             AmapiRunV3PostRequest(
-                path = "/v1/me/library/albums//$albumId"
+                path = "/v1/me/library/albums/$albumId"
             )
-        ).body().actualInstance as LibraryAlbumsResponse
+        ).typedBody(typeInfo<LibraryAlbumsResponse>())
     }
 
     suspend fun getArtistDetails(artistId: String): ArtistsResponse {
@@ -257,16 +258,16 @@ class CiderRepository(
                 path = "/v1/catalog/jp/artists/$artistId?" +
                         "include=default-playable-content"
             )
-        ).body().actualInstance as ArtistsResponse
+        ).typedBody(typeInfo<ArtistsResponse>())
     }
 
-    suspend fun getLibraryArtistDetails(artistId: String): ArtistsResponse {
+    suspend fun getLibraryArtistDetails(artistId: String): LibraryArtistsResponse {
         return ciderMusicApi.amapiRunV3Post(
             AmapiRunV3PostRequest(
                 path = "/v1/me/library/artists/$artistId?" +
                         "include=default-playable-content"
             )
-        ).body().actualInstance as ArtistsResponse
+        ).typedBody(typeInfo<LibraryArtistsResponse>())
     }
 
     suspend fun getPlaylistDetails(
@@ -276,7 +277,7 @@ class CiderRepository(
             AmapiRunV3PostRequest(
                 path = "/v1/catalog/jp/playlists/$playlistId"
             )
-        ).body().actualInstance as PlaylistsResponse
+        ).typedBody(typeInfo<PlaylistsResponse>())
     }
 
     suspend fun getLibraryPlaylistDetails(
@@ -286,7 +287,7 @@ class CiderRepository(
             AmapiRunV3PostRequest(
                 path = "/v1/me/library/playlists/$playlistId"
             )
-        ).body().actualInstance as PlaylistsResponse
+        ).typedBody(typeInfo<PlaylistsResponse>())
     }
 
     suspend fun getPlaylistTracks(
@@ -300,7 +301,7 @@ class CiderRepository(
                         "&limit=$limit" +
                         "&offset=$offset"
             )
-        ).body().actualInstance as SongsResponse
+        ).typedBody(typeInfo<SongsResponse>())
     }
 
     suspend fun getLibraryPlaylistTracks(
@@ -314,7 +315,7 @@ class CiderRepository(
                         "&limit=$limit" +
                         "&offset=$offset"
             )
-        ).body().actualInstance as LibrarySongsResponse
+        ).typedBody(typeInfo<LibrarySongsResponse>())
     }
 
     suspend fun getAlbumTracks(
@@ -328,7 +329,7 @@ class CiderRepository(
                         "limit=${limit}" +
                         "&offset=${offset}"
             )
-        ).body().actualInstance as RelationshipViewSongsResponse
+        ).typedBody(typeInfo<RelationshipViewSongsResponse>())
     }
 
     suspend fun getLibraryAlbumTracks(
@@ -343,7 +344,7 @@ class CiderRepository(
                         "limit=${limit}" +
                         "&offset=${offset}"
             )
-        ).body().actualInstance as RelationshipViewLibrarySongsResponse
+        ).typedBody(typeInfo<RelationshipViewLibrarySongsResponse>())
     }
 
     suspend fun getArtistTopSongs(
@@ -357,7 +358,7 @@ class CiderRepository(
                         "limit=${limit}" +
                         "&offset=${offset}"
             )
-        ).body().actualInstance as RelationshipViewSongsResponse
+        ).typedBody(typeInfo<RelationshipViewSongsResponse>())
     }
 
     suspend fun getArtistFullAlbums(
@@ -371,7 +372,7 @@ class CiderRepository(
                         "limit=${limit}" +
                         "&offset=${offset}"
             )
-        ).body().actualInstance as RelationshipViewAlbumsResponse
+        ).typedBody(typeInfo<RelationshipViewAlbumsResponse>())
     }
 
     suspend fun getArtistSingles(
@@ -385,7 +386,7 @@ class CiderRepository(
                         "limit=${limit}" +
                         "&offset=${offset}"
             )
-        ).body().actualInstance as RelationshipViewAlbumsResponse
+        ).typedBody(typeInfo<RelationshipViewAlbumsResponse>())
     }
 
     suspend fun getLibraryArtistAlbums(
@@ -400,7 +401,7 @@ class CiderRepository(
                         "limit=${limit}" +
                         "&offset=${offset}"
             )
-        ).body().actualInstance as RelationshipViewAlbumsResponse
+        ).typedBody(typeInfo<RelationshipViewAlbumsResponse>())
     }
 
     enum class SearchType(val type: String) {

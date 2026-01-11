@@ -23,7 +23,7 @@ class BijouKApplication : Application() {
                 applicationModule,
                 RepositoryModule.module,
                 ModelModule.module,
-                DomainModule.module,
+                DomainModule.actualModule,
                 InflaModule.module,
                 PresenterModule.modules,
                 PresenterModule.queueModule,

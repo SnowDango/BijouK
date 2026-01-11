@@ -6,7 +6,6 @@ actual class Logger actual constructor(tag: String) {
 
     val parentTag: String = tag
 
-
     actual fun d(tag: String?, message: String) {
         Log.d(tag ?: parentTag, message)
     }
