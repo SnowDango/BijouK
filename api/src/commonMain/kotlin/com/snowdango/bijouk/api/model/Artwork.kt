@@ -23,26 +23,24 @@ import kotlinx.serialization.encoding.*
 /**
  * 
  *
+ * @param bgColor 
  * @param height 
  * @param width 
- * @param url 
- * @param bgColor 
  * @param textColor1 
  * @param textColor2 
  * @param textColor3 
  * @param textColor4 
+ * @param url 
  */
 @Serializable
 
 data class Artwork (
 
-    @SerialName(value = "height") @Required val height: kotlin.Int,
-
-    @SerialName(value = "width") @Required val width: kotlin.Int,
-
-    @SerialName(value = "url") @Required val url: kotlin.String,
-
     @SerialName(value = "bgColor") val bgColor: kotlin.String? = null,
+
+    @SerialName(value = "height") val height: kotlin.Int? = null,
+
+    @SerialName(value = "width") val width: kotlin.Int? = null,
 
     @SerialName(value = "textColor1") val textColor1: kotlin.String? = null,
 
@@ -50,7 +48,9 @@ data class Artwork (
 
     @SerialName(value = "textColor3") val textColor3: kotlin.String? = null,
 
-    @SerialName(value = "textColor4") val textColor4: kotlin.String? = null
+    @SerialName(value = "textColor4") val textColor4: kotlin.String? = null,
+
+    @SerialName(value = "url") val url: kotlin.String? = null
 
 ) {
 

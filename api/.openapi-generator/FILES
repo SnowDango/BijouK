@@ -26,6 +26,7 @@ docs/LibraryAlbumsResponseData.md
 docs/LibraryArtists.md
 docs/LibraryArtistsAttributes.md
 docs/LibraryArtistsRelationships.md
+docs/LibraryArtistsRelationshipsCatalog.md
 docs/LibraryArtistsResponse.md
 docs/LibraryArtistsResponseData.md
 docs/LibraryArtwork.md
@@ -62,6 +63,8 @@ docs/PlaybackSeekPostRequest.md
 docs/PlaybackShuffleModeGet200Response.md
 docs/Playlists.md
 docs/PlaylistsAttributes.md
+docs/PlaylistsRelationships.md
+docs/PlaylistsRelationshipsCurator.md
 docs/PlaylistsResponse.md
 docs/PlaylistsResponseData.md
 docs/Preview.md
@@ -123,6 +126,7 @@ src/commonMain/kotlin/com/snowdango/bijouk/api/model/LibraryAlbumsResponseData.k
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/LibraryArtists.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/LibraryArtistsAttributes.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/LibraryArtistsRelationships.kt
+src/commonMain/kotlin/com/snowdango/bijouk/api/model/LibraryArtistsRelationshipsCatalog.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/LibraryArtistsResponse.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/LibraryArtistsResponseData.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/LibraryArtwork.kt
@@ -159,6 +163,8 @@ src/commonMain/kotlin/com/snowdango/bijouk/api/model/PlaybackSeekPostRequest.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/PlaybackShuffleModeGet200Response.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/Playlists.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/PlaylistsAttributes.kt
+src/commonMain/kotlin/com/snowdango/bijouk/api/model/PlaylistsRelationships.kt
+src/commonMain/kotlin/com/snowdango/bijouk/api/model/PlaylistsRelationshipsCurator.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/PlaylistsResponse.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/PlaylistsResponseData.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/Preview.kt

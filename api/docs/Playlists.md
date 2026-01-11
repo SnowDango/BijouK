@@ -8,7 +8,7 @@
 | **type** | **kotlin.String** |  |  |
 | **href** | **kotlin.String** |  |  |
 | **attributes** | [**PlaylistsAttributes**](PlaylistsAttributes.md) |  |  [optional] |
-| **relationships** | **kotlin.String** |  |  [optional] |
+| **relationships** | [**PlaylistsRelationships**](PlaylistsRelationships.md) |  |  [optional] |
 | **views** | **kotlin.String** |  |  [optional] |
 
 

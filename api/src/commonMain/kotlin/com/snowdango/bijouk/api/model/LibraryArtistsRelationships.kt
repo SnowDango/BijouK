@@ -15,7 +15,7 @@
 
 package com.snowdango.bijouk.api.model
 
-import com.snowdango.bijouk.api.model.Artists
+import com.snowdango.bijouk.api.model.LibraryArtistsRelationshipsCatalog
 
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
@@ -24,16 +24,13 @@ import kotlinx.serialization.encoding.*
 /**
  * 
  *
- * @param `data` 
- * @param href 
+ * @param catalog 
  */
 @Serializable
 
 data class LibraryArtistsRelationships (
 
-    @SerialName(value = "data") @Required val `data`: kotlin.collections.List<Artists>,
-
-    @SerialName(value = "href") val href: kotlin.String? = null
+    @SerialName(value = "catalog") val catalog: LibraryArtistsRelationshipsCatalog? = null
 
 ) {
 

@@ -26,11 +26,11 @@ import kotlinx.serialization.encoding.*
  * 
  *
  * @param albumName 
- * @param artistName 
  * @param durationInMillis 
  * @param genreNames 
  * @param hasLyrics 
  * @param name 
+ * @param artistName 
  * @param artwork 
  * @param contentRating 
  * @param discNumber 
@@ -45,8 +45,6 @@ data class LibrarySongsAttributes (
 
     @SerialName(value = "albumName") @Required val albumName: kotlin.String,
 
-    @SerialName(value = "artistName") @Required val artistName: kotlin.String,
-
     @SerialName(value = "durationInMillis") @Required val durationInMillis: kotlin.Long,
 
     @SerialName(value = "genreNames") @Required val genreNames: kotlin.collections.List<kotlin.String>,
@@ -54,6 +52,8 @@ data class LibrarySongsAttributes (
     @SerialName(value = "hasLyrics") @Required val hasLyrics: kotlin.Boolean,
 
     @SerialName(value = "name") @Required val name: kotlin.String,
+
+    @SerialName(value = "artistName") val artistName: kotlin.String? = null,
 
     @SerialName(value = "artwork") val artwork: LibraryArtwork? = null,
 

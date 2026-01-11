@@ -282,12 +282,12 @@ class CiderRepository(
 
     suspend fun getLibraryPlaylistDetails(
         playlistId: String
-    ): PlaylistsResponse {
+    ): LibraryPlaylistsResponse {
         return ciderMusicApi.amapiRunV3Post(
             AmapiRunV3PostRequest(
                 path = "/v1/me/library/playlists/$playlistId"
             )
-        ).typedBody(typeInfo<PlaylistsResponse>())
+        ).typedBody(typeInfo<LibraryPlaylistsResponse>())
     }
 
     suspend fun getPlaylistTracks(

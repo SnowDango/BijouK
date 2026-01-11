@@ -2052,7 +2052,18 @@
           },
           "relationships": {
             "type": "object",
-            "properties": {},
+            "properties": {
+              "curator": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "nullable": true
+              }
+            },
             "nullable": true
           },
           "views": {
@@ -2407,14 +2418,23 @@
           "relationships": {
             "type": "object",
             "properties": {
-              "href": {
-                "type": "string",
-                "nullable": true
-              },
-              "data": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/Artists"
+              "catalog": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "next": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Artists"
+                    }
+                  }
                 }
               }
             },
@@ -2544,7 +2564,8 @@
                 "type": "string"
               },
               "artistName": {
-                "type": "string"
+                "type": "string",
+                "nullable": true
               },
               "artwork": {
                 "$ref": "#/components/schemas/LibraryArtwork",
@@ -2595,7 +2616,6 @@
             },
             "required": [
               "albumName",
-              "artistName",
               "durationInMillis",
               "genreNames",
               "hasLyrics",

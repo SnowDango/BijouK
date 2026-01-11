@@ -9,8 +9,8 @@ import kotlin.jvm.JvmName
 @JvmName("convertArtwork")
 fun Artwork.convert(): String {
     return url
-        .replace("{w}", width.toString())
-        .replace("{h}", height.toString())
+        ?.replace("{w}", width.toString())
+        ?.replace("{h}", height.toString()) ?: ""
 }
 
 @JvmName("convertLibraryArtwork")
