@@ -126,6 +126,7 @@ dependencies {
     implementation(project(":model"))
     implementation(project(":ui"))
     implementation(project(":infla"))
+    implementation(project(":analytics"))
     implementation(libs.androidx.splash)
     implementation(libs.bundles.android.base)
     implementation(platform(libs.androidx.compose.bom))
@@ -139,6 +140,8 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
+    implementation("com.piasy:kmp-xlog:1.5.0")
+    
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

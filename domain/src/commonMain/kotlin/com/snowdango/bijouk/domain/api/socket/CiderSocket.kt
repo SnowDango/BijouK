@@ -2,7 +2,7 @@ package com.snowdango.bijouk.domain.api.socket
 
 import com.piasy.kmp.socketio.socketio.IO
 import com.piasy.kmp.socketio.socketio.Socket
-import com.snowdango.bijouk.domain.Logger
+import com.snowdango.bijouk.analytics.LogUtil
 import com.snowdango.bijouk.domain.api.socket.event.NowPlayingItemDidChangeEvent
 import com.snowdango.bijouk.domain.api.socket.event.NowPlayingStatusDidChange
 import com.snowdango.bijouk.domain.api.socket.event.PlayBackStateDidChangeEvent
@@ -15,9 +15,7 @@ class CiderSocket(
     private val baseUrl: String,
 ) {
 
-    private val logger: Logger = Logger("CiderSocket")
     private var client: Socket? = null
-    public var isWriteLog: Boolean = false
 
     fun startSocket(
         onConnect: () -> Unit,
@@ -28,7 +26,7 @@ class CiderSocket(
         onNowPlayingStatusChangeEvent: (NowPlayingStatusDidChange) -> Unit,
         onShuffleModeChangeEvent: (Boolean) -> Unit,
     ) {
-        if (isWriteLog) logger.d(null, "startSocket")
+        LogUtil.socketDebug(message = "startSocket")
         IO.socket(
             uri = baseUrl,
             opt = IO.Options().apply {
@@ -37,12 +35,13 @@ class CiderSocket(
                 timeout = 5000
             }
         ) { socket ->
+            client = socket
             socket.on("API:Playback") { param ->
                 val json = Json.Default.decodeFromString(
                     JsonObject.Companion.serializer(),
                     param[0].toString()
                 )
-                logger.d(null, json.toString())
+                LogUtil.socketDebug(message = json.toString())
                 val type =
                     EventType.entries.find {
                         it.type == json["type"].toString().removeSurrounding("\"")
@@ -53,7 +52,7 @@ class CiderSocket(
                             Json.Default.decodeFromString<PlayBackTimeDidChangeEvent>(
                                 param[0].toString()
                             )
-                        logger.d(null, data.toString())
+                        LogUtil.socketDebug(message = data.toString())
                         onTimeChangeEvent.invoke(data)
                     }
 
@@ -62,17 +61,17 @@ class CiderSocket(
                             Json.Default.decodeFromString<PlayBackStateDidChangeEvent>(
                                 param[0].toString()
                             )
-                        logger.d(null, data.toString())
+                        LogUtil.socketDebug(message = data.toString())
                         onStateChangeEvent.invoke(data)
                     }
 
                     EventType.NowPlayingItemDidChange -> { // fav and lib state change
-                        logger.d(null, param.toString())
+                        LogUtil.socketDebug(message = param.toString())
                         val data =
                             Json.Default.decodeFromString<NowPlayingItemDidChangeEvent>(
                                 param[0].toString()
                             )
-                        logger.d(null, data.toString())
+                        LogUtil.socketDebug(message = data.toString())
                         onNowPlayingItemChangeEvent.invoke(data)
                     }
 
@@ -81,7 +80,7 @@ class CiderSocket(
                             Json.Default.decodeFromString<NowPlayingStatusDidChange>(
                                 param[0].toString()
                             )
-                        logger.d(null, data.toString())
+                        LogUtil.socketDebug(message = data.toString())
                         onNowPlayingStatusChangeEvent.invoke(data)
                     }
 
@@ -89,20 +88,19 @@ class CiderSocket(
                         val data = Json.Default.decodeFromString<ShuffleModeDidChangeEvent>(
                             param[0].toString()
                         )
-                        logger.d(null, data.toString())
+                        LogUtil.socketDebug(message = data.toString())
                         onShuffleModeChangeEvent.invoke(data.data == 1)
                     }
 
-                    else -> logger.w(
-                        null,
-                        "UnknownTypeError: ${Json.Default.encodeToString(json["type"])}"
+                    else -> LogUtil.w(
+                        message = "UnknownTypeError: ${Json.Default.encodeToString(json["type"])}"
                     )
                 }
             }.on("connect") {
-                logger.d(null, "connection")
+                LogUtil.socketDebug(message = "connect")
                 onConnect.invoke()
             }.on("disconnect") {
-                logger.d(null, "disconnection")
+                LogUtil.socketDebug(message = "disconnect")
                 onDisConnect.invoke()
             }
             socket.open()
@@ -111,6 +109,7 @@ class CiderSocket(
 
     fun closeSocket() {
         client?.close()
+        client = null
     }
 
     enum class EventType(val type: String) {

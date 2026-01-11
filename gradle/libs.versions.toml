@@ -49,6 +49,7 @@ deploygate = "2.9.0"
 qrscanner = "0.5.0"
 openapi = "7.18.0"
 datastore = "1.2.0"
+core = "1.7.0"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -170,6 +171,7 @@ kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.re
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -201,6 +203,7 @@ deploygate = { id = "deploygate" }
 
 # openapi
 openapi = { id = "org.openapi.generator" }
+android-lint = { id = "com.android.lint", version.ref = "agp" }
 
 [bundles]
 test = ["junit"]
