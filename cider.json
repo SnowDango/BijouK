@@ -1890,7 +1890,26 @@
           },
           "relationships": {
             "type": "object",
-            "properties": {},
+            "properties": {
+              "artists": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Artists"
+                    }
+                  }
+                },
+                "nullable": true,
+                "required": [
+                  "href"
+                ]
+              }
+            },
             "nullable": true
           },
           "views": {

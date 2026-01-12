@@ -8,7 +8,7 @@
 | **type** | **kotlin.String** |  |  |
 | **href** | **kotlin.String** |  |  |
 | **attributes** | [**AlbumsAttributes**](AlbumsAttributes.md) |  |  |
-| **relationships** | **kotlin.String** |  |  [optional] |
+| **relationships** | [**AlbumsRelationships**](AlbumsRelationships.md) |  |  [optional] |
 | **views** | **kotlin.String** |  |  [optional] |
 
 

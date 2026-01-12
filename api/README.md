@@ -59,6 +59,8 @@ All URIs are relative to *http://localhost:8080/api/v1*
 
  - [com.snowdango.bijouk.api.model.Albums](docs/Albums.md)
  - [com.snowdango.bijouk.api.model.AlbumsAttributes](docs/AlbumsAttributes.md)
+ - [com.snowdango.bijouk.api.model.AlbumsRelationships](docs/AlbumsRelationships.md)
+ - [com.snowdango.bijouk.api.model.AlbumsRelationshipsArtists](docs/AlbumsRelationshipsArtists.md)
  - [com.snowdango.bijouk.api.model.AlbumsResponse](docs/AlbumsResponse.md)
  - [com.snowdango.bijouk.api.model.AlbumsResponseData](docs/AlbumsResponseData.md)
  - [com.snowdango.bijouk.api.model.AmapiRunV3Post200Response](docs/AmapiRunV3Post200Response.md)

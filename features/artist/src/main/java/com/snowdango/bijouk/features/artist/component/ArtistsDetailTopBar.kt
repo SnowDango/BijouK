@@ -239,6 +239,7 @@ fun ArtistsDetailTopBar(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color.Transparent,
+                    scrolledContainerColor = MaterialTheme.colorScheme.background,
                 ),
                 expandedHeight = width - systemBarHeight,
                 scrollBehavior = scrollBehavior,
