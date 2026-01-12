@@ -19,6 +19,7 @@ class SettingViewModel(
     private val debugSettingsModel: DebugSettingsModel by inject()
 
     val versionName = versionData.versionName
+    val isDebug = versionData.isDebug
 
     val debugSettingsFlow: Flow<DebugSettingsData?> = debugSettingsModel.getFlowData()
         .stateIn(

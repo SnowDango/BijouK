@@ -64,31 +64,33 @@ fun SettingScreen(
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
             )
-            SettingsGroup(
-                title = {
-                    Text(text = "Debug")
-                }
-            ) {
-                SettingsRadioButton(
-                    icon = {
-                        Icon(
-                            imageVector = Icons.Default.Settings,
-                            contentDescription = null
-                        )
-                    },
-                    title = { Text(text = "Write Socket Event Log") },
-                    state = debugSettingsData.value?.isWriteSocketEventLog ?: false,
-                    onClick = {
-                        debugSettingsData.value?.let {
-                            viewModel.setIsWriteSocketEventLog(!it.isWriteSocketEventLog)
-                        }
+            if (viewModel.isDebug) {
+                SettingsGroup(
+                    title = {
+                        Text(text = "Debug")
                     }
+                ) {
+                    SettingsRadioButton(
+                        icon = {
+                            Icon(
+                                imageVector = Icons.Default.Settings,
+                                contentDescription = null
+                            )
+                        },
+                        title = { Text(text = "Write Socket Event Log") },
+                        state = debugSettingsData.value?.isWriteSocketEventLog ?: false,
+                        onClick = {
+                            debugSettingsData.value?.let {
+                                viewModel.setIsWriteSocketEventLog(!it.isWriteSocketEventLog)
+                            }
+                        }
+                    )
+                }
+                HorizontalDivider(
+                    modifier = Modifier
+                        .padding(horizontal = 16.dp)
                 )
             }
-            HorizontalDivider(
-                modifier = Modifier
-                    .padding(horizontal = 16.dp)
-            )
             SettingsMenuLink(
                 modifier = Modifier
                     .padding(horizontal = 16.dp),
