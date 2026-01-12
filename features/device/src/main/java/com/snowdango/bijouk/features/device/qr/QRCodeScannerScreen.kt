@@ -11,6 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
@@ -67,7 +68,8 @@ fun QRCodeScannerScreen(
         Box(
             modifier = Modifier
                 .padding(paddingValues)
-                .fillMaxSize()
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center,
         ) {
             ScannerWithPermissions(
                 onScanned = {
@@ -75,6 +77,7 @@ fun QRCodeScannerScreen(
                 },
                 types = listOf(CodeType.QR),
                 cameraPosition = CameraPosition.BACK,
+                enableTorch = true,
             )
         }
 
