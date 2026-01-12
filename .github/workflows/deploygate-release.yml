@@ -1,0 +1,67 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        required: true
+
+permissions:
+  contents: write
+  discussions: write
+
+jobs:
+  prod-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: chmod gradlew
+        run: |
+          chmod +x gradlew
+      - name: create local.properties
+        run: |
+          touch local.properties
+          echo "deploygate.user=${{ secrets.DEPLOYGATE_USER }}" >> local.properties
+          echo "deploygate.token=${{ secrets.DEPLOYGATE_TOKEN }}" >> local.properties
+          echo "debug.keypass=${{ secrets.DEBUG_KEY_PASS }}" >> local.properties
+          echo "debug.storepass=${{ secrets.DEBUG_STORE_PASS }}" >> local.properties
+          echo "release.keypass=${{ secrets.RELEASE_KEY_PASS }}" >> local.properties
+          echo "release.storepass=${{ secrets.RELEASE_STORE_PASS }}" >> local.properties
+      - name: create debug google-services.json
+        run: |
+          touch app/src/debug/google-services.json
+          echo "${{ secrets.DEBUG_GOOGLE_SERVICES_BASE64 }}" | base64 -d > app/src/debug/google-services.json
+      - name: create release google-services.json
+        run: |
+          touch app/src/debug/google-services.json
+          echo "${{ secrets.GOOGLE_SERVICES_BASE64 }}" | base64 -d > app/src/release/google-services.json
+      - name: create debug keystore
+        run: |
+          touch debug.keystore
+          echo "${{ secrets.DEBUG_KEY_STORE }}" | base64 -d > debug.keystore
+      - name: create release keystore
+        run: |
+          touch release.keystore
+          echo "${{ secrets.RELEASE_KEY_STORE }}" | base64 -d > release.keystore
+      - name: build release apk
+        run:
+          ./gradlew assembleRelease --no-daemon
+      - name: build release aab
+        run:
+          ./gradlew bundleRelease --no-daemon
+      - name: Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.event.inputs.tag }}
+          body: ${{ github.event.inputs.tag }}
+          tag_name: ${{ github.event.inputs.tag }}
+          files: |
+            ./app/build/outputs/apk/release/app-release.apk
+            ./app/build/outputs/bundle/release/app-release.aab
+          make_latest: true
+          generate_release_notes: true
