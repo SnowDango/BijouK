@@ -44,7 +44,7 @@ class BijouKApplication : Application(), KoinComponent {
                 PresenterModule.deviceModule,
                 PresenterModule.playlistModule,
                 PresenterModule.albumModule,
-                PresenterModule.settingModule(BuildConfig.VERSION_NAME),
+                PresenterModule.settingModule(BuildConfig.VERSION_NAME, BuildConfig.DEBUG),
             )
         }
         logSettings()

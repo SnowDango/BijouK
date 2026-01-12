@@ -23,5 +23,6 @@ object PresenterModule {
     val searchModule = SearchModule.module
     val playlistModule = PlaylistModule.module
     val albumModule = AlbumModule.module
-    fun settingModule(versionName: String) = SettingModule.module(versionName)
+    fun settingModule(versionName: String, isDebug: Boolean) =
+        SettingModule.module(versionName, isDebug)
 }
