@@ -43,9 +43,8 @@
             android:name=".presenter.second.SecondActivity"
             android:exported="true"
             android:configChanges="screenSize"
-            android:theme="@style/Theme.BijouK">
-
-        </activity>
+            android:theme="@style/Theme.BijouK"
+            android:enableOnBackInvokedCallback="true"></activity>
 
         <service
             android:name=".presenter.notification.RemoteMediaService"
