@@ -1,3 +1,5 @@
+@file:Suppress("COMPOSE_APPLIER_CALL_MISMATCH")
+
 package com.snowdango.bijouk.features.artist.component
 
 import android.annotation.SuppressLint
@@ -51,7 +53,16 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.ConstraintSet
+import androidx.core.graphics.blue
+import androidx.core.graphics.green
+import androidx.core.graphics.red
+import androidx.palette.graphics.Palette
 import coil3.compose.AsyncImage
+import coil3.imageLoader
+import coil3.request.ImageRequest
+import coil3.request.SuccessResult
+import coil3.request.allowHardware
+import coil3.toBitmap
 import com.snowdango.bijouk.features.artist.R
 import com.snowdango.bijouk.model.cider.data.entity.StationData
 import com.snowdango.bijouk.ui.BijouKTheme
@@ -74,6 +85,27 @@ fun ArtistsDetailTopBar(
     var isCollapsed by remember { mutableStateOf(false) }
     var titleBlurHeight by remember { mutableStateOf(0.dp) }
     var stationAlpha by remember { mutableFloatStateOf(1.0f) }
+    var firstItemPalette by remember { mutableStateOf<Palette?>(null) }
+    val paletteColor = firstItemPalette?.dominantSwatch?.rgb?.let {
+        val luminance = 0.299 * it.red + 0.587 * it.green + 0.114 * it.blue
+        if (luminance > 128) {
+            Color.Black
+        } else {
+            Color.White
+        }
+    } ?: Color.Unspecified
+
+    val context = LocalContext.current
+    LaunchedEffect(Unit) {
+        val req = ImageRequest.Builder(context)
+            .data(artwork)
+            .allowHardware(false)
+            .build()
+        val result = req.context.imageLoader.execute(req)
+        if (result is SuccessResult) {
+            firstItemPalette = Palette.from(result.image.toBitmap()).generate()
+        }
+    }
 
     LaunchedEffect(scrollBehavior.state.heightOffset) {
         if (scrollBehavior.state.heightOffset == scrollBehavior.state.heightOffsetLimit) {
@@ -139,7 +171,11 @@ fun ArtistsDetailTopBar(
                             maxLines = if (isCollapsed) 1 else 2,
                             fontWeight = FontWeight.ExtraBold,
                             overflow = TextOverflow.Ellipsis,
-                            color = Color.White,
+                            color = if (isCollapsed) {
+                                MaterialTheme.colorScheme.primary
+                            } else {
+                                paletteColor
+                            },
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .weight(1f)
@@ -192,9 +228,9 @@ fun ArtistsDetailTopBar(
                             imageVector = Icons.AutoMirrored.Default.ArrowBack,
                             contentDescription = null,
                             tint = if (isCollapsed) {
-                                MaterialTheme.colorScheme.onSurface
+                                MaterialTheme.colorScheme.primary
                             } else {
-                                Color.White
+                                paletteColor
                             },
                             modifier = Modifier
                                 .padding(all = 8.dp),
@@ -237,7 +273,7 @@ private fun PreviewArtistsDetailHeader() {
         ArtistsDetailTopBar(
             name = "Artist Name",
             artwork = "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/5e/e1/5e" +
-                "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
+                    "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
             scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior(),
             onNavigationBack = {},
             onPlayStation = {},
@@ -245,7 +281,7 @@ private fun PreviewArtistsDetailHeader() {
                 id = "station1",
                 name = "Station Name",
                 artwork = "https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/5e/e1/5e" +
-                    "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
+                        "/5ee15e83-fd49-3717-0a5f-4ff5b6fc619f/mzl.eszoutnf.jpg/3000x3000AM.RSAB02.jpg",
                 href = "",
             )
         )

@@ -8,7 +8,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -33,8 +32,7 @@ fun TitleTopBar(
                 text = title,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
-                color = titleColor ?: Color.Unspecified,
-                style = MaterialTheme.typography.headlineMedium,
+                color = titleColor ?: MaterialTheme.colorScheme.primary,
             )
         },
         navigationIcon = {
@@ -47,13 +45,11 @@ fun TitleTopBar(
                     Icon(
                         imageVector = it,
                         contentDescription = null,
+                        tint = titleColor ?: MaterialTheme.colorScheme.primary,
                     )
                 }
             }
-        },
-        colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.surfaceContainerHigh,
-        )
+        }
     )
 }
 

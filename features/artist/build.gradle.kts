@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.bundles.coil)
     implementation(libs.bundles.coroutine)
     implementation(libs.bundles.koin)
+    implementation(libs.androidx.palette)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)
