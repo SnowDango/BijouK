@@ -1,0 +1,79 @@
+package com.snowdango.bijouk.features.device.qr.composable
+
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.snowdango.bijouk.features.device.R
+import com.snowdango.bijouk.ui.BijouKTheme
+
+@Composable
+fun EnterNameDialog(
+    onDismissRequest: () -> Unit,
+    onConfirm: (String) -> Unit,
+    onCancel: () -> Unit,
+) {
+    var name: String by remember { mutableStateOf("") }
+    AlertDialog(
+        onDismissRequest = onDismissRequest,
+        icon = {
+            Icon(
+                imageVector = Icons.Default.CheckCircle,
+                contentDescription = null,
+                tint = Color.Green
+            )
+        },
+        title = { Text(stringResource(R.string.qr_name_dialog_title)) },
+        text = {
+            TextField(
+                value = name,
+                onValueChange = { name = it },
+                label = { Text(stringResource(R.string.qr_name_dialog_name_label)) }
+            )
+        },
+        confirmButton = {
+            Button(
+                enabled = name.isNotBlank(),
+                onClick = {
+                    onConfirm(name)
+                    onDismissRequest()
+                }
+            ) {
+                Text(stringResource(R.string.qr_name_dialog_button_confirm))
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = {
+                    onCancel()
+                    onDismissRequest()
+                }
+            ) {
+                Text(stringResource(R.string.qr_name_dialog_button_cancel))
+            }
+        }
+    )
+}
+
+@Preview
+@Composable
+fun EnterNameDialogPreview() {
+    BijouKTheme {
+        EnterNameDialog(
+            onDismissRequest = {},
+            onConfirm = {},
+            onCancel = {}
+        )
+    }
+}

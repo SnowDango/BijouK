@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="top_bar_search_placeholder">Search</string>
+
+    <string name="content_page_tab_song">Song</string>
+    <string name="content_page_tab_playlist">Playlist</string>
+    <string name="content_page_tab_album">Album</string>
+    <string name="content_page_tab_artist">Artist</string>
+
+    <string name="search_dropdown_menu_play">Play and Clear</string>
+    <string name="search_dropdown_menu_shuffle">Shuffle Play</string>
+    <string name="search_dropdown_menu_play_next">Play Next</string>
+    <string name="search_dropdown_menu_play_later">Play Later</string>
+
+    <string name="search_library_category_folders">Folders</string>
+    <string name="search_library_category_playlists">Playlists</string>
+
+</resources>

@@ -12,12 +12,17 @@ buildscript {
     dependencies {
         classpath(libs.kotlin.plugin)
         classpath(libs.detekt.plugin)
+        classpath(libs.deploygate.plugin)
+        classpath(libs.openapi.plugin)
     }
 }
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
+    alias(libs.plugins.android.kotlin.multiplatform.library) apply false
     alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.kotlin.multiplatform) apply false
+    alias(libs.plugins.kotlin.cocoapods) apply false
     alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false
@@ -25,7 +30,11 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.dokka) apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.firebase.crashlytics) apply false
     alias(libs.plugins.detekt)
+    alias(libs.plugins.aboutLibraries)
+    alias(libs.plugins.android.lint) apply false
 }
 
 val reportMerge = tasks.register<ReportMergeTask>("reportMerge") {
@@ -71,6 +80,4 @@ subprojects {
     }
 }
 
-task("clean", Delete::class) {
-    delete(rootProject.layout.buildDirectory)
-}
+tasks.register("clean", Delete::class, { delete(rootProject.layout.buildDirectory) })

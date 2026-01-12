@@ -5,6 +5,17 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"
+        android:minSdkVersion="34" />
+
     <application
         android:name=".BijouKApplication"
         android:allowBackup="true"
@@ -16,16 +27,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BijouKSplash"
         android:usesCleartextTraffic="true"
+        tools:replace="android:name"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
-            android:exported="true">
+            android:name=".presenter.first.FirstActivity"
+            android:exported="true"
+            android:theme="@style/Theme.BijouK">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".presenter.second.SecondActivity"
+            android:exported="true"
+            android:configChanges="screenSize"
+            android:theme="@style/Theme.BijouK"
+            android:enableOnBackInvokedCallback="true"></activity>
+
+        <service
+            android:name=".presenter.notification.RemoteMediaService"
+            android:exported="true"
+            android:permission="android.permission.FOREGROUND_SERVICE"
+            android:foregroundServiceType="mediaPlayback">
+
+        </service>
     </application>
 
 </manifest>

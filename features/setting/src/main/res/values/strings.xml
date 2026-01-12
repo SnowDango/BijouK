@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="setting_top_bar_title">Settings</string>
+
+    <string name="setting_column_app_info">About</string>
+    <string name="setting_column_app_info_description">Display information about the app</string>
+
+    <string name="setting_column_oss_license">Open source license</string>
+    <string name="setting_column_oss_license_description">Display open source license</string>
+
+    <string name="license_top_bar_title">Licenses</string>
+
+    <string name="app_info_top_bar_title">App Info</string>
+
+</resources>

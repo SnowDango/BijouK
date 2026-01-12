@@ -6,10 +6,11 @@ plugins {
 
 android {
     namespace = "com.snowdango.bijouk.ui"
-    compileSdk = 35
+    compileSdk = libs.versions.sdk.target.get().toInt()
+    version = libs.versions.version
 
     defaultConfig {
-        minSdk = 30
+        minSdk = libs.versions.sdk.min.get().toInt()
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -30,9 +31,6 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
-    }
     buildFeatures {
         compose = true
     }
@@ -42,12 +40,15 @@ android {
 }
 
 dependencies {
+    implementation(project(":model"))
     implementation(libs.bundles.android.base)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.android.compose)
     implementation(libs.material.kolor)
+    implementation(libs.material.icon)
     implementation(libs.bundles.koin)
     implementation(libs.coil.compose)
+    implementation(libs.aboutlibraries.core)
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="content_page_tab_queue">Queue</string>
+    <string name="content_page_tab_song">Song</string>
+    <string name="content_page_tab_playlist">Playlist</string>
+    <string name="content_page_tab_album">Album</string>
+    <string name="content_page_tab_artist">Artist</string>
+
+    <string name="top_bar_search_placeholder">Search</string>
+
+    <string name="queue_dropdown_menu_next">次に再生</string>
+    <string name="queue_dropdown_menu_skip">ここまでスキップ</string>
+    <string name="time_string_default">00:00</string>
+
+    <string name="search_song_dropdown_menu_play">今すぐ再生</string>
+    <string name="search_song_dropdown_menu_play_next">次に再生</string>
+    <string name="search_song_dropdown_menu_play_later">最後に再生</string>
+
+</resources>

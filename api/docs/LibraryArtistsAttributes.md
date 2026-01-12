@@ -1,0 +1,11 @@
+
+# LibraryArtistsAttributes
+
+## Properties
+| Name | Type | Description | Notes |
+| ------------ | ------------- | ------------- | ------------- |
+| **name** | **kotlin.String** |  |  |
+| **inFavorites** | **kotlin.Boolean** |  |  [optional] |
+
+
+

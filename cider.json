@@ -1,0 +1,2877 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "description": "Cider RPC API Documentation",
+    "version": "1.0.0",
+    "title": "CiderRPCApi"
+  },
+  "servers": [
+    {
+      "variables": {
+        "host": {
+          "default": "http://localhost:8080"
+        }
+      },
+      "description": "Local server",
+      "url": "{host}/api/v1"
+    }
+  ],
+  "tags": [
+    {
+      "name": "cider-rpc",
+      "description": "Cider RPC Api"
+    },
+    {
+      "name": "cider-music",
+      "description": "Cider Music Api"
+    }
+  ],
+  "paths": {
+    "/playback/active": {
+      "get": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "server is active",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "StatusResponse",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/now-playing": {
+      "get": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Get Now Playing Song",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "NowPlayingResponse",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NowPlayingResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/queue": {
+      "get": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Get Queue State",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "QueueResponse",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/QueueResponseData"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/playpause": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Control Play Pause State",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "StatusResponse",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/next": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Control Song next",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "StatusResponse",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/previous": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Control Song previous",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "StatusResponse",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/seek": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Control Song seek",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "position": {
+                    "type": "number",
+                    "format": "float"
+                  }
+                },
+                "required": [
+                  "position"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/queue/clear-queue": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Clear Queue",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/queue/move-to-position": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Move Queue",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "startIndex": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
+                  "destinationIndex": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                },
+                "required": [
+                  "startIndex",
+                  "destinationIndex"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "queue item move to position",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/queue/change-to-index": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Change Queue Index",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "index": {
+                    "type": "integer",
+                    "format": "int32"
+                  }
+                },
+                "required": [
+                  "index"
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "queue change to index success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/play-item": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Play Item",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlayRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "play item success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/play-next": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Play Item Next",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlayRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "play item next success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/play-later": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Play Item Later",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PlayRequestBody"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "play item later success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/shuffle-mode": {
+      "get": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Get Shuffle Mode",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "value": {
+                      "type": "integer",
+                      "format": "int32"
+                    }
+                  },
+                  "required": [
+                    "status",
+                    "value"
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/playback/toggle-shuffle": {
+      "post": {
+        "tags": [
+          "cider-rpc"
+        ],
+        "summary": "Shuffle Mode toggle change",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BasicResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/amapi/run-v3": {
+      "post": {
+        "tags": [
+          "cider-music"
+        ],
+        "summary": "Call Apple Music Api between Cider App",
+        "description": "",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "path": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/SearchResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/SongsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/AlbumsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ArtistsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/PlaylistsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LibrarySearchResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LibrarySongsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LibraryAlbumsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LibraryArtistsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LibraryPlaylistsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/LibraryPlaylistFoldersResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RelationshipViewSongsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RelationshipViewLibrarySongsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RelationshipViewAlbumsResponse"
+                    },
+                    {
+                      "$ref": "#/components/schemas/RelationshipViewLibraryAlbumsResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BasicResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status"
+        ]
+      },
+      "NowPlayingResponse": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "info": {
+            "type": "object",
+            "$ref": "#/components/schemas/NowPlayingResponseData"
+          }
+        },
+        "required": [
+          "status",
+          "info"
+        ]
+      },
+      "NowPlayingResponseData": {
+        "type": "object",
+        "properties": {
+          "albumName": {
+            "type": "string"
+          },
+          "artistName": {
+            "type": "string"
+          },
+          "artwork": {
+            "type": "object",
+            "$ref": "#/components/schemas/RPCArtwork"
+          },
+          "audioLocale": {
+            "type": "string"
+          },
+          "audioTraits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "composerName": {
+            "type": "string"
+          },
+          "currentPlaybackTime": {
+            "type": "number",
+            "format": "double"
+          },
+          "discNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "durationInMillis": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "genreNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "hasLyrics": {
+            "type": "boolean"
+          },
+          "hasTimeSyncedLyrics": {
+            "type": "boolean"
+          },
+          "isFavorites": {
+            "type": "boolean"
+          },
+          "inLibrary": {
+            "type": "boolean"
+          },
+          "isAppleDigitalMaster": {
+            "type": "boolean"
+          },
+          "isMasteredForItunes": {
+            "type": "boolean"
+          },
+          "isVocalAttenuationAllowed": {
+            "type": "boolean"
+          },
+          "isrc": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "playParams": {
+            "type": "object",
+            "$ref": "#/components/schemas/RPCPlayParameters"
+          },
+          "previews": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "$ref": "#/components/schemas/RPCPreview"
+            }
+          },
+          "releaseDate": {
+            "type": "string"
+          },
+          "remainingTime": {
+            "type": "number",
+            "format": "double"
+          },
+          "repeatMode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "shuffleMode": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "trackNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "albumName",
+          "artistName",
+          "currentPlaybackTime",
+          "durationInMillis",
+          "hasLyrics",
+          "inLibrary",
+          "name",
+          "playParams",
+          "remainingTime",
+          "repeatMode",
+          "shuffleMode"
+        ]
+      },
+      "QueueResponseData": {
+        "type": "object",
+        "properties": {
+          "_songId": {
+            "type": "string"
+          },
+          "_state": {
+            "type": "object",
+            "properties": {
+              "current": {
+                "type": "integer",
+                "format": "int32"
+              }
+            }
+          },
+          "assetURL": {
+            "type": "string"
+          },
+          "assets": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "$ref": "#/components/schemas/QueueAsset"
+            }
+          },
+          "attributes": {
+            "type": "object",
+            "$ref": "#/components/schemas/QueueAttributes"
+          },
+          "flavor": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "playbackType": {
+            "type": "number",
+            "format": "double"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "assets",
+          "attributes",
+          "id",
+          "playbackType",
+          "type"
+        ]
+      },
+      "RPCArtwork": {
+        "type": "object",
+        "properties": {
+          "height": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "width": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "url": {
+            "type": "string"
+          },
+          "hasP3": {
+            "type": "boolean"
+          },
+          "bgColor": {
+            "type": "string"
+          },
+          "textColor1": {
+            "type": "string"
+          },
+          "textColor2": {
+            "type": "string"
+          },
+          "textColor3": {
+            "type": "string"
+          },
+          "textColor4": {
+            "type": "string"
+          },
+          "gradient": {
+            "type": "object",
+            "properties": {
+            }
+          }
+        }
+      },
+      "RPCPlayParameters": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "isLibrary": {
+            "type": "boolean"
+          },
+          "reporting": {
+            "type": "boolean"
+          },
+          "catalogId": {
+            "type": "string"
+          },
+          "versionHash": {
+            "type": "string"
+          },
+          "reportingId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind"
+        ]
+      },
+      "RPCPreview": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "QueueState": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "current"
+        ]
+      },
+      "QueueAsset": {
+        "type": "object",
+        "properties": {
+          "URL": {
+            "type": "string"
+          },
+          "artworkURL": {
+            "type": "string"
+          },
+          "chunks": {
+            "type": "object",
+            "properties": {
+              "chunkSize": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "hashes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "downloadKey": {
+            "type": "string"
+          },
+          "file-size": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "flavor": {
+            "type": "string"
+          },
+          "md5": {
+            "type": "string"
+          },
+          "metadata": {
+            "type": "object",
+            "$ref": "#/components/schemas/QueueMetadata"
+          }
+        },
+        "required": [
+          "URL",
+          "md5",
+          "metadata"
+        ]
+      },
+      "QueueAttributes": {
+        "type": "object",
+        "properties": {
+          "albumName": {
+            "type": "string"
+          },
+          "artistName": {
+            "type": "string"
+          },
+          "artwork": {
+            "type": "object",
+            "$ref": "#/components/schemas/RPCArtwork"
+          },
+          "audioLocale": {
+            "type": "string"
+          },
+          "audioTraits": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "composerName": {
+            "type": "string"
+          },
+          "currentPlaybackTime": {
+            "type": "number",
+            "format": "double"
+          },
+          "discNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "durationInMillis": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "genreNames": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "hasLyrics": {
+            "type": "boolean"
+          },
+          "hasTimeSyncedLyrics": {
+            "type": "boolean"
+          },
+          "isAppleDigitalMaster": {
+            "type": "boolean"
+          },
+          "isMasteredForItunes": {
+            "type": "boolean"
+          },
+          "isVocalAttenuationAllowed": {
+            "type": "boolean"
+          },
+          "isrc": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "playParams": {
+            "type": "object",
+            "$ref": "#/components/schemas/RPCPlayParameters"
+          },
+          "previews": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "$ref": "#/components/schemas/RPCPreview"
+            }
+          },
+          "releaseDate": {
+            "type": "string"
+          },
+          "remainingTime": {
+            "type": "number",
+            "format": "double"
+          },
+          "trackNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "albumName",
+          "discNumber",
+          "durationInMillis",
+          "genreNames",
+          "hasLyrics",
+          "name",
+          "trackNumber"
+        ]
+      },
+      "QueueMetadata": {
+        "type": "object",
+        "properties": {
+          "artistId": {
+            "type": "string"
+          },
+          "artistName": {
+            "type": "string"
+          },
+          "bitRate": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "compilation": {
+            "type": "boolean"
+          },
+          "composerId": {
+            "type": "string"
+          },
+          "composerName": {
+            "type": "string"
+          },
+          "copyright": {
+            "type": "string"
+          },
+          "discCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "discNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "duration": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "explicit": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fileExtension": {
+            "type": "string"
+          },
+          "gapless": {
+            "type": "boolean"
+          },
+          "genre": {
+            "type": "string"
+          },
+          "genreId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "isMasteredForItunes": {
+            "type": "boolean"
+          },
+          "itemId": {
+            "type": "string"
+          },
+          "itemName": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          },
+          "playlistArtistName": {
+            "type": "string"
+          },
+          "playlistId": {
+            "type": "string"
+          },
+          "playlistName": {
+            "type": "string"
+          },
+          "rank": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "releaseDate": {
+            "type": "string"
+          },
+          "s": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sampleRate": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sort-album": {
+            "type": "string"
+          },
+          "sort-artist": {
+            "type": "string"
+          },
+          "sort-composer": {
+            "type": "string"
+          },
+          "sort-name": {
+            "type": "string"
+          },
+          "trackCount": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "trackNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "vendorId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "xid": {
+            "type": "string"
+          },
+          "year": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "required": [
+          "artistName",
+          "bitRate",
+          "discCount",
+          "discNumber",
+          "duration",
+          "explicit",
+          "fileExtension",
+          "gapless",
+          "genre",
+          "itemId",
+          "itemName",
+          "kind",
+          "playlistArtistName",
+          "sort-album",
+          "sort-artist",
+          "sort-composer",
+          "sort-name",
+          "trackCount",
+          "trackNumber",
+          "year"
+        ]
+      },
+      "PlayRequestBody": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "songs",
+              "playlists",
+              "albums",
+              "artists",
+              "stations"
+            ]
+          },
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "id"
+        ]
+      },
+      "SearchResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "object",
+                "properties": {
+                  "albums": {
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "href": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Albums"
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ],
+                    "nullable": true
+                  },
+                  "artists": {
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "href": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Artists"
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ],
+                    "nullable": true
+                  },
+                  "playlists": {
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "href": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Playlists"
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ],
+                    "nullable": true
+                  },
+                  "songs": {
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "href": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/Songs"
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ],
+                    "nullable": true
+                  }
+                }
+              }
+            },
+            "required": [
+              "results"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "SongsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Songs"
+                }
+              }
+            },
+            "required": [
+              "data"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "AlbumsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Albums"
+                }
+              }
+            },
+            "required": [
+              "data"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "ArtistsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "type": "string",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Artists"
+                },
+                "nullable": true
+              }
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "PlaylistsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "type": "string",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Playlists"
+                },
+                "nullable": true
+              }
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "LibrarySearchResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "results": {
+                "type": "object",
+                "properties": {
+                  "library-albums": {
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "href": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/LibraryAlbums"
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ],
+                    "nullable": true
+                  },
+                  "library-artists": {
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "href": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/LibraryArtists"
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ],
+                    "nullable": true
+                  },
+                  "library-playlists": {
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "href": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/LibraryPlaylists"
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ],
+                    "nullable": true
+                  },
+                  "library-songs": {
+                    "type": "object",
+                    "properties": {
+                      "next": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "href": {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      "data": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/LibrarySongs"
+                        }
+                      }
+                    },
+                    "required": [
+                      "data"
+                    ],
+                    "nullable": true
+                  }
+                }
+              }
+            },
+            "required": [
+              "results"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "LibrarySongsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "type": "string",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LibrarySongs"
+                },
+                "nullable": true
+              }
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "LibraryAlbumsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "type": "string",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LibraryAlbums"
+                },
+                "nullable": true
+              }
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "LibraryArtistsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "type": "string",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LibraryArtists"
+                },
+                "nullable": true
+              }
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "LibraryPlaylistsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "type": "string",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LibraryPlaylists"
+                },
+                "nullable": true
+              }
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "LibraryPlaylistFoldersResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "next": {
+                "type": "string",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LibraryPlaylistFolders"
+                },
+                "nullable": true
+              }
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "RelationshipViewSongsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "type": "object",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Songs"
+                }
+              },
+              "meta": {
+                "type": "object",
+                "nullable": true
+              },
+              "next": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "data"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "RelationshipViewLibrarySongsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "type": "object",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LibrarySongs"
+                }
+              },
+              "meta": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "integer",
+                    "format": "int32",
+                    "nullable": true
+                  }
+                },
+                "nullable": true
+              },
+              "next": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "data"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "RelationshipViewAlbumsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "type": "object",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Albums"
+                }
+              },
+              "meta": {
+                "type": "object",
+                "properties": {
+                  "total": {
+                    "type": "integer",
+                    "format": "int32",
+                    "nullable": true
+                  }
+                },
+                "nullable": true
+              },
+              "next": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "data"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "RelationshipViewLibraryAlbumsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "attributes": {
+                "type": "object",
+                "nullable": true
+              },
+              "data": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/LibraryAlbums"
+                }
+              },
+              "meta": {
+                "type": "object",
+                "nullable": true
+              },
+              "next": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "data"
+            ]
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "Albums": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "artistName": {
+                "type": "string"
+              },
+              "artistUrl": {
+                "type": "string",
+                "nullable": true
+              },
+              "artwork": {
+                "$ref": "#/components/schemas/Artwork"
+              },
+              "contentRating": {
+                "type": "string",
+                "nullable": true
+              },
+              "copyright": {
+                "type": "string",
+                "nullable": true
+              },
+              "editorialVideo": {
+                "$ref": "#/components/schemas/EditorialNotes",
+                "nullable": true
+              },
+              "genreNames": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "inFavorites": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "isCompilation": {
+                "type": "boolean"
+              },
+              "isComplete": {
+                "type": "boolean"
+              },
+              "isMasteredForItunes": {
+                "type": "boolean"
+              },
+              "isSingle": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "playParams": {
+                "$ref": "#/components/schemas/PlayParameters",
+                "nullable": true
+              },
+              "recordLabel": {
+                "type": "string",
+                "nullable": true
+              },
+              "releaseDate": {
+                "type": "string",
+                "nullable": true
+              },
+              "trackCount": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "upc": {
+                "type": "string",
+                "nullable": true
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "artistName",
+              "artwork",
+              "genreNames",
+              "name",
+              "trackCount"
+            ]
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "artists": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Artists"
+                    }
+                  }
+                },
+                "nullable": true,
+                "required": [
+                  "href"
+                ]
+              }
+            },
+            "nullable": true
+          },
+          "views": {
+            "type": "object",
+            "properties": {},
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "href",
+          "attributes"
+        ]
+      },
+      "Artists": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "artwork": {
+                "$ref": "#/components/schemas/Artwork",
+                "nullable": true
+              },
+              "editorialNotes": {
+                "$ref": "#/components/schemas/EditorialNotes",
+                "nullable": true
+              },
+              "genreNames": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "inFavorites": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "genreNames",
+              "name",
+              "url"
+            ],
+            "nullable": true
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "default-playable-content": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string"
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Stations"
+                    }
+                  }
+                },
+                "required": [
+                  "href",
+                  "data"
+                ],
+                "nullable": true
+              }
+            },
+            "nullable": true
+          },
+          "views": {
+            "type": "object",
+            "properties": {},
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "href"
+        ]
+      },
+      "Playlists": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "artwork": {
+                "$ref": "#/components/schemas/Artwork",
+                "nullable": true
+              },
+              "curatorName": {
+                "type": "string",
+                "nullable": true
+              },
+              "description": {
+                "$ref": "#/components/schemas/DescriptionAttribute",
+                "nullable": true
+              },
+              "isChart": {
+                "type": "boolean"
+              },
+              "lastModifiedDate": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "playlistType": {
+                "type": "string"
+              },
+              "playParams": {
+                "$ref": "#/components/schemas/PlayParameters",
+                "nullable": true
+              },
+              "url": {
+                "type": "string"
+              },
+              "trackTypes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              "inFavorites": {
+                "type": "boolean",
+                "nullable": true
+              }
+            },
+            "required": [
+              "isChart",
+              "name",
+              "playlistType",
+              "url"
+            ],
+            "nullable": true
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "curator": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "nullable": true
+                  }
+                },
+                "nullable": true
+              }
+            },
+            "nullable": true
+          },
+          "views": {
+            "type": "object",
+            "properties": {},
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "href"
+        ]
+      },
+      "Songs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "albumName": {
+                "type": "string"
+              },
+              "artistName": {
+                "type": "string"
+              },
+              "artistUrl": {
+                "type": "string",
+                "nullable": true
+              },
+              "artwork": {
+                "$ref": "#/components/schemas/Artwork"
+              },
+              "attribution": {
+                "type": "string",
+                "nullable": true
+              },
+              "composerName": {
+                "type": "string",
+                "nullable": true
+              },
+              "contentRating": {
+                "type": "string",
+                "nullable": true
+              },
+              "discNumber": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "durationInMillis": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "editorialNotes": {
+                "$ref": "#/components/schemas/EditorialNotes",
+                "nullable": true
+              },
+              "genreNames": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "hasLyrics": {
+                "type": "boolean"
+              },
+              "inFavorites": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "isAppleDigitalMaster": {
+                "type": "boolean"
+              },
+              "isrc": {
+                "type": "string",
+                "nullable": true
+              },
+              "movementCount": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "movementName": {
+                "type": "string",
+                "nullable": true
+              },
+              "movementNumber": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "playParams": {
+                "$ref": "#/components/schemas/PlayParameters",
+                "nullable": true
+              },
+              "previews": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Preview"
+                }
+              },
+              "releaseDate": {
+                "type": "string",
+                "nullable": true
+              },
+              "trackNumber": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "url": {
+                "type": "string"
+              },
+              "workName": {
+                "type": "string",
+                "nullable": true
+              }
+            },
+            "required": [
+              "albumName",
+              "artistName",
+              "artwork",
+              "durationInMillis",
+              "genreNames",
+              "hasLyrics",
+              "isAppleDigitalMaster",
+              "name",
+              "previews",
+              "url"
+            ]
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "artists": {
+                "type": "object",
+                "$ref": "#/components/schemas/Artists",
+                "nullable": true
+              }
+            }
+          }
+        }
+      },
+      "Stations": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "artwork": {
+                "$ref": "#/components/schemas/Artwork"
+              },
+              "durationInMillis": {
+                "type": "integer",
+                "format": "int64",
+                "nullable": true
+              },
+              "editorialNotes": {
+                "$ref": "#/components/schemas/EditorialNotes",
+                "nullable": true
+              },
+              "episodeNumber": {
+                "type": "string",
+                "nullable": true
+              },
+              "contentRating": {
+                "type": "string",
+                "nullable": true
+              },
+              "isLive": {
+                "type": "boolean"
+              },
+              "mediaKind": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "playParams": {
+                "$ref": "#/components/schemas/PlayParameters",
+                "nullable": true
+              },
+              "stationProviderName": {
+                "type": "string",
+                "nullable": true
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "artwork",
+              "isLive",
+              "mediaKind",
+              "name",
+              "url"
+            ]
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {},
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "href",
+          "attributes"
+        ]
+      },
+      "LibraryAlbums": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "artistName": {
+                "type": "string"
+              },
+              "artwork": {
+                "$ref": "#/components/schemas/LibraryArtwork",
+                "nullable": true
+              },
+              "contentRating": {
+                "type": "string",
+                "nullable": true
+              },
+              "dateAdded": {
+                "type": "string",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "playParams": {
+                "$ref": "#/components/schemas/PlayParameters",
+                "nullable": true
+              },
+              "releaseDate": {
+                "type": "string",
+                "nullable": true
+              },
+              "trackCount": {
+                "type": "integer",
+                "format": "int32"
+              },
+              "genreNames": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "inFavorites": {
+                "type": "boolean",
+                "nullable": true
+              }
+            },
+            "required": [
+              "artistName",
+              "name",
+              "trackCount",
+              "genreNames"
+            ],
+            "nullable": true
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "catalog": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Albums"
+                    }
+                  }
+                },
+                "required": [
+                  "data"
+                ],
+                "nullable": true
+              }
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "href"
+        ]
+      },
+      "LibraryArtists": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "inFavorites": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name"
+            ],
+            "nullable": true
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "catalog": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "next": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Artists"
+                    }
+                  }
+                }
+              }
+            },
+            "required": [
+              "data"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "href"
+        ]
+      },
+      "LibraryPlaylists": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "artwork": {
+                "$ref": "#/components/schemas/LibraryArtwork",
+                "nullable": true
+              },
+              "canEdit": {
+                "type": "boolean"
+              },
+              "dateAdded": {
+                "type": "string",
+                "nullable": true
+              },
+              "description": {
+                "$ref": "#/components/schemas/DescriptionAttribute",
+                "nullable": true
+              },
+              "hasCatalog": {
+                "type": "boolean"
+              },
+              "name": {
+                "type": "string"
+              },
+              "playParams": {
+                "$ref": "#/components/schemas/PlayParameters",
+                "nullable": true
+              },
+              "isPublic": {
+                "type": "boolean"
+              },
+              "trackTypes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "nullable": true
+              },
+              "inFavorites": {
+                "type": "boolean",
+                "nullable": true
+              }
+            },
+            "required": [
+              "canEdit",
+              "hasCatalog",
+              "name",
+              "isPublic"
+            ],
+            "nullable": true
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "catalog": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Playlists"
+                    }
+                  }
+                },
+                "required": [
+                  "data"
+                ],
+                "nullable": true
+              }
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "href"
+        ]
+      },
+      "LibrarySongs": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "albumName": {
+                "type": "string"
+              },
+              "artistName": {
+                "type": "string",
+                "nullable": true
+              },
+              "artwork": {
+                "$ref": "#/components/schemas/LibraryArtwork",
+                "nullable": true
+              },
+              "contentRating": {
+                "type": "string",
+                "nullable": true
+              },
+              "discNumber": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              },
+              "durationInMillis": {
+                "type": "integer",
+                "format": "int64"
+              },
+              "genreNames": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "hasLyrics": {
+                "type": "boolean"
+              },
+              "inFavorites": {
+                "type": "boolean",
+                "nullable": true
+              },
+              "name": {
+                "type": "string"
+              },
+              "playParams": {
+                "$ref": "#/components/schemas/PlayParameters",
+                "nullable": true
+              },
+              "releaseDate": {
+                "type": "string",
+                "nullable": true
+              },
+              "trackNumber": {
+                "type": "integer",
+                "format": "int32",
+                "nullable": true
+              }
+            },
+            "required": [
+              "albumName",
+              "durationInMillis",
+              "genreNames",
+              "hasLyrics",
+              "name"
+            ],
+            "nullable": true
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "catalog": {
+                "type": "object",
+                "properties": {
+                  "href": {
+                    "type": "string",
+                    "nullable": true
+                  },
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Songs"
+                    }
+                  }
+                },
+                "required": [
+                  "data"
+                ],
+                "nullable": true
+              }
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "href"
+        ]
+      },
+      "LibraryPlaylistFolders": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "dateAdded": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "dateAdded",
+              "name"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "href",
+          "attributes"
+        ]
+      },
+      "Artwork": {
+        "type": "object",
+        "properties": {
+          "bgColor": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "width": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "textColor1": {
+            "type": "string",
+            "nullable": true
+          },
+          "textColor2": {
+            "type": "string",
+            "nullable": true
+          },
+          "textColor3": {
+            "type": "string",
+            "nullable": true
+          },
+          "textColor4": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "LibraryArtwork": {
+        "type": "object",
+        "properties": {
+          "bgColor": {
+            "type": "string",
+            "nullable": true
+          },
+          "height": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "width": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "textColor1": {
+            "type": "string",
+            "nullable": true
+          },
+          "textColor2": {
+            "type": "string",
+            "nullable": true
+          },
+          "textColor3": {
+            "type": "string",
+            "nullable": true
+          },
+          "textColor4": {
+            "type": "string",
+            "nullable": true
+          },
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "EditorialNotes": {
+        "type": "object",
+        "properties": {
+          "short": {
+            "type": "string",
+            "nullable": true
+          },
+          "standard": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "tagline": {
+            "type": "string",
+            "nullable": true
+          }
+        }
+      },
+      "PlayParameters": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "kind"
+        ]
+      },
+      "Preview": {
+        "type": "object",
+        "properties": {
+          "artwork": {
+            "$ref": "#/components/schemas/Artwork",
+            "nullable": true
+          },
+          "url": {
+            "type": "string"
+          },
+          "hlsUrl": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "DescriptionAttribute": {
+        "type": "object",
+        "properties": {
+          "short": {
+            "type": "string",
+            "nullable": true
+          },
+          "standard": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "standard"
+        ]
+      }
+    }
+  }
+}

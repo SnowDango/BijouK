@@ -16,16 +16,25 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://jitpack.io")
     }
 }
 
 rootProject.name = "BijouK"
 
 include(":app")
+include(":presenter")
 include(":features:device")
-include(":features:nowPlay")
+include(":features:setting")
+include(":features:artist")
+include(":features:queue")
+include(":features:search")
+include(":features:playlist")
+include(":features:album")
 include(":repository")
 include(":domain")
 include(":model")
 include(":ui")
+include(":infla")
+include(":api")
 include(":analytics")

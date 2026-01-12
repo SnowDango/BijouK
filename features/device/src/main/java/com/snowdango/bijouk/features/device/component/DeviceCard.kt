@@ -1,7 +1,7 @@
 package com.snowdango.bijouk.features.device.component
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -13,16 +13,24 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Computer
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.snowdango.bijouk.features.device.R
 import com.snowdango.bijouk.model.devices.DeviceData
 import com.snowdango.bijouk.ui.BijouKTheme
 
@@ -31,17 +39,27 @@ fun DeviceCard(
     data: DeviceData,
     isActive: Boolean,
     modifier: Modifier = Modifier,
-    onClickDevice: () -> Unit
+    onClickDevice: () -> Unit,
+    onClickDelete: () -> Unit,
 ) {
+    var expanded by remember { mutableStateOf(false) }
     Card(
         modifier = modifier
             .padding(horizontal = 16.dp, vertical = 4.dp)
             .fillMaxWidth()
             .wrapContentHeight()
-            .clickable { onClickDevice.invoke() },
+            .combinedClickable(
+                onClick = {
+                    onClickDevice.invoke()
+                },
+                onLongClick = {
+                    expanded = true
+                },
+            ),
     ) {
         Row(
-            modifier = Modifier.padding(horizontal = 32.dp, vertical = 16.dp)
+            modifier = Modifier
+                .padding(horizontal = 32.dp, vertical = 16.dp)
                 .fillMaxWidth()
                 .wrapContentHeight(),
             verticalAlignment = Alignment.CenterVertically,
@@ -82,6 +100,18 @@ fun DeviceCard(
                     )
             )
         }
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            DropdownMenuItem(
+                text = { Text(text = stringResource(R.string.device_edit_menu_delete)) },
+                onClick = {
+                    onClickDelete.invoke()
+                    expanded = false
+                }
+            )
+        }
     }
 }
 
@@ -97,7 +127,8 @@ private fun Preview_DeviceCard() {
                 token = ""
             ),
             isActive = true,
-            onClickDevice = {}
+            onClickDevice = {},
+            onClickDelete = {}
         )
     }
 }
