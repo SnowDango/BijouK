@@ -1,6 +1,8 @@
 README.md
 docs/Albums.md
 docs/AlbumsAttributes.md
+docs/AlbumsRelationships.md
+docs/AlbumsRelationshipsArtists.md
 docs/AlbumsResponse.md
 docs/AlbumsResponseData.md
 docs/AmapiRunV3Post200Response.md
@@ -105,6 +107,8 @@ src/commonMain/kotlin/com/snowdango/bijouk/api/CiderMusicApi.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/CiderRpcApi.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/Albums.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/AlbumsAttributes.kt
+src/commonMain/kotlin/com/snowdango/bijouk/api/model/AlbumsRelationships.kt
+src/commonMain/kotlin/com/snowdango/bijouk/api/model/AlbumsRelationshipsArtists.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/AlbumsResponse.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/AlbumsResponseData.kt
 src/commonMain/kotlin/com/snowdango/bijouk/api/model/AmapiRunV3Post200Response.kt

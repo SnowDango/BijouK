@@ -26,24 +26,24 @@ class SearchViewModel(
     private var query: String = ""
     val searchSongsFlow: Flow<PagingData<SongData>> = Pager(
         config = PagingConfig(
-            pageSize = 30,
-            initialLoadSize = 30,
+            pageSize = 25,
+            initialLoadSize = 25,
         )
     ) {
         ciderModel.getSearchSongsPagingSource(query)
     }.flow.cachedIn(viewModelScope)
     val searchArtistsFlow: Flow<PagingData<ArtistData>> = Pager(
         config = PagingConfig(
-            pageSize = 30,
-            initialLoadSize = 30,
+            pageSize = 25,
+            initialLoadSize = 25,
         )
     ) {
         ciderModel.getSearchArtistsPagingSource(query)
     }.flow.cachedIn(viewModelScope)
     val searchAlbumsFlow: Flow<PagingData<AlbumData>> = Pager(
         config = PagingConfig(
-            pageSize = 30,
-            initialLoadSize = 30,
+            pageSize = 25,
+            initialLoadSize = 25,
         )
     ) {
         ciderModel.getSearchAlbumsPagingSource(query)
@@ -51,8 +51,8 @@ class SearchViewModel(
 
     val searchPlaylistsFlow: Flow<PagingData<PlaylistData>> = Pager(
         config = PagingConfig(
-            pageSize = 30,
-            initialLoadSize = 30,
+            pageSize = 25,
+            initialLoadSize = 25,
         )
     ) {
         ciderModel.getSearchPlaylistsPagingSource(query)
