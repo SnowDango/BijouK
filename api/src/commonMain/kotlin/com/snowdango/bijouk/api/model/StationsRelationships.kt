@@ -22,11 +22,15 @@ import kotlinx.serialization.encoding.*
 /**
  * Stations relationships object
  *
+ * This data class represents the relationships field in the Stations response.
+ * According to the OpenAPI specification, this is defined as an object with no properties.
+ * It is kept as an empty data class to properly deserialize JSON responses where
+ * relationships is an empty object: "relationships": {}
  */
 @Serializable
 
 data class StationsRelationships (
-    // Empty object as per OpenAPI spec
+    // Empty object as per OpenAPI spec - no properties defined
 ) {
 
 

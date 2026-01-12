@@ -21,9 +21,11 @@
 #-renamesourcefileattribute SourceFile
 
 # Keep PresenterModule and all its members to prevent NoClassDefFoundError
+# The class is accessed via reflection by Koin dependency injection
 -keep class com.snowdango.bijouk.presenter.PresenterModule {
     *;
 }
+# Keep all inner classes including companion object
 -keep class com.snowdango.bijouk.presenter.PresenterModule$* {
     *;
 }
