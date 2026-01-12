@@ -16,6 +16,7 @@
 package com.snowdango.bijouk.api.model
 
 import com.snowdango.bijouk.api.model.StationsAttributes
+import com.snowdango.bijouk.api.model.StationsRelationships
 
 import kotlinx.serialization.*
 import kotlinx.serialization.descriptors.*
@@ -42,7 +43,7 @@ data class Stations (
 
     @SerialName(value = "attributes") @Required val attributes: StationsAttributes,
 
-    @SerialName(value = "relationships") val relationships: kotlin.String? = null
+    @SerialName(value = "relationships") val relationships: StationsRelationships? = null
 
 ) {
 

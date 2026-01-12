@@ -20,4 +20,10 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--dontwarn com.snowdango.bijouk.presenter.PresenterModule
+# Keep PresenterModule and all its members to prevent NoClassDefFoundError
+-keep class com.snowdango.bijouk.presenter.PresenterModule {
+    *;
+}
+-keep class com.snowdango.bijouk.presenter.PresenterModule$* {
+    *;
+}
