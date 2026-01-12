@@ -34,7 +34,7 @@ class SearchInLibraryAlbumsPagingSource(
                     limit = params.loadSize,
                     offset = position * params.loadSize
                 )
-                response.data.results.albums?.data?.map { it.convert() }.orEmpty()
+                response.data.results.libraryAlbums?.data?.map { it.convert() }.orEmpty()
             }
             return LoadResult.Page(
                 data = albums,

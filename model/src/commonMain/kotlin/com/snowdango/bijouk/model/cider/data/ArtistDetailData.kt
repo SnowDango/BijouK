@@ -4,7 +4,7 @@ package com.snowdango.bijouk.model.cider.data
 import com.snowdango.bijouk.model.cider.data.entity.StationData
 
 data class ArtistDetailData(
-    val id: String,
+    val id: String?,
     val href: String,
     val genres: List<String>,
     val name: String,

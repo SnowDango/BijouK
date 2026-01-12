@@ -1,6 +1,6 @@
 package com.snowdango.bijouk.model.cider
 
-import com.snowdango.bijouk.domain.Logger
+import com.snowdango.bijouk.analytics.LogUtil
 import com.snowdango.bijouk.model.cider.data.NowPlayData
 import com.snowdango.bijouk.model.cider.data.NowPlayingStatusData
 import com.snowdango.bijouk.model.cider.data.PlayBackTimeData
@@ -15,9 +15,6 @@ class CiderRPCModel(
     baseUrl: String,
     token: String,
 ) : KoinComponent {
-
-    private val logger = Logger("CiderRPCModel")
-
     private val repository: CiderRPCRepository by inject<CiderRPCRepository> {
         parametersOf(
             baseUrl,
@@ -43,7 +40,7 @@ class CiderRPCModel(
         val queues = repository.getQueue()
         val currentIndex = queues.indexOfLast { it.id == songId && it.playbackType != 0.toDouble() }
         val isFinished = queues.none { it.playbackType == 0.toDouble() }
-        logger.d(
+        LogUtil.d(
             "CiderRPCModel",
             "getQueue: songId=${songId} currentIndex=$currentIndex, isFinished=$isFinished"
         )

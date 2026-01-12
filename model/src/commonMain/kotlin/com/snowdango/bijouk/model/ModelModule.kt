@@ -6,6 +6,7 @@ import com.snowdango.bijouk.model.cider.CiderMultiModel
 import com.snowdango.bijouk.model.cider.CiderRPCModel
 import com.snowdango.bijouk.model.cider.CiderSocketModel
 import com.snowdango.bijouk.model.devices.DevicesModel
+import com.snowdango.bijouk.model.settings.DebugSettingsModel
 import org.koin.dsl.module
 
 object ModelModule {
@@ -17,6 +18,7 @@ object ModelModule {
         factory { param -> CiderRPCModel(param.get(), param.get()) }
         factory { param -> CiderSocketModel(param.get()) }
         factory { param -> CiderBridgeModel(param.get(), param.get()) }
+        factory { DebugSettingsModel() }
     }
 
 }

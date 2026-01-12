@@ -3,51 +3,54 @@ version = "0.0.1"
 sdk-target = "36"
 sdk-min = "30"
 
-agp = "8.13.0"
-kotlin = "2.2.21"
-ksp = "2.3.3"
+agp = "8.13.2"
+kotlin = "2.3.0"
+ksp = "2.3.4"
 coreKtx = "1.17.0"
 testRunner = "1.7.0"
 junit = "4.13.2"
 junitVersion = "1.3.0"
 espressoCore = "3.7.0"
 lifecycleRuntimeKtx = "2.10.0"
-activityCompose = "1.12.1"
+activityCompose = "1.12.2"
 composeBom = "2025.12.00"
 constraint = "1.1.1"
-material3 = "1.5.0-alpha08"
+material3 = "1.5.0-alpha11"
 navigation = "2.9.6"
 splash = "1.2.0"
-window = "1.5.0"
+window = "1.5.1"
 media = "1.7.1"
 paging = "3.3.6"
 room = "2.8.4"
-sqlite-bundled = "2.6.1"
+sqlite-bundled = "2.6.2"
 koin = "4.1.1"
 coroutine = "1.10.2"
 ktor = "3.3.3"
 serialization = "1.9.0"
-kolor = "4.0.3"
+kolor = "4.0.5"
 appcompat = "1.7.1"
 materialVersion = "1.13.0"
 coil = "3.3.0"
 kmp-socket = "1.4.0"
-ktlint = "13.1.0"
+ktlint = "14.0.1"
 detekt = "1.23.8"
-detekt-compose = "0.4.27"
+detekt-compose = "0.5.2"
 dokka = "2.1.0"
 immutable = "0.4.0"
-compose-settings = "2.16.0"
-aboutLibraries = "13.1.0"
-markdown = "0.5.7"
+compose-settings = "2.23.0"
+aboutLibraries = "13.2.1"
+markdown = "0.5.8"
 kmlogger = "2.1.0"
 url-encoder = "1.6.0"
 google-services = "4.4.4"
-firebase-bom = "34.5.0"
+firebase-bom = "34.7.0"
 firebase-crashlytics = "3.0.6"
 deploygate = "2.9.0"
 qrscanner = "0.6.0"
-openapi = "7.17.0"
+openapi = "7.18.0"
+datastore = "1.2.0"
+core = "1.7.0"
+palette = "1.0.0"
 
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
@@ -79,6 +82,11 @@ androidx-material3-adaptive = { module = "androidx.compose.material3.adaptive:ad
 androidx-material3-window = { group = "androidx.compose.material3", name = "material3-window-size-class" }
 androidx-material2 = { group = "androidx.compose.material", name = "material" }
 androidx-constraint = { group = "androidx.constraintlayout", name = "constraintlayout-compose", version.ref = "constraint" }
+
+androidx-palette = { group = "androidx.palette", name = "palette", version.ref = "palette" }
+
+# datastore
+androidx-dataStorePreference = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "datastore" }
 
 # window
 androidx-window = { group = "androidx.window", name = "window", version.ref = "window" }
@@ -166,6 +174,7 @@ kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.re
 firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
 firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
 firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics" }
+androidx-core = { group = "androidx.test", name = "core", version.ref = "core" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -197,6 +206,7 @@ deploygate = { id = "deploygate" }
 
 # openapi
 openapi = { id = "org.openapi.generator" }
+android-lint = { id = "com.android.lint", version.ref = "agp" }
 
 [bundles]
 test = ["junit"]
