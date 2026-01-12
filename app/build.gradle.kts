@@ -27,23 +27,6 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-            buildConfigField("String", "VERSION_NAME", "\"$versionNameBase\"")
-        }
-        debug {
-            isMinifyEnabled = false
-            applicationIdSuffix = ".debug"
-            versionNameSuffix = "-debug"
-            buildConfigField("String", "VERSION_NAME", "\"$versionNameBase-debug\"")
-        }
-    }
-
     signingConfigs {
         val properties = readProperties(file("../local.properties"))
         create("release") {
@@ -57,6 +40,25 @@ android {
             storePassword = properties.getProperty("debug.storepass")
             keyAlias = "snowdango"
             keyPassword = properties.getProperty("debug.keypass")
+        }
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            buildConfigField("String", "VERSION_NAME", "\"$versionNameBase\"")
+            signingConfig = signingConfigs.getByName("release")
+        }
+        debug {
+            isMinifyEnabled = false
+            applicationIdSuffix = ".debug"
+            versionNameSuffix = "-debug"
+            buildConfigField("String", "VERSION_NAME", "\"$versionNameBase-debug\"")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 
@@ -141,7 +143,7 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.crashlytics)
     implementation("com.piasy:kmp-xlog:1.5.0")
-    
+
     testImplementation(libs.bundles.test)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.bundles.android.test)
