@@ -9,7 +9,8 @@ import com.snowdango.bijouk.domain.DomainModule
 import com.snowdango.bijouk.infla.InflaModule
 import com.snowdango.bijouk.model.ModelModule
 import com.snowdango.bijouk.model.settings.DebugSettingsModel
-import com.snowdango.bijouk.presenter.PresenterModule
+import com.snowdango.bijouk.presenter.featureModules
+import com.snowdango.bijouk.presenter.presenterModule
 import com.snowdango.bijouk.repository.RepositoryModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,15 +38,9 @@ class BijouKApplication : Application(), KoinComponent {
                 ModelModule.module,
                 DomainModule.actualModule,
                 InflaModule.module,
-                PresenterModule.modules,
-                PresenterModule.queueModule,
-                PresenterModule.searchModule,
-                PresenterModule.artistModule,
-                PresenterModule.deviceModule,
-                PresenterModule.playlistModule,
-                PresenterModule.albumModule,
-                PresenterModule.settingModule(BuildConfig.VERSION_NAME, BuildConfig.DEBUG),
+                presenterModule
             )
+            modules(featureModules(BuildConfig.VERSION_NAME, BuildConfig.DEBUG))
         }
         logSettings()
         // socket connect log

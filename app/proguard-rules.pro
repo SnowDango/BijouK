@@ -20,4 +20,10 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--dontwarn com.snowdango.bijouk.presenter.PresenterModule
+# Xlog
+# XlogのJNIクラスとnativeメソッドを保護
+-keep class com.tencent.mars.xlog.** { *; }
+-keep class com.tencent.mars.** { *; }
+-keep class com.tencent.mars.xlog.Xlog {
+    native <methods>;
+}
