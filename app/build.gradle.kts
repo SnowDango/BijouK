@@ -6,7 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.aboutLibraries)
-    id("com.mikepenz.aboutlibraries.plugin.android")
+    alias(libs.plugins.aboutLibraries.android)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.openapi)
