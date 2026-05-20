@@ -197,7 +197,6 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 
 # aboutLibraries
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
-aboutLibraries-android = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries" }
 
 # openapi
 openapi = { id = "org.openapi.generator" }
