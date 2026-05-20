@@ -36,7 +36,7 @@ class PlaylistSongsPagingSource(
                     limit = params.loadSize,
                     offset = position * params.loadSize,
                 )
-                response.data.data?.map { it.convert() }.orEmpty()
+                response.data.data.map { it.convert() }.orEmpty()
             }
             return LoadResult.Page(
                 data = songs,
