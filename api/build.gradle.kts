@@ -8,7 +8,7 @@ version = "0.0.1"
 
 val kotlin_version = "2.2.20"
 val coroutines_version = "1.10.2"
-val serialization_version = "1.9.0"
+val serialization_version = "1.10.0"
 val ktor_version = "3.3.3"
 
 kotlin {
