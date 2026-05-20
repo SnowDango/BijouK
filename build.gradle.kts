@@ -12,7 +12,6 @@ buildscript {
     dependencies {
         classpath(libs.kotlin.plugin)
         classpath(libs.detekt.plugin)
-        classpath(libs.deploygate.plugin)
         classpath(libs.openapi.plugin)
     }
 }

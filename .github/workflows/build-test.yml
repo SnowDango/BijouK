@@ -23,8 +23,6 @@ jobs:
       - name: create local.properties
         run: |
           touch local.properties
-          echo "deploygate.user=${{ secrets.DEPLOYGATE_USER }}" >> local.properties
-          echo "deploygate.token=${{ secrets.DEPLOYGATE_TOKEN }}" >> local.properties
           echo "debug.keypass=${{ secrets.DEBUG_KEY_PASS }}" >> local.properties
           echo "debug.storepass=${{ secrets.DEBUG_STORE_PASS }}" >> local.properties
       - name: create debug google-services.json
@@ -52,8 +50,6 @@ jobs:
       - name: create local.properties
         run: |
           touch local.properties
-          echo "deploygate.user=${{ secrets.DEPLOYGATE_USER }}" >> local.properties
-          echo "deploygate.token=${{ secrets.DEPLOYGATE_TOKEN }}" >> local.properties
           echo "debug.keypass=${{ secrets.DEBUG_KEY_PASS }}" >> local.properties
           echo "debug.storepass=${{ secrets.DEBUG_STORE_PASS }}" >> local.properties
       - name: create debug google-services.json

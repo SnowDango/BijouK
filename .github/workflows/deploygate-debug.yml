@@ -20,8 +20,6 @@ jobs:
       - name: create local.properties
         run: |
           touch local.properties
-          echo "deploygate.user=${{ secrets.DEPLOYGATE_USER }}" >> local.properties
-          echo "deploygate.token=${{ secrets.DEPLOYGATE_TOKEN }}" >> local.properties
           echo "debug.keypass=${{ secrets.DEBUG_KEY_PASS }}" >> local.properties
           echo "debug.storepass=${{ secrets.DEBUG_STORE_PASS }}" >> local.properties
           echo "release.keypass=${{ secrets.RELEASE_KEY_PASS }}" >> local.properties
@@ -38,6 +36,11 @@ jobs:
         run: |
           touch release.keystore
           echo "${{ secrets.RELEASE_KEY_STORE }}" | base64 -d > release.keystore
-      - name: deploy debug
-        run:
-          ./gradlew uploadDeployGateDebug --stacktrace
+      - name: build debug apk
+        run: ./gradlew assembleDebug --stacktrace
+      - name: upload to DeployGate
+        uses: DeployGate/deploygate-upload-github-action@v1.1.2
+        with:
+          api_token: ${{ secrets.DEPLOYGATE_TOKEN }}
+          owner_name: ${{ secrets.DEPLOYGATE_USER }}
+          file_path: app/build/outputs/apk/debug/app-debug.apk

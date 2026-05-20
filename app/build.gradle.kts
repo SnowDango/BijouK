@@ -9,7 +9,6 @@ plugins {
     alias(libs.plugins.aboutLibraries.android)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
-    alias(libs.plugins.deploygate)
     alias(libs.plugins.openapi)
 }
 
@@ -78,20 +77,6 @@ android {
 
 aboutLibraries {
     offlineMode = false
-}
-
-deploygate {
-    val properties = readProperties(file("../local.properties"))
-    appOwnerName = properties.getProperty("deploygate.user")
-    apiToken = properties.getProperty("deploygate.token")
-    deployments {
-        create("release") {
-            sourceFile = file("build/outputs/apk/release/app-release.apk")
-        }
-        create("debug") {
-            sourceFile = file("build/outputs/apk/debug/app-debug.apk")
-        }
-    }
 }
 
 openApiGenerate {

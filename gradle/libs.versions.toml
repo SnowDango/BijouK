@@ -45,7 +45,6 @@ url-encoder = "1.6.0"
 google-services = "4.4.4"
 firebase-bom = "34.8.0"
 firebase-crashlytics = "3.0.6"
-deploygate = "2.9.0"
 qrscanner = "0.6.0"
 openapi = "7.20.0"
 datastore = "1.2.0"
@@ -55,7 +54,6 @@ palette = "1.0.0"
 [libraries]
 kotlin-plugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
 detekt-plugin = { group = "io.gitlab.arturbosch.detekt", name = "detekt-gradle-plugin", version.ref = "detekt" }
-deploygate-plugin = { group = "com.deploygate", name = "gradle", version.ref = "deploygate" }
 openapi-plugin = { group = "org.openapitools", name = "openapi-generator-gradle-plugin", version.ref = "openapi" }
 
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -200,9 +198,6 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 # aboutLibraries
 aboutLibraries = { id = "com.mikepenz.aboutlibraries.plugin", version.ref = "aboutLibraries" }
 aboutLibraries-android = { id = "com.mikepenz.aboutlibraries.plugin.android", version.ref = "aboutLibraries" }
-
-# deploygate
-deploygate = { id = "deploygate" }
 
 # openapi
 openapi = { id = "org.openapi.generator" }
