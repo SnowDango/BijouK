@@ -26,7 +26,6 @@ kotlin {
         version = libs.versions.version.get()
         summary = "Bijouk Model Module"
         listOf(
-            iosX64(),
             iosArm64(),
             iosSimulatorArm64()
         ).forEach {
