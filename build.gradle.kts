@@ -1,4 +1,4 @@
-import com.android.build.gradle.BaseExtension
+import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.lint.AndroidLintTask
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.report.ReportMergeTask
@@ -12,7 +12,6 @@ buildscript {
     dependencies {
         classpath(libs.kotlin.plugin)
         classpath(libs.detekt.plugin)
-        classpath(libs.deploygate.plugin)
         classpath(libs.openapi.plugin)
     }
 }
@@ -23,7 +22,6 @@ plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.multiplatform) apply false
     alias(libs.plugins.kotlin.cocoapods) apply false
-    alias(libs.plugins.kotlin.android) apply false
     alias(libs.plugins.kotlin.compose) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.android.library) apply false
@@ -45,12 +43,12 @@ subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
 
     plugins.withId("com.android.library") {
-        extensions.configure<BaseExtension> {
-            lintOptions {
+        extensions.configure<LibraryExtension> {
+            lint {
                 textReport = true
-                textOutput("stdout")
-                isAbortOnError = true
-                isCheckDependencies = true
+                textOutput = File("stdout")
+                abortOnError = true
+                checkDependencies = true
             }
         }
     }
