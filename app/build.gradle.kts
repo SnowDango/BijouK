@@ -6,6 +6,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.aboutLibraries)
+    alias(libs.plugins.aboutLibraries.android)
     alias(libs.plugins.google.services)
     alias(libs.plugins.firebase.crashlytics)
     alias(libs.plugins.deploygate)
@@ -77,9 +78,6 @@ android {
 
 aboutLibraries {
     offlineMode = false
-    android {
-        registerAndroidTasks = true
-    }
 }
 
 deploygate {
