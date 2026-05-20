@@ -1,4 +1,4 @@
-import com.android.build.gradle.BaseExtension
+import com.android.build.api.dsl.LibraryExtension
 import com.android.build.gradle.internal.lint.AndroidLintTask
 import io.gitlab.arturbosch.detekt.Detekt
 import io.gitlab.arturbosch.detekt.report.ReportMergeTask
@@ -44,12 +44,12 @@ subprojects {
     apply(plugin = "io.gitlab.arturbosch.detekt")
 
     plugins.withId("com.android.library") {
-        extensions.configure<BaseExtension> {
-            lintOptions {
+        extensions.configure<LibraryExtension> {
+            lint {
                 textReport = true
-                textOutput("stdout")
-                isAbortOnError = true
-                isCheckDependencies = true
+                textOutput = File("stdout")
+                abortOnError = true
+                checkDependencies = true
             }
         }
     }
